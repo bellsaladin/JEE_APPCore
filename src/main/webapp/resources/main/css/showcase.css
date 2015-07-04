@@ -518,3 +518,5 @@ li.ui-state-active a { color:rgb(1, 154, 249) !important; }
 .ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight{ color:#000 !important; }
 
 .pull-right{float:right;}
+
+.ui-menu.ui-widget li > .ui-menuitem-link.ui-state-hover{ background-color:#35C0C0; background-image:none;}

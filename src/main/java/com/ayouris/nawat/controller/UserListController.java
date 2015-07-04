@@ -23,7 +23,7 @@ public class UserListController extends BaseController implements Serializable {
 	private v2_UserService v2_userService;
 
 	List<v2_UserNawat> users;
-
+	private List<v2_UserNawat> selectedUsers;
 	private UserDataModel usersDataModel;
 
 	private v2_UserNawat selectedUser;
@@ -39,6 +39,16 @@ public class UserListController extends BaseController implements Serializable {
 		usersDataModel = new UserDataModel(users);
 		//scolariteOptions = createScolariteOptions(Eleve.Scolarite.values());
 
+	}
+	
+	public void setUserUpdateSubject(){
+		v2_UserNawat lastSelectedUser = selectedUsers.get(selectedUsers.size() - 1 );
+		System.out.println("ssssss : " + lastSelectedUser.getId());
+		
+		UserUpdateController userUpdateController = (UserUpdateController) getApplicationContext().getBean(
+				"userUpdateController");
+		userUpdateController.setUser(lastSelectedUser);
+		
 	}
 
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
@@ -103,6 +113,14 @@ public class UserListController extends BaseController implements Serializable {
 
 	public void setUsers(List<v2_UserNawat> users) {
 		this.users = users;
+	}
+
+	public List<v2_UserNawat> getSelectedUsers() {
+		return selectedUsers;
+	}
+
+	public void setSelectedUsers(List<v2_UserNawat> selectedUsers) {
+		this.selectedUsers = selectedUsers;
 	}
 
 }

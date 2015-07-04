@@ -70,11 +70,10 @@
 	           		</p:column>
 	           		<p:column>		             
 			           <p:selectOneMenu id="type" value="#{userUpdateController.user.type}">
-			               <p:ajax update="userUpdateProfilPanel" />
 				           <f:selectItem itemLabel="Utilisateur" itemValue="utilisateur" />
 				           <f:selectItem itemLabel="Administrateur" itemValue="administrateur" />
 				           <f:selectItem itemLabel="Invité" itemValue="invite" />
-				           <p:ajax event="change" update="userUpdateProfilPanel"/>		                  
+				           <p:ajax event="change" update="userUpdateProfilPanel"/>	<!-- @FIXME : NOT WORKING -->	                  
 			           </p:selectOneMenu>
 			        </p:column>
 			    </p:row>	        			        		      

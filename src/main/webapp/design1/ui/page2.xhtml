@@ -31,15 +31,42 @@
     </ui:define>
 
     <ui:define name="implementation">
+    		<p:contextMenu for="usersDataTable">
+		        <p:menuitem value="Modifier" actionListener="#{userListController.setUserUpdateSubject}" update=":dialogUpdateUser" icon="ui-icon-search" oncomplete="PF('dlgUpdateUser').show()"/>
+		        <p:menuitem value="Supprimer" update="usersDataTable" icon="ui-icon-close" actionListener="PF('dlgUpdateUser').show()"/>
+		        <p:submenu label="Options" icon="ui-icon-refresh">
+			        <p:separator />
+			        <p:submenu label="Navigations" icon="ui-icon-extlink">
+			            <p:submenu label="Tranformation">
+			                <p:menuitem value="PrimeTek" url="http://www.primetek.com.tr" />
+			                <p:menuitem value="PrimeFaces" url="http://www.primefaces.org" />
+			            </p:submenu>
+			            <p:menuitem value="Some action" icon="ui-icon-signal" />
+			        </p:submenu>
+		        </p:submenu>
+		        <p:submenu label="Plus" icon="ui-icon-extlink">
+		            <p:submenu label="Navigations">
+		                <p:menuitem value="PrimeTek" url="http://www.primetek.com.tr" />
+		                <p:menuitem value="PrimeFaces" url="http://www.primefaces.org" />
+		            </p:submenu>
+		            <p:menuitem value="Some action" icon="ui-icon-signal" />
+		        </p:submenu>
+		    </p:contextMenu>
+		    <p:messages/>
 		    <p:dataTable id="usersDataTable" widgetVar="usersDT" var="user" value="#{userListController.usersDataModel}"
-		    			 selection="#{userUpdateController.user}" selectionMode="single"
+		    			 sortMode="multiple"
+		    			 selection="#{userListController.selectedUsers}"
 		                 paginator="true" rows="10"
 		                 paginatorPosition="bottom"
 		                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 		                 rowsPerPageTemplate="5,10,15"
 		                 currentPageReportTemplate="[ {totalRecords} #{lbl['lbl.lignes']} ]">
-		        		                 		                 		        		      
-				<p:ajax event="rowSelect" update=":dialogUpdateUser" oncomplete="PF('dlgUpdateUser').show()"/>
+		        	<p:ajax event="rowSelect" update=":actionsForm" />
+        			<p:ajax event="rowUnselect"  update=":actionsForm" />
+        			<p:ajax event="rowSelectCheckbox" update=":actionsForm" />
+        			<p:ajax event="rowUnselectCheckbox"  update=":actionsForm" />	                 		                 		        		      
+        			<p:ajax event="toggleSelect"  update=":actionsForm" />
+<!-- 				<p:ajax event="rowSelect" update=":dialogUpdateUser" oncomplete="PF('dlgUpdateUser').show()"/> -->
 				
 <!-- 				<f:facet name="header"> -->
 <!-- 		            <p:panel>						 -->
@@ -47,52 +74,52 @@
 <!-- 					</p:panel> -->
 <!-- 		        </f:facet> -->
 				
-<!-- 				<p:column selectionMode="multiple" headerText="" style="width:20px;"/>   -->
+				<p:column selectionMode="multiple" headerText="" style="width:20px;"/>
 				
 				
-				<p:column sortBy="login">
+				<p:column sortBy="#{user.login}">
 		            <f:facet name="header">
 		                <h:outputText value="#{lbl['lbl.login']}" />
 		            </f:facet>
 		            <h:outputText value="#{user.login}" />
 		        </p:column>
 		
-		        <p:column sortBy="nom">
+		        <p:column sortBy="#{user.nom}">
 		            <f:facet name="header">
 		                <h:outputText value="#{lbl['lbl.nom']}" />
 		            </f:facet>
 		            <h:outputText value="#{user.nom}" />
 		        </p:column>
 		
-		        <p:column sortBy="prenom">
+		        <p:column sortBy="#{user.prenom}">
 		            <f:facet name="header">
 		                <h:outputText value="#{lbl['lbl.prenom']}" />
 		            </f:facet>
 		            <h:outputText value="#{user.prenom}" />
 		        </p:column>
 		        
-		        <p:column sortBy="email">
+		        <p:column sortBy="#{user.email}">
 		            <f:facet name="header">
 		                <h:outputText value="#{lbl['lbl.email']}" />
 		            </f:facet>
 		            <h:outputText value="#{user.email}" />
 		        </p:column>
 		        
-		        <p:column sortBy="profil.libelle">
+		        <p:column sortBy="#{user.profil.getDisplayText()}">
 		            <f:facet name="header">
 		                <h:outputText value="#{lbl['lbl.profil']}" />
 		            </f:facet>
 		            <h:outputText value="#{user.profil.getDisplayText()}" />
 		        </p:column>
 		        
-		        <p:column sortBy="type">
+		        <p:column sortBy="#{user.type}">
 		            <f:facet name="header">
 		                <h:outputText value="#{lbl['lbl.type']}" />
 		            </f:facet>
 		            <h:outputText value="#{user.type}" />
 		        </p:column>
 		        
-		        <p:column sortBy="actif">
+		        <p:column sortBy="#{user.actif}">
 		            <f:facet name="header">
 		                <h:outputText value="#{lbl['lbl.actif']}" />
 		            </f:facet>
@@ -105,8 +132,18 @@
     </ui:define>
     
 	<ui:define name="actions">
-		<b style="font-size: 14px;color: #1E5E8C;font-weight: normal;font-family: Arial, Helvetica, sans-serif;">Paramètrage > Utilisateurs</b>
-		<p:commandButton value="Actions" actionListener="#{notifyView.send}" styleClass="ui-whiteBtn pull-right" />
+		<a style="font-size: 15px;color: rgba(145, 180, 184, 1);font-family: Arial, Helvetica, sans-serif;"><b style="color: rgba(211, 211, 211, 1);">Paramètrage > </b>Utilisateurs</a>		
+		<p:commandButton value="Aide" actionListener="#{notifyView.send}" styleClass="ui-whiteBtn pull-right"/>		
+	    <p:commandButton value="Action 1" rendered="#{userListController.selectedUsers.size() gt 0}" actionListener="#{notifyView.send}" styleClass="ui-whiteBtn pull-right" style="margin-right:10px;"/>
+	    <p:commandButton value="Action 2" rendered="#{userListController.selectedUsers.size() gt 0}" actionListener="#{notifyView.send}" styleClass="ui-whiteBtn pull-right" style="margin-right:10px;"/>
+	    <p:commandButton value="Action 3" rendered="#{userListController.selectedUsers.size() gt 0}" actionListener="#{notifyView.send}" styleClass="ui-whiteBtn pull-right" style="margin-right:10px;"/>
+	    <p:menuButton value="Plus" rendered="#{userListController.selectedUsers.size() gt 0}" styleClass="ui-whiteBtn pull-right"  style="margin-right:10px;">
+	        <p:menuitem value="Save" actionListener="#{menuView.save}" update=":mainForm" icon="ui-icon-disk"/>
+	        <p:menuitem value="Update" actionListener="#{menuView.update}" update=":mainForm" icon="ui-icon-arrowrefresh-1-w"/>
+	        <p:menuitem value="Delete" actionListener="#{menuView.delete}" ajax="false" icon="ui-icon-close"/>
+	        <p:separator />
+	        <p:menuitem value="Homepage" url="http://www.primefaces.org" icon="ui-icon-extlink"/>
+	    </p:menuButton>
 	</ui:define>
 	
 	<ui:define name="dialogs">

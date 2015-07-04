@@ -30,7 +30,7 @@ public class UserUpdateController extends BaseController implements Serializable
 
 	private List<v2_Profil> profils;
 
-	private v2_UserNawat user;
+	private v2_UserNawat user;	
 
 	private String profilId;
 
