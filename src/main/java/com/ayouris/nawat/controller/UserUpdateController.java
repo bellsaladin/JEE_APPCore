@@ -129,6 +129,7 @@ public class UserUpdateController extends BaseController implements Serializable
 
 	public void setUser(v2_UserNawat user) {
 		this.user = user;
+		onProfilChange(); // call automaticly each time the user is set : this works also when the datagrid user element is selected
 	}
 
 	public String getProfilId() {

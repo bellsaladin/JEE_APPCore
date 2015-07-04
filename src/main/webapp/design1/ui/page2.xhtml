@@ -32,7 +32,7 @@
 
     <ui:define name="implementation">
     		<p:contextMenu for="usersDataTable">
-		        <p:menuitem value="Modifier" actionListener="#{userListController.setUserUpdateSubject}" update=":dialogUpdateUser" icon="ui-icon-search" oncomplete="PF('dlgUpdateUser').show()"/>
+		        <p:menuitem value="Modifier" actionListener="#{userListController.setUserUpdateSubject}" update=":dialogUpdateUser :dialogDuplicateProfil" icon="ui-icon-search" oncomplete="PF('dlgUpdateUser').show()"/>
 		        <p:menuitem value="Supprimer" update="usersDataTable" icon="ui-icon-close" actionListener="PF('dlgUpdateUser').show()"/>
 		        <p:submenu label="Options" icon="ui-icon-refresh">
 			        <p:separator />

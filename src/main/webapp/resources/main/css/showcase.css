@@ -513,7 +513,7 @@ li.ui-state-active a { color:rgb(1, 154, 249) !important; }
 .noBorder tr{border:none !important; }
 
 .ui-datatable tr{border:none !important; border-top: 1px solid #ECECEC !important; }
-
+.ui-datatable thead th {height: 34px;}
 .ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight{ background-color: #C1DFDF !important; }
 .ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight{ color:#000 !important; }
 
@@ -523,3 +523,7 @@ li.ui-state-active a { color:rgb(1, 154, 249) !important; }
 
 
 .footer{border-bottom:none;bottom: 2px;position: fixed;width: 600px;padding: 10px 30px;background-color: #2A2D34; color:#fff;left: 50%;/* padding: 8px 90px; */margin: auto;right: 0;margin-left: -300px;/* right: 300px; */border-radius: 4px;}
+
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active{background-color: #63B0BA;}
+
+.ui-datatable th.ui-state-active{color:#fff !important; text-shadow:none !important}
