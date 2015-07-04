@@ -68,12 +68,6 @@
         			<p:ajax event="toggleSelect"  update=":actionsForm" />
 <!-- 				<p:ajax event="rowSelect" update=":dialogUpdateUser" oncomplete="PF('dlgUpdateUser').show()"/> -->
 				
-<!-- 				<f:facet name="header"> -->
-<!-- 		            <p:panel>						 -->
-<!-- 						<p:commandButton onclick="PF('dlgCreateUser').show()" value="#{lbl['lbl.utilisateur.nouveau']}" type="button"/>						 -->
-<!-- 					</p:panel> -->
-<!-- 		        </f:facet> -->
-				
 				<p:column selectionMode="multiple" headerText="" style="width:20px;"/>
 				
 				
@@ -133,7 +127,9 @@
     
 	<ui:define name="actions">
 		<a style="font-size: 15px;color: rgba(145, 180, 184, 1);font-family: Arial, Helvetica, sans-serif;"><b style="color: rgba(211, 211, 211, 1);">Paramètrage > </b>Utilisateurs</a>		
-		<p:commandButton value="Aide" actionListener="#{notifyView.send}" styleClass="ui-whiteBtn pull-right"/>		
+		<p:button value="Aide" href="article" styleClass="ui-whiteBtn pull-right"/>
+		<p:commandButton onclick="PF('dlgCreateUser').show()" value="Nouveau" styleClass="ui-whiteBtn pull-right" style="margin-right:10px;"/>
+		<p:button value="Test" href="article" styleClass="ui-whiteBtn pull-right" style="margin-right:10px;"/>
 	    <p:commandButton value="Action 1" rendered="#{userListController.selectedUsers.size() gt 0}" actionListener="#{notifyView.send}" styleClass="ui-whiteBtn pull-right" style="margin-right:10px;"/>
 	    <p:commandButton value="Action 2" rendered="#{userListController.selectedUsers.size() gt 0}" actionListener="#{notifyView.send}" styleClass="ui-whiteBtn pull-right" style="margin-right:10px;"/>
 	    <p:commandButton value="Action 3" rendered="#{userListController.selectedUsers.size() gt 0}" actionListener="#{notifyView.send}" styleClass="ui-whiteBtn pull-right" style="margin-right:10px;"/>

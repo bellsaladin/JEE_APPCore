@@ -26,7 +26,7 @@
     </ui:define>
 
     <ui:define name="implementation">
-
+	  <div style="padding:30px">
         <p:growl widgetVar="growl" showDetail="true" />
             
         <h:form>   
@@ -193,11 +193,11 @@
         </h:form>
 
         <p:socket onMessage="handleMessage" channel="/notify" />
-        
+      </div>
     </ui:define>
 	<ui:define name="actions">
-		<p:commandButton value="Enregistrer" actionListener="#{notifyView.send}" styleClass="ui-blueBtn" />
-		<p:commandButton value="Vider" actionListener="#{notifyView.send}" styleClass="ui-whiteBtn pull-right" />
-		<p:commandButton value="Retour" actionListener="#{notifyView.send}" styleClass="ui-whiteBtn pull-right" />
+		<p:commandButton value="Enregistrer" actionListener="#{notifyView.send}" styleClass="ui-blueBtn" />		
+		<p:button value="Retour" href="page2" styleClass="ui-whiteBtn pull-right"/>
+		<p:commandButton value="Vider" actionListener="#{notifyView.send}" styleClass="ui-whiteBtn pull-right" style="margin-right:10px;"/>
 	</ui:define>
 </ui:composition>

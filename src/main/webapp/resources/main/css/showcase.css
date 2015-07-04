@@ -59,7 +59,7 @@ body{margin:0px; height:100%; overflow-x:hidden; overflow-y:auto; background-col
 		.logoBlueText{color:#25aae1;}
  
 	/* menu side style*/
-	#MENUSIDE{float:left; background-color:#2A2D34; border-right:solid 1px #151d21; overflow:hidden; width: 80px; position: fixed;}
+	#MENUSIDE{float:left; background-color:#2A2D34; border-right:solid 1px #151d21; overflow:hidden; width: 80px; position: fixed;  z-index: 999;}
 		#MENUSIDEindent{width:100%; height:auto;}
 			#LOGO{  height: 47px;
 					  width: 56px;
@@ -520,3 +520,6 @@ li.ui-state-active a { color:rgb(1, 154, 249) !important; }
 .pull-right{float:right;}
 
 .ui-menu.ui-widget li > .ui-menuitem-link.ui-state-hover{ background-color:#35C0C0; background-image:none;}
+
+
+.footer{border-bottom:none;bottom: 2px;position: fixed;width: 600px;padding: 10px 30px;background-color: #2A2D34; color:#fff;left: 50%;/* padding: 8px 90px; */margin: auto;right: 0;margin-left: -300px;/* right: 300px; */border-radius: 4px;}
