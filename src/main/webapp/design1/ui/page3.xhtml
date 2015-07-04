@@ -1,0 +1,94 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="../_general/template.xhtml">
+
+    <ui:define name="head">        
+        <script type="text/javascript">
+            //<![CDATA[
+                function handleMessage(facesmessage) {
+                    facesmessage.severity = 'info';
+                    
+                    PF('growl').show([facesmessage]);
+                }
+            //]]> 
+        </script>
+    </ui:define>
+    
+    <ui:define name="title">
+<!--         <p:breadCrumb> -->
+<!-- 		    <p:menuitem value="Accueil" url="#" /> -->
+<!-- 		    <p:menuitem value="Paramètrage" url="#" /> -->
+<!-- 		    <p:menuitem value="Accès et sécurité" url="#" /> -->
+<!-- 		    <p:menuitem value="Utilisateurs" url="#" /> -->
+<!-- 		</p:breadCrumb> -->
+    </ui:define>
+
+    <ui:define name="description">
+    	...
+    </ui:define>
+
+    <ui:define name="implementation">
+
+        <p:dataTable id="profilsDataTable" widgetVar="profilsDataTable" var="profil" value="#{profilListController.profilsDataModel}"
+		    			 selection="#{profilUpdateController.profil}" selectionMode="single"
+		                 paginator="true" rows="10"
+		                 paginatorPosition="bottom"
+		                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+		                 rowsPerPageTemplate="5,10,15"
+		                 currentPageReportTemplate="[ {totalRecords} #{lbl['lbl.lignes']} ]">
+		        
+		        <p:ajax event="rowSelect" update=":dialogUpdateProfil" oncomplete="PF('dlgUpdateProfil').show()"/>
+		
+				<f:facet name="header">
+		            <p:panel>						
+						<p:commandButton onclick="PF('dlgCreateProfil').show()" value="#{lbl['lbl.profil.nouveau']}" type="button"/>						
+					</p:panel>
+		        </f:facet>
+				
+		        <p:column sortBy="libelle" filterBy="libelle">
+		            <f:facet name="header">
+		                <h:outputText value="#{lbl['lbl.libelle']}" />
+		            </f:facet>
+		            <h:outputText value="#{profil.libelle}" />
+		        </p:column>
+		        
+		        <p:column sortBy="description" filterBy="description">
+		            <f:facet name="header">
+		                <h:outputText value="#{lbl['lbl.description']}" />
+		            </f:facet>
+		            <h:outputText value="#{profil.description}" />
+		        </p:column>		       
+		        
+		        <p:column sortBy="nbrUtilisateurs" filterBy="nbrUtilisateurs">
+		            <f:facet name="header">
+		                <h:outputText value="#{lbl['lbl.nbrUtilisateurs']}" />
+		            </f:facet>
+		            <h:outputText value="#{profil.utilisateurs.size()}" />
+		        </p:column>
+		        		        		        
+		    </p:dataTable>
+		    
+		    <p:confirmDialog global="true" showEffect="fade">  
+        		<p:commandButton value="Oui" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>  
+        		<p:commandButton value="Non" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>       
+    		</p:confirmDialog>		    		   			
+		
+	</ui:define>
+	
+	<!-- Used to externalize dialog out the mainform, so that ajax  can work inside the primefaces dialog -->
+	<ui:define name="dialogs">
+	    	<ui:include src="/dialogs/profilCreate.xhtml" />
+    		<ui:include src="/dialogs/profilUpdate.xhtml" /> 
+    		<ui:include src="/dialogs/profilDuplicate.xhtml" />
+    </ui:define>
+    				   
+    
+	<ui:define name="actions">
+		
+	</ui:define>
+	
+	
+</ui:composition>

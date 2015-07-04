@@ -1,0 +1,203 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="../_general/template.xhtml">
+
+    <ui:define name="head">        
+        <script type="text/javascript">
+            //<![CDATA[
+                function handleMessage(facesmessage) {
+                    facesmessage.severity = 'info';
+                    
+                    PF('growl').show([facesmessage]);
+                }
+            //]]> 
+        </script>
+    </ui:define>
+    
+    <ui:define name="title">
+        Article
+    </ui:define>
+
+    <ui:define name="description">
+        Création d'un nouvel article
+    </ui:define>
+
+    <ui:define name="implementation">
+
+        <p:growl widgetVar="growl" showDetail="true" />
+            
+        <h:form>   
+            <p:panelGrid styleClass="no-border-table full-width">
+             <p:row>
+	              <p:column>
+	                <p:outputLabel value="Summary: " />
+	              </p:column>   
+	              <p:column>      
+	                <p:inputText value="#{notifyView.summary}" required="true" />
+				  </p:column>
+				  <p:column>
+	                <p:outputLabel value="Detail: " />
+	              </p:column>
+	              <p:column>       
+	                <p:inputText value="#{notifyView.detail}" required="true" />
+	              </p:column>
+				  <p:column>
+	                <p:outputLabel value="Detail: " />
+	              </p:column>
+	              <p:column>       
+	                <p:inputText value="#{notifyView.detail}" required="true" />
+	              </p:column>
+	              <p:column>
+	                <p:outputLabel value="Detail: " />
+	              </p:column>
+	              <p:column>       
+	                <p:inputText value="#{notifyView.detail}" required="true" />
+	              </p:column>
+              </p:row>
+              <p:row>
+	              <p:column>
+	                <p:outputLabel value="Summary: " />
+	              </p:column>   
+	              <p:column>      
+	                        <p:calendar id="button" value="#{calendarView.date3}" showOn="button" />
+				  </p:column>
+				  <p:column>
+	                <p:outputLabel value="Detail: " />
+	              </p:column>
+	              <p:column>       
+	                <p:inputSwitch value="#{notifyView.detail}" required="true" />
+	              </p:column>
+				  <p:column>
+	                <p:outputLabel value="Detail: " />
+	              </p:column>
+	              <p:column colspan="3">       
+	                <p:selectManyCheckbox value="#{notifyView.detail}">
+			            <f:selectItem itemLabel="Xbox One" itemValue="Xbox One" />
+			            <f:selectItem itemLabel="PS4" itemValue="PS4" />
+			            <f:selectItem itemLabel="Wii U" itemValue="Wii U" />
+			            <f:selectItem itemLabel="Wii U" itemValue="Wii U" />
+			            <f:selectItem itemLabel="Wii U" itemValue="Wii U" />
+			        </p:selectManyCheckbox>
+	              </p:column>
+              </p:row>
+              <p:row>
+                <p:column colspan="8">  
+			        <p:tabView>
+			            <p:tab title="Consumed products">
+			                <table border="0" cellpadding="0" cellspacing="0" class="oe_form_group" style="font-size:12px">
+			                	<tbody>
+			                		<tr class="oe_form_group_row">
+			                			<td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" style="vertical-align: top;padding: 5px 30px; width:130px">
+					                		<b for="oe-field-input-72" styleClass=" oe_form_label oe_align_right">
+									        Talent Management
+									    	</b>
+								    	</td>
+							    		<td class="oe_form_group_cell" colspan="1"  style="margin: 20px; padding-left: 10px; border-left: 1px solid #E7E7E7;">
+							    			<div name="recruitment">
+								    		<div name="hr_recruitment"><span class="oe_form_field oe_form_field_boolean oe_inline">
+								        	<p:selectBooleanCheckbox value="" />
+								    		</span><label for="oe-field-input-73" class=" oe_form_label_help oe_align_right" data-original-title="" title="">
+								        	Manage the recruitment process
+								    		</label></div><div attrs="{'invisible': ['|',('module_hr_recruitment','=',False),('alias_domain', '=', False)]}" class="oe_form_invisible">
+								            <span class="oe_form_char_content"></span>
+								        	</div><div><span class="oe_form_field oe_form_field_boolean oe_inline">
+										        <p:selectBooleanCheckbox value="" />
+										    </span><label for="oe-field-input-74" class=" oe_form_label_help oe_align_right" data-original-title="" title="">
+										        Organize employees periodic evaluation
+										    </label></div><div><span class="oe_form_field oe_form_field_boolean oe_inline">
+										        <p:selectBooleanCheckbox value="" />
+										    </span><label for="oe-field-input-75" class=" oe_form_label_help oe_align_right" data-original-title="" title="">
+										        Allow the automatic indexation of resumes
+										    </label></div></div>
+							       		</td>
+							     	</tr>
+							  	</tbody>
+							</table>
+			            </p:tab>
+			
+			            <p:tab title="Finished products">
+			                <table border="0" cellpadding="0" cellspacing="0" class="oe_form_group" style="font-size:12px">
+			                	<tbody>
+			                		<tr class="oe_form_group_row">
+			                			<td class="oe_form_group_cell oe_form_group_cell_label" colspan="1" style="vertical-align: top;padding: 5px 30px; width:130px">
+					                		<b for="oe-field-input-72" class=" oe_form_label oe_align_right">
+									        Finished products
+									    	</b>
+								    	</td>
+							    		<td class="oe_form_group_cell" colspan="1"  style="margin: 20px; padding-left: 10px; border-left: 1px solid #E7E7E7;">
+							    			<div name="recruitment">
+								    		<div name="hr_recruitment"><span class="oe_form_field oe_form_field_boolean oe_inline">
+								        	<p:selectBooleanCheckbox value="" />
+								    		</span><label for="oe-field-input-73" class=" oe_form_label_help oe_align_right" data-original-title="" title="">
+								        	Manage the recruitment process
+								    		</label></div><div attrs="{'invisible': ['|',('module_hr_recruitment','=',False),('alias_domain', '=', False)]}" class="oe_form_invisible">
+								            <span class="oe_form_char_content"></span>
+								        	</div><div><span class="oe_form_field oe_form_field_boolean oe_inline">
+										        <p:selectBooleanCheckbox value="" />
+										    </span><label for="oe-field-input-74" class=" oe_form_label_help oe_align_right" data-original-title="" title="">
+										        Organize employees periodic evaluation
+										    </label></div><div><span styleClass="oe_form_field oe_form_field_boolean oe_inline">
+										        <p:selectBooleanCheckbox value="" />
+										    </span><label for="oe-field-input-75" styleClass=" oe_form_label_help oe_align_right" data-original-title="" title="">
+										        Allow the automatic indexation of resumes
+										    </label></div></div>
+							       		</td>
+							     	</tr>
+							  	</tbody>
+							</table>
+							<br/>
+							<table border="0" cellpadding="0" cellspacing="0" styleClass="oe_form_group" style="font-size:12px">
+			                	<tbody>
+			                		<tr styleClass="oe_form_group_row">
+			                			<td styleClass="oe_form_group_cell oe_form_group_cell_label" colspan="1" style="vertical-align: top;padding: 5px 30px; width:130px">
+					                		<b for="oe-field-input-72" styleClass=" oe_form_label oe_align_right">
+									        Talent Management
+									    	</b>
+								    	</td>
+							    		<td styleClass="oe_form_group_cell" colspan="1"  style="margin: 20px; padding-left: 10px; border-left: 1px solid #E7E7E7;">
+							    			<div name="recruitment">
+								    		<div name="hr_recruitment"><span styleClass="oe_form_field oe_form_field_boolean oe_inline">
+								        	<p:selectBooleanCheckbox value="" />
+								    		</span><label for="oe-field-input-73" styleClass=" oe_form_label_help oe_align_right" data-original-title="" title="">
+								        	Manage the recruitment process
+								    		</label></div><div attrs="{'invisible': ['|',('module_hr_recruitment','=',False),('alias_domain', '=', False)]}" styleClass="oe_form_invisible">
+								            <span styleClass="oe_form_char_content"></span>
+								        	</div><div><span styleClass="oe_form_field oe_form_field_boolean oe_inline">
+										        <p:selectBooleanCheckbox value="" />
+										    </span><label for="oe-field-input-74" styleClass=" oe_form_label_help oe_align_right" data-original-title="" title="">
+										        Organize employees periodic evaluation
+										    </label></div><div><span styleClass="oe_form_field oe_form_field_boolean oe_inline">
+										        <p:selectBooleanCheckbox value="" />
+										    </span><label for="oe-field-input-75" styleClass=" oe_form_label_help oe_align_right" data-original-title="" title="">
+										        Allow the automatic indexation of resumes
+										    </label></div></div>
+							       		</td>
+							     	</tr>
+							  	</tbody>
+							</table>
+			            </p:tab>
+			            
+			            <p:tab title="Schduled products">
+			               
+			            </p:tab>
+			            
+			            <p:tab title="Extra information" titleStyleClass="tab-doc docslide-526" />
+			        </p:tabView>
+			      </p:column>
+			     </p:row>
+            </p:panelGrid>
+			<br/>
+        </h:form>
+
+        <p:socket onMessage="handleMessage" channel="/notify" />
+        
+    </ui:define>
+	<ui:define name="actions">
+		<p:commandButton value="Enregistrer" actionListener="#{notifyView.send}" styleClass="ui-blueBtn" />
+		<p:commandButton value="Vider" actionListener="#{notifyView.send}" styleClass="ui-whiteBtn pull-right" />
+		<p:commandButton value="Retour" actionListener="#{notifyView.send}" styleClass="ui-whiteBtn pull-right" />
+	</ui:define>
+</ui:composition>

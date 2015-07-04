@@ -1,0 +1,63 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions" xmlns:t="http://myfaces.apache.org/tomahawk" xmlns:c="http://java.sun.com/jstl/core">
+
+	<p:dialog id="dialogCreateProfil" header="#{lbl['lbl.profil.nouveau']}" widgetVar="dlgCreateProfil" style="min-width:600px;" resizable="false" appendToBody="true" modal="true">   
+	    <h:form id="dlgCreateProfilForm">     
+	       <p:messages id="messages" />  
+	       <p:panelGrid style="width:100%;">
+	       		<p:row>	
+	       			<p:column>        	 	        		           	           		      					            	        
+			            <h:outputLabel for="libelle" value="#{lbl['lbl.libelle']} : *" />			            
+			        </p:column>
+			        <p:column>  
+			            <p:inputText id="libelle"   
+			                value="#{profilCreateController.libelle}" required="true" label="Libelle" style="width:245px">  
+			                <f:validateLength minimum="2" />  
+			            </p:inputText>
+	            	</p:column>  	   
+	  			</p:row>
+	  			<p:row>
+	  				<p:column>
+	  					<h:outputLabel for="description" value="#{lbl['lbl.description']} :" />
+	  				</p:column>
+	  				<p:column>	  
+	            		<p:inputTextarea rows="10" cols="50" id="description"   
+	                		value="#{profilCreateController.description}" required="true" label="Description">  
+	                		<f:validateLength minimum="2" />
+	                	</p:inputTextarea>
+	                </p:column>  	            
+	            </p:row>
+	            <p:row>
+	            	<p:column colspan="2">	            
+	            		<p:scrollPanel style="height:200px;overflow-y:scroll">	         	   
+				            <p:tree value="#{profilCreateController.root2}" var="node"  
+						           selectionMode="checkbox"  
+						           selection="#{profilCreateController.selectedNodes}" style="width:100%; border:0;">  
+						 
+						       <p:treeNode>  
+						           <h:outputText value="#{node}" />  
+						       </p:treeNode>  
+						   </p:tree>
+						 </p:scrollPanel> 
+				   </p:column>
+				</p:row>   			   
+	        </p:panelGrid>  
+	        
+	        <p:commandButton value="#{lbl['lbl.creer']}" actionListener="#{profilCreateController.doCreateProfil}" oncomplete="handleProfilCreateRequest(xhr, status, args)"/>
+	        <p:commandButton value="#{lbl['lbl.fermer']}" onclick="PF('dlgCreateProfil').hide()"  type="button" style="float:right;"/>    
+	 	</h:form>
+	 </p:dialog>		    		   
+	 		    	
+	<script type="text/javascript">  
+	    function handleProfilCreateRequest(xhr, status, args) {  
+	        if(args.validationFailed) {  
+	            PF('dlgCreateProfil').jq.effect("shake", { times:5 }, 100);  
+	        }   
+	        else {  
+	            PF('dlgCreateProfil').hide();  			              
+	        }  
+	    }    
+	</script>	
+	
+</ui:composition>

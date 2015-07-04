@@ -1,0 +1,38 @@
+@CHARSET "ISO-8859-1";
+
+/* |||||||||||||||||||||||||||||||||||||- SelectOneMenu -||||||||||||||||||||||||||||||||||||||||--- */
+
+/* Objet : selectonemenu -> Adaptation a l'affiche RTL  */
+.ui-selectonemenu {
+	display: block !important;
+	overflow: initial !important;
+}
+
+/* ||||||||||||||||||||||||||||||- Icon -|||||||||||||||||||||||||||||||||||--- */
+body li.ui-menuitem a.ui-menuitem-link .ui-icon[class^="fa-"],body li.ui-menuitem a.ui-menuitem-link .ui-icon[class*=" fa-"] {
+	margin-left: 0px !important;
+	padding-right: 7px !important;
+	padding-left: 5px !important;
+}
+
+.ui-menu.ui-widget .ui-menuitem-link .ui-menuitem-text {
+	margin-right: 0.4 !important;
+}
+
+.fa {
+	padding-left: 4px !important;
+}
+/* ||||||||||||||||||||||||||||Icon Menu||||||||||||||||||||||||||||||||||--- */
+.ui-icon-triangle-1-e {
+	background-position: -96px -16px !important;
+}
+
+.ui-icon-triangle-1-w {
+	background-position: -32px -16px !important;
+}
+
+.ui-menu .ui-menu-parent .ui-icon-triangle-1-e,.ui-menu .ui-menu-parent .ui-icon-triangle-1-s,.ui-menubar .ui-menu-child .ui-icon-triangle-1-s,.ui-menubar .ui-menu-child .ui-icon-triangle-1-s
+	{
+	float: left !important;
+}
+/* ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||--- */

@@ -1,0 +1,26 @@
+@CHARSET "ISO-8859-1";
+
+/* ************************************************************************************************************************************************ */
+/* ************************************************************ BLUESKY THEME ********************************************************************* */
+/* ************************************************************************************************************************************************ */
+
+.header_background {
+	background: url("#{resource['themes:bluesky/images/all/header_background.png']}") repeat-x;
+}
+
+.header_logo {
+	background: url("#{resource['themes:bluesky/images/all/app_logo.png']}") 0 no-repeat;
+}
+
+.filter_header {
+	background: url("#{resource['themes:bluesky/images/all/filter_background.png']}") 100% 0 no-repeat; 
+}
+
+.footer_background {
+	background: url("#{resource['themes:bluesky/images/all/footer_background.png']}") repeat-x;
+}
+
+
+.filter_closed {
+	background: url("#{resource['themes:bluesky/images/all/filter_closed.png']}") 100% 0 no-repeat;
+}

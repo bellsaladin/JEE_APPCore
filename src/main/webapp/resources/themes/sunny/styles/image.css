@@ -1,0 +1,25 @@
+@CHARSET "ISO-8859-1";
+
+/* ************************************************************************************************************************************************ */
+/* ************************************************************** SUNNY THEME ********************************************************************* */
+/* ************************************************************************************************************************************************ */
+
+.header_background {
+	background: url("#{resource['themes:sunny/images/all/header_background.png']}") repeat-x;
+}
+
+.header_logo {
+	background: url("#{resource['themes:sunny/images/all/app_logo.png']}") 0 no-repeat;
+}
+
+.filter_header {
+	background: url("#{resource['themes:sunny/images/all/filter_background.png']}") 100% 0 no-repeat;
+}
+
+.footer_background {
+	background: url("#{resource['themes:sunny/images/all/footer_background.png']}") repeat-x;
+}
+
+.filter_closed {
+	background: url("#{resource['themes:sunny/images/all/filter_closed.png']}") 100% 0 no-repeat;
+}

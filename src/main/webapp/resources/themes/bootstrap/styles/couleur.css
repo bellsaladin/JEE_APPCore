@@ -1,0 +1,38 @@
+@CHARSET "ISO-8859-1";
+
+/* ************************************************************************************************************************************************ */
+/* ********************************************************** BOOTSTRAP THEME ********************************************************************* */
+/* ************************************************************************************************************************************************ */
+.header_background {
+	/*background-image: linear-gradient(to bottom, #{sessionManager.theme.darkCouleur}, #{sessionManager.theme.lightCouleur}); */
+	background-color: #F0F0F0;	
+}
+
+.header-delimiter {
+	background-image: linear-gradient(to top, #{sessionManager.theme.darkCouleur}, #{sessionManager.theme.lightCouleur}) !important;
+}
+
+.footer_background {
+	background-image: linear-gradient(to top, #{sessionManager.theme.darkCouleur}, #{sessionManager.theme.lightCouleur});
+}
+
+.ui-menu.ui-widget li>.ui-menuitem-link.ui-state-hover,.ui-state-highlight,.ui-widget-content .ui-state-highlight,.ui-widget-header .ui-state-highlight
+{	
+	background-color:#{sessionManager.theme.lightCouleur} !important;
+	/*background-image: linear-gradient(to bottom, #{sessionManager.theme.darkCouleur}, #{sessionManager.theme.lightCouleur}) !important;*/
+}
+
+.ui-tabs .ui-tabs-nav.ui-widget-header li.ui-state-active {
+	/*background-color: #{sessionManager.theme.lightCouleur} !important;
+	background-image: linear-gradient(to bottom, #{sessionManager.theme.darkCouleur}, #{sessionManager.theme.lightCouleur}) !important;*/
+	background-color:#fff;
+}
+.ui-tabs .ui-tabs-nav.ui-widget-header li.ui-state-active a {
+	font-weight:bold;
+	text-transform:UPPERCASE;
+	color: rgb(76, 125, 181);
+}
+
+.ui-tabs.ui-tabs-top .ui-tabs-nav.ui-widget-header li.ui-state-active {
+	border-bottom-color: #{sessionManager.theme.lightCouleur} !important;
+}

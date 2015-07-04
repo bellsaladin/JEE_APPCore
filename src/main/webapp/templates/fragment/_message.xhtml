@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:t="http://myfaces.apache.org/tomahawk" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jstl/functions">
+
+	<p:outputPanel autoUpdate="true">
+		<p:dialog id="msgError" widgetVar="msgErrorVar" modal="true" minWidth="500" resizable="false" showEffect="slide"
+			visible="#{facesContext.maximumSeverity.ordinal > 0}" dir="#{sessionManager.direction}">
+			<f:facet name="header">
+				<i class="fa fa-envelope-o" style="padding-right: 4px;" />
+				<h:outputText value="#{lbl['group.message']}" />
+			</f:facet>
+
+			<h:panelGrid columns="1" cellpadding="5" cellspacing="5">
+				<p:messages showDetail="true" showSummary="false" />
+			</h:panelGrid>
+
+			<p:spacer height="20" />
+
+			<div style="text-align: center;">
+				<p:commandButton value="#{lbl['cmd.return']}" onclick="PF('msgErrorVar').hide()" type="button" accesskey="" />
+			</div>
+			<p:hotkey bind="esc" handler="PF('msgErrorVar').hide()" />
+
+		</p:dialog>
+	</p:outputPanel>
+	<p:growl id="msgInfo" life="5000" autoUpdate="true" showDetail="true" showSummary="false"
+		rendered="#{facesContext.maximumSeverity.ordinal != 1 and facesContext.maximumSeverity.ordinal != 2 and facesContext.maximumSeverity.ordinal != 3}" />
+
+</ui:composition>

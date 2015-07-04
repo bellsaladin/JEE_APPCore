@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:t="http://myfaces.apache.org/tomahawk" xmlns:c="http://java.sun.com/jstl/core" dir="#{sessionManager.direction}">
+
+<f:view contentType="text/html" locale="#{sessionManager.locale}" encoding="UTF-8">
+
+	<ui:include src="/templates/fragment/_header.xhtml" />
+
+	<h:body>
+
+		<h:form id="filterTopForm" prependId="false">
+			<ui:include src="/templates/fragment/_topFilter.xhtml" />
+			<ui:include src="/templates/fragment/_topMenu.xhtml" />
+		</h:form>
+		
+		<pe:layout widgetVar="layoutWidget">
+			
+			<pe:layoutPane position="north" size="70" resizable="false" closable="false" spacingOpen="1">
+				<pe:layoutPane position="center" size="20" resizable="false" closable="false" spacingOpen="0">  
+	               
+	            </pe:layoutPane>  
+				<!-- <div class="header-delimiter" />
+				<div class="header_background">
+					<div class="header_logo" />
+				</div>-->
+				<pe:layoutPane position="south" size="45" resizable="false" closable="false" spacingOpen="0">  
+	            	<ui:include src="/templates/fragment/_moduleMenu.xhtml" />   
+	            </pe:layoutPane> 
+			</pe:layoutPane>
+			
+			<pe:layoutPane position="#{sessionManager.arabic?'east':'west'}" size="250" minSize="150" maxSize="500">
+				<h:form id="menuForm" prependId="false">
+
+					<ui:include src="/templates/fragment/_menu.xhtml" />
+				</h:form>
+			</pe:layoutPane>
+
+			<pe:layoutPane position="center">
+
+				<h:form id="mainForm">
+
+					<h:panelGroup id="contentPanel" layout="block">
+						<ui:insert name="content" />
+
+					</h:panelGroup>
+
+
+					<!-- ******************************************* TODO : Temporaire *************************************************-->
+					<!-- ************************************************************************************************************** -->
+					<!-- <div style="position: absolute;top: 5px;z-index: 5; #{sessionManager.arabic?'left: 0;':'right: 0;'}">
+
+						<h:selectOneMenu value="#{sessionManager.theme.nom}" onchange="submit()">
+							<f:selectItem itemValue="bluesky" itemLabel="Bluesky theme" />
+							<f:selectItem itemValue="bootstrap" itemLabel="Bootstrap theme" />
+							<f:selectItem itemValue="sunny" itemLabel="Sunny theme" />
+						</h:selectOneMenu> 
+					</div> -->
+					<!-- ************************************************************************************************************** -->
+
+
+				</h:form>
+				
+				<!-- Used to externalize dialog out the mainform so that ajax  can work inside the primefaces dialog -->
+				<ui:insert name="dialogs" />
+								
+			</pe:layoutPane>
+			<h:form>
+				<ui:include src="/templates/fragment/_message.xhtml" />
+			</h:form>
+
+
+			<pe:layoutPane position="south" size="24" resizable="false" closable="false" spacingOpen="1">
+				<div class="footer_background">
+					<div class="info_app">
+						<h:outputText value="#{cst['app.copyright']} #{cst['app.version']}" />
+					</div>
+				</div>
+			</pe:layoutPane>
+		</pe:layout>
+
+	</h:body>
+</f:view>
+</html>

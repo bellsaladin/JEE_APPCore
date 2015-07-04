@@ -1,0 +1,94 @@
+@CHARSET "ISO-8859-1";
+
+/* |||||||||||||||||||||||||||||||||||||- Font -||||||||||||||||||||||||||||||||||||||||--- */
+@font-face {
+	font-family: "Jannat";
+	src: url("#{resource['fonts:Jannat.ttf']}") format("truetype");
+	font-style: normal;
+	font-weight: normal;
+}
+
+@font-face {
+	font-family: "HelveticaNeueW23-Bd";
+	src: url("#{resource['fonts:HelveticaNeueW23-Bd.eot']}") format("embedded-opentype"), url("#{resource['fonts:HelveticaNeueW23-Bd.woff']}") format("woff"), url("#{resource['fonts:HelveticaNeueW23-Bd.ttf']}") format("truetype"), url("#{resource['fonts:HelveticaNeueW23-Bd.svg']}") format("svg");
+}
+
+@font-face {
+	font-family: "HelveticaNeueW23-Reg";
+	src: url("#{resource['fonts:HelveticaNeueW23-Reg.eot']}") format("embedded-opentype"), url("#{resource['fonts:HelveticaNeueW23-Reg.woff']}") format("woff"), url("#{resource['fonts:HelveticaNeueW23-Reg.ttf']}") format("truetype"), url("#{resource['fonts:HelveticaNeueW23-Reg.svg']}") format("svg");
+}
+
+/* |||||||||||||||||||||||||||||||||||||- Entete de la page -||||||||||||||||||||||||||||||||||||||||--- */
+.menu_top {
+	left: 0px;
+	right: auto;
+	padding-left: 4px;
+}
+
+.header_logo {
+	background-position: right;
+	background-repeat: no-repeat;
+}
+
+
+/* |||||||||||||||||||||||||||||||||||||- Filter -||||||||||||||||||||||||||||||||||||||||--- */
+
+.info_eleve_filter {
+	padding-left: auto;
+	padding-right: 14px;
+}
+
+.menu_filter {
+	padding-right: 0px;
+	padding-left: 10px;
+}
+
+.filter_zone {
+	left: 50%;
+	right: auto;
+	margin-left: -141px;
+}
+
+
+.filter_config {
+	left: 5px;
+	right: auto;
+}
+
+.filter_label {
+	padding-right: 12px;
+	top: 13px;
+}
+
+.filter_header {
+	right: auto;
+	left: 50%;
+	margin-right: 0px;
+	margin-left: -153px;
+}
+
+.photo_filter {
+	padding-left: 0px;
+	padding-right: 2px;
+}
+
+.photo_eleve {
+	right: auto;
+	left: 218px;
+}
+
+
+.grid_header {
+	padding-left: 18px;
+	padding-right: 100px;
+}
+
+
+.grid_header td {
+	text-align: right;
+}
+
+/* |||||||||||||||||||||||||||||||||||||- General -||||||||||||||||||||||||||||||||||||||||--- */
+.align_default {
+	text-align: right !important;
+}

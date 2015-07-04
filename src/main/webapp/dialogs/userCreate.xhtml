@@ -1,0 +1,120 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions" xmlns:t="http://myfaces.apache.org/tomahawk" xmlns:c="http://java.sun.com/jstl/core">
+
+	<p:dialog header="Nouvel utilisateur" id="dialogCreateUser" widgetVar="dlgCreateUser" style="min-width:600px;" resizable="false" modal="true" appendToBody="true">   
+    	<h:form id="dlgCreateForm">     
+        	<p:messages id="messages" />  
+        	<p:panelGrid  style="width:100%;">
+				<p:row>	
+		       		<p:column>        		        	 
+				       	<h:outputLabel for="login" value="Login: *" />
+				    </p:column>
+				    <p:column>  
+				           <p:inputText id="login"   
+				               value="#{userCreateController.login}" required="true" label="Login">  
+				               <f:validateLength minimum="2" />  
+				           </p:inputText>
+				     </p:column>
+				 </p:row>          			           	           			 
+				 <p:row>
+				 	<p:column>          
+				          <h:outputText value="Password : " />
+				    </p:column>
+				    <p:column>  
+				           <p:password id="password" value="#{userCreateController.password}" feedback="true" match="passwordConfirm"/>  
+					</p:column>			
+				 </p:row>
+				 <p:row>
+				 	<p:column>       
+				         <h:outputLabel for="passwordConfirm" value="Password Confirmation: *" />
+				    </p:column>
+				    <p:column>  
+				         <p:password id="passwordConfirm" value="#{userCreateController.passwordConfirm}" label="Password 2" required="true"/>
+				    </p:column>     	  
+				  </p:row>
+				  <p:row>
+				  	<p:column>          	            
+				          <h:outputLabel for="nom" value="Nom : *" />
+				    </p:column>
+				    <p:column>  
+				          <p:inputText id="nom"   
+				              value="#{userCreateController.nom}" required="true" label="Nom">  
+				              <f:validateLength minimum="2" />  
+				          </p:inputText>  
+				    </p:column>       
+				   </p:row>
+				   <p:row>
+				   	<p:column>
+				          <h:outputLabel for="prenom" value="Prénom: *" />
+				    </p:column>
+				    <p:column>  
+				          <p:inputText id="prenom"   
+				              value="#{userCreateController.prenom}" required="true" label="Prénom"/>  
+				    </p:column>
+				   </p:row>
+				   <p:row>      
+				    <p:column>      
+				          <h:outputLabel for="email" value="Email *" />
+				    </p:column>
+				    <p:column>  
+				          <p:inputText id="email" value="#{userCreateController.email}" required="true" label="Email"/>  
+				    </p:column>
+				    </p:row>   
+				    <p:row>
+				    	<p:column>      
+				          <h:outputText for="type" value="Type: " />
+				        </p:column>
+				        <p:column> 		             
+					       <p:selectOneMenu id="type" value="#{userCreateController.type}">		      	    
+					          <f:selectItem itemLabel="Utilisateur" itemValue="utilisateur" />
+					          <f:selectItem itemLabel="Administrateur" itemValue="administrateur" />
+					          <f:selectItem itemLabel="Invité" itemValue="invite" />
+					          <p:ajax event="change" update="profilPanel"/>					          	
+					       </p:selectOneMenu>
+				       	</p:column>
+				     </p:row>
+				     <p:row>
+				     	<p:column>
+				        	<h:outputLabel for="actif" value="#{lbl['lbl.actif']}:" />
+				        </p:column>
+				        <p:column>
+				        	<p:selectBooleanCheckbox id="actif" value="#{userCreateController.actif}" />
+				       	</p:column>
+				 </p:row>
+				 <p:row>
+			     	 <p:column colspan="2">
+				        <p:panel  id="profilPanel" widgetVar="profilPanel">			        		       
+				        	<p:panel columns="1" rendered="#{userCreateController.type == 'utilisateur'}">	        		  				       
+				          		<h:outputText for="profil" value="Profile: " />	            		            	
+						        <p:selectOneMenu id="profil" value="#{userCreateController.profilId}" var="p">      	    
+						           <f:selectItem itemLabel="" itemValue="" />
+						           <f:selectItems value="#{userCreateController.profils}" var="profil" itemLabel="#{profil.libelle}" itemValue="#{profil.id}" />
+						           <p:ajax event="change" listener="#{userCreateController.onProfilChange}" update=":dialogDuplicateProfil"/>							             			           		            		            		          
+						        </p:selectOneMenu>
+						    	<p:commandButton value="Nouveau" onclick="PF('dlgCreateProfil').show()" type="button"/>
+							    <p:commandButton value="Dupliquer" onclick="PF('dlgDuplicateProfil').show()" type="button"/>
+				        	</p:panel>		        			        
+				        </p:panel>
+			        </p:column>
+				 </p:row>		 			        			      
+       		</p:panelGrid>  
+   	   		
+   	   		<p:commandButton value="Créer" actionListener="#{userCreateController.doCreateUser}" update=":mainForm:usersDataTable" oncomplete="handleUserCreateRequest(xhr, status, args)"/>
+   	   		<p:commandButton value="#{lbl['lbl.fermer']}" onclick="PF('dlgCreateUser').hide()"  type="button" style="float:right;"/>   
+ 	   </h:form>
+ 	</p:dialog>	
+	
+	
+	<script type="text/javascript">  
+	    function handleUserCreateRequest(xhr, status, args) {  
+	        if(args.validationFailed) {  
+	            PF('dlgCreateUser').jq.effect("shake", { times:5 }, 1000);  
+	        }   
+	        else {  
+	            PF('dlgCreateUser').hide();  			              
+	        }  
+	    }
+	</script>
+	
+</ui:composition>

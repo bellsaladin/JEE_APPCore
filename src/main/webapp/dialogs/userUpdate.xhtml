@@ -1,0 +1,142 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions" xmlns:t="http://myfaces.apache.org/tomahawk" xmlns:c="http://java.sun.com/jstl/core">
+
+	<p:dialog id="dialogUpdateUser" header="#{lbl['lbl.utilisateur.maj']}" widgetVar="dlgUpdateUser" style="min-width:600px;" resizable="false" appendToBody="true" modal="true">   
+	    <h:form id="dlgUpdateUserForm">     
+	          
+	        <p:panelGrid styleClass="noBorder" style="width:100%;">
+	        	<p:row>
+	        		<p:column>
+	        			<p:messages />
+	        		</p:column>
+	        	</p:row>
+				<p:row>	
+		       		<p:column> 	        	 
+			        	<h:outputLabel for="login" value="#{lbl['lbl.login']}: *" />
+			        </p:column>
+			        <p:column>  
+			            <p:inputText id="login"   
+			                value="#{userUpdateController.user.login}" required="true" label="Login">  
+			                <f:validateLength minimum="2" />  
+			            </p:inputText>	           			           	           			
+	            	</p:column>
+	            </p:row>
+	            <p:row>
+	            	<p:column>	            	            	
+			           <h:outputText value="#{lbl['lbl.password']} : " />
+			        </p:column>
+			        <p:column>  
+			           <p:password id="password" value="#{userUpdateController.user.password}" feedback="true" match="passwordConfirm"/>  	 		
+	         		</p:column>
+	         	</p:row>
+	         	<p:row>
+	         		<p:column>
+	           			<h:outputLabel for="passwordConfirm" value="#{lbl['lbl.passwordConfirmation']}: *" />
+	           		</p:column>
+	           		<p:column>  
+	           			<p:password id="passwordConfirm" value="#{userUpdateController.user.passwordConfirm}" label="Password 2"/>
+	           		</p:column>
+	            </p:row>
+	            <p:row>
+	            	<p:column> 	            
+	           			<h:outputLabel for="nom" value="#{lbl['lbl.nom']} : *" />
+	           		</p:column>
+	           		<p:column>  
+	           			<p:inputText id="nom" value="#{userUpdateController.user.nom}" required="true" label="Nom">
+	           				<f:validateLength minimum="2" />  
+	           			</p:inputText>  	            
+	           		</p:column>
+	           	</p:row>
+	           	<p:row>
+	           		<p:column>	           		  	               	 
+	           			<h:outputLabel for="prenom" value="#{lbl['lbl.prenom']}: *" />
+	           		</p:column>
+	           		<p:column>  
+	           			<p:inputText id="prenom" value="#{userUpdateController.user.prenom}" required="true" label="Prénom"/>
+	           		</p:column>
+	           	</p:row>
+	           	<p:row>
+	           		<p:column>
+	 					<h:outputLabel for="email" value="#{lbl['lbl.email']}:" />
+	 				</p:column>
+	 				<p:column>  
+	           			<p:inputText id="email" value="#{userUpdateController.user.email}" required="true" label="Email"/>
+	    			</p:column>       			  
+	    		</p:row>
+	    		<p:row>
+	    			<p:column>
+	           			<h:outputText for="type" value="#{lbl['lbl.type']}: " />
+	           		</p:column>
+	           		<p:column>		             
+			           <p:selectOneMenu id="type" value="#{userUpdateController.user.type}">
+			               <p:ajax update="userUpdateProfilPanel" />
+				           <f:selectItem itemLabel="Utilisateur" itemValue="utilisateur" />
+				           <f:selectItem itemLabel="Administrateur" itemValue="administrateur" />
+				           <f:selectItem itemLabel="Invité" itemValue="invite" />
+				           <p:ajax event="change" update="userUpdateProfilPanel"/>		                  
+			           </p:selectOneMenu>
+			        </p:column>
+			    </p:row>	        			        		      
+			  	<p:row>
+			  		<p:column>
+			   			<h:outputLabel for="actif" value="#{lbl['lbl.actif']}:" />
+			   		</p:column>
+			   		<p:column>
+	       				<p:selectBooleanCheckbox id="actif" value="#{userUpdateController.user.actif}" />
+	       			</p:column>
+	       		</p:row>
+	       		<p:row>
+	       			<p:column colspan="2">
+	       	   			<p:panel id="userUpdateProfilPanel" widgetVar="profilPanel"  rendered="#{userUpdateController.user.type eq 'utilisateur'}">			        	
+				           	<p:panelGrid  style="width:100%;">
+				           		<p:row>
+				           			<p:column>
+				           				<h:outputText for="profil" value="#{lbl['lbl.profil']}: " />
+				           			</p:column>
+				           			<p:column>
+				           				<p:selectOneMenu id="profil" value="#{userUpdateController.user.profil.id}">		      	    
+								           		<f:selectItem itemLabel="" itemValue="" />
+								          		<f:selectItems value="#{userUpdateController.profils}" var="profil" itemLabel="#{profil.libelle}" itemValue="#{profil.id}"/>
+								          		<p:ajax event="change" listener="#{userUpdateController.onProfilChange}" update=":dialogDuplicateProfil"/>  		           		           		  			           		            		            		          
+								        </p:selectOneMenu>
+				           			</p:column>
+				           			<p:column>
+				           				<p:commandButton value="Nouveau" onclick="PF('dlgCreateProfil').show()" type="button"/>
+				           			</p:column>
+				           			<p:column>
+				           				<p:commandButton value="Dupliquer" onclick="PF('dlgDuplicateProfil').show()" update=":dialogDuplicateProfil" type="button"/>
+				           			</p:column>
+				           		</p:row>
+				        	</p:panelGrid>
+	         			</p:panel>
+	         		</p:column>
+	         	</p:row>	 			        			      
+	       </p:panelGrid>
+	    
+	       <p:commandButton value="#{lbl['lbl.modifier']}" actionListener="#{userUpdateController.doUpdateUser}" update=":mainForm" validateClient="true" oncomplete="handleUserUpdateRequest(xhr, status, args)"/>
+	       <p:commandButton value="#{lbl['lbl.supprimer']}" onclick="confirmation.show()" type="button"/>	       
+	       <p:commandButton value="#{lbl['lbl.fermer']}" onclick="PF('dlgUpdateUser').hide()"  type="button" style="float:right;"/>   	       
+	 	</h:form>
+	 		 	 
+	 </p:dialog>
+	 <p:confirmDialog message="Etes-vous sur de vouloir supprimer cet utilisateur ?" header="Confirmation" widgetVar="confirmation" appendTo="@(body)">
+	      <h:form>  		                 
+		  		<p:commandButton value="#{lbl['lbl.oui']}" actionListener="#{userUpdateController.doRemoveUser}" update=":mainForm:usersDataTable" oncomplete="confirmation.hide(); dlgUpdateUser.hide()"/>  
+		   		<p:commandButton value="#{lbl['lbl.non']}" onclick="confirmation.hide()" type="button" />
+		  </h:form>   		                 
+	 </p:confirmDialog>           
+	 		 		    		  
+	 		    	
+	<script type="text/javascript">  
+	    function handleUserUpdateRequest(xhr, status, args) {  
+	        if(args.validationFailed) {  
+	            PF('dlgUpdateUser').jq.effect("shake", { times:5 }, 100);  
+	        }   
+	        else {  
+	            PF('dlgUpdateUser').hide();  			              
+	        }  
+	    }    
+	</script>
+	
+</ui:composition>

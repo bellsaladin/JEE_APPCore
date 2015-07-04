@@ -1,0 +1,153 @@
+<ui:composition template="/templates/masterLayout.xhtml" xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions" xmlns:t="http://myfaces.apache.org/tomahawk">
+
+	<ui:define name="header">
+		<!-- <p:clock mode="server" /> -->
+	</ui:define>
+
+	<ui:define name="content">
+
+		<!-- 		<h:panelGrid columns="2" styleClass="centre_layout" cellpadding="4" cellspacing="4">
+
+			<p:panel header="#{msg['test.affectationClasseTitre']}" toggleable="true" toggleSpeed="500" closeSpeed="500" style="max-width:400px;">
+				<h:panelGrid columns="2" cellpadding="2" columnClasses="align_top" width="100%">
+
+					<i class="fa fa-exclamation-triangle fa-3x" style="color: darkorange;" />
+
+					<h:panelGrid columns="1" cellspacing="2" cellpadding="2" width="100%">
+						<p:progressBar value="95" labelTemplate="95%" displayOnly="true" />
+						<h:outputText value="#{msg['test.affectationClasseDetail']} !" />
+
+						<p:separator />
+
+						<h:panelGrid columns="2">
+							<i class="fa fa-arrow-circle-right fa-2x" />
+							<h:link value="#{msg['test.clickInfo']}" outcome="/views/home.xhtml" />
+						</h:panelGrid>
+					</h:panelGrid>
+
+				</h:panelGrid>
+
+				<f:facet name="options">
+					<p:menu>
+
+						<p:menuitem value="Toggle" url="/views/home.xhtml" icon="ui-icon-newwin" onclick="panel.toggle()" />
+
+					</p:menu>
+				</f:facet>
+			</p:panel>
+
+			<p:panel header="#{msg['test.documentTitle']}" toggleable="true" toggleSpeed="500" closeSpeed="500" style="max-width:400px;">
+				<h:panelGrid columns="2" columnClasses="align_top" width="100%">
+
+					<i class="fa fa-check-square fa-3x" style="color: yellowgreen;" />
+
+					<h:panelGrid columns="1" cellspacing="2" cellpadding="2" width="100%">
+						<p:progressBar value="100" labelTemplate="100%" displayOnly="true" />
+						<h:outputText value="#{msg['test.documentDetail']}" />
+
+						<p:separator />
+
+						<h:panelGrid columns="2">
+							<i class="fa fa-arrow-circle-right fa-2x" />
+							<h:link value="#{msg['test.clickInfo']}" outcome="/views/home.xhtml" />
+						</h:panelGrid>
+					</h:panelGrid>
+
+				</h:panelGrid>
+
+				<f:facet name="options">
+					<p:menu>
+
+						<p:menuitem value="Toggle" url="/views/home.xhtml" icon="ui-icon-newwin" onclick="panel.toggle()" />
+
+					</p:menu>
+				</f:facet>
+			</p:panel>
+
+			<p:panel header="#{msg['test.documentTitle']}" toggleable="true" toggleSpeed="500" closeSpeed="500" style="max-width:400px;">
+				<h:panelGrid columns="2" columnClasses="align_top" width="100%">
+					<i class="fa fa-check-square fa-3x" style="color: yellowgreen;" />
+
+					<h:panelGrid columns="1" cellspacing="2" cellpadding="2" width="100%">
+						<p:progressBar value="100" labelTemplate="100%" displayOnly="true" />
+						<h:outputText value="#{msg['test.documentDetail']}" />
+
+						<p:separator />
+
+						<h:panelGrid columns="2">
+							<i class="fa fa-arrow-circle-right fa-2x" />
+							<h:link value="#{msg['test.clickInfo']}" outcome="/views/home.xhtml" />
+						</h:panelGrid>
+					</h:panelGrid>
+
+				</h:panelGrid>
+
+				<f:facet name="options">
+					<p:menu>
+
+						<p:menuitem value="Toggle" url="/views/home.xhtml" icon="ui-icon-newwin" onclick="panel.toggle()" />
+
+					</p:menu>
+				</f:facet>
+			</p:panel>
+
+			<p:panel header="#{msg['test.affectationClasseTitre']}" toggleable="true" toggleSpeed="500" closeSpeed="500" style="max-width:400px;">
+				<h:panelGrid columns="2" columnClasses="align_top" width="100%">
+
+					<i class="fa fa-exclamation-triangle fa-3x" style="color: darkorange;" />
+
+					<h:panelGrid columns="1" cellspacing="2" cellpadding="2" width="100%">
+						<p:progressBar value="95" labelTemplate="95%" displayOnly="true" />
+						<h:outputText value="#{msg['test.affectationClasseDetail']} !" />
+
+						<p:separator />
+
+						<h:panelGrid columns="2">
+							<i class="fa fa-arrow-circle-right fa-2x" />
+							<h:link value="#{msg['test.clickInfo']}" outcome="/views/home.xhtml" />
+						</h:panelGrid>
+					</h:panelGrid>
+
+				</h:panelGrid>
+
+				<f:facet name="options">
+					<p:menu>
+
+						<p:menuitem value="Toggle" url="/views/home.xhtml" icon="ui-icon-newwin" onclick="panel.toggle()" />
+
+					</p:menu>
+				</f:facet>
+			</p:panel>
+
+		</h:panelGrid> -->
+		<!-- <p:commandButton value="Save Test" actionListener="#{testBean.saveTest}" icon="fa fa-sign-in" />
+		<p:commandButton value="Show" onclick="PF('blockMenuVar').show();PF('blockModuleVar').show();PF('filterBar').show();" type="button" />
+		<p:commandButton value="Hide" onclick="PF('blockMenuVar').hide();PF('blockModuleVar').hide();PF('filterBar').hide();" type="button" />
+		<p:blockUI block=":verticalMenuForm:menuPanel" widgetVar="blockMenuVar" />
+		<p:blockUI block=":mainForm:moduleTab" widgetVar="blockModuleVar" /> -->
+		
+		<p:commandButton value="show Message test" actionListener="#{testBean.doSomething()}" update="message" />
+		<h:outputText id="message" value="#{facesContext.maximumSeverity.ordinal}" />
+		
+		<h:form>
+		    <h3 style="margin-top:0">Client</h3>
+		    <p:tree value="#{testBean.root}" var="node" orientation="horizontal">
+		        <p:treeNode>
+		            <h:outputText value="#{node}" />
+		        </p:treeNode>
+		    </p:tree>
+		 
+		    <h3>Ajax</h3>
+		    <p:tree value="#{testBean.root}" var="node" dynamic="true" orientation="horizontal">
+		        <p:treeNode>
+		            <h:outputText value="#{node}" />
+		        </p:treeNode>
+		    </p:tree>
+		</h:form>
+		
+	</ui:define>
+</ui:composition>
+
+

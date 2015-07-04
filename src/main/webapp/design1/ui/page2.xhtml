@@ -1,0 +1,119 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="../_general/template.xhtml">
+
+    <ui:define name="head">        
+        <script type="text/javascript">
+            //<![CDATA[
+                function handleMessage(facesmessage) {
+                    facesmessage.severity = 'info';
+                    
+                    PF('growl').show([facesmessage]);
+                }
+            //]]> 
+        </script>
+    </ui:define>
+    
+    <ui:define name="title">
+<!--         <p:breadCrumb> -->
+<!-- 		    <p:menuitem value="Accueil" url="#" /> -->
+<!-- 		    <p:menuitem value="Paramètrage" url="#" /> -->
+<!-- 		    <p:menuitem value="Accès et sécurité" url="#" /> -->
+<!-- 		    <p:menuitem value="Utilisateurs" url="#" /> -->
+<!-- 		</p:breadCrumb> -->
+    </ui:define>
+
+    <ui:define name="description">
+    	...
+    </ui:define>
+
+    <ui:define name="implementation">
+		    <p:dataTable id="usersDataTable" widgetVar="usersDT" var="user" value="#{userListController.usersDataModel}"
+		    			 selection="#{userUpdateController.user}" selectionMode="single"
+		                 paginator="true" rows="10"
+		                 paginatorPosition="bottom"
+		                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+		                 rowsPerPageTemplate="5,10,15"
+		                 currentPageReportTemplate="[ {totalRecords} #{lbl['lbl.lignes']} ]">
+		        		                 		                 		        		      
+				<p:ajax event="rowSelect" update=":dialogUpdateUser" oncomplete="PF('dlgUpdateUser').show()"/>
+				
+<!-- 				<f:facet name="header"> -->
+<!-- 		            <p:panel>						 -->
+<!-- 						<p:commandButton onclick="PF('dlgCreateUser').show()" value="#{lbl['lbl.utilisateur.nouveau']}" type="button"/>						 -->
+<!-- 					</p:panel> -->
+<!-- 		        </f:facet> -->
+				
+<!-- 				<p:column selectionMode="multiple" headerText="" style="width:20px;"/>   -->
+				
+				
+				<p:column sortBy="login">
+		            <f:facet name="header">
+		                <h:outputText value="#{lbl['lbl.login']}" />
+		            </f:facet>
+		            <h:outputText value="#{user.login}" />
+		        </p:column>
+		
+		        <p:column sortBy="nom">
+		            <f:facet name="header">
+		                <h:outputText value="#{lbl['lbl.nom']}" />
+		            </f:facet>
+		            <h:outputText value="#{user.nom}" />
+		        </p:column>
+		
+		        <p:column sortBy="prenom">
+		            <f:facet name="header">
+		                <h:outputText value="#{lbl['lbl.prenom']}" />
+		            </f:facet>
+		            <h:outputText value="#{user.prenom}" />
+		        </p:column>
+		        
+		        <p:column sortBy="email">
+		            <f:facet name="header">
+		                <h:outputText value="#{lbl['lbl.email']}" />
+		            </f:facet>
+		            <h:outputText value="#{user.email}" />
+		        </p:column>
+		        
+		        <p:column sortBy="profil.libelle">
+		            <f:facet name="header">
+		                <h:outputText value="#{lbl['lbl.profil']}" />
+		            </f:facet>
+		            <h:outputText value="#{user.profil.getDisplayText()}" />
+		        </p:column>
+		        
+		        <p:column sortBy="type">
+		            <f:facet name="header">
+		                <h:outputText value="#{lbl['lbl.type']}" />
+		            </f:facet>
+		            <h:outputText value="#{user.type}" />
+		        </p:column>
+		        
+		        <p:column sortBy="actif">
+		            <f:facet name="header">
+		                <h:outputText value="#{lbl['lbl.actif']}" />
+		            </f:facet>
+		            <h:outputText value="#{user.actif == true ? lbl['lbl.oui'] : lbl['lbl.non']}" />
+		        </p:column>				      
+		        		        		       
+		    </p:dataTable>		    
+    				   
+        
+    </ui:define>
+    
+	<ui:define name="actions">
+		<b style="font-size: 14px;color: #1E5E8C;font-weight: normal;font-family: Arial, Helvetica, sans-serif;">Paramètrage > Utilisateurs</b>
+		<p:commandButton value="Actions" actionListener="#{notifyView.send}" styleClass="ui-whiteBtn pull-right" />
+	</ui:define>
+	
+	<ui:define name="dialogs">
+		<ui:include src="/dialogs/userCreate.xhtml" />
+   		<ui:include src="/dialogs/userUpdate.xhtml" /> 
+   		<ui:include src="/dialogs/profilCreate.xhtml" />
+   		<ui:include src="/dialogs/profilDuplicate.xhtml" />
+	</ui:define>
+	
+</ui:composition>

@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:t="http://myfaces.apache.org/tomahawk" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jstl/functions">
+
+	<p:dialog id="msgLoginId" widgetVar="msgLoginVar" modal="true" minWidth="500" resizable="false" showEffect="slide"
+		visible="#{param.error != null}" dir="#{sessionManager.direction}">
+		<f:facet name="header">
+			<i class="fa fa-envelope-o" style="padding-right: 4px;" />
+			<h:outputText value="#{lbl['group.message']}" />
+		</f:facet>
+
+		<h:panelGrid columns="1" cellpadding="5" cellspacing="5">
+			<div class="ui-messages ui-widget">
+				<div class="ui-messages-fatal ui-corner-all">
+					<span class="ui-messages-fatal-icon"></span>
+					<ul>
+						<li><span class="ui-messages-fatal-summary"></span><span class="ui-messages-fatal-detail">#{msg['error.login.user.password.not.correct']}</span></li>
+					</ul>
+				</div>
+			</div> 
+		</h:panelGrid>
+
+		<p:spacer height="20" />
+
+		<div style="text-align: center;">
+			<p:commandButton value="#{lbl['cmd.return']}" onclick="PF('msgLoginVar').hide();PrimeFaces.focus('username');" type="button" />
+			<p:hotkey bind="esc" handler="PF('msgLoginVar').hide();PrimeFaces.focus('username');" rendered="#{param.error != null}" />
+		</div>
+
+	</p:dialog>
+
+</ui:composition>

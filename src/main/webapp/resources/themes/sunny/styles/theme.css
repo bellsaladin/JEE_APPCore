@@ -1,0 +1,95 @@
+@CHARSET "ISO-8859-1";
+
+/* ************************************************************************************************************************************************ */
+/* ************************************************************** SUNNY THEME ********************************************************************* */
+/* ************************************************************************************************************************************************ */
+
+/* |||||||||||||||||||||||||||||||||||||- general -||||||||||||||||||||||||||||||||||||||||--- */
+
+/* personaliser le font d'ecriture */
+html,body,div,input,textarea,a:active,a:link,a:visited,a:hover,label,li,th,td,legend,select,.default,button,input[type="reset"],input[type="submit"],input[type="button"],.label,.ui-accordion-header a,.ui-button-text,.label,.ui-panel-titlebar span,.ui-menuitem-text span,.ui-menuitem-text
+	{
+	font-size: 12px !important;
+	font-family: "trebuchet ms", "Segoe UI", "Arial" !important;
+	color: darkolivegreen !important;
+	font-weight: bold !important;
+}
+
+
+/* |||||||||||||||||||||||||||||||||||||- Menu -||||||||||||||||||||||||||||||||||||||||--- */
+.ui-menu.ui-menubar {
+	background: none !important;
+	border: none !important;
+	padding-right: 0px !important;
+	padding-left: 0px !important;
+	-webkit-border-radius: 0px !important;
+	-webkit-box-shadow: 0 0px 0px rgba(0, 0, 0, 0.065) !important;
+	box-shadow: 0 0px 0px rgba(0, 0, 0, 0.065) !important;
+}
+
+.ui-menu .ui-menuitem-link .ui-menuitem-icon,.ui-menu .ui-menuitem-text {
+	white-space: nowrap !important;
+}
+
+.ui-menu.ui-widget {
+	min-width: initial !important;
+}
+
+.ui-menu .ui-menuitem {
+	padding-bottom: 1px !important;
+}
+
+.ui-menu.ui-widget li>.ui-menuitem-link.ui-state-hover {
+	background-color: #E0C015 !important;
+	background-image: linear-gradient(to bottom, #F8F8F5, #F3BE16) !important;
+}
+
+/* |||||||||||||||||||||||||||||||||||||- Progressbar -||||||||||||||||||||||||||||||||||||||||--- */
+/* objet : progressbar -> Personaliser la couleur de l'indicateur de progression */
+.ui-progressbar .ui-progressbar-value.ui-widget-header {
+	border: 1px solid #d19405 !important;
+	background-color: #E0C015 !important;
+	background-image: -webkit-linear-gradient(top, #F8F8F5, #F3BE16) !important;
+}
+
+.ui-progressbar .ui-progressbar-label {
+	top: -2px !important;
+}
+
+/* |||||||||||||||||||||||||||||||||||||- Panel -||||||||||||||||||||||||||||||||||||||||--- */
+/* .ui-panel {
+	background: #FFFFFF !important;
+}
+
+Objet : layout -> adapter les bornes de bordure 
+.pe-layout-pane-content {
+	padding: 2px !important;
+	overflow: auto;
+} */
+
+.ui-widget-header {
+	background: #817865 url("#{resource['themes:sunny/images/all/panel_head.png']}") 50% 50% repeat-x !important;
+}
+
+
+/* |||||||||||||||||||||||||||||||||||||- General -||||||||||||||||||||||||||||||||||||||||--- */
+/* Objet : widget -> modification de l'arriere plan des objts pour le rendre plus sembre  */
+.ui-widget-content {
+	background: #FAFAFA;
+}
+
+/* .ui-corner-all {
+	-moz-border-radius: 4px !important;
+	-webkit-border-radius: 4px !important;
+	border-radius: 4px !important;
+} */
+
+.ui-icon-gear {
+	background-position: -193px -112px !important;
+}
+
+.ui-panel .ui-panel-titlebar-icon {
+	margin-top: 0px !important;
+}
+
+

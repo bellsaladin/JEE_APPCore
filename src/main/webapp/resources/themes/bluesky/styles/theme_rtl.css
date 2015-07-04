@@ -1,0 +1,54 @@
+@CHARSET "ISO-8859-1";
+
+/* ************************************************************************************************************************************************ */
+/* ********************************************************** BLUESKY THEME ********************************************************************* */
+/* ************************************************************************************************************************************************ */
+
+/* personaliser le font d'ecriture */
+.label {
+	font-family: "Jannat", "trebuchet ms", "Segoe UI", "Arial" !important;
+}
+
+/* Changement de la taille et la couleur de police de certains widget  */
+.ui-accordion.ui-accordion-rtl .ui-accordion-header a,.ui-button-text,.label,.ui-panel-titlebar span,.ui-menuitem-text span {
+	font-family: "Jannat", "trebuchet ms", "Segoe UI", "Arial" !important;
+}
+
+/* Objet : selectonemenu -> Adaptation a l'affiche RTL  */
+.ui-selectonemenu .ui-selectonemenu-label {
+	float: right !important;
+}
+
+/* Objet : selectonemenu -> Adaptation a l'affiche RTL  */
+.ui-selectonemenu .ui-selectonemenu-trigger {
+	left: 0 !important;
+	right: auto !important;
+}
+
+/* Objet : selectonemenu -> Adaptation a l'affiche RTL  */
+.ui-selectonemenu-panel .ui-selectonemenu-list-item {
+	text-align: right !important;
+}
+
+/* Objet : selectonemenu -> Adaptation a l'affiche RTL  */
+.ui-selectonemenu-panel .ui-selectonemenu-filter-container .ui-icon {
+	right: auto !important;
+	left: 10px !important;
+}
+
+/* permet d'aligner verticalement au centre le checkbox et son libelle */
+.ui-selectmanycheckbox label,.ui-selectoneradio label {
+	margin-top: -4px !important;
+}
+
+.ui-selectonemenu .ui-selectonemenu-trigger .ui-icon {
+	margin-top: 5px !important;
+}
+
+.ui-selectonemenu label.ui-selectonemenu-label {
+	padding-left: 10px !important;
+}
+
+.ui-menu .ui-menuitem-link .ui-menuitem-icon,.ui-menu .ui-menuitem-text {
+	float: right !important;
+}

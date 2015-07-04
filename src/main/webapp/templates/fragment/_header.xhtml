@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:t="http://myfaces.apache.org/tomahawk" xmlns:c="http://java.sun.com/jstl/core">
+
+	<h:head title="#{cst['app.title']}" shortcutIcon="#{request.contextPath}/favicon.ico">
+		<f:facet name="first">
+			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+			<meta http-equiv="pragma" content="no-cache" />
+			<meta http-equiv="cache-control" content="no-cache" />
+			<meta http-equiv="expires" content="0" />
+		</f:facet>
+
+		<!-- Styles css -->
+		<h:outputStylesheet name="styles/general.css" />
+		<h:outputStylesheet name="styles/primefaces.css" />
+		<h:outputStylesheet name="themes/#{sessionManager.theme}/styles/theme.css" />
+		<h:outputStylesheet name="themes/#{sessionManager.theme}/styles/couleur.css" />
+
+		<h:outputStylesheet name="styles/general_rtl.css" rendered="#{sessionManager.arabic}" />
+		<h:outputStylesheet name="styles/primefaces_rtl.css" rendered="#{sessionManager.arabic}" />
+		<h:outputStylesheet name="themes/#{sessionManager.theme}/styles/theme_rtl.css" rendered="#{sessionManager.arabic}" />
+
+		<h:outputStylesheet library="awesome" name="css/font-awesome.css" />
+
+		<!-- Script js -->
+		<h:outputScript name="scripts/general.js" />
+		<h:outputScript name="scripts/primefaces.js" />
+		<h:outputScript name="themes/#{sessionManager.theme}/scripts/theme.js" />
+
+		<ui:insert name="additionalHeader" />
+	</h:head>
+
+
+</ui:composition>

@@ -1,0 +1,81 @@
+@CHARSET "ISO-8859-1";
+
+/* ************************************************************************************************************************************************ */
+/* ********************************************************** BOOTSTRAP THEME ********************************************************************* */
+/* ************************************************************************************************************************************************ */
+
+/* |||||||||||||||||||||||||||||||||||||- general -||||||||||||||||||||||||||||||||||||||||--- */
+
+/* personaliser le font d'ecriture */
+html,body,div,input,textarea,a:active,a:link,a:visited,a:hover,label,li,th,td,legend,select,.default,button,input[type="reset"],input[type="submit"],input[type="button"],.label,.ui-accordion-header a,.ui-button-text,.label,.ui-panel-titlebar span,.ui-menuitem-text span,.ui-menuitem-text
+	{
+	font-size: 12px !important;
+	font-family: helvetica, arial, sans-serif; /*"trebuchet ms", "Segoe UI", "Arial";*/
+}
+
+html,body,div,input,textarea,a:active,a:link,a:visited,a:hover,label,li,th,td,legend,select,.default,button,input[type="reset"],input[type="submit"],input[type="button"],.label,.ui-accordion-header a,.ui-button-text,.label,.ui-panel-titlebar span,.ui-menuitem-text span
+{
+	color: #474747;
+}
+
+/* |||||||||||||||||||||||||||||||||||||- SelectOneMenu -||||||||||||||||||||||||||||||||||||||||--- */
+.ui-selectonemenu {
+	border-color: rgba(0, 0, 0, 0.25) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25) !important;
+}
+
+/* |||||||||||||||||||||||||||||||||||||- selectmanycheckbox -||||||||||||||||||||||||||||||||||||||||--- */
+/* permet d'aligner verticalement au centre le checkbox et son libelle */
+.ui-selectmanycheckbox label,.ui-selectoneradio label {
+	margin-top: -4px !important;
+}
+
+/* |||||||||||||||||||||||||||||||||||||- Menu -||||||||||||||||||||||||||||||||||||||||--- */
+.ui-menu.ui-menubar {
+	background: none !important;
+	border: none !important;
+	padding-right: 0px !important;
+	padding-left: 0px !important;
+	-webkit-border-radius: 0px !important;
+	-webkit-box-shadow: 0 0px 0px rgba(0, 0, 0, 0.065) !important;
+	box-shadow: 0 0px 0px rgba(0, 0, 0, 0.065) !important;
+}
+
+.ui-menu .ui-menuitem-link .ui-menuitem-icon,.ui-menu .ui-menuitem-text {
+	white-space: nowrap !important;
+}
+
+.ui-menu.ui-widget {
+	min-width: initial !important;
+}
+
+.ui-menu .ui-menuitem-link {
+	border: none !important;
+}
+
+/* |||||||||||||||||||||||||||||||||||||- accordion -||||||||||||||||||||||||||||||||||||||||--- */
+.ui-accordion .ui-accordion-header.ui-state-default {
+	background-image: -webkit-linear-gradient(top, #FFFFFF, #E6EBEE) !important;
+}
+
+
+.ui-tabs .ui-tabs-nav.ui-widget-header li a{
+	color: #5A5A5A;
+	text-transform:uppercase;
+}
+
+/* |||||||||||||||||||||||||||||||||||||- General -||||||||||||||||||||||||||||||||||||||||--- */
+/* Enlever le couleur de cadrage au widget selectione */
+.ui-state-focus {
+	outline: none !important;
+}
+
+.header-delimiter {
+	position: fixed;
+	left: 0px;
+	right: 0px;
+	height: 10px;
+	background-color: aqua;
+	z-index: 2;
+	top: 58px;
+	border: 1px solid #DDD;
+}

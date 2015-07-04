@@ -1,0 +1,225 @@
+@CHARSET "ISO-8859-1";
+
+/* |||||||||||||||||||||||||||||||||||||- Entete de la page -||||||||||||||||||||||||||||||||||||||||--- */
+.header_background {
+	position: fixed;
+	top: 0px;
+	height: 70px;
+	left: 0px;
+	right: 0px;
+	z-index: 1;
+}
+
+.header_logo {
+	height: 59px;
+	background: url("#{resource['themes:bootstrap/images/all/app_logo.png']}") 0 no-repeat;
+}
+
+/* |||||||||||||||||||||||||||||||||||||- Menu haut -||||||||||||||||||||||||||||||||||||||||--- */
+.menu_top {
+	position: absolute;
+	display: block;
+	right: 0px;
+	z-index: 3;
+	padding-right: 4px;
+	padding-top: 2px;
+}
+/* |||||||||||||||||||||||||||||||||||||- Filter -||||||||||||||||||||||||||||||||||||||||--- */
+.filter_flottant {
+	padding: 0px !important;
+	background: transparent !important;
+	border: none !important;
+	right: 50% !important;
+	width: 306px !important;
+	margin-right: -153px !important;
+	z-index: 4 !important;
+}
+
+.filter_header {
+	height: 120px;
+}
+
+.filter_closed {
+	top: 0px;
+	display: block;
+	position: absolute;
+	right: 50%;
+	width: 306px;
+	margin-right: -153px;
+	height: 60px;
+	z-index: 1;
+}
+
+.filter_label {
+	position: absolute;
+	display: block;
+	top: 17px;
+	padding-left: 12px;
+}
+
+.filter_for_close {
+	position: absolute;
+	display: block;
+	top: 102px;
+	right: 50%;
+	margin-right: -10px;
+}
+
+.filter_for_open {
+	position: absolute;
+	display: block;
+	top: 50px;
+	right: 50%;
+	margin-right: -10px;
+}
+
+.photo_filter {
+	position: absolute;
+	top: 0px;
+	padding-left: 2px;
+	height: 110px;
+	width: 102px;
+}
+
+.photo_eleve {
+	position: absolute;
+	top: 16px;
+	right: 217px;
+	width: 70px;
+	height: 78px;
+	border-radius: 4px;
+}
+
+.filter_zone {
+	display: block;
+	position: absolute;
+	z-index: 5;
+	right: 50%;
+	margin-right: -141px;
+	top: 9px;
+}
+
+.filter_text input {
+	width: 183px;
+}
+
+.filter_config {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+}
+
+.info_eleve_filter {
+	padding-left: 14px;
+	padding-top: 34px;
+}
+
+.grid_header td {
+	text-align: left;
+}
+
+.grid_header {
+	width: 100%;
+	padding-right: 18px;
+	padding-left: 100px;
+	padding-top: 7px;
+}
+
+/* |||||||||||||||||||||||||||||||||||||-       -||||||||||||||||||||||||||||||||||||||||--- */
+#config_Panel table {
+	white-space: nowrap;
+}
+
+.menu_filter {
+	display: block;
+	padding-right: 10px;
+	padding-bottom: 5px;
+}
+
+.menu_filter input {
+	width: 100%;
+}
+
+.info_app {
+	display: block;
+	width: 100%;
+	text-align: center;
+	margin-top: 4px;
+	font-size: 10.5px !important;
+	/*font-weight: 100 !important;*/
+}
+
+.type_menu {
+	text-align: center;
+	width: 100%;
+	padding-bottom: 3px;
+}
+
+/* |||||||||||||||||||||||||||||||||||||- Pied de la page -||||||||||||||||||||||||||||||||||||||||--- */
+.footer_background {
+	position: fixed;
+	bottom: 0px;
+	height: 24px;
+	left: 0px;
+	right: 0px;
+	z-index: 1;
+}
+
+/* |||||||||||||||||||||||||||||||||||||- General -||||||||||||||||||||||||||||||||||||||||--- */
+.list-item td {
+	display: list-item;
+	line-height: 1.7;
+}
+
+.align_left,.align_default {
+	text-align: left !important;
+}
+
+.align_right {
+	text-align: right !important;
+}
+
+.align_center {
+	text-align: center !important;
+}
+
+.align_top {
+	vertical-align: top !important;
+}
+
+.align_middle {
+	vertical-align: middle !important;
+}
+
+.align_bottom {
+	vertical-align: bottom !important;
+}
+
+.maxWidth {
+	width: 100% !important;
+}
+
+/* supprimer le bordure des images */
+img {
+	border: none;
+}
+
+/* supprimer la decoration des liens */
+a:active,a:link,a:visited,a:hover {
+	text-decoration: none;
+}
+
+/* permet de centrer un conteneur dans son parent */
+.centre_layout {
+	margin-left: auto;
+	margin-right: auto;
+	width: auto;
+}
+
+/* permet de rendre un composant plat pour l'integrer dans une datatable */
+.flat {
+	border: none !important;
+	background: none !important;
+	-webkit-box-shadow: initial !important;
+	box-shadow: initial !important;
+}

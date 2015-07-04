@@ -1,0 +1,72 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions" xmlns:t="http://myfaces.apache.org/tomahawk" xmlns:c="http://java.sun.com/jstl/core">
+
+	<p:dialog id="dialogUpdateProfil" header="#{lbl['lbl.profil.maj']}" widgetVar="dlgUpdateProfil" style="min-width:600px;" resizable="false" appendToBody="true" modal="true">   
+	    <h:form id="dlgUpdateProfilForm">     
+	        <p:messages id="messages" />  
+	        <p:panelGrid style="width:100%;">
+	       		<p:row>	
+	       			<p:column>        	 	        		           	           		      					            	        
+			            <h:outputLabel for="libelle" value="#{lbl['lbl.libelle']} : *" />			            
+			        </p:column>
+			        <p:column>  
+			            <p:inputText   
+			                value="#{profilUpdateController.profil.libelle}" required="true" label="Libelle" style="width:245px">  
+			                <f:validateLength minimum="2" />  
+			            </p:inputText>
+	            	</p:column>  	   
+	  			</p:row>
+	  			<p:row>
+	  				<p:column>
+	  					<h:outputLabel for="description" value="#{lbl['lbl.description']} :" />
+	  				</p:column>
+	  				<p:column>	  
+	            		<p:inputTextarea rows="10" cols="50" id="description"   
+	                		value="#{profilUpdateController.profil.description}" required="true" label="Description">  
+	                		<f:validateLength minimum="2" />
+	                	</p:inputTextarea>
+	                </p:column>  	            
+	            </p:row>
+	            <p:row>
+	            	<p:column colspan="2">	            
+	            		<p:scrollPanel style="height:200px;overflow-y:scroll">	         	   
+				            <p:tree value="#{profilUpdateController.root2}" var="node"  
+						           selectionMode="checkbox" cache="false"
+						           selection="#{profilUpdateController.selectedNodes}" style="width:100%; border:0;">						 
+						       <p:treeNode>
+						           <h:outputText value="#{node}" />  
+						       </p:treeNode>  
+						   </p:tree>
+						 </p:scrollPanel> 
+				   </p:column>
+				</p:row>   			   
+	        </p:panelGrid>
+	       	           	      
+	       <p:commandButton value="#{lbl['lbl.modifier']}" actionListener="#{profilUpdateController.doUpdateProfil}" oncomplete="handleProfilUpdateRequest(xhr, status, args)" ajax="true"/>	       	      
+	       <p:commandButton value="#{lbl['lbl.dupliquer']}"  type="button" onclick="PF('dlgDuplicateProfil').show()" update=":dlgUpdateProfilForm:dialogDuplicateProfil"/>	       			    	       		
+	       <p:commandButton value="#{lbl['lbl.supprimer']}" onclick="confirmation.show()" type="button"/>
+	       <p:commandButton value="#{lbl['lbl.fermer']}" onclick="PF('dlgUpdateProfil').hide()"  type="button" style="float:right;"/>
+	 	</h:form>
+	 		 	 
+	 </p:dialog>
+	 <p:confirmDialog message="Etes-vous sur de vouloir supprimer ce profil ?" header="Confirmation" widgetVar="confirmation" appendTo="@(body)">
+	      <h:form id="deleteProfilForm">  		                 
+		  		<p:commandButton value="#{lbl['lbl.oui']}" actionListener="#{profilUpdateController.doRemoveProfil}" update="@this" oncomplete="confirmation.hide(); dlgUpdateProfil.hide()"/>  
+		   		<p:commandButton value="#{lbl['lbl.non']}" onclick="confirmation.hide()" type="button" />
+		  </h:form>   		                 
+	 </p:confirmDialog>           
+	 		 		    		  
+	 		    	
+	<script type="text/javascript">  
+	    function handleProfilUpdateRequest(xhr, status, args) {  
+	        if(args.validationFailed) {  
+	            PF('dlgUpdateProfil').jq.effect("shake", { times:5 }, 100);  
+	        }   
+	        else {  
+	            PF('dlgUpdateProfil').hide();  			              
+	        }  
+	    }    
+	</script>	
+	
+</ui:composition>

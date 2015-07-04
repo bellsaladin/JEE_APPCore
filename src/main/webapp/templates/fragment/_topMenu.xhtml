@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:t="http://myfaces.apache.org/tomahawk" xmlns:c="http://java.sun.com/jstl/core">
+
+	<div class="menu_top">
+		<table cellpadding="0" cellspacing="0">
+
+			<tr>
+				<!--<td>
+					<h:selectOneMenu value="#{sessionManager.language}" onchange="submit()">
+						<f:selectItem itemValue="fr" itemLabel="Français" />
+						<f:selectItem itemValue="ar" itemLabel="العربية" />
+					</h:selectOneMenu>
+				</td> -->
+					
+				<td><p:menubar id="user_menu" autoDisplay="false">
+						<p:submenu label="#{msg['test.userName']}" icon="fa fa-user fa-lg">
+							<p:menuitem value="#{msg['test.motPasse']}" url="http://www.primefaces.org" icon="fa fa-unlock-alt" />
+							<p:menuitem value="#{msg['test.preference']}" url="http://www.primefaces.org" icon="fa fa-cog" />
+							<!-- <p:separator /> -->
+							<!-- <p:menuitem value="#{msg['test.quitter']}" url="../logout" icon="ui-icon-arrowrefresh-1-w" /> -->
+						</p:submenu>
+					</p:menubar></td>
+
+				<td style="padding-left: 4px; padding-right: 4px;"><a href="../logout"><i class="fa fa-power-off fa-lg" /></a></td>
+			</tr>
+		</table>
+		<!-- 			<h:outputText value="#{msg['test.annee']} :" styleClass="label" />
+
+			<p:selectOneMenu value="#{testBean.anneeScolaire}">
+				<f:selectItem itemLabel="2013/2014" itemValue="2013/2014" />
+				<f:selectItem itemLabel="2012/2013" itemValue="2012/2013" />
+				<f:selectItem itemLabel="2011/2012" itemValue="2011/2012" />
+			</p:selectOneMenu> -->
+
+		<!-- <h:outputText value="#{msg['test.user']} :" styleClass="label" /> -->
+
+
+
+
+
+
+	</div>
+
+</ui:composition>

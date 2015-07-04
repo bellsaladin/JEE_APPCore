@@ -1,0 +1,27 @@
+@CHARSET "ISO-8859-1";
+
+/* ************************************************************************************************************************************************ */
+/* ********************************************************** BOOTSTRAP THEME ********************************************************************* */
+/* ************************************************************************************************************************************************ */
+
+.header_background {
+	/*background: url("#{resource['themes:bootstrap/images/all/header_background.png']}") repeat-x;*/
+	background-image: linear-gradient(to bottom, #{sessionManager.theme.darkCouleur}, #{sessionManager.theme.lightCouleur});
+}
+
+.header_logo {
+	background: url("#{resource['themes:bootstrap/images/all/app_logo.png']}") 0 no-repeat;
+}
+
+.filter_header {
+	background: url("#{resource['themes:bootstrap/images/all/filter_background.png']}") 100% 0 no-repeat;
+}
+
+.footer_background {
+	/*background: url("#{resource['themes:bootstrap/images/all/footer_background.png']}") repeat-x;*/
+	background-image: linear-gradient(to top, #{sessionManager.theme.darkCouleur}, #{sessionManager.theme.lightCouleur});
+}
+
+.filter_closed {
+	background: url("#{resource['themes:bootstrap/images/all/filter_closed.png']}") 100% 0 no-repeat;
+}

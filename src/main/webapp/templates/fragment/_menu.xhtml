@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:t="http://myfaces.apache.org/tomahawk" xmlns:c="http://java.sun.com/jstl/core" xmlns:o="http://omnifaces.org/ui"
+	xmlns:of="http://omnifaces.org/functions">
+
+	<p:autoComplete id="menuFilter" value="#{menuController.menuSelected}" completeMethod="#{menuController.onCompleteMenuLibelle}" var="menu"
+		itemLabel="#{lbl[menu.libelleKey]}" itemValue="#{menu}" forceSelection="true" styleClass="menu_filter">
+
+		<o:converter converterId="omnifaces.ListConverter" list="#{menuController.menusFiltred}" />
+
+		<p:ajax event="itemSelect" listener="#{menuController.onMenuSelected}" />
+
+		<p:column>
+			<i class="#{menu.iconClass}" style="vertical-align: sub; padding-right: 4px;" />
+			<h:outputText value="#{lbl[menu.libelleKey]}" />
+		</p:column>
+	</p:autoComplete>
+
+	<p:tabView id="menuTabView" dir="#{sessionManager.direction}" activeIndex="#{menuController.menuTypeSelectedIndex}">
+		<p:ajax event="tabChange" immediate="true" listener="#{menuController.onMenuTabChanged}" update=":menuForm:menuSlide" />
+
+		<p:tab id="menu">
+			<f:facet name="title">
+				<i class="fa fa-bars fa-lg" style="padding-right: 4px;" />
+				<h:outputText value="Menu" />
+			</f:facet>
+		</p:tab>
+		<p:tab id="etat">
+			<f:facet name="title">
+				<i class="fa fa-print fa-lg" style="padding-right: 4px;" />
+				<h:outputText value="Rapport" />
+			</f:facet>
+		</p:tab>
+	</p:tabView>
+
+	<p:slideMenu id="menuSlide" model="#{menuController.menuModel}"
+		style="width:100%; background: rgba(0, 0, 0, 0); border: none; height: 100%;" backLabel="Retour" />
+
+</ui:composition>

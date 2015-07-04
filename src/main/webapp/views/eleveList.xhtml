@@ -1,0 +1,123 @@
+<ui:composition template="/templates/masterLayout.xhtml" xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions" xmlns:t="http://myfaces.apache.org/tomahawk">
+	
+	<ui:define name="content">						
+			<h3><i class="fa fa-table fa-2x" style="vertical-align: middle; padding-right: 4px; color: darkorchid"/><h:outputText value="#{lbl['lbl.eleve.list']}" /></h3>
+		    <p:dataTable id="dataTable" var="eleve" value="#{eleveListController.elevesDataModel}"
+		    			 selection="#{eleveListController.selectedEleve}" selectionMode="single"
+		                 paginator="true" rows="10"
+		                 paginatorPosition="bottom"
+		                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+		                 rowsPerPageTemplate="5,10,15"
+		                 currentPageReportTemplate="[ {totalRecords} #{lbl['lbl.lignes']} ]" 
+		                 lazy="true"		                 
+		                 style="display:inline-block">
+		        
+		        <p:ajax event="rowSelect" listener="#{eleveListController.onRowSelect}" update=":mainForm:display" oncomplete="PF('eleveDialog').show()" />         
+		                 
+		        <f:facet name="header">
+		            <p:panel header="#{lbl['lbl.filtre']}" toggleable="true" collapsed="true" toggleSpeed="500">
+						<div align="center">
+							<h:panelGrid columns="6" cellspacing="4" cellpadding="5">								
+
+								<h:outputText value="#{lbl['lbl.eleves']}" styleClass="default" />
+
+								<p:selectOneMenu value="#{eleveListController.filtreCessation}" label="#{lbl['attr.site']}">
+									<f:selectItem itemLabel="#{lbl['lbl.tous']}" itemValue="" />																										
+									<f:selectItem itemLabel="#{lbl['lbl.scolarises']}" itemValue="0" />
+									<f:selectItem itemLabel="#{lbl['lbl.enCessation']}" itemValue="1" />									  									
+									<!-- <f:selectItems value="#{#{eleveListController.cessationTypes}" />  -->
+								</p:selectOneMenu>
+															
+
+							</h:panelGrid>
+						</div>
+						<p:separator />
+						<div align="right">
+							<p:commandButton value="#{lbl['lbl.filtrer']}" icon="i-icon ui-icon-search" ajax="true" update="dataTable"
+								actionListener="#{eleveListController.doFilter}"/>
+						</div>
+					</p:panel>
+		        </f:facet>		        
+		
+		        <p:column sortBy="nom" filterBy="nom">
+		            <f:facet name="header">
+		                <h:outputText value="#{lbl['lbl.nom']}" />
+		            </f:facet>
+		            <h:outputText value="#{eleve.nom}" />
+		        </p:column>
+		
+		        <p:column sortBy="prenom" filterBy="prenom">
+		            <f:facet name="header">
+		                <h:outputText value="#{lbl['lbl.prenom']}" />
+		            </f:facet>
+		            <h:outputText value="#{eleve.prenom}" />
+		        </p:column>
+		        
+		        <p:column sortBy="dateNaissance" filterBy="dateNaissance">
+		            <f:facet name="header">
+		                <h:outputText value="#{lbl['lbl.dateNaissance']}" />
+		            </f:facet>
+		            <h:outputText value="#{eleve.dateNaissance}" />
+		        </p:column>
+		        
+		        <p:column sortBy="lieuNaissance" filterBy="lieuNaissance">
+		            <f:facet name="header">
+		                <h:outputText value="#{lbl['lbl.lieuNaissance']}" />
+		            </f:facet>
+		            <h:outputText value="#{eleve.lieuNaissance}" />
+		        </p:column>
+		        
+		        <p:column sortBy="scolarisation" filterBy="scolarisation" filterOptions="#{eleveListController.scolariteOptions}" filterMatchMode="exact">
+		            <f:facet name="header">
+		                <h:outputText value="#{lbl['lbl.scolarisation']}" />
+		            </f:facet>
+		            <h:outputText value="#{eleve.scolarisation}" />
+		        </p:column>
+		        
+		        <p:column style="text-align: center;">						
+					<p:commandButton id="selectButton" update=":mainForm:display" oncomplete="PF('eleveDialog').show()" icon="ui-icon-search" title="View">
+						<f:setPropertyActionListener value="#{eleve}" target="#{eleveListController.selectedEleve}" />  
+					</p:commandButton>
+					<p:commandButton actionListener="#{eleveListController.doEditEleve}" id="eleveUpdate"  
+            			icon="ui-icon-pencil"/>  													
+            		<p:commandButton actionListener="#{eleveListController.doRemoveEleve}" id="eleveRemove"  
+            			icon="ui-icon-trash"/>	            	
+				</p:column>
+		        	
+		    </p:dataTable>
+		    
+		    <p:dialog header="#{lbl['lbl.eleve.details']}" widgetVar="eleveDialog" resizable="false" id="eleveDlg"  
+                showEffect="fade" hideEffect="explode" modal="false">  
+  
+		        <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">  		 		          
+		  
+		            <h:outputText value="#{lbl['lbl.nom']} :" />  
+		            <h:outputText value="#{eleveListController.selectedEleve.nom}" style="font-weight:bold"/>  
+		  
+		            <h:outputText value="#{lbl['lbl.prenom']} :" />  
+		            <h:outputText value="#{eleveListController.selectedEleve.prenom}" style="font-weight:bold"/>  
+		            
+		            <h:outputText value="#{lbl['lbl.dateNaissance']} :" />  
+		            <h:outputText value="#{eleveListController.selectedEleve.dateNaissance}" style="font-weight:bold"/>
+		            
+		            <h:outputText value="#{lbl['lbl.lieuNaissance']} :" />  
+		            <h:outputText value="#{eleveListController.selectedEleve.lieuNaissance}" style="font-weight:bold"/>
+		            
+		            <h:outputText value="#{lbl['lbl.sexe']} :" />  
+		            <h:outputText value="#{eleveListController.selectedEleve.sexe}" style="font-weight:bold"/>
+		            
+		            <h:outputText value="#{lbl['lbl.nationalité']} :" />  
+		            <h:outputText value="#{eleveListController.selectedEleve.nationalite}" style="font-weight:bold"/>
+		            
+		            <h:outputText value="#{lbl['lbl.niveauScolaire']} :" />  
+		            <h:outputText value="#{eleveListController.selectedEleve.niveauScolaireAquis}" style="font-weight:bold"/>
+
+		        </h:panelGrid>  
+		  
+		    </p:dialog>  					
+		
+	</ui:define>
+                                        
+</ui:composition>

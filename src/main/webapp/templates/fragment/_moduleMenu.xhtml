@@ -1,0 +1,19 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:t="http://myfaces.apache.org/tomahawk" xmlns:c="http://java.sun.com/jstl/core">
+
+	<p:tabView id="moduleTab" dir="#{sessionManager.direction}" activeIndex="#{menuController.moduleSelectedIndex}">
+		<p:ajax event="tabChange" listener="#{menuController.onModuleMenuTabChanged}" update=":menuForm:menuSlide :menuForm:menuFilter" />
+		
+		<c:forEach items="#{menuController.modules}" var="moduleVar" >
+			<p:tab id="#{moduleVar.id}">
+				<f:facet name="title">
+					<i class="#{moduleVar.iconClass}" style="vertical-align: sub; padding-right: 4px; color: #{moduleVar.color}" />
+					<h:outputText style="color: #{moduleVar.color};" value="#{lbl[moduleVar.libelleKey]}" />
+				</f:facet>
+			</p:tab>
+		</c:forEach>
+	</p:tabView>
+	
+</ui:composition>
