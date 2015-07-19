@@ -22,8 +22,8 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 
-//@ManagedBean(name="themeService", eager = true)
-//@ApplicationScoped
+@ManagedBean(name="themeService", eager = true)
+@ApplicationScoped
 public class ThemeService {
     
     private List<Theme> themes;

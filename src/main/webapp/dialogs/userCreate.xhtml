@@ -100,7 +100,7 @@
 				 </p:row>		 			        			      
        		</p:panelGrid>  
    	   		
-   	   		<p:commandButton value="Créer" actionListener="#{userCreateController.doCreateUser}" update=":mainForm:usersDataTable" oncomplete="handleUserCreateRequest(xhr, status, args)"/>
+   	   		<p:commandButton value="Créer" actionListener="#{userCreateController.doCreateUser}" update=":mainForm:dataTable" oncomplete="handleUserCreateRequest(xhr, status, args)"/>
    	   		<p:commandButton value="#{lbl['lbl.fermer']}" onclick="PF('dlgCreateUser').hide()"  type="button" style="float:right;"/>   
  	   </h:form>
  	</p:dialog>	

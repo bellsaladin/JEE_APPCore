@@ -19,16 +19,16 @@
 }
 
 .welcomeText {
-	color: #3D3D3D;
-	font-size: 22px;
-	font-family: "segoe ui";
-	font-weight: normal;
+	color: #909090;
+	font-size: 15px;
+	font-family: arial;
+	font-weight: bold	;
 	text-align: center;
 }
 
 .loginBox {
-	  width: 400px;
-  height: 265px;
+  width: 400px;
+  height: 235px;
   position: absolute;
   left: 50%;
   margin-left: -218px;
@@ -36,7 +36,7 @@
   margin-top: -140px;
   padding: 1px;
   border: 1px solid #E5E5E5;
-  /* -webkit-box-shadow: 0 8px 6px -6px #353535; */
+  -webkit-box-shadow: 1px 0px 41px -4px #B8B8B8;
   -moz-box-shadow: 0 8px 6px -6px black;
   border-radius: 10px;
   background-color: #fff;
@@ -70,7 +70,8 @@
 }
 
 input[type="submit"],input[type="button"] {
-	font-size: 14px !important;
+	font-size: 12px !important;
 	font-family: "Arial" !important;
-	color: #fff !important;
+	color: rgba(255, 255, 255, 0.87) !important;
+	font-weight: bold;
 }

@@ -212,28 +212,28 @@
             <ui:insert name="content">
                 
                 <ui:insert name="subsubmenu"></ui:insert>
+				<h:form id="mainForm">
+					<div class="ContentSideSections actionsSection Implementation">
+						<p:fragment id="actionsForm">
+	                    	<ui:insert name="actions" />
+	                    </p:fragment>
+	                </div>
+	                
+	<!--                 <div class="ContentSideSections"> -->
+	<!--                     <div class="Content100 overHidden TextShadow"> -->
+	<!--                         <span class="fontSize15 TextShadow mediumFont marginBottom10 dispBlock"><ui:insert name="title" /></span> -->
+	<!--                         <span class="fontSize13 dispTable"><ui:insert name="description" /> -->
+	<!--                         </span> -->
+	<!--                     </div> -->
+	<!--                 </div> -->
+	                
+	                <div class="ContentSideSections Implementation" style="padding:0;">
+	                    <ui:insert name="implementation" />
+	                </div>
+				</h:form>
 				
-				<div class="ContentSideSections actionsSection Implementation">
-					<h:form id="actionsForm">
-                    	<ui:insert name="actions" />
-                    </h:form>
-                </div>
-                
-<!--                 <div class="ContentSideSections"> -->
-<!--                     <div class="Content100 overHidden TextShadow"> -->
-<!--                         <span class="fontSize15 TextShadow mediumFont marginBottom10 dispBlock"><ui:insert name="title" /></span> -->
-<!--                         <span class="fontSize13 dispTable"><ui:insert name="description" /> -->
-<!--                         </span> -->
-<!--                     </div> -->
-<!--                 </div> -->
-                
-                <div class="ContentSideSections Implementation" style="padding:0;">
-                	<h:form id="mainForm">
-                    	<ui:insert name="implementation" />
-                    </h:form>
-                    <ui:insert name="dialogs" />
-                </div>
-
+				<ui:insert name="dialogs" />
+				
                 <div id="SourceContentSide" class="ContentSideSections Source">
                     <div class="Content100 overHidden TextShadow">
                         <span class="defaultText">

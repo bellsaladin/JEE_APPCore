@@ -3,7 +3,7 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:p="http://primefaces.org/ui"
-                template="../_general/template.xhtml">
+                template="/design1/_general/template.xhtml">
 
     <ui:define name="head">        
         <script type="text/javascript">
@@ -32,7 +32,7 @@
 
     <ui:define name="implementation">
     		<p:contextMenu for="dataTable">
-		        <p:menuitem value="Modifier" actionListener="#{userListController.setUserUpdateSubject}" update=":dialogUpdateUser :dialogDuplicateProfil" icon="ui-icon-search" oncomplete="PF('dlgUpdateUser').show()"/>
+		        <p:menuitem value="Modifier" url="/design1/ui/#{userController.moduleName}/form?id=#{userController.lastSelectedObject.id}" icon="ui-icon-search"/>
 		        <p:menuitem value="Supprimer" update="dataTable" icon="ui-icon-close" actionListener="PF('dlgUpdateUser').show()"/>
 		        <p:submenu label="Options" icon="ui-icon-refresh">
 			        <p:separator />
@@ -53,9 +53,9 @@
 		        </p:submenu>
 		    </p:contextMenu>
 		    <p:messages/>
-		    <p:dataTable id="dataTable" widgetVar="dataTable" var="user" value="#{userListController.usersDataModel}"
+		    <p:dataTable id="dataTable" widgetVar="dataTable" var="object" value="#{userController.dataModel}"
 		    			 sortMode="multiple"
-		    			 selection="#{userListController.selectedUsers}"
+		    			 selection="#{userController.selectedObjects}"
 		                 paginator="true" rows="10"
 		                 paginatorPosition="bottom"
 		                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -71,42 +71,42 @@
 				<p:column selectionMode="multiple" headerText="" style="width:20px;"/>
 				
 				
-				<p:column sortBy="#{user.login}">
+				<p:column sortBy="#{object.login}">
 		            <f:facet name="header">
 		                <h:outputText value="#{lbl['lbl.login']}" />
 		            </f:facet>
-		            <h:outputText value="#{user.login}" />
+		            <h:outputText value="#{object.login}" />
 		        </p:column>
 		
-		        <p:column sortBy="#{user.nom}">
+		        <p:column sortBy="#{object.nom}">
 		            <f:facet name="header">
 		                <h:outputText value="#{lbl['lbl.nom']}" />
 		            </f:facet>
-		            <h:outputText value="#{user.nom}" />
+		            <h:outputText value="#{object.nom}" />
 		        </p:column>
 		
-		        <p:column sortBy="#{user.prenom}">
+		        <p:column sortBy="#{object.prenom}">
 		            <f:facet name="header">
 		                <h:outputText value="#{lbl['lbl.prenom']}" />
 		            </f:facet>
-		            <h:outputText value="#{user.prenom}" />
+		            <h:outputText value="#{object.prenom}" />
 		        </p:column>
 		        
-		        <p:column sortBy="#{user.email}">
+		        <p:column sortBy="#{object.email}">
 		            <f:facet name="header">
 		                <h:outputText value="#{lbl['lbl.email']}" />
 		            </f:facet>
-		            <h:outputText value="#{user.email}" />
+		            <h:outputText value="#{object.email}" />
 		        </p:column>
 		        
-		        <p:column sortBy="#{user.profil.getDisplayText()}">
+		        <p:column sortBy="#{object.profil.getDisplayText()}">
 		            <f:facet name="header">
 		                <h:outputText value="#{lbl['lbl.profil']}" />
 		            </f:facet>
-		            <h:outputText value="#{user.profil.getDisplayText()}" />
+		            <h:outputText value="#{object.profil.getDisplayText()}" />
 		        </p:column>
 		        
-		        <p:column sortBy="#{user.type}" filterBy="#{user.type}" filterMatchMode="in">
+		        <p:column sortBy="#{object.type}" filterBy="#{object.type}" filterMatchMode="in">
 		            <f:facet name="header">
 		                <h:outputText value="#{lbl['lbl.type']}" />
 		            </f:facet>
@@ -118,30 +118,29 @@
 								<f:selectItem itemValue="utilisateur" itemLabel="Utilisateur"/>
                 		</p:selectCheckboxMenu>
 		            </f:facet>
-		            <h:outputText value="#{user.type}" />
+		            <h:outputText value="#{object.type}" />
 		        </p:column>
 		        
-		        <p:column sortBy="#{user.actif}">
+		        <p:column sortBy="#{object.actif}">
 		            <f:facet name="header">
 		                <h:outputText value="#{lbl['lbl.actif']}" />
 		            </f:facet>
-		            <h:outputText value="#{user.actif == true ? lbl['lbl.oui'] : lbl['lbl.non']}" />
+		            <h:outputText value="#{object.actif == true ? lbl['lbl.oui'] : lbl['lbl.non']}" />
 		        </p:column>				      
 		        		        		       
 		    </p:dataTable>		    
     				   
-        
     </ui:define>
     
 	<ui:define name="actions">
 		<a style="font-size: 15px;color: rgba(145, 180, 184, 1);font-family: Arial, Helvetica, sans-serif;"><b style="color: rgba(211, 211, 211, 1);">Paramètrage > </b>Utilisateurs</a>		
 		<p:button value="Aide" href="article" styleClass="ui-whiteBtn pull-right"/>
 		<p:commandButton onclick="PF('dlgCreateUser').show()" value="Nouveau" styleClass="ui-whiteBtn pull-right" style="margin-right:10px;"/>
-		<p:button value="Test" href="article" styleClass="ui-whiteBtn pull-right" style="margin-right:10px;"/>
-	    <p:commandButton value="Action 1" rendered="#{userListController.selectedUsers.size() gt 0}" actionListener="#{notifyView.send}" styleClass="ui-whiteBtn pull-right" style="margin-right:10px;"/>
-	    <p:commandButton value="Action 2" rendered="#{userListController.selectedUsers.size() gt 0}" actionListener="#{notifyView.send}" styleClass="ui-whiteBtn pull-right" style="margin-right:10px;"/>
-	    <p:commandButton value="Action 3" rendered="#{userListController.selectedUsers.size() gt 0}" actionListener="#{notifyView.send}" styleClass="ui-whiteBtn pull-right" style="margin-right:10px;"/>
-	    <p:menuButton value="Plus" rendered="#{userListController.selectedUsers.size() gt 0}" styleClass="ui-whiteBtn pull-right"  style="margin-right:10px;">
+		<p:button value="Test" href="/design1/ui/#{userController.moduleName}/form" styleClass="ui-whiteBtn pull-right" style="margin-right:10px;"/>
+	    <p:commandButton value="Action 1" rendered="#{userController.selectedObjects.size() gt 0}" actionListener="#{notifyView.send}" styleClass="ui-whiteBtn pull-right" style="margin-right:10px;"/>
+	    <p:commandButton value="Action 2" rendered="#{userController.selectedObjects.size() gt 0}" actionListener="#{notifyView.send}" styleClass="ui-whiteBtn pull-right" style="margin-right:10px;"/>
+	    <p:commandButton value="Action 3" rendered="#{userController.selectedObjects.size() gt 0}" actionListener="#{notifyView.send}" styleClass="ui-whiteBtn pull-right" style="margin-right:10px;"/>
+	    <p:menuButton value="Plus" rendered="#{userController.list.size() gt 0}" styleClass="ui-whiteBtn pull-right"  style="margin-right:10px;">
 	        <p:menuitem value="Save" actionListener="#{menuView.save}" update=":mainForm" icon="ui-icon-disk"/>
 	        <p:menuitem value="Update" actionListener="#{menuView.update}" update=":mainForm" icon="ui-icon-arrowrefresh-1-w"/>
 	        <p:menuitem value="Delete" actionListener="#{menuView.delete}" ajax="false" icon="ui-icon-close"/>

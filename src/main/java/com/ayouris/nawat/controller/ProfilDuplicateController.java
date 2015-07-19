@@ -133,7 +133,6 @@ public class ProfilDuplicateController extends BaseController implements Seriali
 			userCreateController.updateProfilSelectOneMenu();
 		if (userUpdateController != null)
 			userUpdateController.updateProfilSelectOneMenu();
-
 		// Show success message
 		FacesMessage msg = new FacesMessage("Profil Dupliqué avec succés !!");
 		FacesContext.getCurrentInstance().addMessage(null, msg);

@@ -35,10 +35,8 @@ public class UserListController extends BaseController implements Serializable {
 	@PostConstruct
 	public void initialize() {
 		System.out.println("UserListController initialized !");
-		users = v2_userService.findAll();
-		usersDataModel = new UserDataModel(users);
+		updateUserDataModel();
 		//scolariteOptions = createScolariteOptions(Eleve.Scolarite.values());
-
 	}
 	
 	public void setUserUpdateSubject(){

@@ -15,28 +15,39 @@
  */
 package com.ayouris.nawat.controller;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.inject.Named;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ayouris.nawat.service.business.ThemeService;
 import com.ayouris.nawat.service.business.ThemeService.Theme;
+import com.ayouris.nawat.util.scopes.session.SpringSessionScoped;
 import com.ayouris.nawat.util.scopes.view.SpringViewScoped;
 
-@SpringViewScoped
+@Named
+@SpringSessionScoped
 //@ManagedBean
-public class ThemeSwitcherView {
+public class ThemeSwitcherView  implements Serializable {
 
-    private List<Theme> themes;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -7424071584337162037L;
+
+	private List<Theme> themes;
     
-    @ManagedProperty("#{themeService}")
+    //@Autowired
     private ThemeService service;
 
     @PostConstruct
     public void init() {
-        themes = service.getThemes();
+        //themes = service.getThemes();
     }
     
     public List<Theme> getThemes() {

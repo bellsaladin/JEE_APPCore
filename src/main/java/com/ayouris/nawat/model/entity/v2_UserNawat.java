@@ -12,6 +12,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 
 import com.ayouris.nawat.model.base.BaseEcole;
+import com.ayouris.nawat.model.enumeration.TypeUtilisateur;
 
 @Entity
 @Table(name = "v2_usersnawat")
@@ -96,6 +97,9 @@ public class v2_UserNawat extends BaseEcole implements Serializable {
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
 	public v2_UserNawat() {
 		super();
+		setSuperAdministrateur(false);
+		// type = TypeUtilisateur.Utilisateur.getKey().toString();
+		setType("utilisateur");
 	}
 
 	public v2_UserNawat(String id) {

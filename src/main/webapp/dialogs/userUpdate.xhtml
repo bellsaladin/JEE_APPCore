@@ -121,7 +121,7 @@
 	 </p:dialog>
 	 <p:confirmDialog message="Etes-vous sur de vouloir supprimer cet utilisateur ?" header="Confirmation" widgetVar="confirmation" appendTo="@(body)">
 	      <h:form>  		                 
-		  		<p:commandButton value="#{lbl['lbl.oui']}" actionListener="#{userUpdateController.doRemoveUser}" update=":mainForm:usersDataTable" oncomplete="confirmation.hide(); dlgUpdateUser.hide()"/>  
+		  		<p:commandButton value="#{lbl['lbl.oui']}" actionListener="#{userUpdateController.doRemoveUser}" update=":mainForm:dataTable" oncomplete="confirmation.hide(); dlgUpdateUser.hide()"/>  
 		   		<p:commandButton value="#{lbl['lbl.non']}" onclick="confirmation.hide()" type="button" />
 		  </h:form>   		                 
 	 </p:confirmDialog>           
