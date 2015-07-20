@@ -5,24 +5,20 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.faces.model.ListDataModel;
-import javax.servlet.http.HttpServletRequest;
-
 import org.omnifaces.util.Faces;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.SelectableDataModel;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.ayouris.nawat.model.base.BaseEntity;
-import com.ayouris.nawat.model.entity.v2_UserNawat;
 import com.ayouris.nawat.service.generic.GenericService;
-import com.ayouris.nawat.util.scopes.view.SpringViewScoped;
 
-public abstract  class GenericController<Type extends BaseEntity, Service extends GenericService<Type, String>> extends BaseController{
+
+public abstract class GenericController<Type extends BaseEntity, Service extends GenericService<Type, String>> extends BaseController{
 	protected Type object;
-	protected List<Type> list;	
+	protected List<Type> list;
 	protected List<Type> selectedObjects;
 	@Autowired
 	protected Service service;
@@ -38,9 +34,9 @@ public abstract  class GenericController<Type extends BaseEntity, Service extend
 	public void initialize() {
 		// try to get parameter data
 		paramId = (String) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("id");
-		
 		prepareData();
 		setUpdateObjectSubject();
+		System.out.println("XXXXXXXXXXX");
 	}
 	
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
@@ -84,13 +80,13 @@ public abstract  class GenericController<Type extends BaseEntity, Service extend
 
 	public void doPersist() {
 		service.save(object);
-		FacesMessage msg = new FacesMessage("Do Edit" + moduleName);
+		FacesMessage msg = new FacesMessage("Do Edit : " + moduleName);
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
 	public void doDelete() {
 		service.delete(object);
-		FacesMessage msg = new FacesMessage("Do Delete" + moduleName);
+		FacesMessage msg = new FacesMessage("Do Delete : " + moduleName);
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 	
@@ -105,8 +101,7 @@ public abstract  class GenericController<Type extends BaseEntity, Service extend
 					this.object = list.get(list.size() - 1);
 				}
 			}
-		}
-			
+		}	
 	}
 	
 	public void doGetNext() {

@@ -172,11 +172,11 @@
                     <h:form>
                         <h:graphicImage name="main/images/topMenu/actions.png" /><span class="PFGrayText">PF</span><span class="PFDarkText">Themes</span>
                         <div id="GlobalThemeSwitcher" class="navOverlay">
-                            <ui:repeat value="#{themeSwitcherView.themes}" var="theme">
+                            <ui:repeat value="#{themeSwitcherController.themes}" var="theme">
                                 <a href="#" data-theme="#{theme.name}"><span class="ui-theme ui-theme-#{theme}"></span><span class="ui-text">#{theme.displayName}</span></a>
                             </ui:repeat>
                         </div>
-                        <p:remoteCommand name="changeTheme" actionListener="#{guestPreferences.changeTheme}" />
+                        <p:remoteCommand name="changeTheme" actionListener="#{doChangeTheme.doChangeTheme}" />
                     </h:form>
                 </span>
                 

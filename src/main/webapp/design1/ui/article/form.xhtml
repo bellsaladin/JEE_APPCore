@@ -1,9 +1,7 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:p="http://primefaces.org/ui"
-                template="/design1/_general/template.xhtml">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions" xmlns:t="http://myfaces.apache.org/tomahawk" xmlns:c="http://java.sun.com/jstl/core"
+    template="/design1/_general/template.xhtml">
 
     <ui:define name="head">        
         <script type="text/javascript">
@@ -29,7 +27,7 @@
     <ui:define name="implementation">
 	  <div style="padding:30px">
         <p:growl widgetVar="growl" showDetail="true" />
-        
+        	
         	<p:messages id="messages" />  
         	<p:panelGrid styleClass="no-border-table full-width">
 				<p:row>	
@@ -67,10 +65,11 @@
       </div>
     </ui:define>  
     
-	<ui:define name="actions">
+	<ui:define name="actions">	
 		<p:commandButton value="Enregistrer" actionListener="#{articleController.doPersist}" update=":mainForm" styleClass="ui-whiteBtn" />
 		<p:button value="Retour" href="/design1/ui/#{articleController.moduleName}/list" styleClass="ui-whiteBtn pull-right"/>
 		<p:commandButton value="Vider" actionListener="#{notifyView.send}" styleClass="ui-whiteBtn pull-right" style="margin-right:10px;"/>
+		<p:commandButton value="Supprimer" actionListener="#{articleController.doDelete}" update=":mainForm" styleClass="ui-whiteBtn" />
 		<p:outputPanel rendered="#{articleController.paramId != null }" style="display:inline;" styleClass="pull-right">			
 			<span style="margin-right:10px;"><p:outputLabel value="#{articleController.list.indexOf(articleController.object) + 1}"/> / <p:outputLabel value="#{articleController.list.size()}"/></span>
 			<p:commandButton value="&lt;" actionListener="#{articleController.doGetPrevious}" update=":mainForm" styleClass="ui-whiteBtn" style="margin-right:10px;"/>

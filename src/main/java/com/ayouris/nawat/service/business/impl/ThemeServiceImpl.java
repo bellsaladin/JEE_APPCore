@@ -13,18 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ayouris.nawat.service.business;
+package com.ayouris.nawat.service.business.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
+import org.springframework.stereotype.Service;
 
-@ManagedBean(name="themeService", eager = true)
-@ApplicationScoped
-public class ThemeService {
+import com.ayouris.nawat.service.business.ThemeService;
+
+@Service
+public class ThemeServiceImpl implements ThemeService{
     
     private List<Theme> themes;
     

@@ -2,13 +2,12 @@ package com.ayouris.nawat.controller;
 
 import java.io.Serializable;
 
-import javax.faces.bean.ManagedBean;
 import javax.inject.Named;
 
 import com.ayouris.nawat.model.entity.Article;
 import com.ayouris.nawat.service.parametrage.ArticleService;
-import com.ayouris.nawat.util.scopes.session.SpringSessionScoped;
 import com.ayouris.nawat.util.scopes.view.SpringViewScoped;
+import javax.faces.bean.ManagedBean;
 
 @Named
 @SpringViewScoped

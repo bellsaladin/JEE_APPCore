@@ -17,38 +17,48 @@ package com.ayouris.nawat.controller;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.ayouris.nawat.service.business.impl.ThemeServiceImpl.Theme;
 import com.ayouris.nawat.service.business.ThemeService;
-import com.ayouris.nawat.service.business.ThemeService.Theme;
 import com.ayouris.nawat.util.scopes.session.SpringSessionScoped;
-import com.ayouris.nawat.util.scopes.view.SpringViewScoped;
 
 @Named
 @SpringSessionScoped
-//@ManagedBean
-public class ThemeSwitcherView  implements Serializable {
-
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = -7424071584337162037L;
-
+public class ThemeSwitcherController implements Serializable {
+	private static final long serialVersionUID = -7898188270465625151L;
+	
 	private List<Theme> themes;
-    
-    //@Autowired
+    private String theme = "delta";
+
+    @Autowired
     private ThemeService service;
 
     @PostConstruct
     public void init() {
-        //themes = service.getThemes();
+        themes = service.getThemes();
     }
+    
+    public void doChangeTheme() {
+        Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+		if(params.containsKey("globaltheme")) {
+			theme = params.get("globaltheme");
+		}
+    }
+    
+    public String getTheme() {		
+		return theme;
+	}
+
+	public void setTheme(String theme) {
+		this.theme = theme;
+	}
     
     public List<Theme> getThemes() {
         return themes;

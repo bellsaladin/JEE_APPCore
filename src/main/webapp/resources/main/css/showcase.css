@@ -11,7 +11,7 @@ body{margin:0px; height:100%; overflow-x:hidden; overflow-y:auto; background-col
 		.logoBlueText{color:#25aae1;}
  
 	/* menu side style*/
-	#MENUSIDE{float:left; background-color:#2A2D34; border-right:solid 1px #151d21; overflow:hidden; width: 80px; position: fixed;  z-index: 999;}
+	#MENUSIDE{float:left; background-color:#E7F2F7; border-right:solid 1px #BED6E2; overflow:hidden; width: 80px; position: fixed;  z-index: 999;}
 		#MENUSIDEindent{width:100%; height:auto;}
 			#LOGO{  height: 47px;
 					  width: 56px;
@@ -22,11 +22,11 @@ body{margin:0px; height:100%; overflow-x:hidden; overflow-y:auto; background-col
 					  background-color: rgba(122, 179, 205, 1);
 					  position: fixed;}
 				#LOGO img{width:40px; height:auto; }
-			.MenuSideMainLink{/*width: 100%;*/ height: 38px; display: block; padding: 10px 0px 0px 28px; cursor: pointer;}
+			.MenuSideMainLink{/*width: 100%;*/ border-left: 4px solid transparent; height: 38px; display: block; padding: 10px 0px 0px 26px; cursor: pointer;}
 				.MenuSideMainLink input{ padding:6px; background-color:#354044; outline:none; border:0px; border:none; color:#9ba5ac; border-radius:20px;
 				-webkit-box-shadow: inset 0px 0px 3px 0px rgba(0,0,0,0.5); -moz-box-shadow: inset 0px 0px 3px 0px rgba(0,0,0,0.5); box-shadow: inset 0px 0px 3px 0px rgba(0,0,0,0.5);}
-			.MenuSideMainLinkDark{background-color:#20282b !important; -webkit-transition: all 0.5s ease; -moz-transition: all 0.5s ease; -ms-transition: all 0.5s ease; -o-transition: all 0.5s ease; transition: all 0.5s ease;}
-			.MenuSideMainLink:hover{background-color:#20282b; -webkit-transition: all 0.5s ease; -moz-transition: all 0.5s ease; -ms-transition: all 0.5s ease; -o-transition: all 0.5s ease; transition: all 0.5s ease;}
+			.MenuSideMainLinkDark{background-color:#20282b !important;   border-left: 6px solid #EC6767; -webkit-transition: all 0.5s ease; -moz-transition: all 0.5s ease; -ms-transition: all 0.5s ease; -o-transition: all 0.5s ease; transition: all 0.5s ease;}
+			.MenuSideMainLink:hover{/*background-color:#20282b;*/  border-right: 3px solid #FF6262; -webkit-transition: all 0.5s ease; -moz-transition: all 0.5s ease; -ms-transition: all 0.5s ease; -o-transition: all 0.5s ease; transition: all 0.5s ease;}
 				.MenuSideMainLink img{width:22px; height:auto; float:left; }
 				.MainLinkText{color: #9ba5ac; font-size: 14px; margin: 0px 0px 0px 47px; display: block; display: none;}
 				
@@ -47,7 +47,7 @@ body{margin:0px; height:100%; overflow-x:hidden; overflow-y:auto; background-col
 		#CONTENTSIDEindent{width:100%; height:auto;}
 			.ContentSideSections{display:block; border-bottom:solid 1px #F1F4F7; padding:30px;}
 			.MOBILE .ContentSideSections{padding:14px 24px;}
-			#PFTopLinksCover{background-color:#FAFAFA; padding:18px 30px 0px;}
+			#PFTopLinksCover{background-color:#F4F7F9; padding:18px 30px 0px;}
 			#PFMobileTopLinksCover{ position:inherit;}
 				.PFTopLinks{width:80px; display:inline-block; text-align:center; padding:5px; border-radius:5px;  font-size:12px; -webkit-border-radius:5px; margin-top:-10px; -webkit-transition: all 0.5s ease; 
 							-moz-transition: all 0.5s ease; -ms-transition: all 0.5s ease; -o-transition: all 0.5s ease; transition: all 0.5s ease; overflow:hidden;}
@@ -425,6 +425,9 @@ input.searchInput {
 .ui-theme.ui-theme-vader{ background-position: -80px -845px; width: 30px; height: 27px; } 
 .ui-theme.ui-theme-metroui{ background: url("#{resource['demo/images/metroui.png']}") no-repeat top left; display: block;width: 30px; height: 27px;}
 
+
+#SourceContentSide{/*background-color: #F5F8FA;*/}
+
 /* some ui hookups*/
 .ui-helper-reset{ font-size:12px !important;}
 .syntaxhighlighter a, .syntaxhighlighter div, .syntaxhighlighter code, .syntaxhighlighter table, .syntaxhighlighter table td, .syntaxhighlighter table tr, .syntaxhighlighter table tbody, .syntaxhighlighter table thead, .syntaxhighlighter table caption, .syntaxhighlighter textarea{font-size:11px !important;} 
@@ -444,9 +447,9 @@ input.searchInput {
 
 .actionsSection{  padding: 15px 30px;}
 
-.ui-blueBtn{background-color: #1FB2FF !important;color: #fff;text-shadow: none;border: 1px solid rgba(0, 0, 0, 0.15);background-image: none;border-radius: 2px;font-size: 12px;}
+.ui-blueBtn{background-color: #1FB2FF !important;color: #fff;text-shadow: none;border: 1px solid rgba(0, 0, 0, 0.15);background-image: none;border-radius: 2px;font-size: 12px; font-weight:bold; }
 
-.ui-whiteBtn{background-color: #fff !important;color: #000;text-shadow: none;border: 1px solid rgba(0, 0, 0, 0.15);background-image: none;border-radius: 2px;font-size: 12px;}
+.ui-whiteBtn{background-color: #fff !important;color: #000;text-shadow: none;border: 1px solid rgba(0, 0, 0, 0.15);background-image: none;border-radius: 2px;font-size: 12px; font-weight:bold; }
 
 .ui-tabs .ui-tabs-nav.ui-widget-header li a { color:#414040; }
 
@@ -474,7 +477,7 @@ li.ui-state-active a { color:rgb(1, 154, 249) !important; }
 .ui-menu.ui-widget li > .ui-menuitem-link.ui-state-hover{ background-color:#35C0C0; background-image:none;}
 
 
-.footer{border-bottom:none;bottom: 2px;position: fixed;width: 600px;padding: 10px 30px;background-color: #2A2D34; color:#fff;left: 50%;/* padding: 8px 90px; */margin: auto;right: 0;margin-left: -300px;/* right: 300px; */border-radius: 4px;}
+.footer{border-bottom:none;bottom: -2px;position: fixed;width: 600px;padding: 10px 30px;background-color: #fff; border: 1px solid #C4DDE8; color:#000;left: 50%;/* padding: 8px 90px; */margin: auto;right: 0;margin-left: -300px;/* right: 300px; */border-radius: 4px;}
 
 .ui-datatable th.ui-state-active{background-color: #FDFDFD;}
 .ui-datatable thead tr {border-bottom: 1px solid #CBCBCB !important;}
