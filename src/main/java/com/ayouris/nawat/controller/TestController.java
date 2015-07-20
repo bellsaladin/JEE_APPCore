@@ -28,45 +28,49 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.ayouris.nawat.service.business.ThemeService;
 import com.ayouris.nawat.service.business.impl.ThemeServiceImpl.Theme;
 import com.ayouris.nawat.util.scopes.session.SpringSessionScoped;
+import com.ayouris.nawat.util.scopes.view.SpringViewScoped;
 
 @Named
-@SpringSessionScoped
-public class ThemeSwitcherController implements Serializable {
-	private static final long serialVersionUID = -7898188270465625151L;
+@SpringViewScoped
+public class TestController implements Serializable {
 	
-	private List<Theme> themes;
-    private String theme = "delta";
+	private String p1;
+    private String p2;
 
-    @Autowired
-    private ThemeService service;
+    
 
     @PostConstruct
     public void init() {
-        themes = service.getThemes();
+        p1 ="sss";
     }
-    
-    public void doChangeTheme() {
-        Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-		if(params.containsKey("globaltheme")) {
-			theme = params.get("globaltheme");
-		}
+
+    public void doPersist(){
+    	System.out.println(p1 + "," + p2);
     }
-    
-    public String getTheme() {		
-		return theme;
+
+	public String getP1() {
+		return p1;
 	}
 
-	public void setTheme(String theme) {
-		this.theme = theme;
+
+
+	public void setP1(String p1) {
+		this.p1 = p1;
+	}
+
+
+
+	public String getP2() {
+		return p2;
+	}
+
+
+
+	public void setP2(String p2) {
+		this.p2 = p2;
 	}
     
-    public List<Theme> getThemes() {
-        return themes;
-    } 
-
-    public void setService(ThemeService service) {
-        this.service = service;
-    }
+    
 
 }
 

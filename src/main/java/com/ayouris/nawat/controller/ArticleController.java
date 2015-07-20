@@ -4,10 +4,10 @@ import java.io.Serializable;
 
 import javax.inject.Named;
 
+import com.ayouris.nawat.controller.generic.GenericController;
 import com.ayouris.nawat.model.entity.Article;
 import com.ayouris.nawat.service.parametrage.ArticleService;
 import com.ayouris.nawat.util.scopes.view.SpringViewScoped;
-import javax.faces.bean.ManagedBean;
 
 @Named
 @SpringViewScoped

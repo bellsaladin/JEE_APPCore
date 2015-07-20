@@ -214,9 +214,9 @@
                 <ui:insert name="subsubmenu"></ui:insert>
 				<h:form id="mainForm">
 					<div class="ContentSideSections actionsSection Implementation">
-						<p:fragment id="actionsForm">
-	                    	<ui:insert name="actions" />
-	                    </p:fragment>
+						<h:panelGroup id="actionsForm" layout="block">
+		                    <ui:insert name="actions" />
+		                </h:panelGroup>
 	                </div>
 	                
 	<!--                 <div class="ContentSideSections"> -->
@@ -300,7 +300,7 @@
 	
 <!-- 			</p:dialog> -->
 <!-- 		</p:outputPanel> -->
-		<p:growl id="msgInfo" life="5000" autoUpdate="true" showDetail="true" showSummary="false"
+		<p:growl id="msgInfo" life="5000" autoUpdate="true" showDetail="true" showSummary="true"
 			rendered="#{facesContext.maximumSeverity.ordinal != 1 and facesContext.maximumSeverity.ordinal != 2 and facesContext.maximumSeverity.ordinal != 3}" />
     </ui:insert>
     

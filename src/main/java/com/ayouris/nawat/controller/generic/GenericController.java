@@ -1,4 +1,4 @@
-package com.ayouris.nawat.controller;
+package com.ayouris.nawat.controller.generic;
 
 import java.io.IOException;
 import java.util.List;
@@ -7,14 +7,15 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.model.ListDataModel;
+
 import org.omnifaces.util.Faces;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.SelectableDataModel;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.ayouris.nawat.controller.BaseController;
 import com.ayouris.nawat.model.base.BaseEntity;
 import com.ayouris.nawat.service.generic.GenericService;
-
 
 public abstract class GenericController<Type extends BaseEntity, Service extends GenericService<Type, String>> extends BaseController{
 	protected Type object;

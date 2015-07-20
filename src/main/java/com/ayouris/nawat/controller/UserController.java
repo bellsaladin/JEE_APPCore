@@ -8,6 +8,7 @@ import javax.inject.Named;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.ayouris.nawat.controller.generic.GenericController;
 import com.ayouris.nawat.model.entity.v2_Profil;
 import com.ayouris.nawat.model.entity.v2_UserNawat;
 import com.ayouris.nawat.service.parametrage.v2_ProfilService;
