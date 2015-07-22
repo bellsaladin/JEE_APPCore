@@ -28,38 +28,37 @@
 	
     <ui:define name="implementation">
 	  <div style="padding:30px">
-      	<div>
-	        <p:selectBooleanCheckbox value="true" />
+      	
+	    <div>
+	        <input type="checkbox" checked="true" />
 	        Corriger l'option de changement du theme
 	    </div>
 	    <div>
-	        <p:selectBooleanCheckbox value="" />
+	        <input type="checkbox" />
 	        Corriger le bug de changement de la valeur d'attribut dans la méthode générique créée<br/>
 	        Note : ça fonctionnait lorsqu'il n'y avait que UserController
 	    </div>
 	    <div>
-	        <p:selectBooleanCheckbox value="" />
+	    	<input type="checkbox" />
 	        <span>Créer une home page par module : <br/>
 	        Cette home page doit regrouper des liens par groupe : ex: <br/>
 	        Achat : Fournisseur, Demandes de devis, Bons de commandes, Factures <br/> 
 	        Produits : Produits, Produits par groupe <br/>
 	        Analyse : Demandes en cours, Quantités rentrantes
-	        </span>
-	          
+	        </span>  
 	    </div>
+	    
+	    <p:panel id="lazyContent">
+	    	
+	    	<p:poll interval="3" listener="#{core.bean().runAction('loadStatsData')}" update=":mainForm:lazyContent" />
+	    	
+	    	<h1><p:outputLabel value="#{core.bean().getCount()}"/></h1>
+	    </p:panel>
       </div>
     </ui:define>
     
 	<ui:define name="actions">
-		<p:commandButton value="Enregistrer" actionListener="#{userController.doPersist}" update=":mainForm" styleClass="ui-whiteBtn" />
-		<p:button value="Retour" href="/design1/ui/#{userController.moduleName}/list" styleClass="ui-whiteBtn pull-right"/>
-		<p:commandButton value="Supprimer" actionListener="#{userController.doDelete}" update=":mainForm" styleClass="ui-whiteBtn" />
-		<p:commandButton value="Vider" actionListener="#{notifyView.send}" styleClass="ui-whiteBtn pull-right" style="margin-right:10px;"/>
-		<p:outputPanel rendered="#{userController.paramId != null }" style="display:inline;" styleClass="pull-right">			
-			<span style="margin-right:10px;"><p:outputLabel value="#{userController.list.indexOf(userController.object) + 1}"/> / <p:outputLabel value="#{userController.list.size()}"/></span>
-			<p:commandButton value="&lt;" actionListener="#{userController.doGetPrevious}" update=":mainForm" styleClass="ui-whiteBtn" style="margin-right:10px;"/>
-			<p:commandButton value="&gt;" actionListener="#{userController.doGetNext}" update=":mainForm" styleClass="ui-whiteBtn" style="margin-right:10px;"/>
-		</p:outputPanel>
+		
 	</ui:define>
 	
 	<ui:define name="dialogs"> 

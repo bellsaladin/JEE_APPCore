@@ -7,7 +7,6 @@ import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
 import com.ayouris.nawat.controller.generic.GenericController;
-import com.ayouris.nawat.util.scopes.session.SpringSessionScoped;
 import com.ayouris.nawat.util.scopes.view.SpringViewScoped;
 
 @Named

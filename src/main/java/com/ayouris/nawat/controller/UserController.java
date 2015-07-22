@@ -8,7 +8,7 @@ import javax.inject.Named;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.ayouris.nawat.controller.generic.GenericController;
+import com.ayouris.nawat.controller.generic.GenericCRUDController;
 import com.ayouris.nawat.model.entity.v2_Profil;
 import com.ayouris.nawat.model.entity.v2_UserNawat;
 import com.ayouris.nawat.service.parametrage.v2_ProfilService;
@@ -18,7 +18,7 @@ import com.ayouris.nawat.util.scopes.view.SpringViewScoped;
 
 @Named
 @SpringViewScoped
-public class UserController extends GenericController<v2_UserNawat, v2_UserService> implements Serializable {
+public class UserController extends GenericCRUDController<v2_UserNawat, v2_UserService> implements Serializable {
 	private static final long serialVersionUID = 5858194089825501468L;
 	
 	private List<v2_Profil> _profils;
