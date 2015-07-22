@@ -38,7 +38,7 @@
 				    </p:column>
 				    <p:column>  
 				           <p:inputText id="login"   
-				               value="#{userController.object.login}" required="true" label="Login">  
+				               value="#{core.bean().object.login}" required="true" label="Login">  
 				               <f:validateLength minimum="2" />  
 				           </p:inputText>
 				     </p:column>
@@ -46,7 +46,7 @@
 				          <h:outputLabel for="email" value="Email *" />
 				    </p:column>
 				    <p:column>  
-				          <p:inputText id="email" value="#{userController.object.email}" required="true" label="Email"/>  
+				          <p:inputText id="email" value="#{core.bean().object.email}" required="true" label="Email"/>  
 				    </p:column>
 				 				
 				 </p:row>
@@ -56,7 +56,7 @@
 				          <h:outputText for="type" value="Type: " />
 				        </p:column>
 				        <p:column> 		             
-					       <p:selectOneMenu id="type" value="#{userController.object.type}">		      	    
+					       <p:selectOneMenu id="type" value="#{core.bean().object.type}">		      	    
 					          <f:selectItem itemLabel="Utilisateur" itemValue="utilisateur" />
 					          <f:selectItem itemLabel="Administrateur" itemValue="administrateur" />
 					          <f:selectItem itemLabel="Invité" itemValue="invite" />
@@ -67,7 +67,7 @@
 				        	<h:outputLabel for="actif" value="#{lbl['lbl.actif']}:" />
 				        </p:column>
 				        <p:column>
-				        	<p:selectBooleanCheckbox id="actif" value="#{userController.object.actif}" />
+				        	<p:selectBooleanCheckbox id="actif" value="#{core.bean().object.actif}" />
 				       	</p:column>
 				 </p:row>
 				 <p:row>
@@ -75,13 +75,13 @@
 				          <h:outputText value="Password : " />
 				    </p:column>
 				    <p:column>  
-				           <p:password id="password" value="#{userController.object.password}" feedback="true" match="passwordConfirm"/>  
+				           <p:password id="password" value="#{core.bean().object.password}" feedback="true" match="passwordConfirm"/>  
 					</p:column>
 				 	<p:column>       
 				         <h:outputLabel for="passwordConfirm" value="Password Confirmation: *" />
 				    </p:column>
 				    <p:column>  
-				         <p:password id="passwordConfirm" value="#{userController.object.passwordConfirm}" label="Password 2" required="true"/>
+				         <p:password id="passwordConfirm" value="#{core.bean().object.passwordConfirm}" label="Password 2" required="true"/>
 				    </p:column>     	         
 				   </p:row>
 				   <p:row>
@@ -90,14 +90,14 @@
 					    </p:column>
 					    <p:column>  
 					          <p:inputText id="prenom"   
-					              value="#{userController.object.prenom}" required="true" label="Prénom"/>  
+					              value="#{core.bean().object.prenom}" required="true" label="Prénom"/>  
 					    </p:column>     
 						<p:column>          	            
 				          <h:outputLabel for="nom" value="Nom : *" />
 					    </p:column>
 					    <p:column>  
 					          <p:inputText id="nom"   
-					              value="#{userController.object.nom}" required="true" label="Nom">  
+					              value="#{core.bean().object.nom}" required="true" label="Nom">  
 					              <f:validateLength minimum="2" />  
 					          </p:inputText>  
 					    </p:column>
@@ -106,11 +106,11 @@
 				 	<p:column><h:outputText for="profil" value="Profile: " /></p:column>
 			     	 <p:column colspan="3">
 				        <p:fragment id="profilPanel" widgetVar="profilPanel">			        		       
-				        	<p:fragment columns="1" rendered="#{userController.object.type == 'utilisateur'}">	        		  				       
-						        <p:selectOneMenu id="profil" value="#{userController.object.profil}" var="p">      	    
+				        	<p:fragment columns="1" rendered="#{core.bean().object.type == 'utilisateur'}">	        		  				       
+						        <p:selectOneMenu id="profil" value="#{core.bean().object.profil}" var="p">      	    
 						           <f:selectItem itemLabel="" itemValue="" />
-						           <f:selectItems value="#{userController.profils}" var="profil" itemLabel="#{profil.libelle}" itemValue="#{profil.id}" />
-						           <p:ajax event="change" listener="#{userController.onProfilChange}" update=":dialogDuplicateProfil"/>							             			           		            		            		          
+						           <f:selectItems value="#{core.bean().profils}" var="profil" itemLabel="#{profil.libelle}" itemValue="#{profil.id}" />
+						           <p:ajax event="change" listener="#{core.bean().onProfilChange}" update=":dialogDuplicateProfil"/>							             			           		            		            		          
 						        </p:selectOneMenu><br/>
 						    	<p:commandButton value="Nouveau" onclick="PF('dlgCreateProfil').show()" type="button"/>
 							    <p:commandButton value="Dupliquer" onclick="PF('dlgDuplicateProfil').show()" type="button"/>
@@ -122,15 +122,15 @@
       </div>
     </ui:define>
     
-	<ui:define name="actions">
-		<p:commandButton value="Enregistrer" actionListener="#{userController.doPersist}" update=":mainForm" styleClass="ui-whiteBtn" />
-		<p:button value="Retour" href="/design1/ui/#{userController.moduleName}/list" styleClass="ui-whiteBtn pull-right"/>
-		<p:commandButton value="Supprimer" actionListener="#{userController.doDelete}" update=":mainForm" styleClass="ui-whiteBtn" />
+	<ui:define name="actions">	
+		<p:commandButton value="Enregistrer" actionListener="#{core.bean().runAction('persist')}" update="mainForm" styleClass="ui-whiteBtn" />
+		<p:button value="Retour" href="/design1/ui/#{core.bean().moduleName}/list" styleClass="ui-whiteBtn pull-right"/>
 		<p:commandButton value="Vider" actionListener="#{notifyView.send}" styleClass="ui-whiteBtn pull-right" style="margin-right:10px;"/>
-		<p:outputPanel rendered="#{userController.paramId != null }" style="display:inline;" styleClass="pull-right">			
-			<span style="margin-right:10px;"><p:outputLabel value="#{userController.list.indexOf(userController.object) + 1}"/> / <p:outputLabel value="#{userController.list.size()}"/></span>
-			<p:commandButton value="&lt;" actionListener="#{userController.doGetPrevious}" update=":mainForm" styleClass="ui-whiteBtn" style="margin-right:10px;"/>
-			<p:commandButton value="&gt;" actionListener="#{userController.doGetNext}" update=":mainForm" styleClass="ui-whiteBtn" style="margin-right:10px;"/>
+		<p:commandButton value="Supprimer" actionListener="#{core.bean().runAction('delete')}" update=":mainForm" styleClass="ui-whiteBtn" />
+		<p:outputPanel rendered="#{core.bean().paramId != null }" style="display:inline;" styleClass="pull-right">			
+			<span style="margin-right:10px;"><p:outputLabel value="#{core.bean().list.indexOf(core.bean().object) + 1}"/> / <p:outputLabel value="#{core.bean().list.size()}"/></span>
+			<p:commandButton value="&lt;" actionListener="#{core.bean().runAction('getPrevious')}" update=":mainForm" styleClass="ui-whiteBtn" style="margin-right:10px;"/>
+			<p:commandButton value="&gt;" actionListener="#{core.bean().runAction('getNext')}" update=":mainForm" styleClass="ui-whiteBtn" style="margin-right:10px;"/>
 		</p:outputPanel>
 	</ui:define>
 	

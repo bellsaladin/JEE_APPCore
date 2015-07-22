@@ -21,28 +21,28 @@ import com.ayouris.nawat.util.scopes.view.SpringViewScoped;
 public class UserController extends GenericController<v2_UserNawat, v2_UserService> implements Serializable {
 	private static final long serialVersionUID = 5858194089825501468L;
 	
-	private List<v2_Profil> profils;
+	private List<v2_Profil> _profils;
 	@Autowired
-	private v2_ProfilService v2_profilService;
+	private v2_ProfilService _v2_profilService;
 	
 	protected void prepareData(){
 		super.prepareData();
-		moduleName = "user";
-		object = new v2_UserNawat();
-		setProfils(v2_profilService.findAll());
+		_moduleName = "user";
+		_object = new v2_UserNawat();
+		setProfils(_v2_profilService.findAll());
 	}
 	
 	public void onProfilChange() {
 		ProfilDuplicateController profilDuplicateController = (ProfilDuplicateController) getApplicationContext().getBean(
 				"profilDuplicateController");
-		profilDuplicateController.setProfilId(object.getProfil().getId());
+		profilDuplicateController.setProfilId(_object.getProfil().getId());
 	}
 
 	public List<v2_Profil> getProfils() {
-		return profils;
+		return _profils;
 	}
 
 	public void setProfils(List<v2_Profil> profils) {
-		this.profils = profils;
+		this._profils = profils;
 	}
 }

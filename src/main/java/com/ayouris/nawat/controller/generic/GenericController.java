@@ -1,7 +1,9 @@
 package com.ayouris.nawat.controller.generic;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -13,31 +15,38 @@ import org.primefaces.event.SelectEvent;
 import org.primefaces.model.SelectableDataModel;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.ayouris.nawat.controller.Core;
 import com.ayouris.nawat.controller.BaseController;
 import com.ayouris.nawat.model.base.BaseEntity;
 import com.ayouris.nawat.service.generic.GenericService;
 
-public abstract class GenericController<Type extends BaseEntity, Service extends GenericService<Type, String>> extends BaseController{
-	protected Type object;
-	protected List<Type> list;
-	protected List<Type> selectedObjects;
+public class GenericController<Type extends BaseEntity, Service extends GenericService<Type, String>> extends BaseController{
+	protected Type _object;
+	protected List<Type> _list;
+	protected List<Type> _selectedObjects;
+	protected Map<String,Action> _actions;
 	@Autowired
-	protected Service service;
-	protected DataModel dataModel;
-	protected String moduleName;
-	protected String paramId; // used to set object to modify
+	protected Service _service;
+	protected DataModel _dataModel;
+	protected String _moduleName;
+	protected String _paramId; // used to set object to modify
 	
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
 	// ||||||||||||||||||||||||||||||||||||||||||||||||||| Constructeur |||||||||||||||||||||||||||||||||||||||||||||||||||||||//
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
 	
+	public GenericController() {
+		_actions = new HashMap<String,Action>();
+		registerDefaultActions();
+		registerActions();
+	}
+	
 	@PostConstruct
 	public void initialize() {
 		// try to get parameter data
-		paramId = (String) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("id");
+		_paramId = (String) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("id");
 		prepareData();
 		setUpdateObjectSubject();
-		System.out.println("XXXXXXXXXXX");
 	}
 	
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
@@ -45,14 +54,16 @@ public abstract class GenericController<Type extends BaseEntity, Service extends
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
 	
 	public void setUpdateObjectSubject(){
-		System.out.println("paramId : " + paramId);
-		if(paramId != null){
-			object = service.findOne(paramId);
+		System.out.println("paramId : " + _paramId);
+		if(_paramId != null){
+			_object = _service.findOne(_paramId);
 		}
 	}
 	
 	public Type getLastSelectedObject(){
-		return list.get(list.size() - 1);
+		if(_selectedObjects != null && _selectedObjects.size() > 0)
+			return _selectedObjects.get(_list.size() - 1);
+		return null;
 	}
 	
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
@@ -60,8 +71,8 @@ public abstract class GenericController<Type extends BaseEntity, Service extends
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
 
 	protected void prepareData() {
-		list = service.findAll();
-		dataModel = new DataModel(list);
+		_list = _service.findAll();
+		_dataModel = new DataModel(_list);
 	}
 
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
@@ -71,53 +82,78 @@ public abstract class GenericController<Type extends BaseEntity, Service extends
 
 		
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
-	// ||||||||||||||||||||||||||||||||||||||||| Déclanché suite à une action faite ||||||||||||||||||||||||||||||||||||||||||||//
+	// ||||||||||||||||||||||||||||||||||||||||| Actions du controlleur |||||||||||| ||||||||||||||||||||||||||||||||||||||||||||//
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
+	
+	public void runAction(String actionName){
+		Action action = _actions.get(actionName);
+		if(action != null) 
+			action.run();
+		else
+			System.out.println("GenericController : Action not found ############### ############### ############### ###############");
+	}
+	
+	
+	private void registerDefaultActions() {
+		_actions.put("persist", new Action(){
+			@Override
+			public void run() {
+				_service.save(_object);
+				FacesMessage msg = new FacesMessage("Do Edit : " + _moduleName);
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			}
+		});
+		
+		_actions.put("delete", new Action(){
+			@Override
+			public void run() {
+				_service.delete(_object);
+				FacesMessage msg = new FacesMessage("Do Delete : " + _moduleName);
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			}
+		});
+		
+		_actions.put("getPrevious", new Action(){
+			@Override
+			public void run() {
+				for(Object object: _list){
+					if(object.equals(object)){
+						int indexOfCurrentObject = _list.indexOf(object);
+						if(indexOfCurrentObject - 1 >= 0){
+							object = _list.get(indexOfCurrentObject - 1);
+							return;
+						}else{
+							object = _list.get(_list.size() - 1);
+						}
+					}
+				}	
+			}
+		});
+		_actions.put("getPrevious", new Action(){
+			@Override
+			public void run() {
+				for(Object object: _list){
+					if(object.equals(object)){
+						int indexOfCurrentObject = _list.indexOf(object);
+						if(indexOfCurrentObject + 1 < _list.size()){
+							object = _list.get(indexOfCurrentObject + 1);
+							return;
+						}else{
+							object = _list.get(0);
+						}
+					}
+				}	
+			}
+		});
+	}
+	
+	protected void registerActions() {
+		// implemented on subClass
+	}
 
 	public void onRowSelect(SelectEvent event) throws IOException {
 		Type selectedObject = ((Type) event.getObject());
-		Faces.redirect(Faces.getRequestContextPath() + moduleName + "/view?id=" + selectedObject.getId());
-	}
-
-	public void doPersist() {
-		service.save(object);
-		FacesMessage msg = new FacesMessage("Do Edit : " + moduleName);
-		FacesContext.getCurrentInstance().addMessage(null, msg);
-	}
-
-	public void doDelete() {
-		service.delete(object);
-		FacesMessage msg = new FacesMessage("Do Delete : " + moduleName);
-		FacesContext.getCurrentInstance().addMessage(null, msg);
-	}
-	
-	public void doGetPrevious() {
-		for(Object object: list){
-			if(this.object.equals(object)){
-				int indexOfCurrentObject = list.indexOf(object);
-				if(indexOfCurrentObject - 1 >= 0){
-					this.object = list.get(indexOfCurrentObject - 1);
-					return;
-				}else{
-					this.object = list.get(list.size() - 1);
-				}
-			}
-		}	
-	}
-	
-	public void doGetNext() {
-		for(Object object: list){
-			if(this.object.equals(object)){
-				int indexOfCurrentObject = list.indexOf(object);
-				if(indexOfCurrentObject + 1 < list.size()){
-					this.object = list.get(indexOfCurrentObject + 1);
-					return;
-				}else{
-					this.object = list.get(0);
-				}
-			}
-		}
-			
+		Faces.redirect(Faces.getRequestContextPath() + _moduleName + "/view?id=" + selectedObject.getId());
 	}
 	
 	public void doFilter() {
@@ -161,51 +197,51 @@ public abstract class GenericController<Type extends BaseEntity, Service extends
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
 	
 	public Type getObject() {
-		return object;
+		return _object;
 	}
 
 	public void setObject(Type object) {
-		this.object = object;
+		this._object = object;
 	}
 	
 	public List<Type> getList() {
-		return list;
+		return _list;
 	}
 
 	public void setList(List<Type> list) {
-		this.list = list;
+		this._list = list;
 	}
 
 	public DataModel getDataModel() {
-		return dataModel;
+		return _dataModel;
 	}
 
 	public void setDataModel(DataModel dataModel) {
-		this.dataModel = dataModel;
+		this._dataModel = dataModel;
 	}
 
 	public List<Type> getSelectedObjects() {
-		return selectedObjects;
+		return _selectedObjects;
 	}
 
 	public void setSelectedObjects(List<Type> selectedObjects) {
-		this.selectedObjects = selectedObjects;
+		this._selectedObjects = selectedObjects;
 	}
 
 	public String getModuleName() {
-		return moduleName;
+		return _moduleName;
 	}
 
 	public void setModuleName(String moduleName) {
-		this.moduleName = moduleName;
+		this._moduleName = moduleName;
 	}
 		
 	public String getParamId() {
-		return paramId;
+		return _paramId;
 	}
 
 	public void setParamId(String paramId) {
-		this.paramId = paramId;
+		this._paramId = paramId;
 	}
 
 }

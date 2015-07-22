@@ -27,17 +27,6 @@
     <h:outputScript name="main/js/perfect-scrollbar.js" />
     <h:outputScript name="main/js/showcase.js" />
     <ui:insert name="head" />
-    <script type="text/javascript">
-		var _gaq = _gaq || [];
-  		_gaq.push(['_setAccount', 'UA-12200033-1']);
-  		_gaq.push(['_trackPageview']);
-
-  		(function() {
-   			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  		})();
-	</script>
 </h:head>
 
 <h:body>
@@ -50,52 +39,34 @@
                 <h:graphicImage name="main/images/logo_wolf.png" />
                 <h:graphicImage id="BlueLogo" styleClass="hiddenLogo" name="main/images/logo_wolf.png" />
         </div>
-    	<div id="MENUSIDEindent">            
+    	<div id="MENUSIDEindent">
             <div class="MenuSideMainLink" style="margin-top: 85px;"><h:graphicImage name="main/images/zoom.svg" styleClass="zoomIcon"/><!-- <input id="menuSearch" type="text" placeholder="Search Menu" styleClass="mediumFont fontSize10 mustClose searchInput"/>--></div>
             
-            <p:outputPanel id="SubMenu-Ajax" styleClass="MenuSideMainLink" onclick="window.location.href = 'article'" title="Achats"><h:graphicImage name="main/images/mono/ajaxCoreBlue.svg" /><h:graphicImage styleClass="hiddenIcons" name="main/images/mono/ajaxCore.svg" /><span class="MainLinkText">Ajax Core</span></p:outputPanel>
+            <p:outputPanel id="SubMenu-Ajax" styleClass="MenuSideMainLink" onclick="window.location.href = 'article'" title="Achats"><h:graphicImage name="main/images/mono/ajaxCore.svg" /><h:graphicImage styleClass="hiddenIcons" name="main/images/mono/ajaxCoreBlue.svg" /><span class="MainLinkText">Ajax Core</span></p:outputPanel>
             <div class="SubMenuLinkContainer"></div>
             
-            <p:outputPanel id="SubMenu-Input" styleClass="MenuSideMainLink" onclick="window.location.href = 'page2'" title="Ventes"><h:graphicImage name="main/images/mono/inputBlue.svg" /><h:graphicImage styleClass="hiddenIcons" name="main/images/mono/input.svg" /><span class="MainLinkText">Input</span></p:outputPanel>
+            <p:outputPanel id="SubMenu-Data" styleClass="MenuSideMainLink" onclick="Showcase.openSubMenu(this);" title="Paramètrage"><h:graphicImage name="main/images/mono/data.svg" /><h:graphicImage styleClass="hiddenIcons" name="main/images/mono/dataBlue.svg" /><span class="MainLinkText">Data</span></p:outputPanel>
             <div class="SubMenuLinkContainer"></div>
             
-            <p:outputPanel id="SubMenu-Button" styleClass="MenuSideMainLink" onclick="Showcase.openSubMenu(this);" title="Trésorie"><h:graphicImage name="main/images/mono/buttonBlue.svg" /><h:graphicImage styleClass="hiddenIcons" name="main/images/mono/button.svg" /><span class="MainLinkText">Button</span></p:outputPanel>
+            <p:outputPanel id="SubMenu-Panel" styleClass="MenuSideMainLink" onclick="Showcase.openSubMenu(this);"><h:graphicImage name="main/images/mono/panel.svg" /><h:graphicImage class="hiddenIcons" name="main/images/mono/panelBlue.svg" /><span class="MainLinkText">Panel</span></p:outputPanel>
             <div class="SubMenuLinkContainer"></div>
             
-            <p:outputPanel id="SubMenu-Data" styleClass="MenuSideMainLink" onclick="Showcase.openSubMenu(this);" title="Paramètrage"><h:graphicImage name="main/images/mono/dataBlue.svg" /><h:graphicImage styleClass="hiddenIcons" name="main/images/mono/data.svg" /><span class="MainLinkText">Data</span></p:outputPanel>
+            <p:outputPanel id="SubMenu-Overlay" styleClass="MenuSideMainLink" onclick="Showcase.openSubMenu(this);"><h:graphicImage name="main/images/mono/overlay.svg" /><h:graphicImage styleClass="hiddenIcons" name="main/images/mono/overlayBlue.svg" /><span class="MainLinkText">Overlay</span></p:outputPanel>
             <div class="SubMenuLinkContainer"></div>
             
-            <p:outputPanel id="SubMenu-Panel" styleClass="MenuSideMainLink" onclick="Showcase.openSubMenu(this);"><h:graphicImage name="main/images/mono/panelBlue.svg" /><h:graphicImage class="hiddenIcons" name="main/images/mono/panel.svg" /><span class="MainLinkText">Panel</span></p:outputPanel>
+            <p:outputPanel id="SubMenu-Charts" styleClass="MenuSideMainLink" onclick="Showcase.openSubMenu(this);"><h:graphicImage name="main/images/mono/charts.svg" /><h:graphicImage styleClass="hiddenIcons" name="main/images/mono/chartsBlue.svg" /><span class="MainLinkText">Charts</span></p:outputPanel>
             <div class="SubMenuLinkContainer"></div>
             
-            <p:outputPanel id="SubMenu-Overlay" styleClass="MenuSideMainLink" onclick="Showcase.openSubMenu(this);"><h:graphicImage name="main/images/mono/overlayBlue.svg" /><h:graphicImage styleClass="hiddenIcons" name="main/images/mono/overlay.svg" /><span class="MainLinkText">Overlay</span></p:outputPanel>
+            <p:outputPanel id="SubMenu-Message" styleClass="MenuSideMainLink" onclick="Showcase.openSubMenu(this);"><h:graphicImage name="main/images/mono/message.svg" /><h:graphicImage styleClass="hiddenIcons" name="main/images/mono/messageBlue.svg" /><span class="MainLinkText">Messages</span></p:outputPanel>
             <div class="SubMenuLinkContainer"></div>
             
-            <p:outputPanel id="SubMenu-Menu" styleClass="MenuSideMainLink" onclick="Showcase.openSubMenu(this);"><h:graphicImage name="main/images/mono/menuBlue.svg" /><h:graphicImage styleClass="hiddenIcons" name="main/images/mono/menu.svg" /><span class="MainLinkText">Menu</span></p:outputPanel>
+            <p:outputPanel id="SubMenu-File" styleClass="MenuSideMainLink" onclick="Showcase.openSubMenu(this);"><h:graphicImage name="main/images/mono/file.svg" /><h:graphicImage styleClass="hiddenIcons" name="main/images/mono/fileBlue.svg" /><span class="MainLinkText">File</span></p:outputPanel>
             <div class="SubMenuLinkContainer"></div>
             
-            <p:outputPanel id="SubMenu-Charts" styleClass="MenuSideMainLink" onclick="Showcase.openSubMenu(this);"><h:graphicImage name="main/images/mono/chartsBlue.svg" /><h:graphicImage styleClass="hiddenIcons" name="main/images/mono/charts.svg" /><span class="MainLinkText">Charts</span></p:outputPanel>
+            <span id="SubMenu-DF" class="MenuSideMainLink" onclick="Showcase.openSubMenu(this);"><h:graphicImage name="main/images/mono/dialogFramework.svg" /><h:graphicImage class="hiddenIcons" name="main/images/mono/dialogFrameworkBlue.svg" /><span class="MainLinkText">Dialog Framework</span></span>
             <div class="SubMenuLinkContainer"></div>
             
-            <p:outputPanel id="SubMenu-Message" styleClass="MenuSideMainLink" onclick="Showcase.openSubMenu(this);"><h:graphicImage name="main/images/mono/messageBlue.svg" /><h:graphicImage styleClass="hiddenIcons" name="main/images/mono/message.svg" /><span class="MainLinkText">Messages</span></p:outputPanel>
-            <div class="SubMenuLinkContainer"></div>
-            
-            <p:outputPanel id="SubMenu-Multimedia" styleClass="MenuSideMainLink" onclick="Showcase.openSubMenu(this);"><h:graphicImage name="main/images/mono/multimediaBlue.svg" /><h:graphicImage styleClass="hiddenIcons" name="main/images/mono/multimedia.svg" /><span class="MainLinkText">Multimedia</span></p:outputPanel>
-            <div class="SubMenuLinkContainer"></div>
-            
-            <p:outputPanel id="SubMenu-File" styleClass="MenuSideMainLink" onclick="Showcase.openSubMenu(this);"><h:graphicImage name="main/images/mono/fileBlue.svg" /><h:graphicImage styleClass="hiddenIcons" name="main/images/mono/file.svg" /><span class="MainLinkText">File</span></p:outputPanel>
-            <div class="SubMenuLinkContainer"></div>
-            
-            <p:outputPanel id="SubMenu-DragDrop" styleClass="MenuSideMainLink" onclick="Showcase.openSubMenu(this);"><h:graphicImage name="main/images/mono/dragdropBlue.svg" /><h:graphicImage styleClass="hiddenIcons" name="main/images/mono/dragdrop.svg" /><span class="MainLinkText">DragDrop</span></p:outputPanel>
-            <div class="SubMenuLinkContainer"></div>
-            
-            <span id="SubMenu-CSV" class="MenuSideMainLink" onclick="Showcase.openSubMenu(this);"><h:graphicImage name="main/images/mono/clientSideValidationBlue.svg" /><h:graphicImage class="hiddenIcons" name="main/images/mono/clientSideValidation.svg" /><span class="MainLinkText">Client Side Validation</span></span>
-            <div class="SubMenuLinkContainer"></div>
-            
-            <span id="SubMenu-DF" class="MenuSideMainLink" onclick="Showcase.openSubMenu(this);"><h:graphicImage name="main/images/mono/dialogFrameworkBlue.svg" /><h:graphicImage class="hiddenIcons" name="main/images/mono/dialogFramework.svg" /><span class="MainLinkText">Dialog Framework</span></span>
-            <div class="SubMenuLinkContainer"></div>
-            
-            <span id="SubMenu-Misc" class="MenuSideMainLink" onclick="Showcase.openSubMenu(this);"><h:graphicImage name="main/images/mono/miscBlue.svg" /><h:graphicImage class="hiddenIcons" name="main/images/mono/misc.svg" /><span class="MainLinkText">Misc</span></span>
+            <span id="SubMenu-Misc" class="MenuSideMainLink" onclick="Showcase.openSubMenu(this);"><h:graphicImage name="main/images/mono/misc.svg" /><h:graphicImage class="hiddenIcons" name="main/images/mono/miscBlue.svg" /><span class="MainLinkText">Misc</span></span>
             <div class="SubMenuLinkContainer"></div>
         </div>
     </div>
@@ -106,7 +77,7 @@
         </h:panelGrid>
     </p:tooltip>
     
-    <p:tooltip id="toolTipContent_2" for="SubMenu-Input" style="width:450px;margin-top:-120px !important">
+    <p:tooltip id="toolTipContent_2" for="SubMenu-Panel" style="width:450px;margin-top:-120px !important">
         <p:panelGrid>
 	        <p:row>
 	        	<p:column rowspan="2"><p:graphicImage name="/demo/images/prime_logo.png" /></p:column>
@@ -117,7 +88,7 @@
 	        </p:row>	    
         </p:panelGrid>
     </p:tooltip>
-    <p:tooltip id="toolTipContent_3" for="SubMenu-Button" style="width:450px; margin-top:-120px !important">
+    <p:tooltip id="toolTipContent_3" for="SubMenu-Overlay" style="width:450px; margin-top:-120px !important">
     	<h:panelGrid columns="2" cellpadding="10">
             <p:graphicImage name="/demo/images/prime_logo.png" />
             <h:outputText value="Gérer vos opérations commerciales, devis, bons de commandes etc" />
@@ -176,35 +147,24 @@
                                 <a href="#" data-theme="#{theme.name}"><span class="ui-theme ui-theme-#{theme}"></span><span class="ui-text">#{theme.displayName}</span></a>
                             </ui:repeat>
                         </div>
-                        <p:remoteCommand name="changeTheme" actionListener="#{doChangeTheme.doChangeTheme}" />
+                        <p:remoteCommand name="changeTheme" actionListener="#{themeSwitcherController.doChangeTheme}" />
                     </h:form>
                 </span>
                 
                 <div class="mobileLogoCover">
-                    <h:graphicImage name="main/images/logoBlue.svg" style="height:40px;" class="floatLeft marginRight10"/>
+                    <h:graphicImage name="main/images/logo.svg" style="height:40px;" class="floatLeft marginRight10"/>
                     <span class="dispBlock logoDarkText fontSize16 floatLeft">PrimeFaces <span class="dispBlock logoBlueText fontSize18 mediumFont">SHOWCASE</span></span> 
                 </div>
                 <select id="mobilemenu" class="selectmenu mediumFont">
                     <option value="">Menu</option>
-                    <option value="#{request.contextPath}/index.xhtml" class="LEVEL1">Home</option>
+                    <!-- <option value="#{request.contextPath}/index.xhtml" class="LEVEL1">Home</option>
                     <optgroup label="Ajax Framework" class="LEVEL1"></optgroup>
                     <optgroup label="Input" class="LEVEL1"></optgroup>
-                    <optgroup label="Button" class="LEVEL1"></optgroup>
-                    <optgroup label="Data" class="LEVEL1"></optgroup>
-                    <optgroup label="Panel" class="LEVEL1"></optgroup>
-                    <optgroup label="Overlay" class="LEVEL1"></optgroup>
-                    <optgroup label="Menu" class="LEVEL1"></optgroup>
-                    <optgroup label="Charts" class="LEVEL1"></optgroup>
-                    <optgroup label="Messages" class="LEVEL1"></optgroup>
-                    <optgroup label="Multimedia" class="LEVEL1"></optgroup>
-                    <optgroup label="File" class="LEVEL1"></optgroup>
-                    <optgroup label="DragDrop" class="LEVEL1"></optgroup>
-                    <optgroup label="Client Side Validation" class="LEVEL1"></optgroup>
                     <optgroup label="Dialog Framework" class="LEVEL1"></optgroup>
                     <optgroup label="Misc" class="LEVEL1"></optgroup>
                     <option value="#{request.contextPath}/mobile/index.xhtml" class="LEVEL1">PFMobile</option>
                     <optgroup label="PFPush" class="LEVEL1"></optgroup>
-                    <option value="#{request.contextPath}/ui/misc/mockosx.xhtml" class="LEVEL1">PFMockOSX</option>
+                    <option value="#{request.contextPath}/ui/misc/mockosx.xhtml" class="LEVEL1">PFMockOSX</option> -->
                 </select>
             </div>
             <!-- header bar end-->
@@ -212,20 +172,26 @@
             <ui:insert name="content">
                 
                 <ui:insert name="subsubmenu"></ui:insert>
+                	                
+                <!-- <div class="ContentSideSections">
+                    <div class="Content100 overHidden TextShadow">
+                        <span class="fontSize15 TextShadow mediumFont marginBottom10 dispBlock"><ui:insert name="title" /></span>
+                        <span class="fontSize13 dispTable"><ui:insert name="description" />
+                        </span>
+                    </div>
+                </div> -->
+                
 				<h:form id="mainForm">
 					<div class="ContentSideSections actionsSection Implementation">
 						<h:panelGroup id="actionsForm" layout="block">
+							<a style="font-size: 15px;color: rgba(79, 143, 197, 1);font-family: Arial, Helvetica, sans-serif; font-weight:bold">
+								<b style="color: rgba(231, 109, 132, 1);">Paramètrage > </b>
+								<p:outputLabel value="#{core.bean().moduleName}"/> / Test/
+								
+							</a><br/><br/>
 		                    <ui:insert name="actions" />
 		                </h:panelGroup>
 	                </div>
-	                
-	<!--                 <div class="ContentSideSections"> -->
-	<!--                     <div class="Content100 overHidden TextShadow"> -->
-	<!--                         <span class="fontSize15 TextShadow mediumFont marginBottom10 dispBlock"><ui:insert name="title" /></span> -->
-	<!--                         <span class="fontSize13 dispTable"><ui:insert name="description" /> -->
-	<!--                         </span> -->
-	<!--                     </div> -->
-	<!--                 </div> -->
 	                
 	                <div class="ContentSideSections Implementation" style="padding:0;">
 	                    <ui:insert name="implementation" />
@@ -263,7 +229,7 @@
      <ui:insert name="status">
         <p:ajaxStatus style="width:64px;height:64px;position:fixed;right:5px;bottom:5px">
             <f:facet name="start">
-                <p:graphicImage name="main/images/loader.gif" />
+                <p:graphicImage style="width:24px" name="main/images/loader.gif" />
             </f:facet>
 
             <f:facet name="complete">
@@ -279,29 +245,30 @@
     <ui:insert name="body"></ui:insert>
     
     <ui:insert name="messages">
-<!--     	<p:outputPanel autoUpdate="true"> -->
-<!-- 			<p:dialog id="msgError" widgetVar="msgErrorVar" modal="true" minWidth="500" resizable="false" showEffect="fade" -->
-<!-- 				visible="#{facesContext.maximumSeverity.ordinal >= 0}" dir="#{sessionManager.direction}"> -->
-<!-- 				<f:facet name="header"> -->
-<!-- 					<i class="fa fa-envelope-o" style="padding-right: 4px;" /> -->
-<!-- 					<h:outputText value="#{lbl['group.message']}" /> -->
-<!-- 				</f:facet> -->
-	
-<!-- 				<h:panelGrid columns="1" cellpadding="5" cellspacing="5"> -->
-<!-- 					<p:messages showDetail="true" showSummary="false" /> -->
-<!-- 				</h:panelGrid> -->
-	
-<!-- 				<p:spacer height="20" /> -->
-	
-<!-- 				<div style="text-align: center;"> -->
-<!-- 					<p:commandButton value="#{lbl['cmd.return']}" onclick="PF('msgErrorVar').hide()" type="button" accesskey="" /> -->
-<!-- 				</div> -->
-<!-- 				<p:hotkey bind="esc" handler="PF('msgErrorVar').hide()" /> -->
-	
-<!-- 			</p:dialog> -->
-<!-- 		</p:outputPanel> -->
-		<p:growl id="msgInfo" life="5000" autoUpdate="true" showDetail="true" showSummary="true"
+    	<p:growl id="msgInfo" life="50000000" autoUpdate="true" showDetail="true" showSummary="true"
 			rendered="#{facesContext.maximumSeverity.ordinal != 1 and facesContext.maximumSeverity.ordinal != 2 and facesContext.maximumSeverity.ordinal != 3}" />
+			
+    	<!-- <p:outputPanel autoUpdate="true">
+			<p:dialog id="msgError" widgetVar="msgErrorVar" modal="true" minWidth="500" resizable="false" showEffect="fade"
+				visible="#{facesContext.maximumSeverity.ordinal >= 0}" dir="#{sessionManager.direction}">
+				<f:facet name="header">
+					<i class="fa fa-envelope-o" style="padding-right: 4px;" />
+					<h:outputText value="#{lbl['group.message']}" />
+				</f:facet>
+	
+				<h:panelGrid columns="1" cellpadding="5" cellspacing="5">
+					<p:messages showDetail="true" showSummary="false" />
+				</h:panelGrid>
+	
+				<p:spacer height="20" />
+	
+				<div style="text-align: center;">
+					<p:commandButton value="#{lbl['cmd.return']}" onclick="PF('msgErrorVar').hide()" type="button" accesskey="" />
+				</div>
+				<p:hotkey bind="esc" handler="PF('msgErrorVar').hide()" />
+	
+			</p:dialog>
+		</p:outputPanel> -->
     </ui:insert>
     
 </h:body>

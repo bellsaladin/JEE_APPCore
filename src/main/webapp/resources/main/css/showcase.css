@@ -13,14 +13,17 @@ body{margin:0px; height:100%; overflow-x:hidden; overflow-y:auto; background-col
 	/* menu side style*/
 	#MENUSIDE{float:left; background-color:#E7F2F7; border-right:solid 1px #BED6E2; overflow:hidden; width: 80px; position: fixed;  z-index: 999;}
 		#MENUSIDEindent{width:100%; height:auto;}
-			#LOGO{  height: 47px;
-					  width: 56px;
+			#LOGO{    height: 52px;
+					  width: 60px;
 					  display: block;
-					  padding: 20px 0 5px 17px;
+					  padding: 20px 0 5px 21px;
 					  z-index: 1028;
-					  margin: 4px;
-					  background-color: rgba(122, 179, 205, 1);
-					  position: fixed;}
+					  margin: 0px;
+					  background-color: rgba(231, 242, 247, 1);
+					  position: fixed;
+					  /* border-top: 2px solid #F00; */
+					  border-bottom: 2px solid #E74C4C;
+					  display: none;}
 				#LOGO img{width:40px; height:auto; }
 			.MenuSideMainLink{/*width: 100%;*/ border-left: 4px solid transparent; height: 38px; display: block; padding: 10px 0px 0px 26px; cursor: pointer;}
 				.MenuSideMainLink input{ padding:6px; background-color:#354044; outline:none; border:0px; border:none; color:#9ba5ac; border-radius:20px;
@@ -477,7 +480,7 @@ li.ui-state-active a { color:rgb(1, 154, 249) !important; }
 .ui-menu.ui-widget li > .ui-menuitem-link.ui-state-hover{ background-color:#35C0C0; background-image:none;}
 
 
-.footer{border-bottom:none;bottom: -2px;position: fixed;width: 600px;padding: 10px 30px;background-color: #fff; border: 1px solid #C4DDE8; color:#000;left: 50%;/* padding: 8px 90px; */margin: auto;right: 0;margin-left: -300px;/* right: 300px; */border-radius: 4px;}
+.footer{border-bottom:none;bottom: -2px;position: fixed;width: 600px;padding: 10px 30px;background-color: #fff; border: 1px solid #C4DDE8; color:#777;left: 50%;/* padding: 8px 90px; */margin: auto;right: 0;margin-left: -300px;/* right: 300px; */border-radius: 4px;}
 
 .ui-datatable th.ui-state-active{background-color: #FDFDFD;}
 .ui-datatable thead tr {border-bottom: 1px solid #CBCBCB !important;}

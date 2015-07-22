@@ -26,7 +26,7 @@
 
     <ui:define name="implementation">
     		<p:contextMenu for="dataTable">
-		        <p:menuitem value="Modifier" url="/design1/ui/#{articleController.moduleName}/form?id=#{articleController.lastSelectedObject.id}" icon="ui-icon-search"/>
+		        <p:menuitem value="Modifier" url="/design1/ui/#{core.bean().moduleName}/form?id=#{core.bean().lastSelectedObject.id}" icon="ui-icon-search"/>
 		        <p:menuitem value="Supprimer" update="dataTable" icon="ui-icon-close" actionListener="PF('dlgUpdateUser').show()"/>
 		        <p:submenu label="Options" icon="ui-icon-refresh">
 			        <p:separator />
@@ -47,9 +47,9 @@
 		        </p:submenu>
 		    </p:contextMenu>
 		    <p:messages/>
-		    <p:dataTable id="dataTable" widgetVar="dataTable" var="object" value="#{articleController.dataModel}"
+		    <p:dataTable id="dataTable" widgetVar="dataTable" var="object" value="#{core.bean().dataModel}"
 		    			 sortMode="multiple"
-		    			 selection="#{articleController.selectedObjects}"
+		    			 selection="#{core.bean().selectedObjects}"
 		                 paginator="true" rows="10"
 		                 paginatorPosition="bottom"
 		                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -89,13 +89,12 @@
     </ui:define>
     
 	<ui:define name="actions">
-		<a style="font-size: 15px;color: rgba(145, 180, 184, 1);font-family: Arial, Helvetica, sans-serif;"><b style="color: rgba(211, 211, 211, 1);">Paramètrage > </b>Utilisateurs</a>		
 		<p:button value="Aide" href="article" styleClass="ui-whiteBtn pull-right"/>
-		<p:button value="Nouveau" href="/design1/ui/#{articleController.moduleName}/form" styleClass="ui-whiteBtn pull-right" style="margin-right:10px;"/>
-	    <p:commandButton value="Action 1" rendered="#{articleController.selectedObjects.size() gt 0}" actionListener="#{notifyView.send}" styleClass="ui-whiteBtn pull-right" style="margin-right:10px;"/>
-	    <p:commandButton value="Action 2" rendered="#{articleController.selectedObjects.size() gt 0}" actionListener="#{notifyView.send}" styleClass="ui-whiteBtn pull-right" style="margin-right:10px;"/>
-	    <p:commandButton value="Action 3" rendered="#{articleController.selectedObjects.size() gt 0}" actionListener="#{notifyView.send}" styleClass="ui-whiteBtn pull-right" style="margin-right:10px;"/>
-	    <p:menuButton value="Plus" rendered="#{articleController.list.size() gt 0}" styleClass="ui-whiteBtn pull-right"  style="margin-right:10px;">
+		<p:button value="Nouveau" href="/design1/ui/#{core.bean().moduleName}/form" styleClass="ui-whiteBtn pull-right" style="margin-right:10px;"/>
+	    <p:commandButton value="Test action" rendered="#{core.bean().selectedObjects.size() gt 0}" actionListener="#{core.bean().runAction('test')}" styleClass="ui-whiteBtn pull-right" style="margin-right:10px;"/>
+	    <p:commandButton value="Action 2" rendered="#{core.bean().selectedObjects.size() gt 0}" actionListener="#{notifyView.send}" styleClass="ui-whiteBtn pull-right" style="margin-right:10px;"/>
+	    <p:commandButton value="Action 3" rendered="#{core.bean().selectedObjects.size() gt 0}" actionListener="#{notifyView.send}" styleClass="ui-whiteBtn pull-right" style="margin-right:10px;"/>
+	    <p:menuButton value="Plus" rendered="#{core.bean().list.size() gt 0}" styleClass="ui-whiteBtn pull-right"  style="margin-right:10px;">
 	        <p:menuitem value="Save" actionListener="#{menuView.save}" update=":mainForm" icon="ui-icon-disk"/>
 	        <p:menuitem value="Update" actionListener="#{menuView.update}" update=":mainForm" icon="ui-icon-arrowrefresh-1-w"/>
 	        <p:menuitem value="Delete" actionListener="#{menuView.delete}" ajax="false" icon="ui-icon-close"/>
