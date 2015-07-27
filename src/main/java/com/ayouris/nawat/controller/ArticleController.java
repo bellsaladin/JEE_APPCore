@@ -10,6 +10,7 @@ import com.ayouris.nawat.controller.generic.Action;
 import com.ayouris.nawat.controller.generic.GenericCRUDController;
 import com.ayouris.nawat.model.entity.Article;
 import com.ayouris.nawat.service.parametrage.ArticleService;
+import com.ayouris.nawat.util.scopes.session.SpringSessionScoped;
 import com.ayouris.nawat.util.scopes.view.SpringViewScoped;
 
 @Named

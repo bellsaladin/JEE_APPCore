@@ -3,7 +3,6 @@ package com.ayouris.nawat.controller;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.faces.bean.ManagedBean;
 import javax.inject.Named;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,6 @@ import com.ayouris.nawat.model.entity.v2_Profil;
 import com.ayouris.nawat.model.entity.v2_UserNawat;
 import com.ayouris.nawat.service.parametrage.v2_ProfilService;
 import com.ayouris.nawat.service.parametrage.v2_UserService;
-import com.ayouris.nawat.util.scopes.session.SpringSessionScoped;
 import com.ayouris.nawat.util.scopes.view.SpringViewScoped;
 
 @Named

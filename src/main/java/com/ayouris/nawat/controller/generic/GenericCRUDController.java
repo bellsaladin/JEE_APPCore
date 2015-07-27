@@ -62,7 +62,7 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 	
 	public Type getLastSelectedObject(){
 		if(_selectedObjects != null && _selectedObjects.size() > 0)
-			return _selectedObjects.get(_list.size() - 1);
+			return _selectedObjects.get(_selectedObjects.size() - 1);
 		return null;
 	}
 	
@@ -95,6 +95,15 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 	
 	
 	private void registerDefaultActions() {
+		_actions.put("redirectUpdate", new Action(){
+			@Override
+			public void run() {
+				_service.save(_object);
+				FacesMessage msg = new FacesMessage("Do Edit : " + _moduleName);
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			}
+		});
+		
 		_actions.put("persist", new Action(){
 			@Override
 			public void run() {

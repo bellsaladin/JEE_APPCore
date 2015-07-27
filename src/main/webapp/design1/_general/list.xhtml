@@ -1,0 +1,80 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/design1/_general/template.xhtml">
+
+    <ui:define name="head">        
+        <script type="text/javascript">
+            //<![CDATA[
+                function handleMessage(facesmessage) {
+                    facesmessage.severity = 'info';
+                    
+                    PF('growl').show([facesmessage]);
+                }
+            //]]> 
+        </script>
+    </ui:define>
+    
+    <ui:define name="title">
+<!--         <p:breadCrumb> -->
+<!-- 		    <p:menuitem value="Accueil" url="#" /> -->
+<!-- 		    <p:menuitem value="Paramètrage" url="#" /> -->
+<!-- 		    <p:menuitem value="Accès et sécurité" url="#" /> -->
+<!-- 		    <p:menuitem value="Utilisateurs" url="#" /> -->
+<!-- 		</p:breadCrumb> -->
+    </ui:define>
+
+    <ui:define name="description">
+    	...
+    </ui:define>
+
+    <ui:define name="implementation">
+    		<p:contextMenu for="dataTable">
+		        <p:menuitem value="Modifier" url="/design1/ui/#{core.bean().moduleName}/form?id=#{core.bean().lastSelectedObject.id}" icon="ui-icon-search"/>
+		        <p:menuitem value="Supprimer" update="dataTable" icon="ui-icon-close" actionListener="PF('dlgUpdateUser').show()"/>
+		        <p:submenu label="Options" icon="ui-icon-refresh">
+			        <p:separator />
+			        <p:submenu label="Navigations" icon="ui-icon-extlink">
+			            <p:submenu label="Tranformation">
+			                <p:menuitem value="PrimeTek" url="http://www.primetek.com.tr" />
+			                <p:menuitem value="PrimeFaces" url="http://www.primefaces.org" />
+			            </p:submenu>
+			            <p:menuitem value="Some action" icon="ui-icon-signal" />
+			        </p:submenu>
+		        </p:submenu>
+		        <p:submenu label="Plus" icon="ui-icon-extlink">
+		        		<ui:insert name="contextMenuExtraActions" />
+		        </p:submenu>
+		    </p:contextMenu>
+		    <p:messages/>
+		    <p:dataTable id="dataTable" widgetVar="dataTable" var="object" value="#{core.bean().dataModel}"
+		    			 stickyHeader="true"
+		    			 sortMode="multiple"
+		    			 selection="#{core.bean().selectedObjects}"
+		                 paginator="true" rows="25"
+		                 paginatorPosition="bottom"
+		                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+		                 rowsPerPageTemplate="25,50,100"
+		                 currentPageReportTemplate="[ {totalRecords} #{lbl['lbl.lignes']} ]">
+	        	<p:ajax event="rowSelect" update=":mainForm:actionsForm" />
+       			<p:ajax event="rowUnselect"  update=":mainForm:actionsForm" />
+       			<p:ajax event="rowSelectCheckbox" update=":mainForm:actionsForm" />
+       			<p:ajax event="rowUnselectCheckbox"  update=":mainForm:actionsForm" />	                 		                 		        		      
+       			<p:ajax event="toggleSelect"  update=":mainForm:actionsForm" />
+<!-- 			<p:ajax event="rowSelect" update=":dialogUpdateUser" oncomplete="PF('dlgUpdateUser').show()"/> -->
+				
+				<p:column selectionMode="multiple" headerText="" style="width:20px;"/>
+				
+				<ui:insert name="dataTableColumns" />					      
+				        		        		       
+		    </p:dataTable>		    
+    				   
+    </ui:define>
+    
+	<ui:insert name="actions" />
+	
+	<ui:insert name="dialogs" />
+	
+</ui:composition>

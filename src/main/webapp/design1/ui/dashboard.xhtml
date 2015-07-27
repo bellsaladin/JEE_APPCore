@@ -29,16 +29,13 @@
     <ui:define name="implementation">
 	  <div style="padding:30px">
       	
+      	<div>
+	    	<input type="checkbox" checked="true"/>
+	        <span>Créer un modèle de list où seules les colonnes, actions et autres paramètres variables seront indiquées
+	        </span>  
+	    </div>	    
 	    <div>
-	        <input type="checkbox" checked="true" />
-	        Corriger l'option de changement du theme
-	    </div>
-	    <div>
-	        <input type="checkbox" />
-	        Corriger le bug de changement de la valeur d'attribut dans la méthode générique créée<br/>
-	        Note : ça fonctionnait lorsqu'il n'y avait que UserController
-	    </div>
-	    <div>
+	    	<hr/>
 	    	<input type="checkbox" />
 	        <span>Créer une home page par module : <br/>
 	        Cette home page doit regrouper des liens par groupe : ex: <br/>
@@ -47,7 +44,78 @@
 	        Analyse : Demandes en cours, Quantités rentrantes
 	        </span>  
 	    </div>
+	    <div>
+	    	<hr/>
+	    	<input type="checkbox" />
+	        <span> Rêgler le problème de redirection lors du click sur le button du button modifier du ContextMenu
+	        </span>  
+	    </div>
+	    <div>
+	    	<hr/>
+	    	<input type="checkbox" />
+	        <span> Dialog Favoris (Ctrl + F) -> Affiche un dialog contenant la liste des favoris <b>Action générique addToFavoris )</b>
+	        </span>  
+	    </div>
+	    <div>
+	    	<hr/>
+	    	<input type="checkbox" />
+	        <span> Gestion des droits d'accès par profil. E.g. <b>Magansinier</b><br/>
+	        1. Droits d'accès sur tous les niveaux : Modules / Sous Modules / Vues / Actions<br/>
+	        2. Création de profils de droits d'accès : Magansinier, Caissier ...#<br/>
+	        3. Possibilité de personnaliser les droits un fois un profil affecté à une personne
+	        </span>  
+	    </div>
+	    <div>
+	    	<hr/>
+	    	<input type="checkbox" />
+	        <span> 
+	    	Suppression logique (flag = 1) / Modifier la requête find all
+	    	</span>
+	    </div>
 	    
+	    <div>
+	    	<hr/>
+	    	<input type="checkbox" />
+	        <span> 
+	    	Gestion de l'accès concurrent ( comme pour <b>windev HBlock</b>) <br/>
+	    	<b>Voir au niveau <u>d'hibernate</u> <span style="color:red">spring data jpa concurrency</span></b> <br/>
+	    	<a href="http://www.objectdb.com/java/jpa/persistence/lock#Pessimistic_Locking_"><b><span style="color:blue">Locking in JPA</span></b></a>
+	    	</span>
+	    </div>
+	    <div>
+	    	<hr/>
+	    	<input type="checkbox" />
+	        <span> Commencer à mettre en place la gestion
+	        </span>  
+	    </div>
+	    <div>
+	    	<hr/>
+	    	<input type="checkbox" />
+	        <span> ROW EXPAND Pas très pratique (mais faisable)
+	        </span>  
+	    </div>
+	    
+	    <div>
+	    	<hr/>
+	    	<input type="checkbox" />
+	        <span> Externaliser et Factoriser la partie variables des pages JSF. Par exemple : <br/>
+	        1. Vue List : p:datatable .... Laisser seulement les colonnes, filtres et ce qui varie<br/>
+	        2. Vue Ajout : rien à concentrer apparement
+	        </span>  
+	    </div>
+	    
+	    <div>
+	    	<hr/>
+	    	<input type="checkbox" />
+	        <span> Penser à une façon pour externaliser le code des traitements complexes qui touche plusieurs entités genre : GenerationBilanComptable , Alimentation de stock ...<br/>
+	          Essayer de le mettre dans des classes de service par exemple pour le cas du traitement GenerationBilanComptable faire ce qui suit :<br/>
+	          1. Créer un service BilanComptable : qui fait appel à plusieurs objets Service (Comme attribut injectés)<br/>
+	          2. Mettre le traitement correspondant dans une méthode<br/>
+	          3. <b>Forcer le paramètrage pour favoriser le découplage</b><br/>
+	        </span>  
+	    </div>
+	    <br/>
+	    <br/>
 	    <p:panel id="lazyContent">
 	    	
 	    	<p:poll interval="3" listener="#{core.bean().runAction('loadStatsData')}" update=":mainForm:lazyContent" />
@@ -62,8 +130,7 @@
 	</ui:define>
 	
 	<ui:define name="dialogs"> 
-  		<ui:include src="/dialogs/profilCreate.xhtml" />
-  		<ui:include src="/dialogs/profilDuplicate.xhtml" />
+  		
 	</ui:define>
 	
 </ui:composition>

@@ -3,7 +3,7 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:p="http://primefaces.org/ui"
-                template="/design1/_general/template.xhtml">
+                template="/design1/_general/list.xhtml">
 
     <ui:define name="head">        
         <script type="text/javascript">
@@ -17,74 +17,30 @@
         </script>
     </ui:define>
     
-    <ui:define name="title">
+    <ui:define name="contextMenuExtraActions">
+    	<p:menuitem value="Some specific action" icon="ui-icon-signal" />
     </ui:define>
-
-    <ui:define name="description">
-    	...
-    </ui:define>
-
-    <ui:define name="implementation">
-    		<p:contextMenu for="dataTable">
-		        <p:menuitem value="Modifier" url="/design1/ui/#{core.bean().moduleName}/form?id=#{core.bean().lastSelectedObject.id}" icon="ui-icon-search"/>
-		        <p:menuitem value="Supprimer" update="dataTable" icon="ui-icon-close" actionListener="PF('dlgUpdateUser').show()"/>
-		        <p:submenu label="Options" icon="ui-icon-refresh">
-			        <p:separator />
-			        <p:submenu label="Navigations" icon="ui-icon-extlink">
-			            <p:submenu label="Tranformation">
-			                <p:menuitem value="PrimeTek" url="http://www.primetek.com.tr" />
-			                <p:menuitem value="PrimeFaces" url="http://www.primefaces.org" />
-			            </p:submenu>
-			            <p:menuitem value="Some action" icon="ui-icon-signal" />
-			        </p:submenu>
-		        </p:submenu>
-		        <p:submenu label="Plus" icon="ui-icon-extlink">
-		            <p:submenu label="Navigations">
-		                <p:menuitem value="PrimeTek" url="http://www.primetek.com.tr" />
-		                <p:menuitem value="PrimeFaces" url="http://www.primefaces.org" />
-		            </p:submenu>
-		            <p:menuitem value="Some action" icon="ui-icon-signal" />
-		        </p:submenu>
-		    </p:contextMenu>
-		    <p:messages/>
-		    <p:dataTable id="dataTable" widgetVar="dataTable" var="object" value="#{core.bean().dataModel}"
-		    			 sortMode="multiple"
-		    			 selection="#{core.bean().selectedObjects}"
-		                 paginator="true" rows="10"
-		                 paginatorPosition="bottom"
-		                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-		                 rowsPerPageTemplate="5,10,15"
-		                 currentPageReportTemplate="[ {totalRecords} #{lbl['lbl.lignes']} ]">
-		        	<p:ajax event="rowSelect" update=":mainForm:actionsForm" />
-        			<p:ajax event="rowUnselect"  update=":mainForm:actionsForm" />
-        			<p:ajax event="rowSelectCheckbox" update=":mainForm:actionsForm" />
-        			<p:ajax event="rowUnselectCheckbox"  update=":mainForm:actionsForm" />	                 		                 		        		      
-        			<p:ajax event="toggleSelect"  update=":mainForm:actionsForm" />
-<!-- 				<p:ajax event="rowSelect" update=":dialogUpdateUser" oncomplete="PF('dlgUpdateUser').show()"/> -->
-				
-				<p:column selectionMode="multiple" headerText="" style="width:20px;"/>
-				
-		        <p:column sortBy="#{object.libelle}">
-		            <f:facet name="header">
-		                <h:outputText value="#{lbl['lbl.libelle']}" />
-		            </f:facet>
-		            <h:outputText value="#{object.libelle}" />
-		        </p:column>
-		        <p:column sortBy="#{object.prix}">
-		            <f:facet name="header">
-		                <h:outputText value="#{lbl['lbl.prix']}" />
-		            </f:facet>
-		            <h:outputText value="#{object.prix}" />
-		        </p:column>
-		      	<p:column sortBy="#{object.type}">
-		            <f:facet name="header">
-		                <h:outputText value="#{lbl['lbl.type']}" />
-		            </f:facet>
-		            <h:outputText value="#{object.type}" />
-		        </p:column>
-		        		        		       
-		    </p:dataTable>		    
-    				   
+		        
+	<ui:define name="dataTableColumns">
+		        
+        <p:column sortBy="#{object.libelle}">
+            <f:facet name="header">
+                <h:outputText value="#{lbl['lbl.libelle']}" />
+            </f:facet>
+            <h:outputText value="#{object.libelle}" />
+        </p:column>
+        <p:column sortBy="#{object.prix}">
+            <f:facet name="header">
+                <h:outputText value="#{lbl['lbl.prix']}" />
+            </f:facet>
+            <h:outputText value="#{object.prix}" />
+        </p:column>
+      	<p:column sortBy="#{object.type}">
+            <f:facet name="header">
+                <h:outputText value="#{lbl['lbl.type']}" />
+            </f:facet>
+            <h:outputText value="#{object.type}" />
+        </p:column>
         
     </ui:define>
     
