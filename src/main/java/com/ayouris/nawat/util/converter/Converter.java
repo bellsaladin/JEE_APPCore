@@ -22,7 +22,6 @@ import org.springframework.util.StringUtils;
 /**
  * Utilitaires de conversion de formats.
  * 
- * @author Khalid CHAMAKH (elBissat)
  * @version 1.0
  * 
  */

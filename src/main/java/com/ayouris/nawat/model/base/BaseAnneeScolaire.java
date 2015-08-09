@@ -11,7 +11,6 @@ import com.ayouris.nawat.model.entity.AnneeScolaire;
 /**
  * La classe BaseAnneeScolaire de toutes les entites en relation avec l'annee scolaire
  * 
- * @author chamakh
  * @version 1.0
  */
 

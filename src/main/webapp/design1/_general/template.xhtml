@@ -8,6 +8,7 @@
         xmlns:f="http://java.sun.com/jsf/core"
         xmlns:ui="http://java.sun.com/jsf/facelets"
         xmlns:p="http://primefaces.org/ui"
+        xmlns:c="http://java.sun.com/jsp/jstl/core"
         xmlns:pe="http://primefaces.org/ui/extensions">
 <h:head>
     <f:facet name="first">
@@ -42,13 +43,13 @@
     	<div id="MENUSIDEindent">
             <div class="MenuSideMainLink" style="margin-top: 85px;"><h:graphicImage name="main/images/zoom.svg" styleClass="zoomIcon"/><!-- <input id="menuSearch" type="text" placeholder="Search Menu" styleClass="mediumFont fontSize10 mustClose searchInput"/>--></div>
             
-            <p:outputPanel id="SubMenu-Ajax" styleClass="MenuSideMainLink" onclick="window.location.href = 'article'" title="Achats"><h:graphicImage name="main/images/mono/ajaxCore.svg" /><h:graphicImage styleClass="hiddenIcons" name="main/images/mono/ajaxCoreBlue.svg" /><span class="MainLinkText">Ajax Core</span></p:outputPanel>
+            <p:outputPanel id="SubMenu-Achats" styleClass="MenuSideMainLink"><h:graphicImage name="main/images/mono/ajaxCore.svg" /><h:graphicImage styleClass="hiddenIcons" name="main/images/mono/ajaxCoreBlue.svg" /><span class="MainLinkText">Ajax Core</span></p:outputPanel>
             <div class="SubMenuLinkContainer"></div>
             
-            <p:outputPanel id="SubMenu-Data" styleClass="MenuSideMainLink" onclick="Showcase.openSubMenu(this);" title="Paramètrage"><h:graphicImage name="main/images/mono/data.svg" /><h:graphicImage styleClass="hiddenIcons" name="main/images/mono/dataBlue.svg" /><span class="MainLinkText">Data</span></p:outputPanel>
+            <p:outputPanel id="SubMenu-Ventes" styleClass="MenuSideMainLink"><h:graphicImage name="main/images/mono/data.svg" /><h:graphicImage styleClass="hiddenIcons" name="main/images/mono/dataBlue.svg" /><span class="MainLinkText">Data</span></p:outputPanel>
             <div class="SubMenuLinkContainer"></div>
             
-            <p:outputPanel id="SubMenu-Panel" styleClass="MenuSideMainLink" onclick="Showcase.openSubMenu(this);"><h:graphicImage name="main/images/mono/panel.svg" /><h:graphicImage class="hiddenIcons" name="main/images/mono/panelBlue.svg" /><span class="MainLinkText">Panel</span></p:outputPanel>
+            <p:outputPanel id="SubMenu-Parametrage" styleClass="MenuSideMainLink"><h:graphicImage name="main/images/mono/panel.svg" /><h:graphicImage class="hiddenIcons" name="main/images/mono/panelBlue.svg" /><span class="MainLinkText">Panel</span></p:outputPanel>
             <div class="SubMenuLinkContainer"></div>
             
             <p:outputPanel id="SubMenu-Overlay" styleClass="MenuSideMainLink" onclick="Showcase.openSubMenu(this);"><h:graphicImage name="main/images/mono/overlay.svg" /><h:graphicImage styleClass="hiddenIcons" name="main/images/mono/overlayBlue.svg" /><span class="MainLinkText">Overlay</span></p:outputPanel>
@@ -70,14 +71,22 @@
             <div class="SubMenuLinkContainer"></div>
         </div>
     </div>
-    <p:tooltip id="toolTipContent_1" for="SubMenu-Ajax" style="width:450px; margin-top:-120px !important">
+    <script>
+    $( document ).ready(function() {
+    	$('.MenuSideMainLink').click(function(){
+        	var moduleName = $(this).attr('id').split("-")[1].toLowerCase();
+        	window.location.href = '<h:outputText value="#{request.contextPath}"/>/design1/ui/' + moduleName;
+        });
+    });
+    </script>
+    <p:tooltip id="toolTipContent_1" for="SubMenu-Achats" style="width:450px; margin-top:-120px !important">
     	<h:panelGrid columns="2" cellpadding="10">
             <p:graphicImage name="/demo/images/prime_logo.png" />
             <h:outputText value="Gérer vos opérations commerciales, devis, bons de commandes etc" />
         </h:panelGrid>
     </p:tooltip>
     
-    <p:tooltip id="toolTipContent_2" for="SubMenu-Panel" style="width:450px;margin-top:-120px !important">
+    <p:tooltip id="toolTipContent_2" for="SubMenu-Ventes" style="width:450px;margin-top:-120px !important">
         <p:panelGrid>
 	        <p:row>
 	        	<p:column rowspan="2"><p:graphicImage name="/demo/images/prime_logo.png" /></p:column>
@@ -88,19 +97,7 @@
 	        </p:row>	    
         </p:panelGrid>
     </p:tooltip>
-    <p:tooltip id="toolTipContent_3" for="SubMenu-Overlay" style="width:450px; margin-top:-120px !important">
-    	<h:panelGrid columns="2" cellpadding="10">
-            <p:graphicImage name="/demo/images/prime_logo.png" />
-            <h:outputText value="Gérer vos opérations commerciales, devis, bons de commandes etc" />
-        </h:panelGrid>
-    </p:tooltip>
-    <p:tooltip id="toolTipContent_4" for="SubMenu-Data" style="width:450px; margin-top:-120px !important">
-    	<h:panelGrid columns="2" cellpadding="10">
-            <p:graphicImage name="/demo/images/prime_logo.png" />
-            <h:outputText value="Gérer vos opérations commerciales, devis, bons de commandes etc" />
-        </h:panelGrid>
-    </p:tooltip>
-    <p:tooltip id="toolTipContent_5" for="SubMenu-File" style="width:450px; margin-top:-120px !important">
+    <p:tooltip id="toolTipContent_3" for="SubMenu-Parametrage" style="width:450px; margin-top:-120px !important">
     	<h:panelGrid columns="2" cellpadding="10">
             <p:graphicImage name="/demo/images/prime_logo.png" />
             <h:outputText value="Gérer vos opérations commerciales, devis, bons de commandes etc" />
@@ -243,6 +240,14 @@
     </ui:insert>
     
     <ui:insert name="body"></ui:insert>
+    
+    
+    <p:dialog header="Favoris" widgetVar="favorisDlg" minHeight="200" minWidth="480">
+    		<c:forEach items="${sessionController.favoris}" var="favori">
+    			<a class="favori_link" href="#{request.contextPath}/design1/ui/#{favori.nomModule}/list">#{favori.nomModule}</a><br/>
+			</c:forEach>
+	</p:dialog>
+	<p:hotkey bind="ctrl+shift+f" handler="PF('favorisDlg').show();" />
     
     <ui:insert name="messages">
     	<p:growl id="msgInfo" life="50000000" autoUpdate="true" showDetail="true" showSummary="true"

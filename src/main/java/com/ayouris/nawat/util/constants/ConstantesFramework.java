@@ -1,9 +1,8 @@
 package com.ayouris.nawat.util.constants;
 
 /**
- * Interface de d�claration des constantes du framework.
+ * Interface de déclaration des constantes du framework.
  * 
- * @author Khalid CHAMAKH (elBissat)
  * @version 1.0
  */
 public interface ConstantesFramework {
@@ -23,7 +22,7 @@ public interface ConstantesFramework {
 	String SALT_LIC = "N@PE25@KDD_EE888_GT15K_@";
 
 	/**
-	 * Fichier de config o� les valeurs sont lues.
+	 * Fichier de config où les valeurs sont lues.
 	 */
 	String CONFIG_FILE = "ConstantesFramework";
 

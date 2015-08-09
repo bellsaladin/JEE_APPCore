@@ -6,7 +6,6 @@ import javax.validation.constraints.NotNull;
 /**
  * Classe des objets paramètrables qui permet de facilement gérer l'activité d'un ensemble d'objets ainsi que leur ordre d'affichage)
  * 
- * @author chamakh
  * @version 1.1
  */
 

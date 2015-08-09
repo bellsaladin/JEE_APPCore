@@ -24,7 +24,6 @@ import com.jolbox.bonecp.BoneCPDataSource;
 /**
  * An application context Java configuration class. The usage of Java configuration requires Spring Framework 3.0 or higher with following
  * 
- * @author chamakh
  */
 
 @Configuration

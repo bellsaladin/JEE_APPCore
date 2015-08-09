@@ -11,7 +11,6 @@ import org.hibernate.annotations.ParamDef;
 /**
  * Classe mère des objets qui sont en relation avec l'école
  * 
- * @author chamakh
  * @version 1.1
  */
 

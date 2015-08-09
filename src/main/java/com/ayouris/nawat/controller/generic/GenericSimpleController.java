@@ -7,10 +7,15 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.ayouris.nawat.model.entity.Favori;
+import com.ayouris.nawat.service.parametrage.FavoriService;
+
 public class GenericSimpleController extends GenericController{
 
 	protected Map<String,Action> _actions;
-	protected String _moduleName;	
+	protected String _moduleName;
 	
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
 	// ||||||||||||||||||||||||||||||||||||||||||||||||||| Constructeur |||||||||||||||||||||||||||||||||||||||||||||||||||||||//
@@ -62,7 +67,6 @@ public class GenericSimpleController extends GenericController{
 	
 	
 	private void registerDefaultActions() {
-		
 	}
 	
 	protected void registerActions() {

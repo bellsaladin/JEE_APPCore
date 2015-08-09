@@ -3,19 +3,8 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
                 template="/design1/_general/list.xhtml">
-
-    <ui:define name="head">        
-        <script type="text/javascript">
-            //<![CDATA[
-                function handleMessage(facesmessage) {
-                    facesmessage.severity = 'info';
-                    
-                    PF('growl').show([facesmessage]);
-                }
-            //]]> 
-        </script>
-    </ui:define>
     
     <ui:define name="contextMenuExtraActions">
     	<p:menuitem value="Some specific action" icon="ui-icon-signal" />
@@ -55,7 +44,7 @@
 	        <p:menuitem value="Update" actionListener="#{menuView.update}" update=":mainForm" icon="ui-icon-arrowrefresh-1-w"/>
 	        <p:menuitem value="Delete" actionListener="#{menuView.delete}" ajax="false" icon="ui-icon-close"/>
 	        <p:separator />
-	        <p:menuitem value="Homepage" url="http://www.primefaces.org" icon="ui-icon-extlink"/>
+	        <p:menuitem value="Ajouter aux favoris" actionListener="#{sessionController.addToFavorites(core.bean().moduleName)}"/>
 	    </p:menuButton>
 	</ui:define>
 	
@@ -64,6 +53,7 @@
    		<ui:include src="/dialogs/userUpdate.xhtml" /> 
    		<ui:include src="/dialogs/profilCreate.xhtml" />
    		<ui:include src="/dialogs/profilDuplicate.xhtml" />  -->
+		
 	</ui:define>
 	
 </ui:composition>

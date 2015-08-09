@@ -22,7 +22,7 @@ public class ArticleController extends GenericCRUDController<Article, ArticleSer
 	
 	protected void prepareData(){
 		super.prepareData();
-		_moduleName = "article";		
+		_moduleName = "article";
 		_object = new Article();
 		_object.setLibelle("sssss");
 		_object.setType("Service");

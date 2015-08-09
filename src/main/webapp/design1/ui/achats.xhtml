@@ -1,0 +1,55 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/design1/_general/template.xhtml">
+	
+    <ui:define name="implementation">
+    	<style>
+    		.dashboard .block{
+    			display: inline-table; margin: 20px;min-height:140px; width: 40%;
+    		}
+    		.dashboard h3{
+    			text-transform: uppercase; color: #2E8DDE;
+    		}
+    		.dashboard a{
+    			color: #5F5F5F; font-size: 14px !important; padding: 20px 0 !important; line-height: 20px;
+    		}
+    	</style>
+    	<div class="dashboard">
+	      	<div class="block">
+	      		<h3>Achat</h3>
+	      		<hr/>
+	      		<p:link outcome="user/list" value="Demandes de devis"/><br/>
+	      		<p:link outcome="user/list" value="Bons de commande"/><br/>
+	      		<p:link outcome="user/list" value="Fournisseurs"/>
+	      	</div>
+	      	<div class="block">
+	      		<h3>Produits rentrants</h3>
+	      		<hr/>
+	      		<p:link outcome="user/list" value="Produits rentrants"/>
+	      	</div>
+	      	<div class="block">
+	      		<h3>Factures</h3>
+	      		<hr/>
+	      		<p:link outcome="user/list" value="Factures"/>
+	      	</div>
+	      	<div class="block">
+	      		<h3>Produits</h3>
+	      		<hr/>
+	      		<p:link outcome="article/list" value="Produits"/><br/>
+	      		<p:link outcome="article/list" value="Produits par catégorie"/>
+	      	</div>
+      	</div>
+    </ui:define>
+    
+	<ui:define name="actions">
+		
+	</ui:define>
+	
+	<ui:define name="dialogs"> 
+  		
+	</ui:define>
+	
+</ui:composition>

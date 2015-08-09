@@ -73,6 +73,14 @@
     				   
     </ui:define>
     
+    <p:hotkey bind="ctrl+shift+s" actionListener="#{core.bean().addToFovoris()}">
+    	 <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+    </p:hotkey>
+    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+    </p:confirmDialog>
+    
 	<ui:insert name="actions" />
 	
 	<ui:insert name="dialogs" />

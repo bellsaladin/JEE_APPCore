@@ -18,7 +18,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.ayouris.nawat.controller.Core;
 import com.ayouris.nawat.controller.BaseController;
 import com.ayouris.nawat.model.base.BaseEntity;
+import com.ayouris.nawat.model.entity.Favori;
 import com.ayouris.nawat.service.generic.GenericService;
+import com.ayouris.nawat.service.parametrage.FavoriService;
 
 public class GenericCRUDController<Type extends BaseEntity, Service extends GenericService<Type, String>> extends GenericController{
 	protected Type _object;

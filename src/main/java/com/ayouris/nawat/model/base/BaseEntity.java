@@ -16,7 +16,6 @@ import org.joda.time.DateTime;
 /**
  * La classe Super de toutes les entities
  * 
- * @author chamakh
  * @version 1.2
  */
 
