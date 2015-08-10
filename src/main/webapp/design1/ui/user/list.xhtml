@@ -61,11 +61,11 @@
 		                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 		                 rowsPerPageTemplate="25,50,100"
 		                 currentPageReportTemplate="[ {totalRecords} #{lbl['lbl.lignes']} ]">
-		        	<p:ajax event="rowSelect" update=":mainForm:actionsForm" />
-        			<p:ajax event="rowUnselect"  update=":mainForm:actionsForm" />
-        			<p:ajax event="rowSelectCheckbox" update=":mainForm:actionsForm" />
-        			<p:ajax event="rowUnselectCheckbox"  update=":mainForm:actionsForm" />	                 		                 		        		      
-        			<p:ajax event="toggleSelect"  update=":mainForm:actionsForm" />
+		        	<p:ajax event="rowSelect" update=":mainForm" />
+        			<p:ajax event="rowUnselect"  update=":mainForm" />
+        			<p:ajax event="rowSelectCheckbox" update=":mainForm" />
+        			<p:ajax event="rowUnselectCheckbox"  update=":mainForm" />	                 		                 		        		      
+        			<p:ajax event="toggleSelect"  update=":mainForm" />
 <!-- 				<p:ajax event="rowSelect" update=":dialogUpdateUser" oncomplete="PF('dlgUpdateUser').show()"/> -->
 				
 				<p:column selectionMode="multiple" headerText="" style="width:20px;"/>
@@ -133,18 +133,17 @@
     </ui:define>
     
 	<ui:define name="actions">
-		<a style="font-size: 15px;color: rgba(145, 180, 184, 1);font-family: Arial, Helvetica, sans-serif;"><b style="color: rgba(211, 211, 211, 1);">Paramètrage > </b>Utilisateurs</a>		
 		<p:button value="Aide" href="article" styleClass="ui-whiteBtn pull-right"/>
 		<p:button value="Nouveau" href="/design1/ui/#{core.bean().moduleName}/form" styleClass="ui-whiteBtn pull-right" style="margin-right:10px;"/>
 	    <p:commandButton value="Action 1" rendered="#{core.bean().selectedObjects.size() gt 0}" actionListener="#{notifyView.send}" styleClass="ui-whiteBtn pull-right" style="margin-right:10px;"/>
 	    <p:commandButton value="Action 2" rendered="#{core.bean().selectedObjects.size() gt 0}" actionListener="#{notifyView.send}" styleClass="ui-whiteBtn pull-right" style="margin-right:10px;"/>
 	    <p:commandButton value="Action 3" rendered="#{core.bean().selectedObjects.size() gt 0}" actionListener="#{notifyView.send}" styleClass="ui-whiteBtn pull-right" style="margin-right:10px;"/>
 	    <p:menuButton value="Plus" rendered="#{core.bean().list.size() gt 0}" styleClass="ui-whiteBtn pull-right"  style="margin-right:10px;">
-	        <p:menuitem value="Save" actionListener="#{menuView.save}" update=":mainForm" icon="ui-icon-disk"/>
-	        <p:menuitem value="Update" actionListener="#{menuView.update}" update=":mainForm" icon="ui-icon-arrowrefresh-1-w"/>
-	        <p:menuitem value="Delete" actionListener="#{menuView.delete}" ajax="false" icon="ui-icon-close"/>
+	        <p:menuitem value="Action 1" actionListener="#{menuView.save}" update=":mainForm" icon="ui-icon-disk"/>
+	        <p:menuitem value="Action 2" actionListener="#{menuView.update}" update=":mainForm" icon="ui-icon-arrowrefresh-1-w"/>
+	        <p:menuitem value="Action 3" actionListener="#{menuView.delete}" ajax="false" icon="ui-icon-close"/>
 	        <p:separator />
-	        <p:menuitem value="Ajouter aux favoris" actionListener="#{sessionController.addToFavorites(core.bean().moduleName)}"/>
+	        <p:menuitem value="Ajouter aux favoris" actionListener="#{sessionController.addToFavorites(core.bean().moduleName)}" icon="ui-icon-star"/>
 	    </p:menuButton>
 	</ui:define>
 	

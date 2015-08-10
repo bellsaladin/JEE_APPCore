@@ -81,7 +81,7 @@
 				         <h:outputLabel for="passwordConfirm" value="Password Confirmation: *" />
 				    </p:column>
 				    <p:column>  
-				         <p:password id="passwordConfirm" value="#{core.bean().object.passwordConfirm}" label="Password 2" required="true"/>
+				         <p:password id="passwordConfirm" value="#{core.bean().object.passwordConfirm}" label="Password 2"/>
 				    </p:column>     	         
 				   </p:row>
 				   <p:row>
@@ -107,10 +107,10 @@
 			     	 <p:column colspan="3">
 				        <p:fragment id="profilPanel" widgetVar="profilPanel">			        		       
 				        	<p:fragment columns="1" rendered="#{core.bean().object.type == 'utilisateur'}">	        		  				       
-						        <p:selectOneMenu id="profil" value="#{core.bean().object.profil}" var="p">      	    
+						        <p:selectOneMenu id="profil" value="#{core.bean().object.profil}">      	    
 						           <f:selectItem itemLabel="" itemValue="" />
 						           <f:selectItems value="#{core.bean().profils}" var="profil" itemLabel="#{profil.libelle}" itemValue="#{profil.id}" />
-						           <p:ajax event="change" listener="#{core.bean().onProfilChange}" update=":dialogDuplicateProfil"/>							             			           		            		            		          
+						           <p:ajax event="change" listener="#{core.bean().onProfilChange()}" update=":dialogDuplicateProfil"/>							             			           		            		            		          
 						        </p:selectOneMenu><br/>
 						    	<p:commandButton value="Nouveau" onclick="PF('dlgCreateProfil').show()" type="button"/>
 							    <p:commandButton value="Dupliquer" onclick="PF('dlgDuplicateProfil').show()" type="button"/>
@@ -125,8 +125,8 @@
 	<ui:define name="actions">	
 		<p:commandButton value="Enregistrer" actionListener="#{core.bean().runAction('persist')}" update="mainForm" styleClass="ui-whiteBtn" />
 		<p:button value="Retour" href="/design1/ui/#{core.bean().moduleName}/list" styleClass="ui-whiteBtn pull-right"/>
-		<p:commandButton value="Vider" actionListener="#{notifyView.send}" styleClass="ui-whiteBtn pull-right" style="margin-right:10px;"/>
-		<p:commandButton value="Supprimer" actionListener="#{core.bean().runAction('delete')}" update=":mainForm" styleClass="ui-whiteBtn" />
+		<!-- <p:commandButton value="Vider" actionListener="#{notifyView.send}" styleClass="ui-whiteBtn pull-right" style="margin-right:10px;"/> -->
+		<p:commandButton value="Supprimer" rendered="#{core.bean().paramId != null }" actionListener="#{core.bean().runAction('delete')}" update=":mainForm" styleClass="ui-whiteBtn" />
 		<p:outputPanel rendered="#{core.bean().paramId != null }" style="display:inline;" styleClass="pull-right">			
 			<span style="margin-right:10px;"><p:outputLabel value="#{core.bean().list.indexOf(core.bean().object) + 1}"/> / <p:outputLabel value="#{core.bean().list.size()}"/></span>
 			<p:commandButton value="&lt;" actionListener="#{core.bean().runAction('getPrevious')}" update=":mainForm" styleClass="ui-whiteBtn" style="margin-right:10px;"/>

@@ -14,11 +14,15 @@ import org.omnifaces.util.Faces;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.SelectableDataModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.ContextLoader;
+import org.springframework.web.context.WebApplicationContext;
 
 import com.ayouris.nawat.controller.Core;
 import com.ayouris.nawat.controller.BaseController;
 import com.ayouris.nawat.model.base.BaseEntity;
 import com.ayouris.nawat.model.entity.Favori;
+import com.ayouris.nawat.model.entity.UserNawat;
+import com.ayouris.nawat.model.entity.v2_UserNawat;
 import com.ayouris.nawat.service.generic.GenericService;
 import com.ayouris.nawat.service.parametrage.FavoriService;
 
@@ -38,6 +42,8 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
 	
 	public GenericCRUDController() {
+		//checkAccessPermission();
+		
 		_actions = new HashMap<String,Action>();
 		registerDefaultActions();
 		registerActions();
@@ -45,6 +51,7 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 	
 	@PostConstruct
 	public void initialize() {
+		checkAccessPermission();
 		// try to get parameter data
 		_paramId = (String) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("id");
 		prepareData();
@@ -101,7 +108,7 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 			@Override
 			public void run() {
 				_service.save(_object);
-				FacesMessage msg = new FacesMessage("Do Edit : " + _moduleName);
+				FacesMessage msg = new FacesMessage(_moduleName + " modifié");
 				FacesContext.getCurrentInstance().addMessage(null, msg);
 			}
 		});
@@ -110,7 +117,7 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 			@Override
 			public void run() {
 				_service.save(_object);
-				FacesMessage msg = new FacesMessage("Do Edit : " + _moduleName);
+				FacesMessage msg = new FacesMessage(_moduleName + " enregistré");
 				FacesContext.getCurrentInstance().addMessage(null, msg);
 			}
 		});
@@ -119,7 +126,7 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 			@Override
 			public void run() {
 				_service.delete(_object);
-				FacesMessage msg = new FacesMessage("Do Delete : " + _moduleName);
+				FacesMessage msg = new FacesMessage(_moduleName + " supprimé");
 				FacesContext.getCurrentInstance().addMessage(null, msg);
 			}
 		});
@@ -128,29 +135,29 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 			@Override
 			public void run() {
 				for(Object object: _list){
-					if(object.equals(object)){
+					if(object.equals(_object)){
 						int indexOfCurrentObject = _list.indexOf(object);
 						if(indexOfCurrentObject - 1 >= 0){
-							object = _list.get(indexOfCurrentObject - 1);
+							_object = _list.get(indexOfCurrentObject - 1);
 							return;
 						}else{
-							object = _list.get(_list.size() - 1);
+							_object = _list.get(_list.size() - 1);
 						}
 					}
 				}	
 			}
 		});
-		_actions.put("getPrevious", new Action(){
+		_actions.put("getNext", new Action(){
 			@Override
 			public void run() {
 				for(Object object: _list){
-					if(object.equals(object)){
+					if(object.equals(_object)){
 						int indexOfCurrentObject = _list.indexOf(object);
 						if(indexOfCurrentObject + 1 < _list.size()){
-							object = _list.get(indexOfCurrentObject + 1);
+							_object = _list.get(indexOfCurrentObject + 1);
 							return;
 						}else{
-							object = _list.get(0);
+							_object = _list.get(0);
 						}
 					}
 				}	
@@ -160,6 +167,19 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 	
 	protected void registerActions() {
 		// implemented on subClass
+	}
+	
+	protected void checkAccessPermission(){
+		WebApplicationContext context = ContextLoader.getCurrentWebApplicationContext();
+		v2_UserNawat currentUser  = (v2_UserNawat) context.getBean("currentUser");
+		if(!currentUser.getSuperAdministrateur()){
+			/*try {
+				FacesContext.getCurrentInstance().getExternalContext().dispatch("forbidden");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}*/
+		}
 	}
 
 	public void onRowSelect(SelectEvent event) throws IOException {

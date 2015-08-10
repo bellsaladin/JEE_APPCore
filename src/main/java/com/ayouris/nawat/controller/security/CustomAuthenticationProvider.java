@@ -13,15 +13,17 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import com.ayouris.nawat.model.entity.UserNawat;
+import com.ayouris.nawat.model.entity.v2_UserNawat;
 import com.ayouris.nawat.repository.parametrage.UserRepository;
+import com.ayouris.nawat.repository.parametrage.v2_UserRepository;
 
 @Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
-	private final UserRepository userRepository;
+	private final v2_UserRepository userRepository;
 
 	@Autowired
-	public CustomAuthenticationProvider(UserRepository userRepository) {
+	public CustomAuthenticationProvider(v2_UserRepository userRepository) {
 		this.userRepository = userRepository;
 	}
 
@@ -30,7 +32,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 		String name = auth.getName();
 		String password = auth.getCredentials().toString();
 
-		UserNawat userNawat = userRepository.findUserNawatByLogin(name);
+		v2_UserNawat userNawat = userRepository.findUserNawatByLogin(name);
 
 		// PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		// //String rawPassword = passwordEncoder.encode(password);

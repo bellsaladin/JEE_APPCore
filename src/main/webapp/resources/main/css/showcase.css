@@ -448,7 +448,7 @@ input.searchInput {
 
 .ui-button{/*padding: 2px 6px !important;*/}
 
-.actionsSection{  padding: 15px 30px;}
+.actionsSection{  padding: 15px 30px;  min-height: 30px;}
 
 .ui-blueBtn{background-color: #1FB2FF !important;color: #fff;text-shadow: none;border: 1px solid rgba(0, 0, 0, 0.15);background-image: none;border-radius: 2px;font-size: 12px; font-weight:bold; }
 
@@ -491,3 +491,10 @@ li.ui-state-active a { color:rgb(1, 154, 249) !important; }
 .ui-widget-overlay{background: #BEBEBE}
 
 .ui-shadow{-webkit-box-shadow: rgb(66, 66, 66) 1px 0px 41px -4px !important; border-radius:0 !important; border:none !important;}
+
+.favori_link{
+	display: block;
+    background-color: #eee;
+    padding: 5px;
+    font-weight:bold
+}

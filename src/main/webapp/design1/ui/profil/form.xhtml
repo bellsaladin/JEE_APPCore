@@ -14,15 +14,6 @@
             //]]> 
         </script>
     </ui:define>
-    
-    <ui:define name="title">
-        Article
-    </ui:define>
-
-    <ui:define name="description">
-        Création d'un nouvel article
-    </ui:define>
-	
 	
     <ui:define name="implementation">
 	  <div style="padding:30px">
@@ -38,27 +29,29 @@
 				               <f:validateLength minimum="2" />  
 				           </p:inputText>
 				     </p:column>
-				     <p:column>      
-				          <h:outputLabel for="prix" value="Prix : *" />
-				    </p:column>
-				    <p:column>  
-				          <p:inputText id="prix" value="#{core.bean().object.prix}" required="true" label="Prix :"/>  
-				    </p:column>
-				 				
 				 </p:row>
 				   
 				    <p:row>
 				    	<p:column>      
-				          <h:outputText for="type" value="Type: " />
-				        </p:column>
-				        <p:column> 		             
-					       <p:selectOneMenu id="type" value="#{core.bean().object.type}">		      	    
-					          <f:selectItem itemLabel="Consommable" itemValue="Consommable" />
-					          <f:selectItem itemLabel="Service" itemValue="Service" />
-					          <!-- <p:ajax event="change" update="profilPanel"/>  -->					          	
-					       </p:selectOneMenu>
-				       	</p:column>
-				 </p:row>	 			        			      
+				          <h:outputLabel for="description" value="Description : *" />
+				    </p:column>
+				    <p:column>  
+				          <p:inputTextarea rows="5" cols="30" maxlength="500" id="description" value="#{core.bean().object.description}" required="true" label="Description :"/>  
+				    </p:column>
+				 </p:row>	
+				 <p:row>
+	            	<p:column colspan="2">	            
+	            		<p:scrollPanel style="height:200px;overflow-y:scroll">	         	   
+				            <p:tree value="#{core.bean().root2}" var="node"  
+						           selectionMode="checkbox" cache="false"
+						           selection="#{core.bean().selectedNodes}" style="width:100%; border:0;">						 
+						       <p:treeNode>
+						           <h:outputText value="#{node}" />  
+						       </p:treeNode>  
+						   </p:tree>
+						 </p:scrollPanel> 
+				   </p:column>
+				</p:row>			        			      
        		</p:panelGrid>
       </div>
     </ui:define>  

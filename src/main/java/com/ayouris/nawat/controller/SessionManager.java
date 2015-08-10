@@ -15,8 +15,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import com.ayouris.nawat.model.entity.Ecole;
 import com.ayouris.nawat.model.entity.Theme;
 import com.ayouris.nawat.model.entity.UserNawat;
+import com.ayouris.nawat.model.entity.v2_UserNawat;
 import com.ayouris.nawat.service.parametrage.EcoleService;
 import com.ayouris.nawat.service.parametrage.UserService;
+import com.ayouris.nawat.service.parametrage.v2_UserService;
 import com.ayouris.nawat.util.scopes.session.SpringSessionScoped;
 
 @Named
@@ -28,13 +30,13 @@ public class SessionManager extends BaseController implements Serializable {
 	private static final long serialVersionUID = -1795802343834566516L;
 
 	private Ecole currentEcole;
-	private UserNawat currentUser;
+	private v2_UserNawat currentUser;
 
 	private Locale locale;
 	private Theme theme;
 
 	@Inject
-	UserService userService;
+	v2_UserService userService;
 
 	@Inject
 	EcoleService ecoleService;
@@ -47,7 +49,7 @@ public class SessionManager extends BaseController implements Serializable {
 
 	@Bean(name = "currentUser")
 	@SpringSessionScoped
-	public UserNawat getCurrentUser() {
+	public v2_UserNawat getCurrentUser() {
 		return currentUser;
 	}
 
@@ -91,7 +93,7 @@ public class SessionManager extends BaseController implements Serializable {
 		return (getLanguage() == LANGUE_AR) ? true : false;
 	}
 
-	public void setCurrentUser(UserNawat user) {
+	public void setCurrentUser(v2_UserNawat user) {
 		this.currentUser = user;
 		System.out.println("SessionManager : " + currentUser.getDisplayText());
 	}

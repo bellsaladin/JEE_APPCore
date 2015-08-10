@@ -27,10 +27,12 @@ public class UserController extends GenericCRUDController<v2_UserNawat, v2_UserS
 		super.prepareData();
 		_moduleName = "user";
 		_object = new v2_UserNawat();
+		
 		setProfils(_v2_profilService.findAll());
 	}
 	
 	public void onProfilChange() {
+		System.out.println("onProfilChange" + _object.getProfil().getId());
 		ProfilDuplicateController profilDuplicateController = (ProfilDuplicateController) getApplicationContext().getBean(
 				"profilDuplicateController");
 		profilDuplicateController.setProfilId(_object.getProfil().getId());

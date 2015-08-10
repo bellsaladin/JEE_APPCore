@@ -31,6 +31,7 @@ import com.ayouris.nawat.model.base.BaseEcole;
 import com.ayouris.nawat.model.base.BaseEntity;
 import com.ayouris.nawat.model.entity.Ecole;
 import com.ayouris.nawat.model.entity.UserNawat;
+import com.ayouris.nawat.model.entity.v2_UserNawat;
 import com.ayouris.nawat.util.repository.DefaultPersistenceProvider;
 
 @NoRepositoryBean
@@ -46,7 +47,7 @@ public class GenericRepositoryImpl<T extends BaseEntity, ID extends Serializable
 	final DefaultPersistenceProvider provider;
 
 	Ecole currentEcole;
-	UserNawat currentUser;
+	v2_UserNawat currentUser;
 
 	private Class<?> springDataRepositoryInterface;
 
@@ -214,7 +215,7 @@ public class GenericRepositoryImpl<T extends BaseEntity, ID extends Serializable
 			WebApplicationContext context = ContextLoader.getCurrentWebApplicationContext();
 
 			this.currentEcole = (Ecole) context.getBean("currentEcole");
-			this.currentUser  = (UserNawat) context.getBean("currentUser");
+			this.currentUser  = (v2_UserNawat) context.getBean("currentUser");
 		}
 	}
 

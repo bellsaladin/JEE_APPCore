@@ -16,7 +16,6 @@ import com.ayouris.nawat.repository.parametrage.UserRepository;
 /**
  * This class loads the requested user by using a Spring Data JPA repository.
  * 
- * @author Petri Kainulainen
  */
 public class CustomUserDetailsService implements UserDetailsService {
 

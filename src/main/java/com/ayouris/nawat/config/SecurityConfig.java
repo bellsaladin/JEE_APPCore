@@ -12,13 +12,14 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import com.ayouris.nawat.controller.security.CustomAuthenticationProvider;
 import com.ayouris.nawat.controller.security.CustomAuthenticationSuccessHandler;
 import com.ayouris.nawat.repository.parametrage.UserRepository;
+import com.ayouris.nawat.repository.parametrage.v2_UserRepository;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
-	private UserRepository userRepository;
+	private v2_UserRepository userRepository;
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {

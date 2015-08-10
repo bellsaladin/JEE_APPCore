@@ -19,7 +19,7 @@
         <link rel="shortcut icon" type="image/png" href="#{request.contextPath}/resources/main/images/favicon.png" />
     </f:facet>
 
-    <title>PrimeFaces ShowCase</title>
+    <title>#{basicView.title}</title>
     <h:outputStylesheet name="main/css/showcase.css" />
     <h:outputStylesheet name="main/css/perfect-scrollbar.css" />
     <h:outputStylesheet name="main/css/sh.css" />
@@ -82,25 +82,29 @@
     <p:tooltip id="toolTipContent_1" for="SubMenu-Achats" style="width:450px; margin-top:-120px !important">
     	<h:panelGrid columns="2" cellpadding="10">
             <p:graphicImage name="/demo/images/prime_logo.png" />
-            <h:outputText value="Gérer vos opérations commerciales, devis, bons de commandes etc" />
+            <h:panelGrid rows="2" cellpadding="10">
+	            <b>Achats</b>
+	            <p>Gérez vos demandes de prix, bons de commandes, factures, fournisseurs, entrées en stocks...</p>
+            </h:panelGrid>
         </h:panelGrid>
     </p:tooltip>
     
     <p:tooltip id="toolTipContent_2" for="SubMenu-Ventes" style="width:450px;margin-top:-120px !important">
-        <p:panelGrid>
-	        <p:row>
-	        	<p:column rowspan="2"><p:graphicImage name="/demo/images/prime_logo.png" /></p:column>
-	        	<p:column><b><h:outputText value="Suivi Quotidien" /></b></p:column>
-	        </p:row>
-            <p:row>
-	        	<p:column><h:outputText value="Gestion des opérations de mainterance." /><br/></p:column>
-	        </p:row>	    
-        </p:panelGrid>
+        <h:panelGrid columns="2" cellpadding="10">
+            <p:graphicImage name="/demo/images/prime_logo.png" />
+            <h:panelGrid rows="2" cellpadding="10">
+	            <b>Ventes</b>
+	            <p>Gérez vos clients, les devis, les bons de commandes, les factures ... etc</p>
+            </h:panelGrid>
+        </h:panelGrid>
     </p:tooltip>
     <p:tooltip id="toolTipContent_3" for="SubMenu-Parametrage" style="width:450px; margin-top:-120px !important">
     	<h:panelGrid columns="2" cellpadding="10">
             <p:graphicImage name="/demo/images/prime_logo.png" />
-            <h:outputText value="Gérer vos opérations commerciales, devis, bons de commandes etc" />
+            <h:panelGrid rows="2" cellpadding="10">
+	            <b>Paramètrage</b>
+	            <p>Gérez les utilisateurs de l'application, les droits d'accès et tous les autres paramètres.</p>
+            </h:panelGrid>
         </h:panelGrid>
     </p:tooltip>
     
@@ -181,11 +185,11 @@
 				<h:form id="mainForm">
 					<div class="ContentSideSections actionsSection Implementation">
 						<h:panelGroup id="actionsForm" layout="block">
-							<a style="font-size: 15px;color: rgba(20, 140, 220, 1);font-family: Arial, Helvetica, sans-serif; font-weight:bold">
+							<!-- <a style="font-size: 15px;color: rgba(20, 140, 220, 1);font-family: Arial, Helvetica, sans-serif; font-weight:bold">
 								<b style="color: rgba(122, 122, 132, 1);">Ventes > </b>
 								<p:outputLabel value="#{core.bean().moduleName}"/> > Liste
-								
 							</a>
+							<br/><br/>-->
 		                    <ui:insert name="actions" />
 		                </h:panelGroup>
 	                </div>
@@ -242,7 +246,7 @@
     <ui:insert name="body"></ui:insert>
     
     
-    <p:dialog header="Favoris" widgetVar="favorisDlg" minHeight="200" minWidth="480">
+    <p:dialog header="Favoris" widgetVar="favorisDlg" height="200" width="480">
     		<c:forEach items="${sessionController.favoris}" var="favori">
     			<a class="favori_link" href="#{request.contextPath}/design1/ui/#{favori.nomModule}/list">#{favori.nomModule}</a><br/>
 			</c:forEach>
