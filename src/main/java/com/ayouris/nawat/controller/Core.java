@@ -15,9 +15,11 @@ public class Core<T> implements Serializable{
 	private static final long serialVersionUID = 9100562508344707166L;
 		
 	public static GenericController<?,?> _bean; // current bean handled by the core
+	private static String currentModuleName;
 	
     public Core() {
-    	String managedBeanName = getModuleNameFromUrl() + "Controller"; 
+    	currentModuleName = getModuleNameFromUrl();
+    	String managedBeanName = currentModuleName + "Controller";
     	loadManagedBeanByName(managedBeanName);
 	}
     
@@ -52,5 +54,13 @@ public class Core<T> implements Serializable{
 		String[] explodedUrl = requestUrl.split("/");
 		return explodedUrl[0];
     }
+
+	public static String getCurrentModuleName() {
+		return currentModuleName;
+	}
+
+	public static void setCurrentModuleName(String currentModuleName) {
+		Core.currentModuleName = currentModuleName;
+	}
     
 }

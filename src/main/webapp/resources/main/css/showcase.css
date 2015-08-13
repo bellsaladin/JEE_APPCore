@@ -29,7 +29,9 @@ body{margin:0px; height:100%; overflow-x:hidden; overflow-y:auto; background-col
 				.MenuSideMainLink input{ padding:6px; background-color:#354044; outline:none; border:0px; border:none; color:#9ba5ac; border-radius:20px;
 				-webkit-box-shadow: inset 0px 0px 3px 0px rgba(0,0,0,0.5); -moz-box-shadow: inset 0px 0px 3px 0px rgba(0,0,0,0.5); box-shadow: inset 0px 0px 3px 0px rgba(0,0,0,0.5);}
 			.MenuSideMainLinkDark{background-color:#20282b !important;   border-left: 6px solid #EC6767; -webkit-transition: all 0.5s ease; -moz-transition: all 0.5s ease; -ms-transition: all 0.5s ease; -o-transition: all 0.5s ease; transition: all 0.5s ease;}
-			.MenuSideMainLink:hover{/*background-color:#20282b;*/  border-right: 3px solid #FF6262; -webkit-transition: all 0.5s ease; -moz-transition: all 0.5s ease; -ms-transition: all 0.5s ease; -o-transition: all 0.5s ease; transition: all 0.5s ease;}
+			.MenuSideMainLink:hover{/*background-color:#20282b;*/  border-right: 3px solid #95d9ee; -webkit-transition: all 0.5s ease; -moz-transition: all 0.5s ease; -ms-transition: all 0.5s ease; -o-transition: all 0.5s ease; transition: all 0.5s ease;}
+			#MENUSIDEindent .selected{border-right: 3px solid #FF6262;}
+			
 				.MenuSideMainLink img{width:22px; height:auto; float:left; }
 				.MainLinkText{color: #9ba5ac; font-size: 14px; margin: 0px 0px 0px 47px; display: block; display: none;}
 				

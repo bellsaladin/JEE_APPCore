@@ -16,7 +16,14 @@ public class BasicView {
     
     @PostConstruct
     public void initialize(){
-    	String[] candidateTitles = {"INTEGRIS", "CRUCIAL", "LINKINIO", "TARGET", "EXPERTIV","DIREXio", "FOKUS","INSIGHT","EXPENCIO","GLACE","XTENTO","XTENXIO","XTenzio"};
+    	String[] candidateTitles = {"INTEGRIS", "CRUCIAL", "EXPENCIO","EXTENCIO", "LINKINIO", "TARGET","DIREXio",
+    								"MAXIMIO","MAXIMOR","CALCULOZ",
+    								"Absoluno",
+    								"DIRECTROV","DIRECTRO","DIRECTRO-FORCE","DIRECTRO-MAX",
+    								"XPER","LEXPER","XPERTIN","XPIRIO","AXPERTIN","EXPERTIN","XPERIX","XPERGGO",
+    								"Dorizon", // The horizon
+    								"Orizontic",
+    								"FOKUS","GLACE","XTENTO","XTENXIO","XTenzio"};
 		int val = new Random().nextInt(candidateTitles.length);
 		title =  candidateTitles[val];
     }
