@@ -70,6 +70,10 @@
 				
 				<p:column selectionMode="multiple" headerText="" style="width:20px;"/>
 				
+				<p:column style="width:16px">
+		            <h:outputText id="dragIcon" styleClass="ui-icon ui-icon-arrow-4" />
+		            <p:draggable for="dragIcon" revert="true" helper="clone"/>
+		        </p:column>
 				
 				<p:column sortBy="#{object.login}">
 		            <f:facet name="header">

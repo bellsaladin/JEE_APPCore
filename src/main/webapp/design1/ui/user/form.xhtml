@@ -55,7 +55,7 @@
 				    	<p:column>      
 				          <h:outputText for="type" value="Type: " />
 				        </p:column>
-				        <p:column> 		             
+				        <p:column>
 					       <p:selectOneMenu id="type" value="#{core.bean().object.type}">		      	    
 					          <f:selectItem itemLabel="Utilisateur" itemValue="utilisateur" />
 					          <f:selectItem itemLabel="Administrateur" itemValue="administrateur" />
@@ -107,9 +107,9 @@
 			     	 <p:column colspan="3">
 				        <p:fragment id="profilPanel" widgetVar="profilPanel">			        		       
 				        	<p:fragment columns="1" rendered="#{core.bean().object.type == 'utilisateur'}">	        		  				       
-						        <p:selectOneMenu id="profil" value="#{core.bean().object.profil}">      	    
+						        <p:selectOneMenu id="profil" value="#{core.bean().object.profil}" converter="omnifaces.SelectItemsConverter">      	    
 						           <f:selectItem itemLabel="" itemValue="" />
-						           <f:selectItems value="#{core.bean().profils}" var="profil" itemLabel="#{profil.libelle}" itemValue="#{profil.id}" />
+						           <f:selectItems value="#{core.bean().profils}" var="profil" itemLabel="#{profil.libelle}" itemValue="#{profil}" />
 						           <p:ajax event="change" listener="#{core.bean().onProfilChange()}" update=":dialogDuplicateProfil"/>							             			           		            		            		          
 						        </p:selectOneMenu><br/>
 						    	<p:commandButton value="Nouveau" onclick="PF('dlgCreateProfil').show()" type="button"/>

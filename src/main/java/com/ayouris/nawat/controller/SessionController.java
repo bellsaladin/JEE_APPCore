@@ -3,6 +3,7 @@ package com.ayouris.nawat.controller;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
@@ -13,6 +14,7 @@ import com.ayouris.nawat.service.parametrage.FavoriService;
 import com.ayouris.nawat.util.scopes.session.SpringSessionScoped;
 
 @Named
+//@ManagedBean
 @SpringSessionScoped
 public class SessionController {
 	

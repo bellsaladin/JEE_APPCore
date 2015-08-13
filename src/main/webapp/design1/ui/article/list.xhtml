@@ -11,7 +11,13 @@
     </ui:define>
 		        
 	<ui:define name="dataTableColumns">
-		        
+		
+		<p:column style="width:16px">
+  			<p:outputLabel rendered="#{object.prix ge 0 and object.prix lt 1000}" styleClass="ui-icon ui-icon-arrowthickstop-1-w" />
+ 			<p:outputLabel rendered="#{object.prix ge 1000 and object.prix lt 2000}" styleClass="ui-icon ui-icon-transfer-e-w" />
+            <p:outputLabel rendered="#{object.prix ge 2000 and object.prix lt 3000}" styleClass="ui-icon ui-icon-arrow-4" />
+        </p:column>
+            
         <p:column sortBy="#{object.libelle}">
             <f:facet name="header">
                 <h:outputText value="#{lbl['lbl.libelle']}" />

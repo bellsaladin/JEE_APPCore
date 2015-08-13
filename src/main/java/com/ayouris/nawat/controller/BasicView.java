@@ -2,14 +2,24 @@ package com.ayouris.nawat.controller;
 
 import java.util.Random;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 
+import com.ayouris.nawat.util.scopes.view.SpringViewScoped;
+
 @ManagedBean
+@SpringViewScoped
 public class BasicView {
     
     private String text;
     private String title;
-
+    
+    @PostConstruct
+    public void initialize(){
+    	String[] candidateTitles = {"INTEGRIS", "CRUCIAL", "LINKINIO", "TARGET", "EXPERTIV","DIREXio", "FOKUS","INSIGHT","EXPENCIO","GLACE","XTENTO","XTENXIO","XTenzio"};
+		int val = new Random().nextInt(candidateTitles.length);
+		title =  candidateTitles[val];
+    }
     public String getText() {
         return text;
     }
@@ -17,9 +27,7 @@ public class BasicView {
         this.text = text;
     }
 	public String getTitle() {
-		int val = new Random().nextInt(10);
-		String[] candidateTitles = {"INTEGRIS", "CRUCIAL", "TARGET", "EXPERTIV","TOTAL CONTROL", "FOKUS","INSIGHT","HARMONIUM","MARVELO","GLACE"};
-		return candidateTitles[val];
+		return title;
 	}
 	public void setTitle(String title) {
 		this.title = title;
