@@ -8,7 +8,7 @@
 		<property name="scopes">
 			<map>
 				<entry key="view">
-					<bean class="com.ayouris.nawat.util.scopes.view.ViewScope" />
+					<bean class="com.seosoft.erp.util.scopes.view.ViewScope" />
 				</entry>
 			</map>
 		</property>

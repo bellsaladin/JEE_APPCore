@@ -109,12 +109,12 @@
 				        	<p:fragment columns="1" rendered="#{core.bean().object.type == 'utilisateur'}">	        		  				       
 						        <p:selectOneMenu id="profil" value="#{core.bean().object.profil}" converter="omnifaces.SelectItemsConverter">      	    
 						           <f:selectItem itemLabel="" itemValue="" />
-						           <f:selectItems value="#{core.bean('profil').list}" var="profil" itemLabel="#{profil.libelle}" itemValue="#{profil}" />
-						           <p:ajax event="change" listener="#{core.bean().onProfilChange()}" update=":dialogProfil" />							             			           		            		            		          
+						           <f:selectItems value="#{core.bean().profils}" var="profil" itemLabel="#{profil.libelle}" itemValue="#{profil}" />
+						           <p:ajax event="change" listener="#{core.bean().onProfilChange()}" update=":dialogDuplicateProfil"/>							             			           		            		            		          
 						        </p:selectOneMenu><br/>
-						    	<p:commandButton value="Nouveau" onclick="PF('dialogProfil').show()" type="button"/>
-							    <p:commandButton value="Dupliquer" onclick="PF('dialogProfil').show()" type="button"/>
-				        	</p:fragment>	        			        
+						    	<p:commandButton value="Nouveau" onclick="PF('dlgCreateProfil').show()" type="button"/>
+							    <p:commandButton value="Dupliquer" onclick="PF('dlgDuplicateProfil').show()" type="button"/>
+				        	</p:fragment>		        			        
 				        </p:fragment>
 			        </p:column>
 				 </p:row>		 			        			      
@@ -135,7 +135,6 @@
 	</ui:define>
 	
 	<ui:define name="dialogs"> 
-	<ui:include src="/design1/ui/profil/dialogs/form.xhtml" />
   		<ui:include src="/dialogs/profilCreate.xhtml" />
   		<ui:include src="/dialogs/profilDuplicate.xhtml" />
 	</ui:define>

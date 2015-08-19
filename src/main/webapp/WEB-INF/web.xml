@@ -11,7 +11,7 @@
   </context-param>
   <context-param>
     <param-name>contextConfigLocation</param-name>
-    <param-value>com.ayouris.nawat.config.ApplicationContext</param-value>
+    <param-value>com.seosoft.erp.config.ApplicationContext</param-value>
   </context-param>
   <listener>
     <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
