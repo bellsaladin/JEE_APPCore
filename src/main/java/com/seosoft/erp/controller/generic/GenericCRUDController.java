@@ -56,6 +56,7 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 		_paramId = (String) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("id");
 		prepareData();
 		setUpdateObjectSubject();
+		onDataReady();
 	}
 	
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
@@ -82,6 +83,10 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 	protected void prepareData() {
 		_list = _service.findAll();
 		_dataModel = new DataModel(_list);
+	}
+	
+	protected void onDataReady() {
+		
 	}
 
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//

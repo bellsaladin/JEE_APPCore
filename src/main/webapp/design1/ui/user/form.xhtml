@@ -25,7 +25,6 @@
         Création d'un nouvel article
     </ui:define>
 	
-	
     <ui:define name="implementation">
 	  <div style="padding:30px">
         <p:growl widgetVar="growl" showDetail="true" />
@@ -107,13 +106,13 @@
 			     	 <p:column colspan="3">
 				        <p:fragment id="profilPanel" widgetVar="profilPanel">			        		       
 				        	<p:fragment columns="1" rendered="#{core.bean().object.type == 'utilisateur'}">	        		  				       
-						        <p:selectOneMenu id="profil" value="#{core.bean().object.profil}" converter="omnifaces.SelectItemsConverter">      	    
+						        <p:selectOneMenu id="profil"  widgetVar="profil" value="#{core.bean().object.profil}" converter="omnifaces.SelectItemsConverter">      	    
 						           <f:selectItem itemLabel="" itemValue="" />
 						           <f:selectItems value="#{core.bean('profil').list}" var="profil" itemLabel="#{profil.libelle}" itemValue="#{profil}" />
 						           <p:ajax event="change" listener="#{core.bean().onProfilChange()}" update=":dialogProfil" />							             			           		            		            		          
 						        </p:selectOneMenu><br/>
-						    	<p:commandButton value="Nouveau" onclick="PF('dialogProfil').show()" type="button"/>
-							    <p:commandButton value="Dupliquer" onclick="PF('dialogProfil').show()" type="button"/>
+						        <p:commandButton value="Nouveau" actionListener="#{core.bean().runAction('quickNouveauProfil')}" oncomplete="PF('dialogProfil').show()" />
+								<p:commandButton value="Modifier" actionListener="#{core.bean().runAction('quickUpdateProfil')}" oncomplete="PF('dialogProfil').show()" />
 				        	</p:fragment>	        			        
 				        </p:fragment>
 			        </p:column>
@@ -135,9 +134,7 @@
 	</ui:define>
 	
 	<ui:define name="dialogs"> 
-	<ui:include src="/design1/ui/profil/dialogs/form.xhtml" />
-  		<ui:include src="/dialogs/profilCreate.xhtml" />
-  		<ui:include src="/dialogs/profilDuplicate.xhtml" />
+		<ui:include src="/design1/ui/profil/dialogs/form.xhtml" />
 	</ui:define>
 	
 </ui:composition>

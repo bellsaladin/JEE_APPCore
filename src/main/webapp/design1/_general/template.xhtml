@@ -73,6 +73,7 @@
     </div>
     <script>
     $( document ).ready(function() {
+        //alert('fix save problem, values not bound ! Loading multiple beans is not the problem maybe, even article save is not working !')
     	$('.MenuSideMainLink').click(function(){
         	var moduleName = $(this).attr('id').split("-")[1].toLowerCase();
         	window.location.href = '<h:outputText value="#{request.contextPath}"/>/design1/ui/' + moduleName;
@@ -185,15 +186,14 @@
                 
 				<h:form id="mainForm">
 					<div class="ContentSideSections actionsSection Implementation">
-						<p:fragment autoUpdate="true" id="actions">
-							<h:outputLabel value="#{core.bean().selectedObjects.size()}" />
+						<h:panelGroup id="actions">
 							<!-- <a style="font-size: 15px;color: rgba(20, 140, 220, 1);font-family: Arial, Helvetica, sans-serif; font-weight:bold">
 								<b style="color: rgba(122, 122, 132, 1);">Ventes > </b>
 								<p:outputLabel value="#{core.bean().moduleName}"/> > Liste
 							</a>
 							<br/><br/>-->
 		                    <ui:insert name="actions" />
-		                </p:fragment>
+		                </h:panelGroup>
 	                </div>
 	                
 	                <div class="ContentSideSections Implementation" style="padding:0;">

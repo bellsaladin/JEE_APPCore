@@ -24,8 +24,6 @@ public class ArticleController extends GenericCRUDController<Article, ArticleSer
 		super.prepareData();
 		_moduleName = "article";
 		_object = new Article();
-		_object.setLibelle("sssss");
-		_object.setType("Service");
 	}
 	
 	protected void registerActions(){

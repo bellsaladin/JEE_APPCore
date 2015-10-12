@@ -31,7 +31,7 @@
     </ui:define>
 
     <ui:define name="implementation">
-    		<p:contextMenu for="dataTable">
+    		<p:contextMenu id="contextMenu" for="dataTable">
 		        <p:menuitem value="Modifier" url="/design1/ui/#{core.bean().moduleName}/form?id=#{core.bean().lastSelectedObject.id}" icon="ui-icon-search"/>
 		        <p:menuitem value="Supprimer" update="dataTable" icon="ui-icon-close" actionListener="PF('dlgUpdateUser').show()"/>
 		        <p:submenu label="Options" icon="ui-icon-refresh">
@@ -58,11 +58,11 @@
 		                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 		                 rowsPerPageTemplate="25,50,100"
 		                 currentPageReportTemplate="[ {totalRecords} #{lbl['lbl.lignes']} ]">
-	        	<p:ajax event="rowSelect" update=":mainForm:actions"/>
-       			<p:ajax event="rowUnselect" update=":mainForm:actions"/>
-       			<p:ajax event="rowSelectCheckbox" update=":mainForm:actions"/>
-       			<p:ajax event="rowUnselectCheckbox" update=":mainForm:actions"/>	                 		                 		        		      
-       			<p:ajax event="toggleSelect" update=":mainForm:actions"/>
+	        	<p:ajax event="rowSelect" update=":mainForm:actions,:mainForm:contextMenu"/>
+       			<p:ajax event="rowUnselect" update=":mainForm:actions,:mainForm:contextMenu"/>
+       			<p:ajax event="rowSelectCheckbox" update=":mainForm:actions,:mainForm:contextMenu"/>
+       			<p:ajax event="rowUnselectCheckbox" update=":mainForm:actions,:mainForm:contextMenu"/>	                 		                 		        		      
+       			<p:ajax event="toggleSelect" update=":mainForm:actions,:mainForm:contextMenu"/>
 <!-- 			<p:ajax event="rowSelect" update=":dialogUpdateUser" oncomplete="PF('dlgUpdateUser').show()"/> -->
 				
 				<p:column selectionMode="multiple" headerText="" style="width:20px;"/>

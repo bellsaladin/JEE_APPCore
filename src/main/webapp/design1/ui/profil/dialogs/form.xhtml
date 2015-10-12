@@ -5,11 +5,11 @@
 	<p:dialog header="Nouveau dialog" id="dialogProfil" widgetVar="dialogProfil" style="min-width:600px;" resizable="false" modal="true" appendToBody="true">   
 	   	<h:form id="dialogForm">     
 	        <p:messages id="messages" />  
-	        EEE : <h:outputLabel for="libelle" value="Libelle : *" /><br/>
+	        <h:outputLabel for="libelle" value="Libelle : *" /><br/>
         	<p:panelGrid styleClass="no-border-table full-width">
 				<p:row>	
-		       		<p:column>        		        	 
-				       	<h:outputLabel value="#{core.bean('profil').object}"/>
+		       		<p:column>      
+				          <h:outputLabel for="libelle" value="Libéllé : *" />
 				    </p:column>
 				    <p:column>  
 				           <p:inputText id="libelle"   
@@ -19,8 +19,8 @@
 				     </p:column>
 				 </p:row>
 				   
-				    <p:row>
-				    	<p:column>      
+				 <p:row>
+				    <p:column>      
 				          <h:outputLabel for="description" value="Description : *" />
 				    </p:column>
 				    <p:column>  
@@ -28,7 +28,7 @@
 				    </p:column>
 				 </p:row>	
 				 <p:row>
-	            	<p:column colspan="2">	            
+	            	<p:column colspan="2">
 	            		<p:scrollPanel style="height:200px;overflow-y:scroll">	         	   
 				            <p:tree value="#{core.bean('profil').root2}" var="node"  
 						           selectionMode="checkbox" cache="false"
@@ -41,7 +41,7 @@
 				   </p:column>
 				</p:row>			        			      
        		</p:panelGrid>
-	  		<p:commandButton value="Enregistrer" actionListener="#{core.bean('profil').runAction('persist')}" update="dialogForm" styleClass="ui-whiteBtn" />
+	  		<p:commandButton value="Enregistrer" actionListener="#{core.bean('profil').runAction('persist')}" update="dialogForm" oncomplete="PF('dialogProfil').hide()" styleClass="ui-whiteBtn" />
 		</h:form>
 	</p:dialog>  	
 </ui:composition>
