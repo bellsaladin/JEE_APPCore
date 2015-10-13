@@ -10,7 +10,9 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.model.ListDataModel;
 
+import org.apache.commons.lang3.text.WordUtils;
 import org.omnifaces.util.Faces;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.SelectableDataModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.seosoft.erp.controller.BaseController;
 import com.seosoft.erp.controller.Core;
+import com.seosoft.erp.controller.ProfilController;
 import com.seosoft.erp.model.base.BaseEntity;
 import com.seosoft.erp.model.entity.Favori;
 import com.seosoft.erp.model.entity.UserNawat;
@@ -37,6 +40,13 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 	protected String _moduleName;
 	protected String _paramId; // used to set object to modify
 	
+	// the following attributes are special attributes used for quick create & update dialogs on related modules
+	protected HashMap<String,GenericController<?,?>> _relatedModules;
+	protected HashMap<String,Action> _relatedModulesActions;
+	protected String _quickDialogSupModule;
+	protected BaseEntity objSubjectOfQuickDialog; // FIXME : SHOULD BE DYNAMIC and embeded on a list
+	protected boolean quickDialogUpdateMode = false;
+	
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
 	// ||||||||||||||||||||||||||||||||||||||||||||||||||| Constructeur |||||||||||||||||||||||||||||||||||||||||||||||||||||||//
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
@@ -45,6 +55,8 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 		//checkAccessPermission();
 		
 		_actions = new HashMap<String,Action>();
+		_relatedModules = new HashMap<String,GenericController<?,?>>();
+		_relatedModulesActions = new HashMap<String,Action>();
 		registerDefaultActions();
 		registerActions();
 	}
@@ -76,6 +88,13 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 		return null;
 	}
 	
+	/*
+	 * To be implemented on the sub classes, this function is mainly used for quick create behavior on related modules
+	 */
+	public void prepareForCreateNew(){
+		
+	}
+	
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
 	// |||||||||||||||||||||||||||||||||||||||| Méthodes protégées implémenté dans les sous-classes  |||||||||||||||||||||||||||||||||||||||//
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
@@ -86,6 +105,36 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 	}
 	
 	protected void onDataReady() {
+		
+	}
+	
+	protected void addRelatedModule(final String name,final GenericCRUDController<?,?> module, Action postUpdateAction, Action preQuickUpdateDialogShowAction){
+		module._relatedModules.put(name,module);
+		module._relatedModulesActions.put(name +"PostUpdateAction", postUpdateAction);
+		module._relatedModulesActions.put(name +"PreQuickUpdateDialogShowAction", preQuickUpdateDialogShowAction);
+		
+		module.setQuickDialogSupModule(this.getModuleName());
+		
+		_actions.put("quickNouveau" + WordUtils.capitalize(name), new Action(){
+			@Override
+			public void run() {
+				module.setQuickDialogUpdateMode(false);
+				module.setUserSubjectOfQuickDialog(_object);
+				module.prepareForCreateNew();
+				RequestContext.getCurrentInstance().update("dialogProfil");
+				System.out.println("quickNouveauProfil CLICK : dialogProfil");
+			}
+		});
+		_actions.put("quickUpdate" + WordUtils.capitalize(name), new Action(){
+			@Override
+			public void run() {
+				module.setQuickDialogUpdateMode(true);
+				module.setUserSubjectOfQuickDialog(_object);
+				module._relatedModulesActions.get(name+"PreQuickUpdateDialogShowAction").run();
+				RequestContext.getCurrentInstance().update("dialogProfil");
+				System.out.println("quickUpdateProfil CLICK : dialogProfil");
+			}
+		});
 		
 	}
 
@@ -99,12 +148,21 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 	// ||||||||||||||||||||||||||||||||||||||||| Actions du controlleur |||||||||||| ||||||||||||||||||||||||||||||||||||||||||||//
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
 	
+	private void setQuickDialogSupModule(String moduleName) {
+		_quickDialogSupModule = moduleName;
+	}
+
 	public void runAction(String actionName){
 		Action action = _actions.get(actionName);
-		if(action != null) 
+		if(action != null){ 
 			action.run();
-		else
+			if(actionName.equals("persist")){
+				_actions.get("postPersist").run();
+			}
+		}
+		else{
 			System.out.println("GenericController : Action not found ############### ############### ############### ###############");
+		}
 	}
 	
 	
@@ -152,6 +210,7 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 				}	
 			}
 		});
+		
 		_actions.put("getNext", new Action(){
 			@Override
 			public void run() {
@@ -168,6 +227,20 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 				}	
 			}
 		});
+		
+		// called after the action persist is done. e.g : in the case of QuickDialog (create or update) 
+		_actions.put("postPersist", new Action(){
+			@Override
+			public void run() {
+				if(!quickDialogUpdateMode)
+					_list.add(_object);
+				// FIXME : FOR TEST PURPOSE ONLY
+				if(objSubjectOfQuickDialog != null) {
+					_relatedModulesActions.get(_moduleName+"PostUpdateAction").run();
+				}
+			}
+		});
+		
 	}
 	
 	protected void registerActions() {
@@ -280,4 +353,19 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 		this._paramId = paramId;
 	}
 
+	public BaseEntity getUserSubjectOfQuickDialog() {
+		return objSubjectOfQuickDialog;
+	}
+
+	public void setUserSubjectOfQuickDialog(BaseEntity userSubjectOfQuickDialog) {
+		this.objSubjectOfQuickDialog = userSubjectOfQuickDialog;
+	}
+
+	public boolean isQuickDialogUpdateMode() {
+		return quickDialogUpdateMode;
+	}
+
+	public void setQuickDialogUpdateMode(boolean quickDialogUpdateMode) {
+		this.quickDialogUpdateMode = quickDialogUpdateMode;
+	}
 }

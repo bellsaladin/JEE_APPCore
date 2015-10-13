@@ -39,8 +39,6 @@ public class ProfilController extends GenericCRUDController<v2_Profil, v2_Profil
 	private TreeNode root2;
 	private TreeNode[] selectedNodes;
 	
-	private v2_UserNawat userSubjectOfQuickDialog; // FIXME : SHOULD BE DYNAMIC and embeded on a list
-	private boolean quickDialogUpdateMode = false;
 
 	protected void prepareData(){
 		super.prepareData();
@@ -80,14 +78,6 @@ public class ProfilController extends GenericCRUDController<v2_Profil, v2_Profil
 				
 				FacesMessage msg = new FacesMessage(_moduleName + " enregistré");
 				FacesContext.getCurrentInstance().addMessage(null, msg);
-				
-				if(!quickDialogUpdateMode)
-					_list.add(_object);
-				// FIXME : FOR TEST PURPOSE ONLY
-				if(userSubjectOfQuickDialog != null) {
-					userSubjectOfQuickDialog.setProfil(_object);
-					RequestContext.getCurrentInstance().update("mainForm:profil");
-				}
 			}
 		});
 	}
@@ -192,19 +182,5 @@ public class ProfilController extends GenericCRUDController<v2_Profil, v2_Profil
 		return role;
 	}
 
-	public v2_UserNawat getUserSubjectOfQuickDialog() {
-		return userSubjectOfQuickDialog;
-	}
-
-	public void setUserSubjectOfQuickDialog(v2_UserNawat userSubjectOfQuickDialog) {
-		this.userSubjectOfQuickDialog = userSubjectOfQuickDialog;
-	}
-
-	public boolean isQuickDialogUpdateMode() {
-		return quickDialogUpdateMode;
-	}
-
-	public void setQuickDialogUpdateMode(boolean quickDialogUpdateMode) {
-		this.quickDialogUpdateMode = quickDialogUpdateMode;
-	}
+	
 }
