@@ -53,6 +53,7 @@ public class Core implements Serializable{
     private static String getModuleNameFromUrl() {
     	HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		String requestUrl = req.getRequestURL().toString();
+		System.out.println("url :: " + requestUrl); 
 		requestUrl = requestUrl.substring(_Constants.base_url.length()); // remove base url from the request url
 		System.out.println("url :: " + requestUrl); 
 		String[] explodedUrl = requestUrl.split("/");

@@ -5,31 +5,32 @@ import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
+
 import com.seosoft.erp.controller.generic.Action;
 import com.seosoft.erp.controller.generic.GenericCRUDController;
 import com.seosoft.erp.model.entity.Article;
-import com.seosoft.erp.service.parametrage.ArticleService;
+import com.seosoft.erp.model.entity.Client;
+import com.seosoft.erp.model.entity.FamilleClient;
+import com.seosoft.erp.service.parametrage.FamilleClientService;
+import com.seosoft.erp.service.parametrage.impl.ArticleServiceImpl;
 import com.seosoft.erp.util.scopes.view.SpringViewScoped;
 
 @Named
 @SpringViewScoped
-public class ArticleController extends GenericCRUDController<Article, ArticleService> implements Serializable {
-	private static final long serialVersionUID = -986331859933454787L;
-	
-	private String _messageHello = "helllo mannnn";
-	
+public class FamilleClientController extends GenericCRUDController<FamilleClient, FamilleClientService> implements Serializable {
+	private static final long serialVersionUID = 7838900790101299064L;
+
 	protected void prepareData(){
 		super.prepareData();
-		_moduleName = "article";
-		_object = new Article();
+		_moduleName = "familleClient";
+		_object = new FamilleClient();
 	}
 	
 	protected void registerActions(){
 		_actions.put("test", new Action(){
 			@Override
 			public void run() {
-				_service.save(_object);
-				FacesMessage msg = new FacesMessage("Test action called : variable (_messageHello) : " + _messageHello);
+				FacesMessage msg = new FacesMessage("Test action called");
 				FacesContext.getCurrentInstance().addMessage(null, msg);
 			}
 		});
@@ -41,5 +42,9 @@ public class ArticleController extends GenericCRUDController<Article, ArticleSer
 				"profilDuplicateController");
 		profilDuplicateController.setProfilId(object.getProfil().getId());
 	}*/
-
+	
+	
+	public void prepareForCreateNew(){
+		_object = new FamilleClient();
+	}
 }

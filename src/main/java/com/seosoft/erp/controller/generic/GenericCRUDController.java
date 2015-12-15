@@ -19,15 +19,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.seosoft.erp.controller.BaseController;
-import com.seosoft.erp.controller.Core;
-import com.seosoft.erp.controller.ProfilController;
 import com.seosoft.erp.model.base.BaseEntity;
-import com.seosoft.erp.model.entity.Favori;
-import com.seosoft.erp.model.entity.UserNawat;
 import com.seosoft.erp.model.entity.v2_UserNawat;
 import com.seosoft.erp.service.generic.GenericService;
-import com.seosoft.erp.service.parametrage.FavoriService;
 
 public class GenericCRUDController<Type extends BaseEntity, Service extends GenericService<Type, String>> extends GenericController{
 	protected Type _object;
@@ -44,7 +38,7 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 	protected HashMap<String,GenericController<?,?>> _relatedModules;
 	protected HashMap<String,Action> _relatedModulesActions;
 	protected String _quickDialogSupModule;
-	protected BaseEntity objSubjectOfQuickDialog; // FIXME : SHOULD BE DYNAMIC and embeded on a list
+	protected BaseEntity entitySubjectOfQuickDialog; // FIXME : SHOULD BE DYNAMIC and embeded on a list
 	protected boolean quickDialogUpdateMode = false;
 	
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
@@ -119,20 +113,21 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 			@Override
 			public void run() {
 				module.setQuickDialogUpdateMode(false);
-				module.setUserSubjectOfQuickDialog(_object);
+				module.setEntitySubjectOfQuickDialog(_object);
 				module.prepareForCreateNew();
-				RequestContext.getCurrentInstance().update("dialogProfil");
-				System.out.println("quickNouveauProfil CLICK : dialogProfil");
+				RequestContext.getCurrentInstance().update("dialog"+ WordUtils.capitalize(name));
+				System.out.println("quickNouveau" + WordUtils.capitalize(name) + " CLICK");
 			}
 		});
+		
 		_actions.put("quickUpdate" + WordUtils.capitalize(name), new Action(){
 			@Override
 			public void run() {
 				module.setQuickDialogUpdateMode(true);
-				module.setUserSubjectOfQuickDialog(_object);
+				module.setEntitySubjectOfQuickDialog(_object);
 				module._relatedModulesActions.get(name+"PreQuickUpdateDialogShowAction").run();
-				RequestContext.getCurrentInstance().update("dialogProfil");
-				System.out.println("quickUpdateProfil CLICK : dialogProfil");
+				RequestContext.getCurrentInstance().update("dialog"+ WordUtils.capitalize(name));
+				System.out.println("quickUpdate" + WordUtils.capitalize(name) + "  CLICK");
 			}
 		});
 		
@@ -235,7 +230,7 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 				if(!quickDialogUpdateMode)
 					_list.add(_object);
 				// FIXME : FOR TEST PURPOSE ONLY
-				if(objSubjectOfQuickDialog != null) {
+				if(entitySubjectOfQuickDialog != null) {
 					_relatedModulesActions.get(_moduleName+"PostUpdateAction").run();
 				}
 			}
@@ -353,12 +348,12 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 		this._paramId = paramId;
 	}
 
-	public BaseEntity getUserSubjectOfQuickDialog() {
-		return objSubjectOfQuickDialog;
+	public BaseEntity getEntitySubjectOfQuickDialog() {
+		return entitySubjectOfQuickDialog;
 	}
 
-	public void setUserSubjectOfQuickDialog(BaseEntity userSubjectOfQuickDialog) {
-		this.objSubjectOfQuickDialog = userSubjectOfQuickDialog;
+	public void setEntitySubjectOfQuickDialog(BaseEntity entitySubjectOfQuickDialog) {
+		this.entitySubjectOfQuickDialog = entitySubjectOfQuickDialog;
 	}
 
 	public boolean isQuickDialogUpdateMode() {

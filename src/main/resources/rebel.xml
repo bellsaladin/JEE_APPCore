@@ -2,18 +2,18 @@
 <application xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.zeroturnaround.com" xsi:schemaLocation="http://www.zeroturnaround.com http://www.zeroturnaround.com/alderaan/rebel-2_0.xsd">
 
 	<classpath>
-		<dir name="/Users/mac/Documents/eclipse_workspaces/workspace_SEOSoft/SEOSoft_ERP/target/classes">
+		<dir name="/Users/mac/Documents/_MyProjectsWorkspace/eclipse_workspaces/workspace_SEOSoft/SEOSoft_ERP/target/classes">
 		</dir>
 	</classpath>
 
 	<web>
 		<link target="/">
-			<dir name="/Users/mac/Documents/eclipse_workspaces/workspace_SEOSoft/SEOSoft_ERP/target/m2e-wtp/web-resources">
+			<dir name="/Users/mac/Documents/_MyProjectsWorkspace/eclipse_workspaces/workspace_SEOSoft/SEOSoft_ERP/target/m2e-wtp/web-resources">
 				<exclude name="/"/>
 			</dir>
 		</link>
 		<link target="/">
-			<dir name="/Users/mac/Documents/eclipse_workspaces/workspace_SEOSoft/SEOSoft_ERP/src/main/webapp">
+			<dir name="/Users/mac/Documents/_MyProjectsWorkspace/eclipse_workspaces/workspace_SEOSoft/SEOSoft_ERP/src/main/webapp">
 			</dir>
 		</link>
 	</web>

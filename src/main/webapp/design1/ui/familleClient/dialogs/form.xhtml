@@ -1,0 +1,37 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions" xmlns:t="http://myfaces.apache.org/tomahawk" xmlns:c="http://java.sun.com/jstl/core">
+	
+	<p:dialog header="Nouveau dialog" id="dialogFamilleClient" widgetVar="dialogFamilleClient" style="min-width:600px;" resizable="false" modal="true" appendToBody="true">   
+	   	<h:form id="dialogForm">     
+	        <p:messages id="messages" />  
+	        
+        	<p:panelGrid styleClass="no-border-table full-width">
+        		<p:row>	
+		       		<p:column>      
+				          <h:outputLabel for="code" value="Code : *" />
+				    </p:column>
+				    <p:column>  
+				           <p:inputText id="code"   
+				               value="#{core.bean('familleClient').object.code}" required="true" label="Code :">  
+				               <f:validateLength minimum="2" />  
+				           </p:inputText>
+				     </p:column>
+				 </p:row>
+				 
+				<p:row>	
+		       		<p:column>      
+				          <h:outputLabel for="libelle" value="Libéllé : *" />
+				    </p:column>
+				    <p:column>  
+				           <p:inputText id="libelle"   
+				               value="#{core.bean('familleClient').object.libelle}" required="true" label="Libellé :">  
+				               <f:validateLength minimum="2" />  
+				           </p:inputText>
+				     </p:column>
+				 </p:row> 
+       		</p:panelGrid>
+	  		<p:commandButton value="Enregistrer" actionListener="#{core.bean('familleClient').runAction('persist')}" update="dialogForm" oncomplete="PF('dialogFamilleClient').hide()" styleClass="ui-whiteBtn" />
+		</h:form>
+	</p:dialog>  	
+</ui:composition>

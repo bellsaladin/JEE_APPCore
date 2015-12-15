@@ -1,0 +1,118 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/design1/_general/template.xhtml">
+
+    <ui:define name="head">        
+        <script type="text/javascript">
+            //<![CDATA[
+                function handleMessage(facesmessage) {
+                    facesmessage.severity = 'info';
+                    
+                    PF('growl').show([facesmessage]);
+                }
+            //]]> 
+        </script>
+    </ui:define>
+    
+    <ui:define name="title">
+<!--         <p:breadCrumb> -->
+<!-- 		    <p:menuitem value="Accueil" url="#" /> -->
+<!-- 		    <p:menuitem value="Paramètrage" url="#" /> -->
+<!-- 		    <p:menuitem value="Accès et sécurité" url="#" /> -->
+<!-- 		    <p:menuitem value="Utilisateurs" url="#" /> -->
+<!-- 		</p:breadCrumb> -->
+    </ui:define>
+
+    <ui:define name="description">
+    	...
+    </ui:define>
+
+    <ui:define name="implementation">
+    		<p:contextMenu id="contextMenu" for="dataTable">
+		        <p:menuitem value="Modifier" url="/design1/ui/#{core.bean().moduleName}/form?id=#{core.bean().lastSelectedObject.id}" icon="ui-icon-search"/>
+		        <p:menuitem value="Supprimer" update="dataTable" icon="ui-icon-close" actionListener="PF('dlgUpdateUser').show()"/>
+		        <p:submenu label="Options" icon="ui-icon-refresh">
+			        <p:separator />
+			        <p:submenu label="Navigations" icon="ui-icon-extlink">
+			            <p:submenu label="Tranformation">
+			                <p:menuitem value="PrimeTek" url="http://www.primetek.com.tr" />
+			                <p:menuitem value="PrimeFaces" url="http://www.primefaces.org" />
+			            </p:submenu>
+			            <p:menuitem value="Some action" icon="ui-icon-signal" />
+			        </p:submenu>
+		        </p:submenu>
+		        <p:submenu label="Plus" icon="ui-icon-extlink">
+		            <p:submenu label="Navigations">
+		                <p:menuitem value="PrimeTek" url="http://www.primetek.com.tr" />
+		                <p:menuitem value="PrimeFaces" url="http://www.primefaces.org" />
+		            </p:submenu>
+		            <p:menuitem value="Some action" icon="ui-icon-signal" />
+		        </p:submenu>
+		    </p:contextMenu>
+		    <p:messages/>
+		    <p:dataTable id="dataTable" widgetVar="dataTable" var="object" value="#{core.bean().dataModel}"
+		    			 sortMode="multiple"
+		    			 selection="#{core.bean().selectedObjects}"
+		                 paginator="true" rows="10"
+		                 paginatorPosition="bottom"
+		                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+		                 rowsPerPageTemplate="25,50,100"
+		                 currentPageReportTemplate="[ {totalRecords} #{lbl['lbl.lignes']} ]">
+		        	<p:ajax event="rowSelect" update=":mainForm:actions,:mainForm:contextMenu"/>
+	       			<p:ajax event="rowUnselect" update=":mainForm:actions,:mainForm:contextMenu"/>
+	       			<p:ajax event="rowSelectCheckbox" update=":mainForm:actions,:mainForm:contextMenu"/>
+	       			<p:ajax event="rowUnselectCheckbox" update=":mainForm:actions,:mainForm:contextMenu"/>	                 		                 		        		      
+	       			<p:ajax event="toggleSelect" update=":mainForm:actions,:mainForm:contextMenu"/>
+<!-- 				<p:ajax event="rowSelect" update=":dialogUpdateUser" oncomplete="PF('dlgUpdateUser').show()"/> -->
+				
+				<p:column selectionMode="multiple" headerText="" style="width:20px;"/>
+				
+				<p:column style="width:16px">
+		            <h:outputText id="dragIcon" styleClass="ui-icon ui-icon-arrow-4" />
+		            <p:draggable for="dragIcon" revert="true" helper="clone"/>
+		        </p:column>
+				
+				<p:column sortBy="#{object.code}">
+		            <f:facet name="header">
+		                <h:outputText value="#{lbl['lbl.code']}" />
+		            </f:facet>
+		            <h:outputText value="#{object.code}" />
+		        </p:column>
+		
+		        <p:column sortBy="#{object.raisonSociale}">
+		            <f:facet name="header">
+		                <h:outputText value="#{lbl['lbl.raisonSociale']}" />
+		            </f:facet>
+		            <h:outputText value="#{object.raisonSociale}" />
+		        </p:column>
+		
+		        <p:column sortBy="#{object.famille.getDisplayText()}">
+		            <f:facet name="header">
+		                <h:outputText value="#{lbl['lbl.famille']}" />
+		            </f:facet>
+		            <h:outputText value="#{object.famille.getDisplayText()}" />
+		        </p:column>
+		           		       
+		    </p:dataTable>		    
+    				   
+    </ui:define>
+    
+	<ui:define name="actions">
+		<p:button value="Aide" href="article" styleClass="ui-whiteBtn pull-right"/>
+		<p:button value="Nouveau" href="/design1/ui/#{core.bean().moduleName}/form" styleClass="ui-whiteBtn pull-right" style="margin-right:10px;"/>
+	    <p:commandButton value="Action 1" rendered="#{core.bean().selectedObjects.size() gt 0}" actionListener="#{notifyView.send}" styleClass="ui-whiteBtn pull-right" style="margin-right:10px;"/>
+	    <p:commandButton value="Action 2" rendered="#{core.bean().selectedObjects.size() gt 0}" actionListener="#{notifyView.send}" styleClass="ui-whiteBtn pull-right" style="margin-right:10px;"/>
+	    <p:commandButton value="Action 3" rendered="#{core.bean().selectedObjects.size() gt 0}" actionListener="#{notifyView.send}" styleClass="ui-whiteBtn pull-right" style="margin-right:10px;"/>
+	    <p:menuButton value="Plus" rendered="#{core.bean().list.size() gt 0}" styleClass="ui-whiteBtn pull-right"  style="margin-right:10px;">
+	        <p:menuitem value="Action 1" actionListener="#{menuView.save}" update=":mainForm" icon="ui-icon-disk"/>
+	        <p:menuitem value="Action 2" actionListener="#{menuView.update}" update=":mainForm" icon="ui-icon-arrowrefresh-1-w"/>
+	        <p:menuitem value="Action 3" actionListener="#{menuView.delete}" ajax="false" icon="ui-icon-close"/>
+	        <p:separator />
+	        <p:menuitem value="Ajouter aux favoris" actionListener="#{sessionController.addToFavorites(core.bean().moduleName)}" icon="ui-icon-star"/>
+	    </p:menuButton>
+	</ui:define>
+	
+</ui:composition>

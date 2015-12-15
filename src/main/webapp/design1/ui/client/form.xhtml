@@ -1,0 +1,84 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/design1/_general/template.xhtml">
+
+    <ui:define name="head">        
+        <script type="text/javascript">
+            //<![CDATA[
+                function handleMessage(facesmessage) {
+                    facesmessage.severity = 'info';
+                    
+                    PF('growl').show([facesmessage]);
+                }
+            //]]> 
+        </script>
+    </ui:define>
+    
+    <ui:define name="title">
+        Article
+    </ui:define>
+
+    <ui:define name="description">
+        Création d'un nouvel article
+    </ui:define>
+	
+    <ui:define name="implementation">
+	  <div style="padding:30px">
+        <p:growl widgetVar="growl" showDetail="true" />
+        
+        	<p:messages id="messages" />  
+        	<p:panelGrid styleClass="no-border-table full-width">
+				<p:row>	
+		       		<p:column>        		        	 
+				       	<h:outputLabel for="code" value="Code: *" />
+				    </p:column>
+				    <p:column>  
+				           <p:inputText id="code"   
+				               value="#{core.bean().object.code}" required="true" label="Login">  
+				               <f:validateLength minimum="2" />  
+				           </p:inputText>
+				     </p:column>
+				     <p:column>      
+				          <h:outputLabel for="raisonSociale" value="Raison sociale *" />
+				    </p:column>
+				    <p:column>  
+				          <p:inputText id="raisonSociale" value="#{core.bean().object.raisonSociale}" required="true" label="Raison Sociale:"/>  
+				    </p:column>
+				 				
+				 </p:row>
+				   
+				  <p:row>
+				 	<p:column><h:outputText for="familleClient" value="Famille Client" /></p:column>
+			     	 <p:column colspan="3">
+						        <p:selectOneMenu id="familleClient"  widgetVar="familleClient" value="#{core.bean().object.famille}" converter="omnifaces.SelectItemsConverter">      	    
+						           <f:selectItem itemLabel="" itemValue="" />
+						           <f:selectItems value="#{core.bean('familleClient').list}" var="familleClient" itemLabel="#{familleClient.libelle}" itemValue="#{familleClient}" />
+						        </p:selectOneMenu><br/>
+						        <p:commandButton value="Nouveau" actionListener="#{core.bean().runAction('quickNouveauFamilleClient')}" oncomplete="PF('dialogFamilleClient').show()" />
+								<p:commandButton value="Modifier" actionListener="#{core.bean().runAction('quickUpdateFamilleClient')}" oncomplete="PF('dialogFamilleClient').show()" />
+			        </p:column>
+				 </p:row>		 			        			      
+       		</p:panelGrid>
+      </div>
+    </ui:define>
+    
+	<ui:define name="actions">	
+		<p:commandButton value="Enregistrer" actionListener="#{core.bean().runAction('persist')}" update="mainForm" styleClass="ui-whiteBtn" />
+		<p:button value="Retour" href="/design1/ui/#{core.bean().moduleName}/list" styleClass="ui-whiteBtn pull-right"/>
+		<!-- <p:commandButton value="Vider" actionListener="#{notifyView.send}" styleClass="ui-whiteBtn pull-right" style="margin-right:10px;"/> -->
+		<p:commandButton value="Supprimer" rendered="#{core.bean().paramId != null }" actionListener="#{core.bean().runAction('delete')}" update=":mainForm" styleClass="ui-whiteBtn" />
+		<p:outputPanel rendered="#{core.bean().paramId != null }" style="display:inline;" styleClass="pull-right">			
+			<span style="margin-right:10px;"><p:outputLabel value="#{core.bean().list.indexOf(core.bean().object) + 1}"/> / <p:outputLabel value="#{core.bean().list.size()}"/></span>
+			<p:commandButton value="&lt;" actionListener="#{core.bean().runAction('getPrevious')}" update=":mainForm" styleClass="ui-whiteBtn" style="margin-right:10px;"/>
+			<p:commandButton value="&gt;" actionListener="#{core.bean().runAction('getNext')}" update=":mainForm" styleClass="ui-whiteBtn" style="margin-right:10px;"/>
+		</p:outputPanel>
+	</ui:define>
+	
+	<ui:define name="dialogs"> 
+		<ui:include src="/design1/ui/familleClient/dialogs/form.xhtml" />
+	</ui:define>
+	
+</ui:composition>
