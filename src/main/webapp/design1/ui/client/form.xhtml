@@ -53,7 +53,7 @@
 				  <p:row>
 				 	<p:column><h:outputText for="familleClient" value="Famille Client" /></p:column>
 			     	 <p:column colspan="3">
-						        <p:selectOneMenu id="familleClient"  widgetVar="familleClient" value="#{core.bean().object.famille}" converter="omnifaces.SelectItemsConverter">      	    
+						        <p:selectOneMenu id="familleClient"  widgetVar="familleClient" value="#{core.bean().object.famille}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith">      	    
 						           <f:selectItem itemLabel="" itemValue="" />
 						           <f:selectItems value="#{core.bean('familleClient').list}" var="familleClient" itemLabel="#{familleClient.libelle}" itemValue="#{familleClient}" />
 						        </p:selectOneMenu><br/>
