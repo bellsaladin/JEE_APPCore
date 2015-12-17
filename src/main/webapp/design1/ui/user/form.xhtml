@@ -113,7 +113,8 @@
 						        </p:selectOneMenu><br/>
 						        <p:commandButton value="Nouveau" actionListener="#{core.bean().runAction('quickNouveauProfil')}" oncomplete="PF('dialogProfil').show()" />
 								<p:commandButton value="Modifier" actionListener="#{core.bean().runAction('quickUpdateProfil')}" oncomplete="PF('dialogProfil').show()" />
-				        	</p:fragment>	        			        
+				        	</p:fragment>	  
+				        	<ui:include src="/design1/ui/profil/dialogs/form.xhtml" />      			        
 				        </p:fragment>
 			        </p:column>
 				 </p:row>		 			        			      
@@ -134,7 +135,6 @@
 	</ui:define>
 	
 	<ui:define name="dialogs"> 
-		<ui:include src="/design1/ui/profil/dialogs/form.xhtml" />
 	</ui:define>
 	
 </ui:composition>

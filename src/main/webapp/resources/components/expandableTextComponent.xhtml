@@ -1,0 +1,29 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:composite="http://java.sun.com/jsf/composite"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+  xmlns:p="http://primefaces.org/ui">
+<composite:interface componentType="expandableTextComponent">
+    <composite:attribute name="name" required="true"/>
+    <composite:attribute name="maxCharacters" required="true"/>
+    <composite:attribute name="value" required="true"/>
+</composite:interface>
+
+<composite:implementation>
+	<p:panel>
+    <h:panelGroup id="#{cc.attrs.name}">
+        <h:outputText value="#{fn:substring(cc.attrs.value, 0, cc.attrs.maxCharacters)}" rendered="#{fn:length(cc.attrs.value) le cc.attrs.maxCharacters}"/>
+
+        <h:outputText value="#{fn:substring(cc.attrs.value, 0, cc.attrs.maxCharacters)}" rendered="#{fn:length(cc.attrs.value) gt cc.attrs.maxCharacters and !cc.expanded}" style="margin-right: 5px;"/>
+        <p:commandLink actionListener="#{cc.toggleExpanded()}" rendered="#{fn:length(cc.attrs.value) gt cc.attrs.maxCharacters and !cc.expanded}" update="#{cc.attrs.name}" process="@this">
+            <h:outputText value="... (read more)" style="color:blue"/>
+        </p:commandLink>
+
+        <h:outputText value="#{cc.attrs.value}" rendered="#{fn:length(cc.attrs.value) gt cc.attrs.maxCharacters and cc.expanded}" style="margin-right: 5px;"/>
+        <p:commandLink actionListener="#{cc.toggleExpanded()}" rendered="#{fn:length(cc.attrs.value) gt cc.attrs.maxCharacters and cc.expanded}" update="#{cc.attrs.name}" process="@this">
+            <h:outputText value="(show less)" style="color:blue"/>
+        </p:commandLink>
+    </h:panelGroup>
+    </p:panel>
+</composite:implementation>
+</html>

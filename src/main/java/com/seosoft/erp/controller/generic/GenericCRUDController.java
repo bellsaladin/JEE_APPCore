@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -103,7 +104,8 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 	}
 	
 	protected void addRelatedModule(final String name,final GenericCRUDController<?,?> module, Action postUpdateAction, Action preQuickUpdateDialogShowAction){
-		module._relatedModules.put(name,module);
+		// FIXME module._relatedModules.put(name,module);
+		_relatedModules.put(name,module);
 		module._relatedModulesActions.put(name +"PostUpdateAction", postUpdateAction);
 		module._relatedModulesActions.put(name +"PreQuickUpdateDialogShowAction", preQuickUpdateDialogShowAction);
 		
@@ -362,5 +364,10 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 
 	public void setQuickDialogUpdateMode(boolean quickDialogUpdateMode) {
 		this.quickDialogUpdateMode = quickDialogUpdateMode;
+	}
+	
+	public String[] getRelatedModules(){
+		Set<String> keys = _relatedModules.keySet();
+		return keys.toArray(new String[keys.size()]);
 	}
 }

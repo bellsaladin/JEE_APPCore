@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
@@ -36,18 +37,32 @@ public class TestController implements Serializable {
 	
 	private String p1;
     private String p2;
+    private java.util.Date date1;
 
-    
 
     @PostConstruct
     public void init() {
         p1 ="sss";
     }
 
+    
+    /* ***************************************************************************/
+    /* *************************** ON EVENT FUNCTIONS ****************************/
+    /* ***************************************************************************/
+    
     public void doPersist(){
     	System.out.println(p1 + "," + p2);
     }
-
+    
+    public void doTest(){
+    	FacesMessage msg = new FacesMessage("Date1 = " + date1);
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+    
+    
+    /* ***************************************************************************/
+    /* *************************** GETTERS & SETTERS *****************************/
+    /* ***************************************************************************/
 	public String getP1() {
 		return p1;
 	}
@@ -68,6 +83,14 @@ public class TestController implements Serializable {
 
 	public void setP2(String p2) {
 		this.p2 = p2;
+	}
+
+	public java.util.Date getDate1() {
+		return date1;
+	}
+
+	public void setDate1(java.util.Date date1) {
+		this.date1 = date1;
 	}
     
     

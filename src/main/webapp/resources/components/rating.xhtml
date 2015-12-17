@@ -1,0 +1,36 @@
+<ui:component 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:cc="http://java.sun.com/jsf/composite"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+    xmlns:p="http://primefaces.org/ui">
+    
+    <cc:interface componentType="ratingComponent">
+        <cc:attribute name="score" type="java.lang.Integer" required="true" />
+        <cc:attribute name="maxScore" type="java.lang.Integer" default="100" />
+        <cc:attribute name="totalStars" type="java.lang.Integer" default="10" />
+    </cc:interface>
+    
+    <cc:implementation>
+    	<p:panel>
+    	<div><small style="color:red;">Note : Cet exemple modifie les étoiles à travers des requêtes AJAX, ce qui est très couteux, l'idéal c'est de le modifier au niveau client</small></div>
+        <c:set var="filled" value="#{fn:substringBefore(cc.attrs.score / (cc.attrs.maxScore / cc.attrs.totalStars), '.')}" />
+        <span style="font-size: 1.5em;">
+        	<p:commandButton value="-" actionListener="#{cc.updateRate(-1)}" process="@this" update="@parent"/>
+            <p:commandButton value="+" actionListener="#{cc.updateRate(1)}" process="@this" update="@parent"/><br/>
+        	<p:fragment id="stars">
+	            <ui:repeat value="#{cc.items}" varStatus="loop">
+	                <h:outputText value="&#9733;" rendered="#{loop.index lt filled}" />            
+	                <h:outputText value="&#9734;" rendered="#{loop.index ge filled}" />            
+	            </ui:repeat>
+            </p:fragment>
+            <br/>
+            <p:commandButton value="Test action listener on composite component" actionListener="#{cc.testAction()}" process="@this"/>
+        </span>
+        </p:panel>
+    </cc:implementation>
+    
+</ui:component>
