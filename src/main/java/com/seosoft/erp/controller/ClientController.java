@@ -35,6 +35,7 @@ public class ClientController extends GenericCRUDController<Client, ClientServic
 	}
 	
 	protected void onDataReady(){
+		
 		addRelatedModule((FamilleClientController) Core.bean("familleClient"), new Action(){
 			@Override
 			public void run() {
@@ -47,6 +48,20 @@ public class ClientController extends GenericCRUDController<Client, ClientServic
 				RequestContext.getCurrentInstance().update("dialogFamilleClient");
 			}}
 		);
+		
+		/*addRelatedModule((UserController) Core.bean("user"), new Action(){
+			@Override
+			public void run() {
+				_object.setUser(((UserController) Core.bean("user")).getObject());
+				RequestContext.getCurrentInstance().update("mainForm:user:userSelectOneMenu");
+			}},new Action(){
+			@Override
+			public void run() {
+				((UserController) Core.bean("user")).setObject(_object.getUser());
+				RequestContext.getCurrentInstance().update("dialogUser");
+			}}
+		);*/
+		
 	}
 	
 	

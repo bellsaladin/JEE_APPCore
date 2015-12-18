@@ -55,15 +55,22 @@
 				 		  <seosoft:expandableTextComponent name="test" maxCharacters="10" value="expandableTextComponent" /><br /> 
 				 		  <p:commandButton value="Voir la date correspondante" actionListener="#{testController.doTest()}" process="@this"/>
 				 	</p:column>
-				 </p:row>
-				   
-				  <p:row>
+				 </p:row>  
+					
+				 <p:row>
 				 	<p:column><h:outputText for="familleClient" value="Famille Client" /></p:column>
-			     	<p:column colspan="3">			
+			     	<p:column colspan="3">
 						<seosoft:OneEntitySelectMenu id="familleClient" entityName="familleClient" value="#{core.bean().object.famille}"></seosoft:OneEntitySelectMenu>
 			        </p:column>
-			        
-				 </p:row>		 			        			      
+				 </p:row>		
+				 
+<!-- 				  <p:row> -->
+<!-- 				 	<p:column><h:outputText for="user" value="Compte utilisateur" /></p:column> -->
+<!-- 			     	<p:column colspan="3"> -->
+<!-- 						<seosoft:OneEntitySelectMenu id="user" entityName="user" value="#{core.bean().object.user}"></seosoft:OneEntitySelectMenu> -->
+<!-- 			        </p:column> -->
+<!-- 				 </p:row> -->
+				 	 			        			      
        		</p:panelGrid>
       </div>
     </ui:define>

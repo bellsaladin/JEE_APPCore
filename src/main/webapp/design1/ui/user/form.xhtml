@@ -1,9 +1,11 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:p="http://primefaces.org/ui"
-                template="/design1/_general/template.xhtml">
+<ui:composition 
+	xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:seosoft="http://java.sun.com/jsf/composite/components"
+    template="/design1/_general/template.xhtml">
 
     <ui:define name="head">        
         <script type="text/javascript">
@@ -31,7 +33,7 @@
         
         	<p:messages id="messages" />  
         	<p:panelGrid styleClass="no-border-table full-width">
-				<p:row>	
+								<p:row>	
 		       		<p:column>        		        	 
 				       	<h:outputLabel for="login" value="Login: *" />
 				    </p:column>
@@ -105,18 +107,19 @@
 				 	<p:column><h:outputText for="profil" value="Profile: " /></p:column>
 			     	 <p:column colspan="3">
 				        <p:fragment id="profilPanel" widgetVar="profilPanel">			        		       
-				        	<p:fragment columns="1" rendered="#{core.bean().object.type == 'utilisateur'}">	        		  				       
-						        <p:selectOneMenu id="profil"  widgetVar="profil" value="#{core.bean().object.profil}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith">      	    
-						           <!-- <f:selectItem itemLabel="" itemValue="" />  -->
-						           <f:selectItems value="#{core.bean('profil').list}" var="profil" itemLabel="#{profil.libelle}" itemValue="#{profil}" />
-						           <!-- <p:ajax event="change" listener="#{core.bean().onProfilChange()}" update=":dialogProfil" />  -->							             			           		            		            		          
-						        </p:selectOneMenu><br/>
-						        <p:commandButton value="Nouveau" actionListener="#{core.bean().runAction('quickNouveauProfil')}" oncomplete="PF('dialogProfil').show()" />
-								<p:commandButton value="Modifier" actionListener="#{core.bean().runAction('quickUpdateProfil')}" oncomplete="PF('dialogProfil').show()" />
+				        	<p:fragment columns="1" rendered="#{core.bean().object.type == 'utilisateur'}">
+				        		<seosoft:OneEntitySelectMenu id="profil" entityName="profil" value="#{core.bean().object.profil}"></seosoft:OneEntitySelectMenu>
+<!-- 						        <p:selectOneMenu id="profil"  widgetVar="profil" value="#{core.bean().object.profil}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith">      	     -->
+<!-- 						           <f:selectItem itemLabel="" itemValue="" />  -->
+<!-- 						           <f:selectItems value="#{core.bean('profil').list}" var="profil" itemLabel="#{profil.libelle}" itemValue="#{profil}" /> -->
+<!-- 						           <p:ajax event="change" listener="#{core.bean().onProfilChange()}" update=":dialogProfil" /> 							             			           		            		            		           -->
+<!-- 						        </p:selectOneMenu><br/> -->
+<!-- 						        <p:commandButton value="Nouveau" actionListener="#{core.bean().runAction('quickNouveauProfil')}" oncomplete="PF('dialogProfil').show()" /> -->
+<!-- 								<p:commandButton value="Modifier" actionListener="#{core.bean().runAction('quickUpdateProfil')}" oncomplete="PF('dialogProfil').show()" /> -->
 				        	</p:fragment>	  
 				        </p:fragment>
 			        </p:column>
-				 </p:row>		 			        			      
+				 </p:row>			 			        			      
        		</p:panelGrid>
       </div>
     </ui:define>
@@ -128,9 +131,10 @@
 		<p:commandButton value="Supprimer" rendered="#{core.bean().paramId != null }" actionListener="#{core.bean().runAction('delete')}" update=":mainForm" styleClass="ui-whiteBtn" />
 		<p:outputPanel rendered="#{core.bean().paramId != null }" style="display:inline;" styleClass="pull-right">			
 			<span style="margin-right:10px;"><p:outputLabel value="#{core.bean().list.indexOf(core.bean().object) + 1}"/> / <p:outputLabel value="#{core.bean().list.size()}"/></span>
-			<p:commandButton value="&lt;" actionListener="#{core.bean().runAction('getPrevious')}" update=":mainForm" styleClass="ui-whiteBtn" style="margin-right:10px;"/>
-			<p:commandButton value="&gt;" actionListener="#{core.bean().runAction('getNext')}" update=":mainForm" styleClass="ui-whiteBtn" style="margin-right:10px;"/>
+			<p:commandButton value="&lt;" actionListener="#{core.bean().runAction('getPrevious')}" update=":mainForm" process="@this" styleClass="ui-whiteBtn" style="margin-right:10px;"/>
+			<p:commandButton value="&gt;" actionListener="#{core.bean().runAction('getNext')}" update=":mainForm" process="@this" styleClass="ui-whiteBtn" style="margin-right:10px;"/>
 		</p:outputPanel>
+
 	</ui:define>
 	
 	<ui:define name="dialogs"> 

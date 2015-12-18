@@ -10,7 +10,14 @@
 	xmlns:of="http://omnifaces.org/functions">
 	
 	<!-- PARAMETRE INDICANT L'ENTITE, à modifier poour y mettre le nom de module concerné -->
-	<c:set var="entityName" scope="view" value="user"/>
+	
+	<!-- THIS CONFIGURATION IS CAUSING ERROR WHEN TWO seosoft:OneEntitySelectMenu Componenets are used, 
+		PARAM HAVE BEEN MOVED TO DIALOG FORMS INTEAD 
+		
+		ONE SOLUTION TO THIS IS TO CREATE A COMPOSITE '<seosoft:includeDialog />
+		Which would accept as a parameter the name of the module and use it at _template.xhtml-->
+	
+	<c:set var="entityName" scope="view" value="familleClient"/>
 	<c:set var="entityNameCapitalized" scope="view" value="#{of:capitalize(entityName)}" />
 			
 </ui:composition>

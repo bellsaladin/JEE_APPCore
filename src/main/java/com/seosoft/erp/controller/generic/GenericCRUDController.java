@@ -1,7 +1,6 @@
 package com.seosoft.erp.controller.generic;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,11 +19,8 @@ import org.primefaces.model.SelectableDataModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.WebApplicationContext;
-
 import com.seosoft.erp.controller.Core;
-import com.seosoft.erp.controller.FamilleClientController;
 import com.seosoft.erp.model.base.BaseEntity;
-import com.seosoft.erp.model.entity.FamilleClient;
 import com.seosoft.erp.model.entity.v2_UserNawat;
 import com.seosoft.erp.service.generic.GenericService;
 
@@ -174,6 +170,8 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 			@Override
 			public void run() {
 				_service.save(_object);
+				if(_list.indexOf(_object) != -1) // if creating a new object
+					_list.set(_list.indexOf(_object), _object); // replace the object at the list so that when navigating (show previous / next ) not the old version of the object would be shown 
 				FacesMessage msg = new FacesMessage(_moduleName + " enregistré");
 				FacesContext.getCurrentInstance().addMessage(null, msg);
 			}
@@ -182,9 +180,15 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 		_actions.put("delete", new Action(){
 			@Override
 			public void run() {
-				_service.delete(_object);
-				FacesMessage msg = new FacesMessage(_moduleName + " supprimé");
-				FacesContext.getCurrentInstance().addMessage(null, msg);
+				try{
+					_service.delete(_object);
+					FacesMessage msg = new FacesMessage(_moduleName + " supprimé");
+					FacesContext.getCurrentInstance().addMessage(null, msg);
+				}catch(Exception ex){
+					FacesMessage msg = new FacesMessage("Impossible de supprimer cet enregistrement car il est lié avec d'autres données.");
+					msg.setSeverity(FacesMessage.SEVERITY_FATAL);
+					FacesContext.getCurrentInstance().addMessage("errorMsg", msg);
+				}
 			}
 		});
 		
@@ -366,6 +370,14 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 	
 	public String[] getRelatedModules(){
 		Set<String> keys = _relatedModules.keySet();
+		System.out.println("getRelatedModules:" + _moduleName + " : " + _relatedModules.size());
+		System.out.println("getRelatedModules:" + _moduleName +" : " + _actions.size());
+		for(String moduleName : keys){
+			System.out.println("getRelatedModules:" + _moduleName +" : " + moduleName);
+		}
+		for(String actionName : _actions.keySet()){
+			System.out.println("getRelatedModules:" + _moduleName + ":" + actionName);
+		}
 		return keys.toArray(new String[keys.size()]);
 	}
 }

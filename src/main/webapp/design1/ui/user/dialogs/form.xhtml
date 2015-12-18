@@ -1,0 +1,111 @@
+<ui:composition 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:of="http://omnifaces.org/functions">
+	
+	<!--  Include of configuration -->
+<!-- 	<ui:include src="../_config.xhtml" /> -->
+	<ui:param name="entityName" value="user" />
+    <ui:param name="entityNameCapitalized" value="#{of:capitalize(entityName)}" />
+	
+	<!--  Dialog definition -->
+	<p:dialog header="#{entityNameCapitalized}" id="dialog#{entityNameCapitalized}" widgetVar="dialog#{entityNameCapitalized}" style="min-width:700px;" resizable="false" modal="true" appendToBody="true">   
+	   	<h:form id="dialogForm#{entityNameCapitalized}">     
+	        <p:messages id="messages" />  
+	        
+        	<p:panelGrid styleClass="no-border-table full-width">
+        		<p:row>	
+		       		<p:column>        		        	 
+				       	<h:outputLabel for="login" value="Login: *" />
+				    </p:column>
+				    <p:column>  
+				           <p:inputText id="login"   
+				               value="#{core.bean(entityName).object.login}" required="true" label="Login">  
+				               <f:validateLength minimum="2" />  
+				           </p:inputText>
+				     </p:column>
+				     <p:column>      
+				          <h:outputLabel for="email" value="Email *" />
+				    </p:column>
+				    <p:column>  
+				          <p:inputText id="email" value="#{core.bean(entityName).object.email}" required="true" label="Email"/>  
+				    </p:column>
+				 				
+				 </p:row>
+				   
+				    <p:row>
+				    	<p:column>      
+				          <h:outputText for="type" value="Type: " />
+				        </p:column>
+				        <p:column>
+					       <p:selectOneMenu id="type" value="#{core.bean(entityName).object.type}">		      	    
+					          <f:selectItem itemLabel="Utilisateur" itemValue="utilisateur" />
+					          <f:selectItem itemLabel="Administrateur" itemValue="administrateur" />
+					          <f:selectItem itemLabel="Invité" itemValue="invite" />
+					          <p:ajax event="change" update="profilPanel"/>					          	
+					       </p:selectOneMenu>
+				       	</p:column>
+				     	<p:column>
+				        	<h:outputLabel for="actif" value="#{lbl['lbl.actif']}:" />
+				        </p:column>
+				        <p:column>
+				        	<p:selectBooleanCheckbox id="actif" value="#{core.bean(entityName).object.actif}" />
+				       	</p:column>
+				 </p:row>
+				 <p:row>
+				 	<p:column>          
+				          <h:outputText value="Password : " />
+				    </p:column>
+				    <p:column>  
+				           <p:password id="password" value="#{core.bean(entityName).object.password}" feedback="true" match="passwordConfirm"/>  
+					</p:column>
+				 	<p:column>       
+				         <h:outputLabel for="passwordConfirm" value="Password Confirmation: *" />
+				    </p:column>
+				    <p:column>  
+				         <p:password id="passwordConfirm" value="#{core.bean(entityName).object.passwordConfirm}" label="Password 2"/>
+				    </p:column>     	         
+				   </p:row>
+				   <p:row>
+					   	<p:column>
+					          <h:outputLabel for="prenom" value="Prénom: *" />
+					    </p:column>
+					    <p:column>  
+					          <p:inputText id="prenom"   
+					              value="#{core.bean(entityName).object.prenom}" required="true" label="Prénom"/>  
+					    </p:column>     
+						<p:column>          	            
+				          <h:outputLabel for="nom" value="Nom : *" />
+					    </p:column>
+					    <p:column>  
+					          <p:inputText id="nom"   
+					              value="#{core.bean(entityName).object.nom}" required="true" label="Nom">  
+					              <f:validateLength minimum="2" />  
+					          </p:inputText>  
+					    </p:column>
+				    </p:row> 
+				 <p:row>
+				 	<p:column><h:outputText for="profil" value="Profile: " /></p:column>
+			     	 <p:column colspan="3">
+				        <p:fragment id="profilPanel" widgetVar="profilPanel">			        		       
+				        	<p:fragment columns="1" rendered="#{core.bean(entityName).object.type == 'utilisateur'}">	        		  				       
+								<p:selectOneMenu id="profil"  widgetVar="profil" value="#{core.bean(entityName).object.profil}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith">
+						           <f:selectItem itemLabel="" itemValue="" /> 
+						           <f:selectItems value="#{core.bean('profil').list}" var="profil" itemLabel="#{profil.libelle}" itemValue="#{profil}" />
+						        </p:selectOneMenu>
+				        	</p:fragment>	  
+				        </p:fragment>
+			        </p:column>
+				 </p:row> 
+       		</p:panelGrid>
+	  		<p:commandButton value="Enregistrer" actionListener="#{core.bean(entityName).runAction('persist')}" update=":dialog#{entityNameCapitalized}" process=":dialog#{entityNameCapitalized}" oncomplete="PF('dialog#{entityNameCapitalized}').hide()" styleClass="ui-whiteBtn" />
+	  		<div><small>Note : La sauvegarde est conservée même si vous ne validez pas la sauvegarde du formulaire principal (<h:outputText value="#{core.bean(entityName).moduleName}" />)</small></div>
+		</h:form>
+	</p:dialog>  	
+</ui:composition>
