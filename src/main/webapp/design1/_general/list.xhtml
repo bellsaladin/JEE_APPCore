@@ -1,9 +1,10 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:p="http://primefaces.org/ui"
-                template="/design1/_general/template.xhtml">
+<ui:composition 
+	xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+    template="/design1/_general/template.xhtml">
 
     <ui:define name="head">        
         <script type="text/javascript">
@@ -49,6 +50,7 @@
 		        </p:submenu>
 		    </p:contextMenu>
 		    <p:messages/>
+		    		
 		    <p:dataTable id="dataTable" widgetVar="dataTable" var="object" value="#{core.bean().dataModel}"
 		    			 stickyHeader="true"
 		    			 sortMode="multiple"
@@ -68,12 +70,15 @@
 				<p:column selectionMode="multiple" headerText="" style="width:20px;"/>
 				
 				<ui:insert name="dataTableColumns" />					      
-				        		        		       
+				      		        		       
 		    </p:dataTable>		    
-    				   
+    		<!--<p:blockUI block="dataTable" trigger="dataTable">
+        		Chargement<br />
+        		<p:graphicImage name="demo/images/ajaxloadingbar.gif"/>
+    		</p:blockUI>-->   
     </ui:define>
     
-    <p:hotkey bind="ctrl+shift+s" actionListener="#{core.bean().addToFovoris()}">
+    <p:hotkey bind="ctrl+shift+f" actionListener="#{core.bean().addToFovoris()}">
     	 <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
     </p:hotkey>
     <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">

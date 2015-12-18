@@ -1,8 +1,16 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
-	xmlns:pe="http://primefaces.org/ui/extensions" xmlns:t="http://myfaces.apache.org/tomahawk" xmlns:c="http://java.sun.com/jstl/core"
+<ui:composition 
+	xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" 
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions" 
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:c="http://java.sun.com/jstl/core"
     template="/design1/_general/template.xhtml">
-
+	
+	<ui:include src="../_config.xhtml" />
+	
     <ui:define name="head">        
         <script type="text/javascript">
             //<![CDATA[
@@ -25,7 +33,7 @@
 				    </p:column>
 				    <p:column>  
 				           <p:inputText id="code"   
-				               value="#{core.bean('familleClient').object.code}" required="true" label="Code :">  
+				               value="#{core.bean().object.code}" required="true" label="Code :">  
 				               <f:validateLength minimum="2" />  
 				           </p:inputText>
 				     </p:column>
@@ -37,7 +45,7 @@
 				    </p:column>
 				    <p:column>  
 				           <p:inputText id="libelle"   
-				               value="#{core.bean('familleClient').object.libelle}" required="true" label="Libellé :">  
+				               value="#{core.bean().object.libelle}" required="true" label="Libellé :">  
 				               <f:validateLength minimum="2" />  
 				           </p:inputText>
 				     </p:column>

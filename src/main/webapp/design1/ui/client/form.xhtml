@@ -3,9 +3,9 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:p="http://primefaces.org/ui"
-                template="/design1/_general/template.xhtml"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
                 xmlns:seosoft="http://java.sun.com/jsf/composite/components"
-                xmlns:c="http://java.sun.com/jsp/jstl/core">
+                template="/design1/_general/template.xhtml">
 
     <ui:define name="head">        
         <script type="text/javascript">
@@ -59,19 +59,10 @@
 				   
 				  <p:row>
 				 	<p:column><h:outputText for="familleClient" value="Famille Client" /></p:column>
-			     	<p:column colspan="3">
-<!-- 						        <p:selectOneMenu id="familleClient"  widgetVar="familleClient" value="#{core.bean().object.famille}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith">      	     -->
-<!-- 						           <f:selectItem itemLabel="" itemValue="" /> -->
-<!-- 						           <f:selectItems value="#{core.bean('familleClient').list}" var="familleClient" itemLabel="#{familleClient.libelle}" itemValue="#{familleClient}" /> -->
-<!-- 						        </p:selectOneMenu><br/> -->
-<!-- 						        <p:commandButton value="Nouveau" actionListener="#{core.bean().runAction('quickNouveauFamilleClient')}" oncomplete="PF('dialogFamilleClient').show()" /> -->
-<!-- 								<p:commandButton value="Modifier" actionListener="#{core.bean().runAction('quickUpdateFamilleClient')}" oncomplete="PF('dialogFamilleClient').show()" /> --> -->
-								
-								
-							<seosoft:OneEntitySelectMenu id="familleClient" entityName="familleClient"></seosoft:OneEntitySelectMenu>
+			     	<p:column colspan="3">			
+						<seosoft:OneEntitySelectMenu id="familleClient" entityName="familleClient" value="#{core.bean().object.famille}"></seosoft:OneEntitySelectMenu>
 			        </p:column>
 			        
-
 				 </p:row>		 			        			      
        		</p:panelGrid>
       </div>
@@ -90,13 +81,7 @@
 	</ui:define>
 	
 	<ui:define name="dialogs">
-		 	<!--
-		 		TODO : This piece of code should be moved to the common template of all CRUD forms
-		 	-->
-		   <c:forEach items="${core.bean().getRelatedModules()}" var="moduleName">
-		 		<ui:param name="dialogIncludeSrc" value="/design1/ui/${moduleName}/dialogs/form.xhtml" />
-		 		<ui:include src="#{dialogIncludeSrc}" />
-			</c:forEach>
+		   
 	</ui:define>
 	
 </ui:composition>

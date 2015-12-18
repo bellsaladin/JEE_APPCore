@@ -1,11 +1,19 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
-	xmlns:pe="http://primefaces.org/ui/extensions" xmlns:t="http://myfaces.apache.org/tomahawk" xmlns:c="http://java.sun.com/jstl/core">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:of="http://omnifaces.org/functions">
 	
-	<p:dialog header="Nouveau dialog" id="dialogProfil" widgetVar="dialogProfil" style="min-width:600px;" resizable="false" modal="true" appendToBody="true">   
+	<!--  Include of configuration -->
+	<ui:include src="../_config.xhtml" />
+	
+	<!--  Dialog definition -->
+	<p:dialog header="#{entityNameCapitalized}" id="dialog#{entityNameCapitalized}" widgetVar="dialog#{entityNameCapitalized}" style="min-width:700px;" resizable="false" modal="true" appendToBody="true">   
 	   	<h:form id="dialogForm">     
 	        <p:messages id="messages" />  
-	        <h:outputLabel for="libelle" value="Libelle : *" /><br/>
         	<p:panelGrid styleClass="no-border-table full-width">
 				<p:row>	
 		       		<p:column>      
@@ -13,7 +21,7 @@
 				    </p:column>
 				    <p:column>  
 				           <p:inputText id="libelle"   
-				               value="#{core.bean('profil').object.libelle}" required="true" label="Libellé :">  
+				               value="#{core.bean(entityName).object.libelle}" required="true" label="Libellé :">  
 				               <f:validateLength minimum="2" />  
 				           </p:inputText>
 				     </p:column>
@@ -24,15 +32,15 @@
 				          <h:outputLabel for="description" value="Description : *" />
 				    </p:column>
 				    <p:column>  
-				          <p:inputTextarea rows="5" cols="30" maxlength="500" id="description" value="#{core.bean('profil').object.description}" required="true" label="Description :"/>  
+				          <p:inputTextarea rows="5" cols="30" maxlength="500" id="description" value="#{core.bean(entityName).object.description}" required="true" label="Description :"/>  
 				    </p:column>
 				 </p:row>	
 				 <p:row>
 	            	<p:column colspan="2">
 	            		<p:scrollPanel style="height:200px;overflow-y:scroll">	         	   
-				            <p:tree value="#{core.bean('profil').root2}" var="node"  
+				            <p:tree value="#{core.bean(entityName).root2}" var="node"  
 						           selectionMode="checkbox" cache="false"
-						           selection="#{core.bean('profil').selectedNodes}" style="width:100%; border:0;">						 
+						           selection="#{core.bean(entityName).selectedNodes}" style="width:100%; border:0;">						 
 						       <p:treeNode>
 						           <h:outputText value="#{node}" />  
 						       </p:treeNode>  
@@ -41,7 +49,8 @@
 				   </p:column>
 				</p:row>			        			      
        		</p:panelGrid>
-	  		<p:commandButton value="Enregistrer" actionListener="#{core.bean('profil').runAction('persist')}" update="dialogForm" oncomplete="PF('dialogProfil').hide()" styleClass="ui-whiteBtn" />
+	  		<p:commandButton value="Enregistrer" actionListener="#{core.bean(entityName).runAction('persist')}" update="dialogForm" oncomplete="PF('dialog#{entityNameCapitalized}').hide()" styleClass="ui-whiteBtn" />
+	  		<div><small>Note : La sauvegarde est conservée même si vous ne validez pas la sauvegarde du formulaire principal (<h:outputText value="#{core.bean().moduleName}" />)</small></div>
 		</h:form>
 	</p:dialog>  	
 </ui:composition>

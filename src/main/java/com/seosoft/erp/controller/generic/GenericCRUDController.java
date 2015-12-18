@@ -1,6 +1,7 @@
 package com.seosoft.erp.controller.generic;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +21,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.WebApplicationContext;
 
+import com.seosoft.erp.controller.Core;
+import com.seosoft.erp.controller.FamilleClientController;
 import com.seosoft.erp.model.base.BaseEntity;
+import com.seosoft.erp.model.entity.FamilleClient;
 import com.seosoft.erp.model.entity.v2_UserNawat;
 import com.seosoft.erp.service.generic.GenericService;
 
@@ -33,12 +37,10 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 	protected Service _service;
 	protected DataModel _dataModel;
 	protected String _moduleName;
-	protected String _paramId; // used to set object to modify
-	
+	protected String _paramId = null; // used to set object's ID to modify
 	// the following attributes are special attributes used for quick create & update dialogs on related modules
 	protected HashMap<String,GenericController<?,?>> _relatedModules;
 	protected HashMap<String,Action> _relatedModulesActions;
-	protected String _quickDialogSupModule;
 	protected BaseEntity entitySubjectOfQuickDialog; // FIXME : SHOULD BE DYNAMIC and embeded on a list
 	protected boolean quickDialogUpdateMode = false;
 	
@@ -48,7 +50,6 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 	
 	public GenericCRUDController() {
 		//checkAccessPermission();
-		
 		_actions = new HashMap<String,Action>();
 		_relatedModules = new HashMap<String,GenericController<?,?>>();
 		_relatedModulesActions = new HashMap<String,Action>();
@@ -103,33 +104,32 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 		
 	}
 	
-	protected void addRelatedModule(final String name,final GenericCRUDController<?,?> module, Action postUpdateAction, Action preQuickUpdateDialogShowAction){
+	protected void addRelatedModule(final GenericCRUDController<?,?> relatedBean, Action postUpdateAction, Action preQuickUpdateDialogShowAction){
+		final String relatedModuleName = relatedBean.getModuleName();
 		// FIXME module._relatedModules.put(name,module);
-		_relatedModules.put(name,module);
-		module._relatedModulesActions.put(name +"PostUpdateAction", postUpdateAction);
-		module._relatedModulesActions.put(name +"PreQuickUpdateDialogShowAction", preQuickUpdateDialogShowAction);
-		
-		module.setQuickDialogSupModule(this.getModuleName());
-		
-		_actions.put("quickNouveau" + WordUtils.capitalize(name), new Action(){
+		_relatedModules.put(relatedModuleName,relatedBean);
+		relatedBean._relatedModulesActions.put(relatedModuleName +"PostUpdateAction", postUpdateAction);
+		relatedBean._relatedModulesActions.put(relatedModuleName +"PreQuickUpdateDialogShowAction", preQuickUpdateDialogShowAction);
+				
+		_actions.put("quickNouveau" + WordUtils.capitalize(relatedModuleName), new Action(){
 			@Override
 			public void run() {
-				module.setQuickDialogUpdateMode(false);
-				module.setEntitySubjectOfQuickDialog(_object);
-				module.prepareForCreateNew();
-				RequestContext.getCurrentInstance().update("dialog"+ WordUtils.capitalize(name));
-				System.out.println("quickNouveau" + WordUtils.capitalize(name) + " CLICK");
+				System.out.println("quickNouveau" + WordUtils.capitalize(relatedModuleName) + " CLICK");
+				relatedBean.setQuickDialogUpdateMode(false);
+				relatedBean.setEntitySubjectOfQuickDialog(_object);
+				relatedBean.prepareForCreateNew();
+				RequestContext.getCurrentInstance().update("dialog"+ WordUtils.capitalize(relatedModuleName));
 			}
 		});
 		
-		_actions.put("quickUpdate" + WordUtils.capitalize(name), new Action(){
+		_actions.put("quickUpdate" + WordUtils.capitalize(relatedModuleName), new Action(){
 			@Override
 			public void run() {
-				module.setQuickDialogUpdateMode(true);
-				module.setEntitySubjectOfQuickDialog(_object);
-				module._relatedModulesActions.get(name+"PreQuickUpdateDialogShowAction").run();
-				RequestContext.getCurrentInstance().update("dialog"+ WordUtils.capitalize(name));
-				System.out.println("quickUpdate" + WordUtils.capitalize(name) + "  CLICK");
+				System.out.println("quickUpdate" + WordUtils.capitalize(relatedModuleName) + "  CLICK");
+				relatedBean.setQuickDialogUpdateMode(true);
+				relatedBean.setEntitySubjectOfQuickDialog(_object);
+				relatedBean._relatedModulesActions.get(relatedModuleName+"PreQuickUpdateDialogShowAction").run();
+				RequestContext.getCurrentInstance().update("dialog"+ WordUtils.capitalize(relatedModuleName));
 			}
 		});
 		
@@ -145,9 +145,6 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 	// ||||||||||||||||||||||||||||||||||||||||| Actions du controlleur |||||||||||| ||||||||||||||||||||||||||||||||||||||||||||//
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
 	
-	private void setQuickDialogSupModule(String moduleName) {
-		_quickDialogSupModule = moduleName;
-	}
 
 	public void runAction(String actionName){
 		Action action = _actions.get(actionName);
@@ -229,11 +226,12 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 		_actions.put("postPersist", new Action(){
 			@Override
 			public void run() {
-				if(!quickDialogUpdateMode)
+				if(!quickDialogUpdateMode && !Core.getCurrentModuleName().equals(_moduleName) )
 					_list.add(_object);
 				// FIXME : FOR TEST PURPOSE ONLY
 				if(entitySubjectOfQuickDialog != null) {
 					_relatedModulesActions.get(_moduleName+"PostUpdateAction").run();
+					
 				}
 			}
 		});

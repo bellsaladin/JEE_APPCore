@@ -31,7 +31,7 @@
 </h:head>
 
 <h:body>
-
+	
     <!-- PC CONTENT STARTS HERE-->
     <div class="PC">
         
@@ -201,6 +201,13 @@
 	                </div>
 				</h:form>
 				
+				<!-- Include of dialogs of related modules  -->
+				<c:forEach items="${core.bean().getRelatedModules()}" var="moduleName">
+			 		<ui:param name="dialogIncludeSrc" value="/design1/ui/${moduleName}/dialogs/form.xhtml" />
+			 		<ui:include src="#{dialogIncludeSrc}" />
+				</c:forEach>
+				
+				<!-- Include of other dialogs if mentionned  -->
 				<ui:insert name="dialogs" />
 				
                 <div id="SourceContentSide" class="ContentSideSections Source">
@@ -256,10 +263,9 @@
 	<p:hotkey bind="ctrl+shift+f" handler="PF('favorisDlg').show();" />
     
     <ui:insert name="messages">
-    	<p:growl id="msgInfo" life="50000000" autoUpdate="true" showDetail="true" showSummary="true"
-			rendered="#{facesContext.maximumSeverity.ordinal != 1 and facesContext.maximumSeverity.ordinal != 2 and facesContext.maximumSeverity.ordinal != 3}" />
+    	<!-- <p:growl id="msgInfo" life="50000000" autoUpdate="true" showDetail="true" showSummary="true"/>  -->
 			
-    	<!-- <p:outputPanel autoUpdate="true">
+    	<p:outputPanel autoUpdate="true">
 			<p:dialog id="msgError" widgetVar="msgErrorVar" modal="true" minWidth="500" resizable="false" showEffect="fade"
 				visible="#{facesContext.maximumSeverity.ordinal >= 0}" dir="#{sessionManager.direction}">
 				<f:facet name="header">
@@ -279,7 +285,7 @@
 				<p:hotkey bind="esc" handler="PF('msgErrorVar').hide()" />
 	
 			</p:dialog>
-		</p:outputPanel> -->
+		</p:outputPanel>
     </ui:insert>
     
 </h:body>

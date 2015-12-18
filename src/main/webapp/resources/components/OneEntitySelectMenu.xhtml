@@ -11,36 +11,21 @@
     
     <cc:interface componentType="oneEntitySelectMenuComponent">
     	<cc:attribute name="entityName" type="java.lang.String" required="true" />
-        <cc:attribute name="score" type="java.lang.Integer" default="100" />
+    	<cc:attribute name="value" required="true" />
     </cc:interface>
     
     <cc:implementation>
-    	<!-- 
-    		TODO
-    		1. Créer un converter qui met la première lettre en uppercase
-    		2. Mettre la string avec la première lettre au majuscule dans un ui parametre pour l'utiliser ensuite
-    	
-    	 -->
     	    <ui:param name="entityNameCapitalized" value="#{of:capitalize(cc.attrs.entityName)}" />
     		
-	    	<p:selectOneMenu id="#{cc.attrs.entityName}SelectOneMenu"  widgetVar="#{cc.attrs.entityName}Var" value="#{core.bean().object.famille}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith">      	    
+	    	<p:selectOneMenu id="#{cc.attrs.entityName}SelectOneMenu" widgetVar="#{cc.attrs.entityName}Var" value="#{cc.attrs.value}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith">      	    
 	        <f:selectItem itemLabel="" itemValue="" />
 	        <f:selectItems value="#{core.bean( cc.attrs.entityName ).list}" var="entity" itemLabel="#{entity.getDisplayText()}" itemValue="#{entity}" />
 	        </p:selectOneMenu><br/>
 	        
-	        <p:commandButton value="Nouveau"  actionListener="#{core.bean().runAction('quickNouveau'.concat(entityNameCapitalized))}" oncomplete="PF('dialog#{entityNameCapitalized}').show()" />
-			<p:commandButton value="Modifier" actionListener="#{core.bean().runAction('quickUpdate'.concat(entityNameCapitalized))}" oncomplete="PF('dialog#{entityNameCapitalized}').show()" />
+	        <p:commandButton value="Nouveau"  actionListener="#{core.bean().runAction('quickNouveau'.concat(entityNameCapitalized))}" oncomplete="PF('dialog#{entityNameCapitalized}').show()" process=":mainForm:#{entityName}"/>
+			<p:commandButton value="Modifier" actionListener="#{core.bean().runAction('quickUpdate'.concat(entityNameCapitalized))}" oncomplete="PF('dialog#{entityNameCapitalized}').show()" process=":mainForm:#{entityName}"/>
 			<br/><br/><div><small>seosoft:OneEntitySelectMenu</small></div>
 		
-		<!-- 
-		<p:selectOneMenu id="familleClient"  widgetVar="familleClient" value="#{core.bean().object.famille}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith">      	    
-        <f:selectItem itemLabel="" itemValue="" />
-        <f:selectItems value="#{core.bean('familleClient').list}" var="familleClient" itemLabel="#{familleClient.libelle}" itemValue="#{familleClient}" />
-        </p:selectOneMenu><br/>
-        <p:commandButton value="Nouveau" actionListener="#{core.bean().runAction('quickNouveauFamilleClient')}" oncomplete="PF('dialogFamilleClient').show()" />
-		<p:commandButton value="Modifier" actionListener="#{core.bean().runAction('quickUpdateFamilleClient')}" oncomplete="PF('dialogFamilleClient').show()" />
-		<ui:include src="/design1/ui/familleClient/dialogs/form.xhtml" />
-		 -->
     </cc:implementation>
     
 </ui:component>

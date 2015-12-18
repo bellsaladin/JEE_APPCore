@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.seosoft.erp.controller.generic.Action;
 import com.seosoft.erp.controller.generic.GenericCRUDController;
 import com.seosoft.erp.model.entity.Client;
+import com.seosoft.erp.model.entity.FamilleClient;
 import com.seosoft.erp.model.entity.v2_Profil;
 import com.seosoft.erp.model.entity.v2_ProfilRole;
 import com.seosoft.erp.model.entity.v2_Role;
@@ -31,11 +32,19 @@ public class ClientController extends GenericCRUDController<Client, ClientServic
 		super.prepareData();
 		_moduleName = "client";
 		_object = new Client();
-		
+		//_object.setRaisonSociale("DDDDD");
+		//_object.setId("DDDDDDD");
+		//_object.setCode("DDDDDDD");
+		//FamilleClient fc = new FamilleClient();
+		//fc.setId("DDDD");
+		//fc.setLibelle("dDDDDD");
+		//_object.setFamille(fc);
+		//_paramId = "E003000000001"; 
+		//_object = _service.findOne("E003000000001"); 
 	}
 	
 	protected void onDataReady(){
-		addRelatedModule("familleClient",(FamilleClientController) Core.bean("familleClient"), new Action(){
+		addRelatedModule((FamilleClientController) Core.bean("familleClient"), new Action(){
 			@Override
 			public void run() {
 				_object.setFamille(((FamilleClientController) Core.bean("familleClient")).getObject());
