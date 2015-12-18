@@ -31,16 +31,7 @@ public class ClientController extends GenericCRUDController<Client, ClientServic
 	protected void prepareData(){
 		super.prepareData();
 		_moduleName = "client";
-		_object = new Client();
-		//_object.setRaisonSociale("DDDDD");
-		//_object.setId("DDDDDDD");
-		//_object.setCode("DDDDDDD");
-		//FamilleClient fc = new FamilleClient();
-		//fc.setId("DDDD");
-		//fc.setLibelle("dDDDDD");
-		//_object.setFamille(fc);
-		//_paramId = "E003000000001"; 
-		//_object = _service.findOne("E003000000001"); 
+		_object = new Client(); 
 	}
 	
 	protected void onDataReady(){

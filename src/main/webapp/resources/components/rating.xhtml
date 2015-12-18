@@ -21,6 +21,7 @@
         <span style="font-size: 1.5em;">
         	<p:commandButton value="-" actionListener="#{cc.updateRate(-1)}" process="@this" update="@parent"/>
             <p:commandButton value="+" actionListener="#{cc.updateRate(1)}" process="@this" update="@parent"/><br/>
+            <p:commandButton value="+ (Sans Attribut Process)" actionListener="#{cc.updateRate(1)}" update="@parent"/><br/>
         	<p:fragment id="stars">
 	            <ui:repeat value="#{cc.items}" varStatus="loop">
 	                <h:outputText value="&#9733;" rendered="#{loop.index lt filled}" />            

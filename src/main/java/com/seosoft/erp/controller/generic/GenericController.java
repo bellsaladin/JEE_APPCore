@@ -15,5 +15,7 @@ import com.seosoft.erp.service.generic.GenericService;
 public abstract class GenericController<Type extends BaseEntity, Service extends GenericService<Type, String>> extends BaseController{
 
 	
-
+	public String[] getRelatedModules(){
+		return new String[]{}; //empty string array
+	}
 }
