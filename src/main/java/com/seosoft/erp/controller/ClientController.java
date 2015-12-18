@@ -49,7 +49,7 @@ public class ClientController extends GenericCRUDController<Client, ClientServic
 			}}
 		);
 		
-		/*addRelatedModule((UserController) Core.bean("user"), new Action(){
+		addRelatedModule((UserController) Core.bean("user"), new Action(){
 			@Override
 			public void run() {
 				_object.setUser(((UserController) Core.bean("user")).getObject());
@@ -60,7 +60,7 @@ public class ClientController extends GenericCRUDController<Client, ClientServic
 				((UserController) Core.bean("user")).setObject(_object.getUser());
 				RequestContext.getCurrentInstance().update("dialogUser");
 			}}
-		);*/
+		);
 		
 	}
 	
