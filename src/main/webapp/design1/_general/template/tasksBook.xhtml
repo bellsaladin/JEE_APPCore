@@ -1,0 +1,133 @@
+<ui:composition 
+	xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:ui="http://java.sun.com/jsf/facelets" 
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:p="http://primefaces.org/ui" 
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jstl/functions">
+	
+	<p:dialog header="TASKS BOOK" id="tasksBook" widgetVar="tasksBook" height="500" appendToBody="true" >
+		
+		<div style="background-color:red">
+	    	<hr/>
+	    	<input type="checkbox" checked="false"/>
+	        <span>Repenser la logique de chargement de données dans les controlleurs generiques. Lors de l'instantiation d'un controlleur toutes les données
+	        	sont chargés pour une donnée quelconque. Hors cela peut causer une lenteur de l'application. Si jamais il y a des tables avec des centaines voir des milliers de lignes (bons de commandes, factures, produits ...).  
+	        </span>  
+	    </div>
+		<div>
+	    	<hr/>
+	    	<input type="checkbox" checked="true"/>
+	        <span>Créer une home page par module : <br/>
+	        Cette home page doit regrouper des liens par groupe : ex: <br/>
+	        Achat : Fournisseur, Demandes de devis, Bons de commandes, Factures <br/> 
+	        Produits : Produits, Produits par groupe <br/>
+	        Analyse : Demandes en cours, Quantités rentrantes
+	        </span>  
+	    </div>
+		<hr/><hr/>
+		<div>
+      		<input type="checkbox" checked="false"/>
+      		<span><b>omnifaces::componentIdParam</b> (<a href="http://showcase.omnifaces.org/components/componentIdParam">http://showcase.omnifaces.org/components/componentIdParam</a>)<br/>
+      		Should git it a try maybe to should dialogs on QuickCreate button call. <b style="color:red">There would be no need to create separte Dialog templates anymore.</b><br/><br/>
+      		See also other components that might be very interesting too : <b>ListConverter</b> ... etc</span>
+      	</div>
+      	<br/>
+      	<br/>
+      	<hr/>
+      	<br/>
+      	<br/>
+      	<div>
+	    	<input type="checkbox" checked="true"/>
+	        <span>Créer un modèle de list où seules les colonnes, actions et autres paramètres variables seront indiquées
+	        </span>  
+	    </div>	    
+	    <div>
+	    	<hr/>
+	    	<input type="checkbox" checked="true"/>
+	        <span>Créer une home page par module : <br/>
+	        Cette home page doit regrouper des liens par groupe : ex: <br/>
+	        Achat : Fournisseur, Demandes de devis, Bons de commandes, Factures <br/> 
+	        Produits : Produits, Produits par groupe <br/>
+	        Analyse : Demandes en cours, Quantités rentrantes
+	        </span>  
+	    </div>
+	    <div>
+	    	<hr/>
+	    	<input type="checkbox" checked="true"/>
+	        <span> Rêgler le problème de redirection lors du click sur le button du button modifier du ContextMenu
+	        </span>  
+	    </div>
+	    <div>
+	    	<hr/>
+	    	<input type="checkbox" checked="true"/>
+	        <span> Dialog Favoris (Ctrl + F) -> Affiche un dialog contenant la liste des favoris <b>Action générique addToFavoris )</b>
+	        </span>  
+	    </div>
+	    <div>
+	    	<hr/>
+	    	<input type="checkbox" />
+	        <span> Gestion des droits d'accès par profil. E.g. <b>Magansinier</b><br/>
+	        1. Droits d'accès sur tous les niveaux : Modules / Sous Modules / Vues / Actions<br/>
+	        2. Création de profils de droits d'accès : Magansinier, Caissier ...#<br/>
+	        3. Possibilité de personnaliser les droits un fois un profil affecté à une personne
+	        </span>  
+	    </div>
+	    <div>
+	    	<hr/>
+	    	<input type="checkbox" />
+	        <span> 
+	    	Suppression logique (flag = 1) / Modifier la requête find all
+	    	</span>
+	    </div>
+	    
+	    <div>
+	    	<hr/>
+	    	<input type="checkbox" />
+	        <span> 
+	    	Gestion de l'accès concurrent ( comme pour <b>windev HBlock</b>) <br/>
+	    	<b>Voir au niveau <u>d'hibernate</u> <span style="color:red">spring data jpa concurrency</span></b> <br/>
+	    	<b><span style="color:green">@Lock(LockModeType.PESSIMISTIC_WRITE)</span></b><br/>
+	    	<a href="http://www.objectdb.com/java/jpa/persistence/lock#Pessimistic_Locking_"><b><span style="color:blue">Locking in JPA</span></b></a>
+	    	</span>
+	    </div>
+	    <div>
+	    	<hr/>
+	    	<input type="checkbox" />
+	        <span> Commencer à mettre en place la gestion
+	        </span>  
+	    </div>
+	    <div>
+	    	<hr/>
+	    	<input type="checkbox" />
+	        <span> ROW EXPAND Pas très pratique (mais faisable)
+	        </span>  
+	    </div>
+	    
+	    <div>
+	    	<hr/>
+	    	<input type="checkbox" />
+	        <span> Externaliser et Factoriser la partie variables des pages JSF. Par exemple : <br/>
+	        1. Vue List : p:datatable .... Laisser seulement les colonnes, filtres et ce qui varie<br/>
+	        2. Vue Ajout : rien à concentrer apparement
+	        </span>  
+	    </div>
+	    
+	    <div>
+	    	<hr/>
+	    	<input type="checkbox" />
+	        <span> Penser à une façon pour externaliser le code des traitements complexes qui touche plusieurs entités genre : GenerationBilanComptable , Alimentation de stock ...<br/>
+	          Essayer de le mettre dans des classes de service par exemple pour le cas du traitement GenerationBilanComptable faire ce qui suit :<br/>
+	          1. Créer un service BilanComptable : qui fait appel à plusieurs objets Service (Comme attribut injectés)<br/>
+	          2. Mettre le traitement correspondant dans une méthode<br/>
+	          3. <b>Forcer le paramètrage pour favoriser le découplage</b><br/>
+	        </span>  
+	    </div>
+	</p:dialog>
+	
+	<p:hotkey bind="ctrl+shift+m" handler="PF('log').show();" />
+	
+</ui:composition>

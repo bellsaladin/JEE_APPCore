@@ -125,17 +125,7 @@
                     <span class="dispBlock gray fontSize11 mediumFont">by SeoSoft</span>
                     <span class="dispBlock red">
                     	<c:if test="#{applicationContext.isDevMode()}"> 
-                    		<b>[ MODE DEVELOPPEMENT ] </b>
-                    		&nbsp;&nbsp;
-                    		<span class="gray">
-                    		<p:commandLink id="showDebugLink" onclick="showDebug()">
-                    			<i class="fa fa-cog"></i>
-                    		</p:commandLink> <sup><small><b>CTRL + SHIFT + K</b></small></sup>
-                    		&nbsp;&nbsp;
-                    		<p:commandLink id="showLogLink" onclick="PF('log').show()">
-                    			<i class="fa fa-warning"></i>
-                    		</p:commandLink> <sup><small><b>CTRL + SHIFT + L</b></small></sup>
-                    		</span>	                    		
+                    		<b>[ MODE DEVELOPPEMENT ] </b>	                    		
                     	</c:if>
                     </span>
                 </span>
@@ -264,7 +254,7 @@
     <!-- messages part -->
     
     <ui:insert name="messages">
-    	<ui:include src="template/_messages.xhtml" />
+    	<ui:include src="template/messages.xhtml" />
     </ui:insert>
     
     <p:dialog header="Favoris" widgetVar="favorisDlg" height="200" width="480">
@@ -287,6 +277,37 @@
 	
 	<!-- log component -->
 	<c:if test="#{applicationContext.isDevMode()}">
+	
+		<!-- icons of debugging tools -->
+		
+		<div style="position:fixed; right:4px; bottom :4px; padding:10px 20px 5px 20px; opacity:1; background-color:#fefefe; border:1px solid #ddd; z-index:92000;">
+	   		<div class="gray" style="border-bottom:1px solid #eee;margin-bottom:4px;padding-bottom:4px">
+	   			<b>DEV TOOLS</b>
+	   		</div>
+	   		<div>
+	   			<div style="height:18px">
+		    		<p:commandLink id="showDebugLink" onclick="showDebug()">
+		    			<i class="fa fa-cog" style="width:14px;"></i>
+		    			<small class="tinyText"><b>DEBUG</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;( CTRL + SHIFT + K )</small>		    			
+		    		</p:commandLink> 
+	    		</div>
+	    		<div style="height:18px">
+		    		<p:commandLink id="showLogLink" onclick="PF('log').show()">
+		    			<i class="fa fa-warning" style="width:14px;"></i>
+		    			<small class="tinyText"><b>LOG</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;( CTRL + SHIFT + L )</small>
+		    		</p:commandLink>
+	    		</div> 
+	    		<div style="height:18px">
+		    		<p:commandLink id="showTasksBook" onclick="PF('tasksBook').show()">
+		    			<i class="fa fa-book" style="width:14px;"></i>
+		    			<small class="tinyText"><b>TASKS BOOK</b>&nbsp;&nbsp;&nbsp;( CTRL + SHIFT + K )</small>
+		    		</p:commandLink>
+	    		</div>
+	   		</div>
+		</div>
+		<!--  -->
+		<ui:include src="template/tasksBook.xhtml"/>
+	
 		<!-- log component  -->
 	    <p:log id="log" widgetVar="log"/>
 	    <script>
@@ -298,24 +319,7 @@
 	    
 	    <!-- debug component  -->
 	    <ui:debug id="debug" widgetVar="debug" hotkey="k"/>
-	    <script>
-		function showDebug(){
-			var	keyboardEvent = document.createEvent('KeyboardEvents');
-			keyboardEvent.initKeyboardEvent(
-				           'keydown', 
-				           true,     // key down events bubble 
-				           true,     // and they can be cancelled 
-				           document.defaultView,  // Use the default view 
-				           true,        // ctrl 
-				           false,       // alt
-				           true,        //shift
-				           false,       //meta key 
-				           75,          // keycode
-				           0
-				          );
-			document.body.dispatchEvent(keyboardEvent);
-		}
-	    </script>
+	    
     </c:if>
     			
 </h:body>

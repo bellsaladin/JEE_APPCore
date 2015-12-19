@@ -389,6 +389,9 @@ input.searchInput {
     }
 }
 
+.tinyText{font-size: 7px}
+
+
 /* Themes */
 .ui-theme {background: url("#{resource['demo/images/themes.png']}") no-repeat top left;display: block;}
 .ui-theme.ui-theme-afterdark{ background-position: 0 0; width: 30px; height: 25px; } 
