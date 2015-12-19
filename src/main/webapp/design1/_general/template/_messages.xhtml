@@ -1,0 +1,36 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:t="http://myfaces.apache.org/tomahawk" xmlns:c="http://java.sun.com/jstl/core" xmlns:fn="http://java.sun.com/jstl/functions">
+	
+	
+	
+	<!-- <p:growl id="msgInfo" life="50000000" autoUpdate="true" showDetail="true" showSummary="true"/>  -->
+			
+   	<p:outputPanel autoUpdate="true">
+		<p:dialog id="msgDialog" widgetVar="msgDialogVar" modal="false" width="500" resizable="false" showEffect="true"
+			visible="#{facesContext.maximumSeverity.ordinal >= 0}" dir="#{sessionManager.direction}" closable="false">
+			
+<!-- 			<f:facet name="header"> -->
+<!-- 				<h:outputText value="#{lbl['group.message']}" /> -->
+<!-- 			</f:facet> -->
+
+			<div style="margin-left:20px;">
+				<div style="text-transform:uppercase"><i class="fa fa-envelope-o" style="padding-right: 4px;" /><b>Enregisrement 'User' effectué avec succés !</b></div>
+				<p style="color:#444; font-size:13px;">Le composant 'p:messages' est commenté, il donne un look non professionnel, il faudra penser à créer un composant personnalité pour obtenir un résultat similaire à la demo actuelle.</p>
+				<p:messages showIcon="false" showDetail="true" showSummary="false"/>
+			</div>
+
+			<p:spacer height="2" />
+			
+			<h:panelGrid columns="2" cellpadding="5" cellspacing="5" style="margin-left:10px">
+				<div style="text-align: center;" class="gray">
+					<small>Vous pouvez utiliser le boutton ECHAPE pour fermer rapidement ces messages</small>
+				</div>
+				<p:commandButton value="#{lbl['cmd.validate']}" onclick="PF('msgDialogVar').hide()" type="button" accesskey="" style="width:120px" />
+			</h:panelGrid>
+			
+			<p:hotkey bind="esc" handler="PF('msgDialogVar').hide()" />
+						
+		</p:dialog>
+	</p:outputPanel>
+</ui:composition>

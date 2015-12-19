@@ -3,7 +3,7 @@
 
 /*  ----------------------------------------------------------------------------------------------------- */
 
-body{margin:0px; height:100%; overflow-x:hidden; overflow-y:auto; background-color:#fff; font-family: /*'exoregular',*/ Helvetica, Verdana, Arial, sans-serif; font-size: 12px;}
+body{margin:0px; height:100%; overflow-x:hidden; overflow-y:auto; background-color:#fff; font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;; font-size: 12px;}
 
 	#LOGOTEXTSIDE{display:block;float:left; height:74px; z-index:999; background-repeat:no-repeat; background-position:center right;
 				  margin:-20px 0px 0px 0px; padding-top:20px; }
@@ -183,6 +183,7 @@ padding:20px; border-radius:5px; border-right:solid 60px #404c51;}
 /* text colors */
 .orange{color:#fca752;}
 .gray{color:#84939f;}
+.red{color:#fc716c;}
 .pink{color:#e26e61;}
 .yellow{color:#fdd106;}
 .green{color:#39b54a;}
@@ -209,8 +210,8 @@ input.searchInput {
 
 /* override */
 .ui-widget {
-    font-size: 100%;
-    font-family: /*'exoregular',*/ Helvetica, Verdana, Arial, sans-serif;
+    font-size: 12px;
+    font-family: "Helvetica Neue", Helvetica, Verdana, Arial, sans-serif;
 }
 
 .Implementation {
@@ -498,5 +499,11 @@ li.ui-state-active a { color:rgb(1, 154, 249) !important; }
 	display: block;
     background-color: #eee;
     padding: 5px;
-    font-weight:bold
+    font-weight:bold;
+}
+
+
+#debug-log {
+    left: 70%; 
+    top: 60%;
 }

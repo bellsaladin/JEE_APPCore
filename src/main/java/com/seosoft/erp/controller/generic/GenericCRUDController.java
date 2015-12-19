@@ -11,6 +11,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.model.ListDataModel;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
 import org.omnifaces.util.Faces;
 import org.primefaces.context.RequestContext;
@@ -19,6 +20,7 @@ import org.primefaces.model.SelectableDataModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.WebApplicationContext;
+
 import com.seosoft.erp.controller.Core;
 import com.seosoft.erp.model.base.BaseEntity;
 import com.seosoft.erp.model.entity.v2_UserNawat;
@@ -169,10 +171,13 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 		_actions.put("persist", new Action(){
 			@Override
 			public void run() {
-				_service.save(_object);
-				if(_list.indexOf(_object) != -1) // if creating a new object
-					_list.set(_list.indexOf(_object), _object); // replace the object at the list so that when navigating (show previous / next ) not the old version of the object would be shown 
-				FacesMessage msg = new FacesMessage(_moduleName + " enregistré");
+				System.out.println("SAVE : "  + _moduleName);
+
+				boolean isNewInsert = (_object.getId().isEmpty())?true:false;
+				_service.save(_object); 
+				String message = "Enregistrement '" + StringUtils.capitalize(_moduleName) + "' effectué avec succés ! ";
+				message = (isNewInsert)?message:"Modification '" + StringUtils.capitalize(_moduleName) + "' effectuée avec succés ! ";
+				FacesMessage msg = new FacesMessage(message);
 				FacesContext.getCurrentInstance().addMessage(null, msg);
 			}
 		});
@@ -232,6 +237,10 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 			public void run() {
 				if(!quickDialogUpdateMode && !Core.getCurrentModuleName().equals(_moduleName) )
 					_list.add(_object);
+				
+				if(_list.indexOf(_object) != -1) // if creating a new object
+					_list.set(_list.indexOf(_object), _object); // replace the object at the list so that when navigating (show previous / next ) not the old version of the object would be shown
+				
 				// FIXME : FOR TEST PURPOSE ONLY
 				if(entitySubjectOfQuickDialog != null) {
 					_relatedModulesActions.get(_moduleName+"PostUpdateAction").run();

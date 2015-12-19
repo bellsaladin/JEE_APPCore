@@ -7,6 +7,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
+import org.apache.commons.lang.StringUtils;
 import org.primefaces.context.RequestContext;
 import org.primefaces.model.CheckboxTreeNode;
 import org.primefaces.model.TreeNode;
@@ -61,7 +62,9 @@ public class ProfilController extends GenericCRUDController<v2_Profil, v2_Profil
 		_actions.put("persist", new Action(){
 			@Override
 			public void run() {
-				_service.save(_object);
+				
+				boolean isNewInsert = (_object.getId().isEmpty())?true:false;
+				_service.save(_object); 
 				
 				// remove all affected roles for this profil
 				v2_profilRoleService.delete(selectedProfilRoles);
@@ -76,7 +79,10 @@ public class ProfilController extends GenericCRUDController<v2_Profil, v2_Profil
 					v2_profilRoleService.save(profilRole);
 				}
 				
-				FacesMessage msg = new FacesMessage(_moduleName + " enregistré");
+				
+				String message = "Enregistrement '" + StringUtils.capitalize(_moduleName) + "' effectué avec succés ! ";
+				message = (isNewInsert)?message:"Modification '" + StringUtils.capitalize(_moduleName) + "' effectuée avec succés ! ";
+				FacesMessage msg = new FacesMessage(message);
 				FacesContext.getCurrentInstance().addMessage(null, msg);
 			}
 		});
@@ -105,10 +111,10 @@ public class ProfilController extends GenericCRUDController<v2_Profil, v2_Profil
 				if (selectedProfilRoles != null && isRoleInListOfProfilRoles(childRole, selectedProfilRoles)) {
 					childNode.setSelected(true);
 					selectedChildrenCount++;
-					System.out.println(">SELECT " + childRole.getLibelleKey());
+					//System.out.println(">SELECT " + childRole.getLibelleKey());
 				} else {
 					childNode.setSelected(false);
-					System.out.println("UNSELECT " + childRole.getLibelleKey());
+					//System.out.println("UNSELECT " + childRole.getLibelleKey());
 				}
 			}
 			

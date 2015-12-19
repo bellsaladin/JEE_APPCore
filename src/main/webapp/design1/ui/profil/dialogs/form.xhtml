@@ -10,7 +10,10 @@
 	xmlns:of="http://omnifaces.org/functions">
 	
 	<!--  Include of configuration -->
-	<ui:include src="../_config.xhtml" />
+	<!-- 	<ui:include src="../_config.xhtml" /> -->
+	
+    <ui:param name="entityName" value="profil" />
+    <ui:param name="entityNameCapitalized" value="#{of:capitalize(entityName)}" />
 	
 	<!--  Dialog definition -->
 	<p:dialog header="#{entityNameCapitalized}" id="dialog#{entityNameCapitalized}" widgetVar="dialog#{entityNameCapitalized}" style="min-width:700px;" resizable="false" modal="true" appendToBody="true">   

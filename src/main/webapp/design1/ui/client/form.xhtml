@@ -29,9 +29,11 @@
 	
     <ui:define name="implementation">
 	  <div style="padding:30px">
-        <p:growl widgetVar="growl" showDetail="true" sticky="true" />
+        	
+        	<p:growl widgetVar="growl" showDetail="true" sticky="true" />
         
-        	<p:messages id="messages" />  
+        	<p:messages id="messages" closable="true" escape="false"/>
+        	  
         	<p:panelGrid styleClass="no-border-table full-width">
 				<p:row>	
 		       		<p:column>        		        	 

@@ -20,6 +20,7 @@
     </f:facet>
 
     <title>#{basicView.title}</title>
+    <h:outputStylesheet library="awesome" name="css/font-awesome.css" />
     <h:outputStylesheet name="main/css/showcase.css" />
     <h:outputStylesheet name="main/css/perfect-scrollbar.css" />
     <h:outputStylesheet name="main/css/sh.css" />
@@ -31,7 +32,7 @@
 </h:head>
 
 <h:body>
-	
+    
     <!-- PC CONTENT STARTS HERE-->
     <div class="PC">
         
@@ -120,8 +121,9 @@
         	<!-- header bar start-->
 			<div class="ContentSideSections" id="PFTopLinksCover" style="height:60px;">
 				<span id="LOGOTEXTSIDE">
-                    <span class="fontSize15 TextShadow blue mediumFont marginBottom29"><span style="text-transform:uppercase">#{basicView.title}</span> / Gest. Commerciale</span>&nbsp;<sup>GOLD</sup>
+                    <span class="fontSize15 TextShadow blue mediumFont marginBottom29"><span style="text-transform:uppercase">#{basicView.title}</span> / Gest. Commerciale</span>&nbsp;<sup>PREMIUM</sup>
                     <span class="dispBlock gray fontSize11 mediumFont">by SeoSoft</span>
+                    <span class="dispBlock red"><c:if test="#{applicationContext.isDevMode()}"> <b>[ MODE DEVELOPPEMENT ] </b></c:if></span>
                 </span>
                 <a href="http://www.primefaces.org/showcase-ext" class="PFTopLinks floatRight boldFont"><h:graphicImage name="main/images/topMenu/configuration.png" /><span class="PFGrayText">C</span><span class="PFDarkText">onfiguration</span></a>
                 <span class="PFTopLinks floatRight boldFont cursorPointer" id="pushNav">
@@ -201,15 +203,6 @@
 	                </div>
 				</h:form>
 				
-				<!-- Include of dialogs of related modules  -->
-				<c:forEach items="${core.bean().getRelatedModules()}" var="moduleName">
-			 		<ui:param name="dialogIncludeSrc" value="/design1/ui/${moduleName}/dialogs/form.xhtml" />
-			 		<ui:include src="#{dialogIncludeSrc}" />
-				</c:forEach>
-				
-				<!-- Include of other dialogs if mentionned  -->
-				<ui:insert name="dialogs" />
-				
                 <div id="SourceContentSide" class="ContentSideSections Source">
                     <div class="Content100 overHidden TextShadow">
                         <span class="defaultText">
@@ -225,7 +218,7 @@
             <!-- footer start-->
             <div class="ContentSideSections footer" style="border-bottom:none">
                 <span class="floatLeft fontSize11"><a href="http://www.primetek.com.tr">SeoSoft</a>, Copyright &copy; 2015. All rights reserved.</span>
-                <span class="floatRight fontSize11">Version du produit : v2.7.3 </span>
+                <span class="floatRight fontSize11">Version 2.7.3 </span>
                 <div style="clear:both" />
             </div>
             <!-- footer end-->
@@ -254,39 +247,34 @@
     
     <ui:insert name="body"></ui:insert>
     
+    <!-- messages part -->
+    
+    <ui:insert name="messages">
+    	<ui:include src="template/_messages.xhtml" />
+    </ui:insert>
     
     <p:dialog header="Favoris" widgetVar="favorisDlg" height="200" width="480">
     		<c:forEach items="${sessionController.favoris}" var="favori">
     			<a class="favori_link" href="#{request.contextPath}/design1/ui/#{favori.nomModule}/list">#{favori.nomModule}</a><br/>
 			</c:forEach>
 	</p:dialog>
-	<p:hotkey bind="ctrl+shift+f" handler="PF('favorisDlg').show();" />
-    
-    <ui:insert name="messages">
-    	<!-- <p:growl id="msgInfo" life="50000000" autoUpdate="true" showDetail="true" showSummary="true"/>  -->
-			
-    	<p:outputPanel autoUpdate="true">
-			<p:dialog id="msgError" widgetVar="msgErrorVar" modal="true" minWidth="500" resizable="false" showEffect="fade"
-				visible="#{facesContext.maximumSeverity.ordinal >= 0}" dir="#{sessionManager.direction}">
-				<f:facet name="header">
-					<i class="fa fa-envelope-o" style="padding-right: 4px;" />
-					<h:outputText value="#{lbl['group.message']}" />
-				</f:facet>
 	
-				<h:panelGrid columns="1" cellpadding="5" cellspacing="5">
-					<p:messages showDetail="true" showSummary="false" />
-				</h:panelGrid>
+    <!-- log component -->
+    <p:hotkey bind="ctrl+shift+f" handler="PF('favorisDlg').show();" />
 	
-				<p:spacer height="20" />
+	<!-- Include of dialogs of related modules  -->
+	<c:forEach items="${core.bean().getRelatedModules()}" var="moduleName">
+ 		<ui:param name="dialogIncludeSrc" value="/design1/ui/${moduleName}/dialogs/form.xhtml" />
+ 		<ui:include src="#{dialogIncludeSrc}" />
+	</c:forEach>
 	
-				<div style="text-align: center;">
-					<p:commandButton value="#{lbl['cmd.return']}" onclick="PF('msgErrorVar').hide()" type="button" accesskey="" />
-				</div>
-				<p:hotkey bind="esc" handler="PF('msgErrorVar').hide()" />
+	<!-- Include of other dialogs if mentionned  -->
+	<ui:insert name="dialogs" resizable="true"/>
 	
-			</p:dialog>
-		</p:outputPanel>
-    </ui:insert>
-    
+	<!-- log component -->
+	<c:if test="#{applicationContext.isDevMode()}">
+	    <p:log id="debug-log"/>
+    </c:if>
+    					
 </h:body>
 </html>
