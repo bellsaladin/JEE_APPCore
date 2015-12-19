@@ -123,7 +123,21 @@
 				<span id="LOGOTEXTSIDE">
                     <span class="fontSize15 TextShadow blue mediumFont marginBottom29"><span style="text-transform:uppercase">#{basicView.title}</span> / Gest. Commerciale</span>&nbsp;<sup>PREMIUM</sup>
                     <span class="dispBlock gray fontSize11 mediumFont">by SeoSoft</span>
-                    <span class="dispBlock red"><c:if test="#{applicationContext.isDevMode()}"> <b>[ MODE DEVELOPPEMENT ] </b></c:if></span>
+                    <span class="dispBlock red">
+                    	<c:if test="#{applicationContext.isDevMode()}"> 
+                    		<b>[ MODE DEVELOPPEMENT ] </b>
+                    		&nbsp;&nbsp;
+                    		<span class="gray">
+                    		<p:commandLink id="showDebugLink" onclick="showDebug()">
+                    			<i class="fa fa-cog"></i>
+                    		</p:commandLink> <sup><small><b>CTRL + SHIFT + K</b></small></sup>
+                    		&nbsp;&nbsp;
+                    		<p:commandLink id="showLogLink" onclick="PF('log').show()">
+                    			<i class="fa fa-warning"></i>
+                    		</p:commandLink> <sup><small><b>CTRL + SHIFT + L</b></small></sup>
+                    		</span>	                    		
+                    	</c:if>
+                    </span>
                 </span>
                 <a href="http://www.primefaces.org/showcase-ext" class="PFTopLinks floatRight boldFont"><h:graphicImage name="main/images/topMenu/configuration.png" /><span class="PFGrayText">C</span><span class="PFDarkText">onfiguration</span></a>
                 <span class="PFTopLinks floatRight boldFont cursorPointer" id="pushNav">
@@ -273,8 +287,36 @@
 	
 	<!-- log component -->
 	<c:if test="#{applicationContext.isDevMode()}">
-	    <p:log id="debug-log"/>
+		<!-- log component  -->
+	    <p:log id="log" widgetVar="log"/>
+	    <script>
+	    $(document).ready(function() {
+	    	PF('log').hide();
+	    });
+	    </script>
+	    <p:hotkey bind="ctrl+shift+l" handler="PF('log').show();" />
+	    
+	    <!-- debug component  -->
+	    <ui:debug id="debug" widgetVar="debug" hotkey="k"/>
+	    <script>
+		function showDebug(){
+			var	keyboardEvent = document.createEvent('KeyboardEvents');
+			keyboardEvent.initKeyboardEvent(
+				           'keydown', 
+				           true,     // key down events bubble 
+				           true,     // and they can be cancelled 
+				           document.defaultView,  // Use the default view 
+				           true,        // ctrl 
+				           false,       // alt
+				           true,        //shift
+				           false,       //meta key 
+				           75,          // keycode
+				           0
+				          );
+			document.body.dispatchEvent(keyboardEvent);
+		}
+	    </script>
     </c:if>
-    					
+    			
 </h:body>
 </html>

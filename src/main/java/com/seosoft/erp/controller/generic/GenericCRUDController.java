@@ -173,7 +173,7 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 			public void run() {
 				System.out.println("SAVE : "  + _moduleName);
 
-				boolean isNewInsert = (_object.getId().isEmpty())?true:false;
+				boolean isNewInsert = (_object.getId()==null)?true:false;
 				_service.save(_object); 
 				String message = "Enregistrement '" + StringUtils.capitalize(_moduleName) + "' effectué avec succés ! ";
 				message = (isNewInsert)?message:"Modification '" + StringUtils.capitalize(_moduleName) + "' effectuée avec succés ! ";

@@ -18,11 +18,9 @@ import com.seosoft.erp.controller.generic.GenericCRUDController;
 import com.seosoft.erp.model.entity.v2_Profil;
 import com.seosoft.erp.model.entity.v2_ProfilRole;
 import com.seosoft.erp.model.entity.v2_Role;
-import com.seosoft.erp.model.entity.v2_UserNawat;
 import com.seosoft.erp.service.parametrage.v2_ProfilRoleService;
 import com.seosoft.erp.service.parametrage.v2_ProfilService;
 import com.seosoft.erp.service.parametrage.v2_RoleService;
-import com.seosoft.erp.service.parametrage.v2_UserService;
 import com.seosoft.erp.util.scopes.view.SpringViewScoped;
 
 @Named
