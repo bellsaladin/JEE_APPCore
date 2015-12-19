@@ -29,7 +29,7 @@ public abstract class BaseEntity {
 	 * Clé technique générée automatiquement pour toutes les classes modèles
 	 */
 	@Id
-	@Length(max = 15)
+	@Length(max = 15, min=5)
 	protected String id;
 
 	/**
@@ -90,15 +90,6 @@ public abstract class BaseEntity {
 	 */
 	@Transient
 	public abstract String getDisplayText();
-
-	/**
-	 * Retourne vrai si l'objet encours n'est pas ecore persisté dans la base
-	 * 
-	 * @return vrai ou faux
-	 */
-	public boolean isNew() {
-		return null == id;
-	}
 
 	/**
 	 * Permet de redéfinir la méthode toString pour afficher le libelle de l'objet en se basant sur le méthode getDisplayText()
