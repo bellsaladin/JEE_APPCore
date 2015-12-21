@@ -22,19 +22,20 @@ import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.seosoft.erp.controller.Core;
+import com.seosoft.erp.controller._Constants;
 import com.seosoft.erp.model.base.BaseEntity;
 import com.seosoft.erp.model.entity.v2_UserNawat;
 import com.seosoft.erp.service.generic.GenericService;
 
-public class GenericCRUDController<Type extends BaseEntity, Service extends GenericService<Type, String>> extends GenericController{
+public class GenericCRUDController<Type extends BaseEntity, Service extends GenericService<Type, String>> extends GenericController<Type,Service>{
+	//protected String _moduleName;
+	//protected Map<String,Action> _actions;
 	protected Type _object;
 	protected List<Type> _list;
 	protected List<Type> _selectedObjects;
-	protected Map<String,Action> _actions;
 	@Autowired
 	protected Service _service;
 	protected DataModel _dataModel;
-	protected String _moduleName;
 	protected String _paramId = null; // used to set object's ID to modify
 	// the following attributes are special attributes used for quick create & update dialogs on related modules
 	protected HashMap<String,GenericController<?,?>> _relatedModules;
@@ -248,6 +249,21 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 				}
 			}
 		});
+
+		_actions.put("redirectToFormView", new Action(){
+			@Override
+			public void run() {
+				if(_selectedObjects.size() > 0){
+					String id = _selectedObjects.get(_selectedObjects.size() -1).getId();
+					String url = _Constants.base_url + _moduleName +"/form?id=" + id;
+					try {
+						FacesContext.getCurrentInstance().getExternalContext().redirect( url);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		});
 		
 	}
 	
@@ -343,14 +359,6 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 
 	public void setSelectedObjects(List<Type> selectedObjects) {
 		this._selectedObjects = selectedObjects;
-	}
-
-	public String getModuleName() {
-		return _moduleName;
-	}
-
-	public void setModuleName(String moduleName) {
-		this._moduleName = moduleName;
 	}
 		
 	public String getParamId() {

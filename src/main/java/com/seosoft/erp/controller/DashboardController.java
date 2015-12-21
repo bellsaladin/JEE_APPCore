@@ -37,8 +37,8 @@ public class DashboardController extends GenericSimpleController implements Seri
 			@Override
 			public void run() {
 				count++;
-				FacesMessage msg = new FacesMessage("Stats data : " + count);
-				FacesContext.getCurrentInstance().addMessage(null, msg);
+				//FacesMessage msg = new FacesMessage("Stats data : " + count);
+				//FacesContext.getCurrentInstance().addMessage(null, msg);
 			}
 		});
 		

@@ -29,9 +29,12 @@
     <ui:define name="implementation">
 	  <div style="padding:30px">
       	
-	    <p:panel id="lazyContent">
-	    	<p:poll interval="3" listener="#{core.bean().runAction('loadStatsData')}" update=":mainForm:lazyContent" />
-	    	<h1><p:outputLabel value="#{core.bean().getCount()}"/></h1>
+	    <p:panel id="lazyContentPanel" style="height:300px">
+	    	<p:outputPanel id="lazyContentOutputPanel" deferred="true" delay="500" autoUpdate="true">
+		    	<p:poll interval="10" listener="#{core.bean().runAction('loadStatsData')}" />
+		    	<h1>AUTO UPDATED PANEL DEMO</h1>
+		    	<p>COMPTEUR : <p:outputLabel value="#{core.bean().getCount()}"/></p>
+	    	</p:outputPanel>
 	    </p:panel>
       </div>
     </ui:define>

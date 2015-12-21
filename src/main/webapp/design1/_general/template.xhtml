@@ -121,16 +121,16 @@
         	<!-- header bar start-->
 			<div class="ContentSideSections" id="PFTopLinksCover" style="height:60px;">
 				<span id="LOGOTEXTSIDE">
-                    <span class="fontSize15 TextShadow blue mediumFont marginBottom29"><span style="text-transform:uppercase">#{basicView.title}</span> / Gest. Commerciale</span>&nbsp;<sup>PREMIUM</sup>
-                    <span class="dispBlock gray fontSize11 mediumFont">by SeoSoft</span>
-                    <span class="dispBlock red">
+                    <span class="fontSize13 TextShadow blue mediumFont marginBottom29"><b><span style="text-transform:uppercase">#{basicView.title}</span> | GESTION COMMERCIALE</b></span>&nbsp;<sup class="gray"><small><b> PREMIUM</b></small></sup>
+                    <span class="fontSize11 dispBlock red">
                     	<c:if test="#{applicationContext.isDevMode()}"> 
                     		<b>[ MODE DEVELOPPEMENT ] </b>	                    		
                     	</c:if>
                     </span>
+                    <span class="dispBlock gray fontSize11 mediumFont">by SeoSoft</span>
                 </span>
                 <a href="http://www.primefaces.org/showcase-ext" class="PFTopLinks floatRight boldFont"><h:graphicImage name="main/images/topMenu/configuration.png" /><span class="PFGrayText">C</span><span class="PFDarkText">onfiguration</span></a>
-                <span class="PFTopLinks floatRight boldFont cursorPointer" id="pushNav">
+                <div class="PFTopLinks floatRight boldFont cursorPointer" id="pushNav">
                     <h:graphicImage name="main/images/topMenu/services.png" /><span class="PFGrayText">S</span><span class="PFDarkText">ervices</span>
                     <div id="PushDemos" class="navOverlay">
                         <a href="#{request.contextPath}/push/counter.xhtml"><span class="ui-text">Gestion commerciale</span></a>
@@ -147,7 +147,7 @@
                         <a href="#{request.contextPath}/push/chart.xhtml"><span class="ui-text">Chart</span></a>
                         <a href="#{request.contextPath}/push/photoShare.xhtml"><span class="ui-text">PhotoShare</span></a>
                     </div>  -->
-                </span>
+                </div>
                 <span class="PFTopLinks floatRight boldFont cursorPointer" id="themeSwitcher">
                     <h:form>
                         <h:graphicImage name="main/images/topMenu/actions.png" /><span class="PFGrayText">PF</span><span class="PFDarkText">Themes</span>
@@ -190,22 +190,24 @@
                     </div>
                 </div> -->
                 
-				<h:form id="mainForm">
-					<div class="ContentSideSections actionsSection Implementation">
-						<h:panelGroup id="actions">
-							<!-- <a style="font-size: 15px;color: rgba(20, 140, 220, 1);font-family: Arial, Helvetica, sans-serif; font-weight:bold">
-								<b style="color: rgba(122, 122, 132, 1);">Ventes > </b>
-								<p:outputLabel value="#{core.bean().moduleName}"/> > Liste
-							</a>
-							<br/><br/>-->
-		                    <ui:insert name="actions" />
-		                </h:panelGroup>
-	                </div>
-	                
-	                <div class="ContentSideSections Implementation" style="padding:0;">
-	                    <ui:insert name="implementation" />
-	                </div>
-				</h:form>
+				<p:outputPanel deferred="true">
+					<h:form id="mainForm">
+						<div class="ContentSideSections actionsSection Implementation">
+							<h:panelGroup id="actions">
+								<a style="font-size: 15px;color: rgba(20, 140, 220, 1);font-family: Arial, Helvetica, sans-serif; font-weight:bold">
+									<b style="color: rgba(122, 122, 132, 1);">Ventes > </b>
+									<p:outputLabel value="#{core.bean().moduleName}"/> > Liste
+								</a>
+								<br/><br/>
+			                    <ui:insert name="actions" />
+			                </h:panelGroup>
+		                </div>
+		                
+		                <div class="ContentSideSections Implementation" style="padding:0;">
+		                    <ui:insert name="implementation" />
+		                </div>
+					</h:form>
+				</p:outputPanel>
 				
                 <div id="SourceContentSide" class="ContentSideSections Source">
                     <div class="Content100 overHidden TextShadow">
@@ -280,8 +282,8 @@
 	
 		<!-- icons of debugging tools -->
 		
-		<div style="position:fixed; right:4px; bottom :4px; padding:10px 20px 5px 20px; opacity:1; background-color:#fefefe; border:1px solid #ddd; z-index:92000;">
-	   		<div class="gray" style="border-bottom:1px solid #eee;margin-bottom:4px;padding-bottom:4px">
+		<div id="devToolsBox">
+	   		<div class="silver" style="border-bottom:1px solid #eee;margin-bottom:4px;padding-bottom:4px">
 	   			<b>DEV TOOLS</b>
 	   		</div>
 	   		<div>
