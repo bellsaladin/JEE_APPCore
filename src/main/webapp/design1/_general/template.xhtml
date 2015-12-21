@@ -71,7 +71,30 @@
             <span id="SubMenu-Misc" class="MenuSideMainLink" onclick="Showcase.openSubMenu(this);"><h:graphicImage name="main/images/mono/misc.svg" /><h:graphicImage class="hiddenIcons" name="main/images/mono/miscBlue.svg" /><span class="MainLinkText">Misc</span></span>
             <div class="SubMenuLinkContainer"></div>
         </div>
+        
+        
+		
     </div>
+    
+    <div style="">
+		<p:commandLink id="showHelpPanelLink" onclick="PF('helpPanel').show()">
+			<i class="fa fa-question fa-2x"></i>
+		</p:commandLink>
+	</div>
+    <p:dialog id="helpPanel" widgetVar="helpPanel" height="9000" width="100%" appendToBody="true" modal="true" style="height:100%;" showEffect="puff" hideEffect="puff">
+		<f:facet name="header"><span style="">Aide</span><hr/></f:facet>
+		<p:outputPanel differed="true">
+			<div style="padding: 0 20px">
+				<h4 class="blue">1. ASTUCES :</h4>
+				<p><b>SELECTION MULTIPLE</b> : Maintenez préssé le button CTRL et cliquez avec le button gauche de la souris pour faire une selection multiple.</p>
+				<h4 class="blue">2. RACCOURCIS IMPORTANTS :</h4>
+				<p><b>CTLR+M</b> : Afficher le menu du module en cours rapidement sans repasser par le menu de coté.</p>
+				<p><b>CTLR+F</b> : Ajouter le module que vous gérez actuellement au favoris.</p>
+				<p><b>CTLR+F</b> : Ajouter le module que vous gérez actuellement au favoris.</p>
+			</div>
+		</p:outputPanel>
+	</p:dialog>
+		
     <script>
     $( document ).ready(function() {
         //alert('fix save problem, values not bound ! Loading multiple beans is not the problem maybe, even article save is not working !')
@@ -223,7 +246,7 @@
             
             <!-- footer start-->
             <div class="ContentSideSections footer" style="border-bottom:none">
-                <span class="floatLeft fontSize11"><a href="http://www.primetek.com.tr">SeoSoft</a>, Copyright &copy; 2015. All rights reserved.</span>
+                <span class="floatLeft fontSize11"><a href="#">SeoSoft</a>, Copyright &copy; 2015. All rights reserved.</span>
                 <span class="floatRight fontSize11">Version 2.7.3 </span>
                 <div style="clear:both" />
             </div>
@@ -280,7 +303,7 @@
 	<!-- log component -->
 	<c:if test="#{applicationContext.isDevMode()}">
 	
-		<!-- icons of debugging tools -->
+		<!-- box of debugging tools -->
 		
 		<div id="devToolsBox">
 	   		<div class="silver" style="border-bottom:1px solid #eee;margin-bottom:4px;padding-bottom:4px">

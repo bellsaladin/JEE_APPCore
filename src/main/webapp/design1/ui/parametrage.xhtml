@@ -7,6 +7,30 @@
 	
     <ui:define name="implementation">
     	<div class="dashboard">
+    		<div class="block">
+	      		<h3>Clients</h3>
+	      		<hr/>
+	      		<a href="#">Nouveau :</a><br/>
+	      		<p:link style="margin-left:18px" outcome="client/form" value="Client"/><br/>
+	      		<p:link style="margin-left:18px"  outcome="familleClient/form" value="Famille clients"/><br/>
+	      		<p:link outcome="client/list" value="Les clients"/><br/>
+	      		<p:link outcome="familleClient/list" value="Les familles de clients"/><br/>
+	      		<p:link outcome="familleClient/list" value="Les réglement clients"/><br/>
+	      		<p:link outcome="familleClient/list" value="Les échéances clients"/><br/>
+	      		<p:link outcome="familleClient/list" value="Les relances"/><br/>
+	      		<p:link outcome="familleClient/list" value="Editions"/><br/>
+	      	</div>
+	      	<div class="block">
+	      		<h3>Fournisseurs</h3>
+	      		<hr/>
+	      		<a href="#">Nouveau :</a><br/>
+	      		<p:link style="margin-left:18px" outcome="fournisseur/form" value="Fournisseur"/><br/>
+	      		<p:link style="margin-left:18px"  outcome="familleFournisseur/form" value="Famille fournisseurs"/><br/>
+	      		<p:link outcome="fournisseur/list" value="Les fournisseurs"/><br/>
+	      		<p:link outcome="familleFournisseur/list" value="Les familles de fournisseurs"/><br/>
+	      		<p:link outcome="familleFournisseur/list" value="Les références articles / fournisseurs"/><br/>
+	      		<p:link outcome="familleClient/list" value="Editions"/><br/>
+	      	</div>	
 			<div class="block">
 	      		<h3>Utilisateurs et Droits d'accès</h3>
 	      		<hr/>
@@ -14,24 +38,15 @@
 	      		<p:link outcome="profil/list" value="Profils"/><br/>
 	      	</div>
 	      	<div class="block">
-	      		<h3>Clients et fournisseurs</h3>
-	      		<hr/>
-	      		<p:link outcome="client/list" value="Clients"/><br/>
-	      		<p:link outcome="familleClient/list" value="Familles clients"/><br/>
-	      		<p:link outcome="client/list" value="Fournisseurs"/><br/>
-	      		<p:link outcome="familleClient/list" value="Familles fournisseurs"/><br/>
-	      	</div>
-	      	<div class="block">
-	      		<h3>Affichage et Aapparence</h3>
+	      		<h3>Affichage et Apparence</h3>
 	      		<hr/>
 	      		<p:link outcome="user/list" value="Theme"/><br/>
 	      		<p:link outcome="profil/list" value="Police et caractères"/><br/>
 	      	</div>
 	      	<div class="block">
-	      		<h3>Notifications</h3>
+	      		<h3>Paramètres généraux</h3>
 	      		<hr/>
-	      		<p:link outcome="user/list" value="Lien 1"/><br/>
-	      		<p:link outcome="profil/list" value="Lien 2"/><br/>
+	      		<p:link outcome="user/list" value="Paramètres de la société"/><br/>
 	      	</div>
       	</div>
     </ui:define>
