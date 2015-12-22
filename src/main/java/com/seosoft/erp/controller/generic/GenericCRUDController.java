@@ -1,6 +1,7 @@
 package com.seosoft.erp.controller.generic;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +9,7 @@ import java.util.Set;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.model.ListDataModel;
 
@@ -26,6 +28,7 @@ import com.seosoft.erp.controller._Constants;
 import com.seosoft.erp.model.base.BaseEntity;
 import com.seosoft.erp.model.entity.v2_UserNawat;
 import com.seosoft.erp.service.generic.GenericService;
+import com.seosoft.erp.util.components.ColumnModel;
 
 public class GenericCRUDController<Type extends BaseEntity, Service extends GenericService<Type, String>> extends GenericController<Type,Service>{
 	//protected String _moduleName;
@@ -36,6 +39,8 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 	@Autowired
 	protected Service _service;
 	protected DataModel _dataModel;
+	protected List<String> _dataTableColumnsKeys;
+	protected List<ColumnModel> _dataTableColumns;
 	protected String _paramId = null; // used to set object's ID to modify
 	// the following attributes are special attributes used for quick create & update dialogs on related modules
 	protected HashMap<String,GenericController<?,?>> _relatedModules;
@@ -54,6 +59,8 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 		_relatedModulesActions = new HashMap<String,Action>();
 		registerDefaultActions();
 		registerActions();
+		_dataTableColumnsKeys = new ArrayList<String>();
+		_dataTableColumns = new ArrayList<ColumnModel>();
 	}
 	
 	@PostConstruct
@@ -265,6 +272,21 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 			}
 		});
 		
+		_actions.put("updateDataTableColumns", new Action(){
+			@Override
+			public void run() {
+				System.out.println("updateDataTableColumnsnew Action()");
+				UIComponent dataTable = FacesContext.getCurrentInstance().getViewRoot().findComponent(":mainForm:dataTable");
+		        dataTable.setValueExpression("sortBy", null);
+				_dataTableColumns = new ArrayList<ColumnModel>();   
+		         
+		        for(String columnKey : GenericCRUDController.this._dataTableColumnsKeys) {
+		            String key = columnKey.trim(); 
+		            _dataTableColumns.add(new ColumnModel(columnKey.toUpperCase(), columnKey));
+		        }
+			}
+		});
+		
 	}
 	
 	protected void registerActions() {
@@ -351,6 +373,22 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 
 	public void setDataModel(DataModel dataModel) {
 		this._dataModel = dataModel;
+	}
+
+	public List<ColumnModel> get_dataTableColumns() {
+		return _dataTableColumns;
+	}
+
+	public void set_dataTableColumns(List<ColumnModel> _dataTableColumns) {
+		this._dataTableColumns = _dataTableColumns;
+	}
+
+	public List<String> get_dataTableColumnsKeys() {
+		return _dataTableColumnsKeys;
+	}
+
+	public void set_dataTableColumnsKeys(List<String> _dataTableColumnsKeys) {
+		this._dataTableColumnsKeys = _dataTableColumnsKeys;
 	}
 
 	public List<Type> getSelectedObjects() {

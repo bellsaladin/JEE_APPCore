@@ -4,6 +4,7 @@
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
     template="/design1/_general/template.xhtml">
 
     <ui:define name="head">        
@@ -48,13 +49,28 @@
 			
 			<p:column selectionMode="multiple" headerText="" style="width:20px;"/>
 			
-			<ui:insert name="dataTableColumns" />					      
+			<ui:insert name="dataTableColumns" />	
+							      
+			<p:columns value="#{core.bean()._dataTableColumns}" var="column" sortBy="#{object[column.property]}">
+	            <f:facet name="header">
+	                <h:outputText value="#{column.header}" />
+	            </f:facet>
+	            <h:outputText value="#{object[column.property]}" />
+	        </p:columns>
 			      		        		       
-	    </p:dataTable>		    
+	    </p:dataTable>	
+	    <p:dialog id="selectDataTableColumnsDialog" widgetVar="selectDataTableColumnsDialog" width="480" resizable="false" header="Choix des colonnes à afficher">
+		    <p:selectManyCheckbox id="selectDataTableColumnsManyCheckbox" value="#{core.bean()._dataTableColumnsKeys}" layout="grid"  columns="1">
+		        <f:selectItems value="#{core.bean().getObject().getFieldsNames()}" var="column" itemLabel="#{column}" itemValue="#{column}" />
+		    </p:selectManyCheckbox>
+		    <p:commandButton value="Mettre à jour les colonnes" actionListener="#{core.bean().runAction('updateDataTableColumns')}" update=":mainForm:dataTable" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+		</p:dialog>	    	    
    		<!--<p:blockUI block="dataTable" trigger="dataTable">
        		Chargement<br />
        		<p:graphicImage name="demo/images/ajaxloadingbar.gif"/>
-   		</p:blockUI>-->   
+   		</p:blockUI>--> 
+   		
+   		  
    		<p:contextMenu id="contextMenu" for="dataTable">
 	        <p:menuitem value="Modifier" actionListener="#{core.bean().runAction('redirectToFormView')}" icon="ui-icon-search"/>
 	        <p:menuitem value="Supprimer" update="dataTable" icon="ui-icon-close" actionListener="PF('dlgUpdateUser').show()"/>
@@ -72,7 +88,7 @@
 	        		<ui:insert name="contextMenuExtraActions" />
 	        </p:submenu>
 	    </p:contextMenu>
-		    
+			
     </ui:define>
     
     <p:hotkey bind="ctrl+shift+f" actionListener="#{core.bean().addToFovoris()}">

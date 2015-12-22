@@ -23,4 +23,8 @@ public abstract class GenericController<Type extends BaseEntity, Service extends
 	public String[] getRelatedModules(){
 		return new String[]{}; //empty string array
 	}
+	
+//	public Class<Type> getClassType(){
+//		return Type;
+//	}
 }

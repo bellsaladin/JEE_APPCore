@@ -536,5 +536,39 @@ li.ui-state-active a { color:rgb(1, 154, 249) !important; }
 
 #helpPanel{z-index:1010 !important}
 
-#showHelpPanelLink{position: fixed; left: 20px; bottom: 15px; z-index: 10000; width: 20px; height: 22px; border-radius: 45px; padding: 5px; padding-left: 8px; border: 4px solid rgba(83, 163, 255, 0.27);color: rgba(72, 157, 200, 0.6);}
+.ui-widget-overlay{background: rgba(255, 255, 255, 1);}
+
+#showHelpPanelLink{
+	position: fixed;
+	left: 24px;
+	bottom: 15px;
+	z-index: 10000;
+	width: 20px;
+	height: 22px;
+	border-radius: 50px;
+	padding: 3px;
+	padding-left: 7px;
+	border: 2px solid rgba(83, 163, 255, 0.27);
+}
+
 #showHelpPanelLink:hover{color:rgba(72, 157, 220, 1);}
+
+.ui-draggable .ui-dialog-titlebar{
+	border-bottom: 1px solid #efefef !important;
+	margin: 10px 15px !important;
+}
+.ui-dialog.ui-widget-content .ui-dialog-title{
+	font-size: 13px !important;
+	padding: 0;
+	margin: 5px 50px 5px 5px;
+	text-transform: uppercase;	
+}
+.ui-dialog .ui-dialog-titlebar-close{
+	right: 2px !important;
+	top: 2px !important;
+	background: url("#{resource['images/modalClose.png']}") 0 0 no-repeat !important;
+}
+
+.ui-dialog .ui-dialog-titlebar-close:hover{
+	background: url("#{resource['images/modalClose_active.png']}") 0 0 no-repeat !important;
+}

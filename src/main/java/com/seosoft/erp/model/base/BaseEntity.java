@@ -1,5 +1,9 @@
 package com.seosoft.erp.model.base;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.Id;
@@ -156,6 +160,27 @@ public abstract class BaseEntity {
 			return false;
 		return true;
 	}
+	
+	
+	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
+	// |||||||||||||||||||||||||||||||||||||||||||||||| SPECIAL FUNCTIONS ||||||||||||||||||||||||||||||||||||||||||||||||||||||//
+	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
+	
+	public  List<String> getFieldsNames(){
+		List<String> fieldsList = new ArrayList<String>();
+		Field[] fields = this.getClass().getDeclaredFields();
+        System.out.printf("%d fields:%n", fields.length);
+        for (Field field : fields) {
+        	fieldsList.add(field.getName());
+        	System.out.printf("%s %s %s%n",
+                    Modifier.toString(field.getModifiers()),
+                    field.getType().getSimpleName(),
+                    field.getName()
+                );
+        }
+        return fieldsList;
+	}
+	
 
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
 	// |||||||||||||||||||||||||||||||||||||||||||||||| Getters & Setters ||||||||||||||||||||||||||||||||||||||||||||||||||||||//
@@ -185,5 +210,6 @@ public abstract class BaseEntity {
 	public void setUpdateDate(DateTime updateDate) {
 		this.lastUpdate = updateDate;
 	}
+	
 
 }
