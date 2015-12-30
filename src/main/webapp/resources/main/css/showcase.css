@@ -572,3 +572,12 @@ li.ui-state-active a { color:rgb(1, 154, 249) !important; }
 .ui-dialog .ui-dialog-titlebar-close:hover{
 	background: url("#{resource['images/modalClose_active.png']}") 0 0 no-repeat !important;
 }
+
+
+.ui-tabs .ui-tabs-nav li a{
+	text-transform: uppercase;
+	font-size:11px;
+}
+.ui-tabs .ui-tabs-panel{
+	border-width: 1px !important;
+}

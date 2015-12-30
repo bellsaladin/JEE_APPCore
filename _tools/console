@@ -1,0 +1,55 @@
+<?php
+
+$action = $argv[1];
+
+
+if($action == 'generateEntityRelatedClasses'){
+	
+	// handling arguments
+	if(!isset($argv[2])) die('You should specify a name of the entity as a second argument '. PHP_EOL);
+	$entityName = $argv[2];
+	$forceRewrite = false;
+	if(isset($argv[3]) && $argv[3] == 'forceRewrite') $forceRewrite = true;
+
+	// setting input & output folders/files values 
+	$templateFilesInputDirectory = 'resources/templateFiles';
+
+	$entityOutputDirectory = '../src/main/java/com/seosoft/erp/model/entity';
+	$repositoryOutputDirectory = '../src/main/java/com/seosoft/erp/repository/business';
+	$serviceOutputDirectory = '../src/main/java/com/seosoft/erp/service/business';
+	$serviceImplOutputDirectory = '../src/main/java/com/seosoft/erp/service/business/impl';
+
+	$filesToGenerate = array(
+						array('templateFilename'=> 'Entity.java', 		     'outputDirectory'=> $entityOutputDirectory),
+						array('templateFilename'=> 'EntityRepository.java',  'outputDirectory'=> $repositoryOutputDirectory),
+						array('templateFilename'=> 'EntityService.java',     'outputDirectory'=> $serviceOutputDirectory),
+						array('templateFilename'=> 'EntityServiceImpl.java', 'outputDirectory'=> $serviceImplOutputDirectory)
+					   );
+
+	// generating files while reading template files
+	
+	
+	foreach($filesToGenerate as $fileToGenerate){
+		$templateFilename = $templateFilesInputDirectory . '/' . $fileToGenerate['templateFilename'];
+		$outputFilename   = str_replace('Entity', $entityName, $fileToGenerate['templateFilename']);
+		$outputFilename   = $fileToGenerate['outputDirectory'] . '/' . $outputFilename ;
+		// check if file exists
+		if(file_exists($outputFilename) && !$forceRewrite) die("FILE ALREADY EXISTS ! ($outputFilename)". PHP_EOL);
+
+		$templateFileHandle = fopen($templateFilename, "r");
+		$outputFileHandle = fopen($outputFilename, "w");
+		if ($templateFileHandle) {
+	    while (($line = fgets($templateFileHandle)) !== false) {
+		    $line = str_replace('{{ENTITY}}', $entityName, $line);
+		    fwrite($outputFileHandle, $line);
+		    }
+		    fclose($templateFileHandle);
+		    fclose($outputFileHandle);
+		} else {
+		    echo 'error reading file';
+		}
+	}
+	echo 'OPERATION DONE SUCCESFULLY ! '.PHP_EOL;
+}
+
+?>

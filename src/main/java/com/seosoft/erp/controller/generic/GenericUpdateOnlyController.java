@@ -29,12 +29,13 @@ public class GenericUpdateOnlyController<Type extends BaseEntity, Service extend
 		_actions = new HashMap<String,Action>();
 		registerDefaultActions();
 		registerActions();
+		
 	}
 	
 	@PostConstruct
 	public void initialize() {
-		prepareData();
-
+		//prepareData();
+		_object = _service.findOne("00000001");
 	}
 	
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
@@ -48,7 +49,6 @@ public class GenericUpdateOnlyController<Type extends BaseEntity, Service extend
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
 
 	protected void prepareData() {
-		
 	}
 
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
