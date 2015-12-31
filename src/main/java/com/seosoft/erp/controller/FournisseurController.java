@@ -7,6 +7,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
+import org.apache.commons.lang.StringUtils;
+import org.joda.time.DateTime;
 import org.primefaces.context.RequestContext;
 import org.primefaces.model.TreeNode;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +48,7 @@ public class FournisseurController extends GenericCRUDController<Fournisseur, Fo
 			@Override
 			public void run() {
 				_object.setFamille(((FamilleFournisseurController) Core.bean("familleFournisseur")).getObject());
-				RequestContext.getCurrentInstance().update("mainForm:familleFournisseur:familleFournisseurSelectOneMenu");
+				RequestContext.getCurrentInstance().update(":familleFournisseur:familleFournisseurSelectOneMenu");
 			}},new Action(){
 			@Override
 			public void run() {
@@ -55,37 +57,78 @@ public class FournisseurController extends GenericCRUDController<Fournisseur, Fo
 			}}
 		);
 		
-		addRelatedModule((FamilleClientController) Core.bean("familleClient"), new Action(){
+		addRelatedModule((ContactController) Core.bean("contact"), new Action(){
 			@Override
 			public void run() {
-				_object.setFamilleClient(((FamilleClientController) Core.bean("familleClient")).getObject());
-				RequestContext.getCurrentInstance().update("mainForm:familleClient:familleClientSelectOneMenu");
+				_object.setContactPrincipal(((ContactController) Core.bean("contact")).getObject());
+				RequestContext.getCurrentInstance().update("mainForm:contactPrincipal:contactPrincipalSelectOneMenu");
 			}},new Action(){
 			@Override
 			public void run() {
-				((FamilleClientController) Core.bean("familleClient")).setObject(_object.getFamilleClient());
-				RequestContext.getCurrentInstance().update("dialogFamilleClient");
+				((ContactController) Core.bean("contact")).setObject(_object.getContactPrincipal());
+				RequestContext.getCurrentInstance().update("dialogContact");
 			}}
 		);
 		
-		addRelatedModule((UserController) Core.bean("user"), new Action(){
+		addRelatedModule((ContactController) Core.bean("contact"), new Action(){
 			@Override
 			public void run() {
-				_object.setUser(((UserController) Core.bean("user")).getObject());
-				RequestContext.getCurrentInstance().update("mainForm:user:userSelectOneMenu");
+				_object.setAcheteur(((ContactController) Core.bean("contact")).getObject());
+				RequestContext.getCurrentInstance().update("mainForm:acheteur:acheteurSelectOneMenu");
 			}},new Action(){
 			@Override
 			public void run() {
-				((UserController) Core.bean("user")).setObject(_object.getUser());
-				RequestContext.getCurrentInstance().update("dialogUser");
+				((ContactController) Core.bean("contact")).setObject(_object.getAcheteur());
+				RequestContext.getCurrentInstance().update("dialogContact");
 			}}
 		);
 		
+		addRelatedModule((ContactController) Core.bean("contact"), new Action(){
+			@Override
+			public void run() {
+				_object.setDemandeur(((ContactController) Core.bean("contact")).getObject());
+				RequestContext.getCurrentInstance().update("mainForm:demandeur:demandeurSelectOneMenu");
+			}},new Action(){
+			@Override
+			public void run() {
+				((ContactController) Core.bean("contact")).setObject(_object.getDemandeur());
+				RequestContext.getCurrentInstance().update("dialogContact");
+			}}
+		);
+		
+		addRelatedModule((BanqueController) Core.bean("banque"), new Action(){
+			@Override
+			public void run() {
+				_object.setBanque(((BanqueController) Core.bean("banque")).getObject());
+				RequestContext.getCurrentInstance().update("banque:banqueSelectOneMenu");
+			}},new Action(){
+			@Override
+			public void run() {
+				((BanqueController) Core.bean("banque")).setObject(_object.getBanque());
+				RequestContext.getCurrentInstance().update("dialogBanque");
+			}}
+		);
 	}
 	
 	
 	protected void registerActions(){
-		
+		_actions.put("persist", new Action(){
+			@Override
+			public void run() {
+				boolean isNewInsert = (_object.getId()==null)?true:false;
+				
+				if(isNewInsert)
+					_object.setDateCreation(DateTime.now());
+				
+				_object.setDateModification(DateTime.now());
+				
+				_service.save(_object); 
+				String message = "Enregistrement '" + StringUtils.capitalize(_moduleName) + "' effectué avec succés ! ";
+				message = (isNewInsert)?message:"Modification '" + StringUtils.capitalize(_moduleName) + "' effectuée avec succés ! ";
+				FacesMessage msg = new FacesMessage(message);
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			}
+		});
 	}
 	
 }

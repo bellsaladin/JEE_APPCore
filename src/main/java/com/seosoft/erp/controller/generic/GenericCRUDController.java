@@ -250,9 +250,11 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 					_list.set(_list.indexOf(_object), _object); // replace the object at the list so that when navigating (show previous / next ) not the old version of the object would be shown
 				
 				// FIXME : FOR TEST PURPOSE ONLY
+				// called after quick dialog save
 				if(entitySubjectOfQuickDialog != null) {
 					_relatedModulesActions.get(_moduleName+"PostUpdateAction").run();
-					
+					UIComponent component = getComponentById(_moduleName, FacesContext.getCurrentInstance().getViewRoot());
+					RequestContext.getCurrentInstance().update(component.getClientId() + ":selectOneMenu");
 				}
 			}
 		});

@@ -52,6 +52,7 @@ public class ParametreController extends GenericUpdateOnlyController<Parametre, 
     }
 
 	public void copyFile(String fileName, InputStream in) {
+		System.out.println("copyFile");
 		String relativeWebPath = "/resources/images/societe/";
 		
 		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();

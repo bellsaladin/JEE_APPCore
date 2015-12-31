@@ -18,12 +18,14 @@ if($action == 'generateEntityRelatedClasses'){
 	$repositoryOutputDirectory = '../src/main/java/com/seosoft/erp/repository/business';
 	$serviceOutputDirectory = '../src/main/java/com/seosoft/erp/service/business';
 	$serviceImplOutputDirectory = '../src/main/java/com/seosoft/erp/service/business/impl';
+	$controllerOutputDirectory = '../src/main/java/com/seosoft/erp/controller';
 
 	$filesToGenerate = array(
 						array('templateFilename'=> 'Entity.java', 		     'outputDirectory'=> $entityOutputDirectory),
 						array('templateFilename'=> 'EntityRepository.java',  'outputDirectory'=> $repositoryOutputDirectory),
 						array('templateFilename'=> 'EntityService.java',     'outputDirectory'=> $serviceOutputDirectory),
-						array('templateFilename'=> 'EntityServiceImpl.java', 'outputDirectory'=> $serviceImplOutputDirectory)
+						array('templateFilename'=> 'EntityServiceImpl.java', 'outputDirectory'=> $serviceImplOutputDirectory),
+						array('templateFilename'=> 'EntityController.java',  'outputDirectory'=> $controllerOutputDirectory)
 					   );
 
 	// generating files while reading template files
@@ -39,9 +41,10 @@ if($action == 'generateEntityRelatedClasses'){
 		$templateFileHandle = fopen($templateFilename, "r");
 		$outputFileHandle = fopen($outputFilename, "w");
 		if ($templateFileHandle) {
-	    while (($line = fgets($templateFileHandle)) !== false) {
-		    $line = str_replace('{{ENTITY}}', $entityName, $line);
-		    fwrite($outputFileHandle, $line);
+	    	while (($line = fgets($templateFileHandle)) !== false) {
+			    $line = str_replace('{{ENTITY}}', $entityName, $line);
+				$line = str_replace('{{ENTITY_FIRSTLETTER_LOWERCASE}}', lcfirst($entityName), $line);
+			    fwrite($outputFileHandle, $line);
 		    }
 		    fclose($templateFileHandle);
 		    fclose($outputFileHandle);

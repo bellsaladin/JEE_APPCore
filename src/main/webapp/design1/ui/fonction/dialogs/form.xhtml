@@ -1,0 +1,53 @@
+<ui:composition 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:of="http://omnifaces.org/functions">
+	
+	<!--  Include of configuration -->
+	<!-- 	<ui:include src="../_config.xhtml" /> -->
+	
+    <ui:param name="entityName" value="fonction" />
+    <ui:param name="entityNameCapitalized" value="#{of:capitalize(entityName)}" />
+	
+	
+	<!--  Dialog definition -->
+	<p:dialog header="#{entityNameCapitalized}" id="dialog#{entityNameCapitalized}" widgetVar="dialog#{entityNameCapitalized}" style="min-width:700px;" resizable="false" modal="true" appendToBody="true">   
+	   	<h:form id="dialogForm#{entityNameCapitalized}">     
+	        <p:messages id="messages" />  
+	        
+        	<p:panelGrid styleClass="no-border-table full-width">
+        		<p:row>	
+		       		<p:column>      
+				          <h:outputLabel for="code" value="Code : *" />
+				    </p:column>
+				    <p:column>  
+				           <p:inputText id="code"   
+				               value="#{core.bean(entityName).object.code}" required="true" label="Code :">  
+				               <f:validateLength minimum="2" />  
+				           </p:inputText>
+				     </p:column>
+				 </p:row>
+				 
+				<p:row>	
+		       		<p:column>      
+				          <h:outputLabel for="libelle" value="Libéllé : *" />
+				    </p:column>
+				    <p:column>  
+				           <p:inputText id="libelle"   
+				               value="#{core.bean(entityName).object.libelle}" required="true" label="Libellé :">  
+				               <f:validateLength minimum="2" />  
+				           </p:inputText>
+				     </p:column>
+				 </p:row> 
+       		</p:panelGrid>
+	  		<p:commandButton value="Enregistrer" actionListener="#{core.bean(entityName).runAction('persist')}" update=":dialog#{entityNameCapitalized}" process=":dialog#{entityNameCapitalized}" oncomplete="PF('dialog#{entityNameCapitalized}').hide()" styleClass="ui-whiteBtn" />
+	  		<div><small>Note : La sauvegarde est conservée même si vous ne validez pas la sauvegarde du formulaire principal (<h:outputText value="#{core.bean().moduleName}" />)</small></div>
+		</h:form>
+	</p:dialog>  	
+</ui:composition>

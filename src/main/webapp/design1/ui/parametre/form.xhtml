@@ -28,23 +28,22 @@
        	<p:messages id="messages" /> 
        	<p:tabView scrollable="true">
        		<p:tab title="Généralités">
-       			<p:panelGrid styleClass="no-border-table full-width">
+       			<p:panelGrid styleClass="no-border-table full-width panelTopAlign">
 	        		<p:row>
-	        			<p:column>
+	        			<p:column >
 	        				<p:fieldset legend="Informations société" style="margin-bottom:20px">
 	        					<h:panelGrid columns="2" cellpadding="5">
 					       			<p:fileUpload fileUploadListener="#{core.bean().handleFileUpload}" mode="advanced"
-			                     		update="image" auto="true" sizeLimit="100000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" value="choisir" />
-			                     	<p:graphicImage name="images/societe/#{core.bean().object.imageSrc}" width="100" height="100"/>	
+			                     		update="@this,image" process="@this" auto="true" sizeLimit="100000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" value="choisir" />
+			                     	<p:graphicImage id="image" name="images/societe/#{core.bean().object.imageSrc}" width="100" height="100"/>	
 							        <h:outputLabel value="Raison sociale : *" />
 							        <p:inputText id="raisonSociale"   
 							               value="#{core.bean().object.raisonSociale}" required="true" label="Raison sociale :">  
 							               <f:validateLength minimum="2" />  
 							        </p:inputText>
 							        <h:outputLabel value="Image : *" />
-							        <p:inputText id="image"   
+							        <p:inputText    
 							               value="#{core.bean().object.imageSrc}" required="true" label="Image :">  
-							               <f:validateLength minimum="10" />  
 							        </p:inputText>
 	        					</h:panelGrid>
 					        </p:fieldset>
@@ -56,15 +55,12 @@
 						           </p:inputText>
 						           <h:outputLabel value="Capital" />
 						           <p:inputText id="capital" value="#{core.bean().object.capital}" required="true" size="50">  
-					               		<f:validateLength minimum="10" />  
 					           	   </p:inputText>
 					           	   <h:outputLabel value="Patente : *" />
 						           <p:inputText id="patente" value="#{core.bean().object.patente}" required="true" size="50">  
-					               		<f:validateLength minimum="10" />  
 					           	   </p:inputText>
 					           	   <h:outputLabel value="CNSS : *" />
 						           <p:inputText id="cnss" value="#{core.bean().object.cnss}" required="true" size="50">  
-					               		<f:validateLength minimum="10" />  
 					           	   </p:inputText>
 						        </h:panelGrid>
 						    </p:fieldset>
@@ -77,20 +73,18 @@
 						               <f:validateLength minimum="10" />  
 						           </p:inputText>
 						           <h:outputLabel value="" />
-						           <p:inputText id="adresseLigne2" value="#{core.bean().object.adresseLigne1}" required="true" size="50">  
-					               		<f:validateLength minimum="10" />  
+						           <p:inputText id="adresseLigne2" value="#{core.bean().object.adresseLigne2}" size="50">  
 					           	   </p:inputText>
 					           	   <h:outputLabel value="Code postal : *" />
-						           <p:inputText id="codePostal" value="#{core.bean().object.codePostal}" required="true" size="50">  
-					               		<f:validateLength minimum="10" />  
+						           <p:inputText id="codePostal" value="#{core.bean().object.codePostal}" required="true" size="50">
 					           	   </p:inputText>
 					           	   <h:outputLabel value="" />
 					           	   <h:panelGrid columns="2">
 						           	   <p:inputText id="pays" value="#{core.bean().object.pays}" required="true" size="21">  
-						               		<f:validateLength minimum="10" />  
+						               		
 						           	   </p:inputText>
 						           	   <p:inputText id="ville" value="#{core.bean().object.ville}" required="true" size="21">  
-						               		<f:validateLength minimum="10" />  
+						               		  
 						           	   </p:inputText>
 					           	   </h:panelGrid>
 					           	   <h:outputLabel value="Téléphone : *" />
@@ -103,15 +97,14 @@
 					           	   </p:inputText>
 					           	   <h:outputLabel value="Mobile : *" />
 						           <p:inputText id="mobile" value="#{core.bean().object.mobile}" required="true" size="50">  
-					               		<f:validateLength minimum="10" />  
 					           	   </p:inputText>
 					           	   <h:outputLabel value="Email : *" />
 						           <p:inputText id="email" value="#{core.bean().object.email}" required="true" size="50">  
-					               		<f:validateLength minimum="10" />  
+					               		<f:validateLength minimum="6" />  
 					           	   </p:inputText>
 					           	   <h:outputLabel value="Siteweb : *" />
 						           <p:inputText id="siteweb" value="#{core.bean().object.siteweb}" required="true" size="50">  
-					               		<f:validateLength minimum="10" />  
+					               		<f:validateLength minimum="6" />  
 					           	   </p:inputText>
 						        </h:panelGrid>
 						    </p:fieldset>

@@ -1,0 +1,82 @@
+<ui:composition 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:of="http://omnifaces.org/functions"
+	xmlns:seosoft="http://java.sun.com/jsf/composite/components">
+	
+	<!--  Include of configuration -->
+	<!-- 	<ui:include src="../_config.xhtml" /> -->
+	
+    <ui:param name="entityName" value="contact" />
+    <ui:param name="entityNameCapitalized" value="#{of:capitalize(entityName)}" />
+	
+	
+	<!--  Dialog definition -->
+	<p:dialog header="#{entityNameCapitalized}" id="dialog#{entityNameCapitalized}" widgetVar="dialog#{entityNameCapitalized}" style="min-width:700px;" resizable="false" modal="true" appendToBody="true">   
+	   	<h:form id="dialogForm#{entityNameCapitalized}">     
+	        <p:messages id="messages" />  
+	        
+        	<p:panelGrid styleClass="no-border-table full-width">
+        		<p:row>	
+		       		<p:column>      
+				          <h:outputLabel for="code" value="Code : *" />
+				    </p:column>
+				    <p:column>  
+				           <p:inputText id="code"   
+				               value="#{core.bean(entityName).object.code}" required="true">  
+				               <f:validateLength minimum="2" />  
+				           </p:inputText>
+				     </p:column>
+				 </p:row>
+				 
+				<p:row>	
+		       		<p:column>      
+				          Nom : *
+				    </p:column>
+				    <p:column>  
+				           <p:inputText id="nom"   
+				               value="#{core.bean(entityName).object.nom}" required="true">  
+				               <f:validateLength minimum="2" />  
+				           </p:inputText>
+				     </p:column>
+				 </p:row>
+				 <p:row>	
+		       		<p:column>      
+				          Prénom : *
+				    </p:column>
+				    <p:column>  
+				           <p:inputText id="prenom"   
+				               value="#{core.bean(entityName).object.prenom}" required="true">  
+				               <f:validateLength minimum="2" />  
+				           </p:inputText>
+				     </p:column>
+				 </p:row>
+				 <p:row>	
+		       		<p:column>      
+				          Service : *
+				    </p:column>
+				    <p:column>  
+				    	<seosoft:OneEntitySelectMenu id="service" entityName="service" value="#{core.bean(entityName).object.service}"></seosoft:OneEntitySelectMenu>
+				     </p:column>
+				 </p:row>
+				 
+				 <p:row>	
+		       		<p:column>      
+				          Fonction : *
+				    </p:column>
+				    <p:column>  
+				    	<seosoft:OneEntitySelectMenu id="fonction" entityName="fonction" value="#{core.bean(entityName).object.fonction}"></seosoft:OneEntitySelectMenu>
+				     </p:column>
+				 </p:row>
+       		</p:panelGrid>
+	  		<p:commandButton value="Enregistrer" actionListener="#{core.bean(entityName).runAction('persist')}" update=":dialog#{entityNameCapitalized}" process=":dialog#{entityNameCapitalized}" oncomplete="PF('dialog#{entityNameCapitalized}').hide()" styleClass="ui-whiteBtn" />
+	  		<div><small>Note : La sauvegarde est conservée même si vous ne validez pas la sauvegarde du formulaire principal (<h:outputText value="#{core.bean(entityName).moduleName}" />)</small></div>
+		</h:form>
+	</p:dialog>  	
+</ui:composition>

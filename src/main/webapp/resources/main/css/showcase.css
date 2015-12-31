@@ -1,4 +1,5 @@
 
+
 @charset "UTF-8";
 
 /*  ----------------------------------------------------------------------------------------------------- */
@@ -213,7 +214,7 @@ input.searchInput {
 
 /* override */
 .ui-widget {
-    font-size: 12px;
+    font-size: 11px;
     font-family: "Helvetica Neue", Helvetica, Verdana, Arial, sans-serif;
 }
 
@@ -581,3 +582,17 @@ li.ui-state-active a { color:rgb(1, 154, 249) !important; }
 .ui-tabs .ui-tabs-panel{
 	border-width: 1px !important;
 }
+
+.panelTopAlign td {
+    vertical-align: top; 
+}
+
+.ui-selectonemenu .ui-selectonemenu-label{
+	width:auto !important;
+}
+
+.ui-state-disabled, .ui-widget-content .ui-state-disabled, .ui-widget-header .ui-state-disabled{
+	opacity:0.6!important;
+}
+
+.ui-fileupload-content{ display:none}

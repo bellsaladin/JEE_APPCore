@@ -13,3 +13,5 @@
 Type in the command line : 
 
 	php console generateEntityRelatedClasses {{EntityName}}
+
+	php console generateEntityRelatedClasses {{EntityName}} forceRewrite

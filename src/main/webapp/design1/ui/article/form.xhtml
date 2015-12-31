@@ -1,6 +1,7 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions" xmlns:t="http://myfaces.apache.org/tomahawk" xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:seosoft="http://java.sun.com/jsf/composite/components"
     template="/design1/_general/template.xhtml">
 
     <ui:define name="head">        
@@ -27,39 +28,171 @@
     <ui:define name="implementation">
 	  <div style="padding:30px">
         	<p:messages id="messages" />  
-        	<p:panelGrid styleClass="no-border-table full-width">
+        	
+        	<p:panelGrid styleClass="no-border-table full-width" style="margin:0 20%">
 				<p:row>	
 		       		<p:column>        		        	 
-				       	<h:outputLabel for="libelle" value="Libelle : *" />
+				       	<h:outputLabel value="Code / Code 2 :" />
 				    </p:column>
 				    <p:column>  
-				           <p:inputText id="libelle"   
-				               value="#{core.bean().object.libelle}" required="true" label="Libellé :">  
+				    	<h:panelGroup>
+				           <p:inputText value="#{core.bean().object.code}" required="true">  
 				               <f:validateLength minimum="2" />  
 				           </p:inputText>
+				           /
+				           <p:inputText value="#{core.bean().object.code2}">  
+				               <f:validateLength minimum="2" />  
+				           </p:inputText>
+				        </h:panelGroup>
 				     </p:column>
-				     <p:column>      
-				          <h:outputLabel for="prix" value="Prix : *" />
-				    </p:column>
-				    <p:column>  
-				          <p:inputText id="prix" value="#{core.bean().object.prix}" required="true" label="Prix :"/>  
-				    </p:column>
-				 				
 				 </p:row>
-				   
-				    <p:row>
-				    	<p:column>      
-				          <h:outputText for="type" value="Type: " />
-				        </p:column>
-				        <p:column> 		             
-					       <p:selectOneMenu id="type" value="#{core.bean().object.type}">		      	    
-					          <f:selectItem itemLabel="Consommable" itemValue="Consommable" />
-					          <f:selectItem itemLabel="Service" itemValue="Service" />
-					          <!-- <p:ajax event="change" update="profilPanel"/>  -->					          	
-					       </p:selectOneMenu>
-				       	</p:column>
-				 </p:row>	 			        			      
+				 <p:row>    
+				     <p:column>      
+				          <h:outputLabel value="Designation: *" />
+				    </p:column>
+				    <p:column colspan="2">  
+				          <p:inputText value="#{core.bean().object.libelle}" required="true" size="50"/>  
+				    </p:column>
+				</p:row>	 			        			      
        		</p:panelGrid>
+        	
+        	<p:tabView scrollable="true">
+       			<p:tab title="Généralités">
+		       		<p:panelGrid  columns="2"  styleClass="no-border-table full-width panelTopAlign">
+			       		<h:panelGroup>
+				       		<p:fieldset legend="Classification" style="margin-bottom:20px">
+				       			<h:panelGrid columns="2" cellpadding="5">
+				       				<h:outputLabel value="Famille " />
+				       				<seosoft:OneEntitySelectMenu id="famille" entityName="familleArticle" value="#{core.bean().object.famille}"></seosoft:OneEntitySelectMenu>
+				       				<h:outputLabel value="Sous Famille " />
+				       				<seosoft:OneEntitySelectMenu id="sousFamille" entityName="sousFamilleArticle" value="#{core.bean().object.sousFamille}"></seosoft:OneEntitySelectMenu>
+				       				<h:outputLabel value="Famille " />
+				       				<seosoft:OneEntitySelectMenu id="cateogrie" entityName="categorieArticle" value="#{core.bean().object.categorie}"></seosoft:OneEntitySelectMenu>
+				       			</h:panelGrid>
+				       		</p:fieldset>
+				       		<p:fieldset legend="TVA et taxes parafiscales" style="margin-bottom:20px">
+				       			<seosoft:OneEntitySelectMenu id="tva" entityName="tva" value="#{core.bean().object.tva}"></seosoft:OneEntitySelectMenu>
+				       		</p:fieldset>
+			       		</h:panelGroup>
+			       		<h:panelGroup>
+				       		<p:fieldset legend="Dates" style="margin-bottom:20px">
+						 		 <h:panelGrid columns="2" cellpadding="5">
+			       				   <h:outputLabel value=" Date de création : " />
+						           <p:outputLabel value="#{core.bean().object.dateCreation.toString('dd MMM YY à H:m', Locale.US)}"/>
+						           <h:outputLabel value=" Date de modification : " />
+						           <p:outputLabel value="#{core.bean().object.dateModification.toString('dd MMM YY à H:m', Locale.US)}"/>
+						         </h:panelGrid>
+						 	</p:fieldset>
+						 	<p:fieldset legend="Options" style="margin-bottom:20px">
+						 		 <h:panelGrid columns="2" cellpadding="5">
+			       				   <p:selectBooleanCheckbox value="#{core.bean().object.interdireAchat}" itemLabel="Interdit à l'achat"/>
+			       				   <p:selectBooleanCheckbox value="#{core.bean().object.interdireVente}" itemLabel="Interdit à la vente"/>
+			       				   <p:selectBooleanCheckbox value="#{core.bean().object.nonGereEnStock}" itemLabel="Non géré en stock"/>
+			       				   <p:selectBooleanCheckbox value="#{core.bean().object.gereEnContremarque}" itemLabel="Géré en contremarque"/>
+			       				   <p:selectBooleanCheckbox value="#{core.bean().object.stockNonValorise}" itemLabel="Stock non valorisé"/>
+						         </h:panelGrid>
+						 	</p:fieldset>
+					 	</h:panelGroup>
+				 	</p:panelGrid>		
+	       	  </p:tab>
+	       	  <p:tab title="Tarifs">
+	       	  	 	<p:panelGrid  columns="2"  styleClass="no-border-table full-width panelTopAlign">
+		       	  		<p:fieldset legend="Prix de base" style="margin-bottom:20px; text-align:left">
+		       	  			<p:panelGrid  columns="2"  styleClass="no-border-table full-width panelTopAlign">
+				       	  		<h:outputLabel value="Arrondir à " />
+				       	  		<h:panelGroup>
+					       	  		<p:selectOneMenu value="#{core.bean().object.prixBaseArrondirA}" style="width:134px">      	    
+							        	<f:selectItem itemLabel="0" itemValue="0" />
+							        	<f:selectItem itemLabel="1" itemValue="1" />
+							        	<f:selectItem itemLabel="2" itemValue="2" />
+							        	<f:selectItem itemLabel="3" itemValue="3" />
+							        	<f:selectItem itemLabel="4" itemValue="4" />
+							        	<f:selectItem itemLabel="5" itemValue="5" />
+									</p:selectOneMenu>
+									<h:outputLabel value="     décimales  " />
+								</h:panelGroup>
+								<h:outputLabel value="P.U. HT" />
+								<p:inputText value="#{core.bean().object.prixUnitaireHT}" required="true"/>
+								<h:outputLabel value="P.U. TTC" />
+								<p:inputText value="#{core.bean().object.prixUnitaireTTC}" required="true"/>
+							</p:panelGrid>
+						</p:fieldset>
+						<p:fieldset legend="Tarification" style="margin-bottom:20px">
+							<seosoft:OneEntitySelectMenu id="modeleTarif" entityName="modeleTarif" value="#{core.bean().object.modeleTarif}"></seosoft:OneEntitySelectMenu>
+						</p:fieldset>
+						<p:fieldset legend="Conditionnement de vente" style="margin-bottom:20px; text-align:left">
+							<p:panelGrid  columns="2"  styleClass="no-border-table full-width panelTopAlign">
+								<h:outputLabel value="Unité de vente" />
+								<p:inputText value="#{core.bean().object.uniteVente}"/>
+								<h:outputLabel value="Poids" />
+								<p:inputText value="#{core.bean().object.poids}"/>
+								<h:outputLabel value="Volume" />
+								<p:inputText value="#{core.bean().object.volume}"/>
+							</p:panelGrid>
+						</p:fieldset>
+					</p:panelGrid>
+	       	  </p:tab>
+	       	  <p:tab title="Descriptif">
+	       	  	 <p:panelGrid  columns="2"  styleClass="no-border-table full-width panelTopAlign">
+			       	  <p:fieldset legend="Photo" style="margin-bottom:20px">
+	<!-- 		       	  		<p:fileUpload fileUploadListener="#{core.bean().handleFileUpload}" mode="advanced" -->
+	<!-- 			                     	  update="image" auto="true" sizeLimit="100000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" value="choisir" /> -->
+				            <p:graphicImage name="images/societe/#{core.bean().object.photoSrc}" width="350" height="400"/>
+			       	  </p:fieldset>
+			       	  <p:fieldset legend="Descriptif" style="margin-bottom:20px">
+			       	  		<p:inputTextarea rows="28" cols="140"  value="#{core.bean().object.descriptif}"/>
+			       	  </p:fieldset>
+			      </p:panelGrid>
+	       	  </p:tab>
+	       	  <p:tab title="Achats">
+	       	  		<p:fieldset legend="Fournisseur principal" style="margin-bottom:20px">
+			       	  	  <seosoft:OneEntitySelectMenu id="fournisseurPrincipal" entityName="fournisseur" value="#{core.bean().object.fournisseurPrincipal}"></seosoft:OneEntitySelectMenu>
+			       	  	  <p:panelGrid  columns="4"  styleClass="no-border-table full-width panelTopAlign">
+			       	  	  	   	<h:outputLabel value="PU D'achat" />
+								<p:inputText value="#{core.bean().object.prixUnitaireAchat}"/>
+								<h:outputLabel value="PU HT de vente" />
+								<p:inputText value="#{core.bean().object.prixUnitaireVente}"/>
+								<h:outputLabel value="Coefficient de vente" />
+								<p:inputText value="#{core.bean().object.coefficientVente}"/>
+								<h:outputLabel value="Coefficient fixe" />
+								<p:inputText value="#{core.bean().object.coefficientFixe}"/>
+			       	  	  </p:panelGrid>
+			       	</p:fieldset>
+			       	<p:fieldset legend="Informations sur la référence article du fournisseur" style="margin-bottom:20px">
+			       	  	  <p:panelGrid  columns="4"  styleClass="no-border-table full-width panelTopAlign">
+			       	  	  	   	<h:outputLabel value="Réference" />
+								<p:inputText disabled="true" value="#{core.bean().object.prixUnitaireAchat}"/>
+								<h:outputLabel value="Designation" />
+								<p:inputText disabled="true" value="#{core.bean().object.prixUnitaireVente}"/>
+								<h:outputLabel value="Conversion" />
+								<p:inputText disabled="true" value="#{core.bean().object.coefficientVente}"/>
+								<h:outputLabel value="Liste des fournisseurs de l'article" />
+			       	  	  </p:panelGrid>
+			       	</p:fieldset>
+			       	<p:panelGrid  columns="2"  styleClass="no-border-table full-width panelTopAlign">
+			       		<p:fieldset legend="Unité d'achat et unité de vente" style="margin-bottom:20px">
+			       	  	  	 <p:panelGrid  columns="4"  styleClass="no-border-table full-width panelTopAlign">
+				       	  	  	   	<h:outputLabel value="Unité d'achat" />
+									<p:inputText disabled="true" value="#{core.bean().object.prixUnitaireAchat}"/>
+									<h:outputLabel value="Unité de vente" />
+									<p:inputText value="#{core.bean().object.uniteVente}"/>
+				       	  	  </p:panelGrid>
+				       	</p:fieldset>
+				       	<p:fieldset legend="Prix unitaire d'achat HT" style="margin-bottom:20px">
+				       	  	  <p:panelGrid  columns="4"  styleClass="no-border-table full-width panelTopAlign">
+				       	  	  	   	<h:outputLabel value="P.A. d'une unité d'achat" />
+									<p:inputText disabled="true" value="#{core.bean().object.prixUnitaireAchat}"/>
+									<h:outputLabel value="P.A. d'une unité de vente" />
+									<p:inputText disabled="true" value="#{core.bean().object.uniteVente}"/>
+				       	  	  </p:panelGrid>
+				       	</p:fieldset>
+			       	</p:panelGrid>
+	       	  </p:tab>
+	       	  <p:tab title="Stock">
+	       	  </p:tab>
+	       	  <p:tab title="Options">
+	       	  </p:tab>
+	       </p:tabView> 	
       </div>
     </ui:define>  
     

@@ -13,28 +13,30 @@
 	<ui:define name="dataTableColumns">
 		
 		<p:column style="width:16px">
-  			<p:outputLabel rendered="#{object.prix ge 0 and object.prix lt 1000}" styleClass="ui-icon ui-icon-arrowthickstop-1-w" />
- 			<p:outputLabel rendered="#{object.prix ge 1000 and object.prix lt 2000}" styleClass="ui-icon ui-icon-transfer-e-w" />
-            <p:outputLabel rendered="#{object.prix ge 2000 and object.prix lt 3000}" styleClass="ui-icon ui-icon-arrow-4" />
+  			<p:outputLabel rendered="#{object.prixUnitaireVente ge 0 and object.prixUnitaireVente lt 1000}" styleClass="ui-icon ui-icon-arrowthickstop-1-w" />
+ 			<p:outputLabel rendered="#{object.prixUnitaireVente ge 1000 and object.prixUnitaireVente lt 2000}" styleClass="ui-icon ui-icon-transfer-e-w" />
+            <p:outputLabel rendered="#{object.prixUnitaireVente ge 2000 and object.prixUnitaireVente lt 3000}" styleClass="ui-icon ui-icon-arrow-4" />
         </p:column>
             
+        <p:column sortBy="#{object.code}">
+            <f:facet name="header">
+                <h:outputText value="#{lbl['lbl.code']}" />
+            </f:facet>
+            <h:outputText value="#{object.code}" />
+        </p:column>
+        
+        <p:column sortBy="#{object.code2}">
+            <f:facet name="header">
+                <h:outputText value="#{lbl['lbl.code2']}" />
+            </f:facet>
+            <h:outputText value="#{object.code2}" />
+        </p:column>
+        
         <p:column sortBy="#{object.libelle}">
             <f:facet name="header">
                 <h:outputText value="#{lbl['lbl.libelle']}" />
             </f:facet>
             <h:outputText value="#{object.libelle}" />
-        </p:column>
-        <p:column sortBy="#{object.prix}">
-            <f:facet name="header">
-                <h:outputText value="#{lbl['lbl.prix']}" />
-            </f:facet>
-            <h:outputText value="#{object.prix}" />
-        </p:column>
-      	<p:column sortBy="#{object.type}">
-            <f:facet name="header">
-                <h:outputText value="#{lbl['lbl.type']}" />
-            </f:facet>
-            <h:outputText value="#{object.type}" />
         </p:column>
         
     </ui:define>

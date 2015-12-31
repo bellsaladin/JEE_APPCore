@@ -1,5 +1,8 @@
 package com.seosoft.erp.controller;
 
+import java.util.List;
+
+import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
@@ -35,6 +38,25 @@ public abstract class BaseController implements ApplicationContextAware {
 
 	public static ApplicationContext getApplicationContext() {
 		return springAppContext;
+	}
+	
+	
+	
+	public UIComponent getComponentById(String id, UIComponent component){
+		UIComponent foundComponent = null;
+		List<UIComponent> childrenComponents = component.getChildren();
+		System.out.println("YYYYYY : " + childrenComponents.size());
+		for(UIComponent childComponent : childrenComponents){
+			System.out.println("YYYYYY : " + childComponent.getId() + " / " + childComponent.getClientId());
+			if(childComponent.getId().equals(id))
+				return childComponent;
+			
+			foundComponent =  getComponentById(id, childComponent);
+			
+			if(foundComponent != null)
+				return foundComponent;
+		}
+		return foundComponent;
 	}
 
 }
