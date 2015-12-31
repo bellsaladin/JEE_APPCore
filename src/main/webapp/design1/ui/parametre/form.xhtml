@@ -33,18 +33,22 @@
 	        			<p:column >
 	        				<p:fieldset legend="Informations société" style="margin-bottom:20px">
 	        					<h:panelGrid columns="2" cellpadding="5">
-					       			<p:fileUpload fileUploadListener="#{core.bean().handleFileUpload}" mode="advanced"
-			                     		update="@this,image" process="@this" auto="true" sizeLimit="100000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" value="choisir" />
-			                     	<p:graphicImage id="image" name="images/societe/#{core.bean().object.imageSrc}" width="100" height="100"/>	
-							        <h:outputLabel value="Raison sociale : *" />
-							        <p:inputText id="raisonSociale"   
-							               value="#{core.bean().object.raisonSociale}" required="true" label="Raison sociale :">  
-							               <f:validateLength minimum="2" />  
-							        </p:inputText>
-							        <h:outputLabel value="Image : *" />
-							        <p:inputText    
-							               value="#{core.bean().object.imageSrc}" required="true" label="Image :">  
-							        </p:inputText>
+							        <h:panelGroup id="imageUploadFragment">
+			                     		<p:graphicImage id="image" name="images/societe/#{core.bean().object.imageSrc}" width="100" height="100"/>
+			                     		<p:fileUpload fileUploadListener="#{core.bean().handleFileUpload}" mode="advanced" 
+			                     		update="image" process="@this" auto="true" multiple="false" sizeLimit="100000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" value="choisir" />
+			                     	</h:panelGroup>	
+			                     	<h:panelGrid columns="2" cellpadding="5">
+								        <h:outputLabel value="Raison sociale : *" />
+								        <p:inputText id="raisonSociale"   
+								               value="#{core.bean().object.raisonSociale}" required="true" label="Raison sociale :">  
+								               <f:validateLength minimum="2" />  
+								        </p:inputText>
+<!-- 								        <h:outputLabel value="Image : *" /> -->
+<!-- 								        <p:inputText     -->
+<!-- 								               value="#{core.bean().object.imageSrc}" required="true" label="Image :">   -->
+<!-- 								        </p:inputText> -->
+							        </h:panelGrid>
 	        					</h:panelGrid>
 					        </p:fieldset>
 	        				<p:fieldset legend="Informations juridiques" style="margin-bottom:20px">
