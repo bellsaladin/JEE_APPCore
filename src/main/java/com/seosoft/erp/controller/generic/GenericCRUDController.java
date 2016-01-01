@@ -213,12 +213,12 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 						int indexOfCurrentObject = _list.indexOf(object);
 						if(indexOfCurrentObject - 1 >= 0){
 							_object = _list.get(indexOfCurrentObject - 1);
-							return;
 						}else{
 							_object = _list.get(_list.size() - 1);
 						}
+						return;
 					}
-				}	
+				}
 			}
 		});
 		
@@ -230,10 +230,10 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 						int indexOfCurrentObject = _list.indexOf(object);
 						if(indexOfCurrentObject + 1 < _list.size()){
 							_object = _list.get(indexOfCurrentObject + 1);
-							return;
 						}else{
 							_object = _list.get(0);
 						}
+						return;
 					}
 				}	
 			}

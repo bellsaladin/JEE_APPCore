@@ -1,0 +1,102 @@
+<ui:composition 
+	xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" 
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions" 
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:c="http://java.sun.com/jstl/core"
+    template="/design1/_general/template.xhtml">
+	
+	<ui:include src="../_config.xhtml" />
+	
+    <ui:define name="head">        
+        <script type="text/javascript">
+            //<![CDATA[
+                function handleMessage(facesmessage) {
+                    facesmessage.severity = 'info';
+                    
+                    PF('growl').show([facesmessage]);
+                }
+            //]]> 
+        </script>
+    </ui:define>
+	
+    <ui:define name="implementation">
+	  <div style="padding:30px">
+        	<p:messages id="messages" />  
+				<p:fieldset style="margin-bottom:20px">
+					  <p:panelGrid columns="2" styleClass="no-border-table">
+					  		<h:outputLabel value="Code : *" />
+				          	<p:inputText 
+				               value="#{core.bean().object.code}" required="true">  
+				               <f:validateLength minimum="2" />  
+				           </p:inputText>
+				           
+				           <h:outputLabel value="Intiiales : *" />
+				          	<p:inputText 
+				               value="#{core.bean().object.initiales}"/>
+				           
+				           <h:outputLabel value="Designation : *" />
+				          	<p:inputText 
+				               value="#{core.bean().object.designation}" required="true">  
+				               <f:validateLength minimum="2" />  
+				           </p:inputText>
+					  </p:panelGrid>
+					  <p:selectBooleanCheckbox value="#{core.bean().object.pasControleStock}" itemLabel="Pas de controle de stock pour ce dépôt"/>
+				</p:fieldset>
+				<p:fieldset legend="Adresse" style="margin-bottom:20px">
+					 <h:panelGrid columns="2" cellpadding="5">
+	       				   <h:outputLabel value=" Adresse : *" />
+				           <p:inputText id="adresseLigne1" value="#{core.bean().object.adresseLigne1}" size="50"/>
+				           <h:outputLabel value="" />
+				           <p:inputText id="adresseigne2" value="#{core.bean().object.adresseLigne2}" size="50"/>
+			           	   <h:outputLabel value="Code postal : *" />
+				           <p:inputText id="adresseCodePostal" value="#{core.bean().object.adresseCodePostal}" size="50"/>
+			           	   <h:outputLabel value="" />
+			           	   <h:panelGrid columns="2">
+				           	   <p:selectOneMenu id="adressePays" widgetVar="adressePaysVar" value="#{core.bean().object.adressePays}" filter="true" filterMatchMode="startsWith"
+	    										style="width:134px">      	    
+						        	<f:selectItem itemLabel="Maroc" itemValue="MA" />
+						        	<f:selectItem itemLabel="France" itemValue="FR" />
+						        	<f:selectItem itemLabel="Etats Unis d'amérique" itemValue="USA" />
+						       </p:selectOneMenu>
+						       <p:selectOneMenu id="adresseVille" widgetVar="adresseVilleVar" value="#{core.bean().object.adresseVille}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
+	    										style="width:134px">      	    
+						        	<f:selectItem itemLabel="Rabat" itemValue="rabat" />
+						        	<f:selectItem itemLabel="Paris" itemValue="paris" />
+						        	<f:selectItem itemLabel="New York" itemValue="new york" />
+						       </p:selectOneMenu>
+			           	   </h:panelGrid>
+			           	   <h:outputLabel value="Téléphone : *" />
+				           <p:inputText id="adresseTelephone" value="#{core.bean().object.adresseTelephone}" size="50"/>
+			           	   <h:outputLabel value="Fax : *" />
+				           <p:inputText id="adresseFax" value="#{core.bean().object.adresseFax}" size="50"/>
+			           	   <h:outputLabel value="Mobile : *" />
+				           <p:inputText id="adresseMobile" value="#{core.bean().object.adresseMobile}" size="50"/>
+			           	   <h:outputLabel value="Email : *" />
+				           <p:inputText id="adresseEmail" value="#{core.bean().object.adresseEmail}" size="50" />  
+		       		  </h:panelGrid>
+				</p:fieldset>      
+      </div>
+    </ui:define>  
+    
+	<ui:define name="actions">
+		<p:commandButton value="Enregistrer" actionListener="#{core.bean().runAction('persist')}" update="mainForm" styleClass="ui-whiteBtn" />
+		<p:button value="Retour" href="/design1/ui/#{core.bean().moduleName}/list" styleClass="ui-whiteBtn pull-right"/>
+<!-- 		<p:commandButton value="Vider" actionListener="#{notifyView.send}" styleClass="ui-whiteBtn pull-right" style="margin-right:10px;"/> -->
+		<p:commandButton value="Supprimer" rendered="#{core.bean().paramId != null }" actionListener="#{core.bean().runAction('delete')}" update=":mainForm" styleClass="ui-whiteBtn" />
+		<p:outputPanel rendered="#{core.bean().paramId != null }" style="display:inline;" styleClass="pull-right">			
+			<span style="margin-right:10px;"><p:outputLabel value="#{core.bean().list.indexOf(core.bean().object) + 1}"/> / <p:outputLabel value="#{core.bean().list.size()}"/></span>
+			<p:commandButton value="&lt;" actionListener="#{core.bean().runAction('getPrevious')}" update=":mainForm" styleClass="ui-whiteBtn" style="margin-right:10px;"/>
+			<p:commandButton value="&gt;" actionListener="#{core.bean().runAction('getNext')}" update=":mainForm" styleClass="ui-whiteBtn" style="margin-right:10px;"/>
+		</p:outputPanel>
+	</ui:define>
+	
+	<ui:define name="dialogs"> 
+  		<!-- <ui:include src="/dialogs/familleClientCreate.xhtml" />
+  		<ui:include src="/dialogs/familleClientDuplicate.xhtml" />-->
+	</ui:define>
+	
+</ui:composition>
