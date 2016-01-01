@@ -48,7 +48,7 @@ public class ArticleController extends GenericCRUDController<Article, ArticleSer
 		
 		loadStockOfDepot();
 		
-		addRelatedModule((FamilleArticleController) Core.bean("familleArticle"), new Action(){
+		addRelatedModule((FamilleArticleController) Core.bean("familleArticle"), "famille", new Action(){
 			@Override
 			public void run() {
 				_object.setFamille(((FamilleArticleController) Core.bean("familleArticle")).getObject());
@@ -62,7 +62,7 @@ public class ArticleController extends GenericCRUDController<Article, ArticleSer
 			}}
 		);
 		
-		addRelatedModule((SousFamilleArticleController) Core.bean("sousFamilleArticle"), new Action(){
+		addRelatedModule((SousFamilleArticleController) Core.bean("sousFamilleArticle"), "sousFamille", new Action(){
 			@Override
 			public void run() {
 				_object.setSousFamille(((SousFamilleArticleController) Core.bean("sousFamilleArticle")).getObject());
@@ -75,7 +75,7 @@ public class ArticleController extends GenericCRUDController<Article, ArticleSer
 			}}
 		);
 		
-		addRelatedModule((CategorieArticleController) Core.bean("categorieArticle"), new Action(){
+		addRelatedModule((CategorieArticleController) Core.bean("categorieArticle"), "categorie", new Action(){
 			@Override
 			public void run() {
 				_object.setCategorie(((CategorieArticleController) Core.bean("categorieArticle")).getObject());
@@ -88,7 +88,7 @@ public class ArticleController extends GenericCRUDController<Article, ArticleSer
 			}}
 		);
 		
-		addRelatedModule((TvaController) Core.bean("tva"), new Action(){
+		addRelatedModule((TvaController) Core.bean("tva"), "tva", new Action(){
 			@Override
 			public void run() {
 				_object.setTva(((TvaController) Core.bean("tva")).getObject());

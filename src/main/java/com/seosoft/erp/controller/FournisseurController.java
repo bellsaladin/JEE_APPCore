@@ -44,68 +44,58 @@ public class FournisseurController extends GenericCRUDController<Fournisseur, Fo
 	
 	protected void onDataReady(){
 		
-		addRelatedModule((FamilleFournisseurController) Core.bean("familleFournisseur"), new Action(){
+		addRelatedModule((FamilleFournisseurController) Core.bean("familleFournisseur"), "famille", new Action(){
 			@Override
 			public void run() {
 				_object.setFamille(((FamilleFournisseurController) Core.bean("familleFournisseur")).getObject());
-				RequestContext.getCurrentInstance().update(":familleFournisseur:familleFournisseurSelectOneMenu");
 			}},new Action(){
 			@Override
 			public void run() {
 				((FamilleFournisseurController) Core.bean("familleFournisseur")).setObject(_object.getFamille());
-				RequestContext.getCurrentInstance().update("dialogFamilleFournisseur");
 			}}
 		);
 		
-		addRelatedModule((ContactController) Core.bean("contact"), new Action(){
+		addRelatedModule((ContactController) Core.bean("contact"), "contactPrincipal" ,new Action(){
 			@Override
 			public void run() {
 				_object.setContactPrincipal(((ContactController) Core.bean("contact")).getObject());
-				RequestContext.getCurrentInstance().update("mainForm:contactPrincipal:contactPrincipalSelectOneMenu");
 			}},new Action(){
 			@Override
 			public void run() {
 				((ContactController) Core.bean("contact")).setObject(_object.getContactPrincipal());
-				RequestContext.getCurrentInstance().update("dialogContact");
 			}}
 		);
 		
-		addRelatedModule((ContactController) Core.bean("contact"), new Action(){
+		addRelatedModule((ContactController) Core.bean("contact"), "acheteur", new Action(){
 			@Override
 			public void run() {
 				_object.setAcheteur(((ContactController) Core.bean("contact")).getObject());
-				RequestContext.getCurrentInstance().update("mainForm:acheteur:acheteurSelectOneMenu");
 			}},new Action(){
 			@Override
 			public void run() {
 				((ContactController) Core.bean("contact")).setObject(_object.getAcheteur());
-				RequestContext.getCurrentInstance().update("dialogContact");
 			}}
 		);
 		
-		addRelatedModule((ContactController) Core.bean("contact"), new Action(){
+		addRelatedModule((ContactController) Core.bean("contact"), "demandeur", new Action(){
 			@Override
 			public void run() {
 				_object.setDemandeur(((ContactController) Core.bean("contact")).getObject());
-				RequestContext.getCurrentInstance().update("mainForm:demandeur:demandeurSelectOneMenu");
 			}},new Action(){
 			@Override
 			public void run() {
 				((ContactController) Core.bean("contact")).setObject(_object.getDemandeur());
-				RequestContext.getCurrentInstance().update("dialogContact");
 			}}
 		);
 		
-		addRelatedModule((BanqueController) Core.bean("banque"), new Action(){
+		addRelatedModule((BanqueController) Core.bean("banque"), "banque",new Action(){
 			@Override
 			public void run() {
 				_object.setBanque(((BanqueController) Core.bean("banque")).getObject());
-				RequestContext.getCurrentInstance().update("banque:banqueSelectOneMenu");
 			}},new Action(){
 			@Override
 			public void run() {
 				((BanqueController) Core.bean("banque")).setObject(_object.getBanque());
-				RequestContext.getCurrentInstance().update("dialogBanque");
 			}}
 		);
 	}

@@ -44,6 +44,8 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 	protected String _paramId = null; // used to set object's ID to modify
 	// the following attributes are special attributes used for quick create & update dialogs on related modules
 	protected HashMap<String,GenericController<?,?>> _relatedModules;
+	protected List<String> _boundComponentIds;
+	
 	protected HashMap<String,Action> _relatedModulesActions;
 	protected BaseEntity entitySubjectOfQuickDialog; // FIXME : SHOULD BE DYNAMIC and embeded on a list
 	protected boolean quickDialogUpdateMode = false;
@@ -57,6 +59,7 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 		_actions = new HashMap<String,Action>();
 		_relatedModules = new HashMap<String,GenericController<?,?>>();
 		_relatedModulesActions = new HashMap<String,Action>();
+		_boundComponentIds = new ArrayList<String>();
 		registerDefaultActions();
 		registerActions();
 		_dataTableColumnsKeys = new ArrayList<String>();
@@ -110,13 +113,13 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 		
 	}
 	
-	protected void addRelatedModule(final GenericCRUDController<?,?> relatedBean, Action postUpdateAction, Action preQuickUpdateDialogShowAction){
+	protected void addRelatedModule(final GenericCRUDController<?,?> relatedBean, String componentId, Action postUpdateAction, Action preQuickUpdateDialogShowAction){
 		final String relatedModuleName = relatedBean.getModuleName();
 		// FIXME module._relatedModules.put(name,module);
 		_relatedModules.put(relatedModuleName,relatedBean);
+		relatedBean._boundComponentIds.add(componentId);
 		relatedBean._relatedModulesActions.put(relatedModuleName +"PostUpdateAction", postUpdateAction);
-		relatedBean._relatedModulesActions.put(relatedModuleName +"PreQuickUpdateDialogShowAction", preQuickUpdateDialogShowAction);
-				
+		relatedBean._relatedModulesActions.put(relatedModuleName +"PreQuickUpdateDialogShowAction", preQuickUpdateDialogShowAction);		
 		_actions.put("quickNouveau" + WordUtils.capitalize(relatedModuleName), new Action(){
 			@Override
 			public void run() {
@@ -253,8 +256,16 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 				// called after quick dialog save
 				if(entitySubjectOfQuickDialog != null) {
 					_relatedModulesActions.get(_moduleName+"PostUpdateAction").run();
-					UIComponent component = getComponentById(_moduleName, FacesContext.getCurrentInstance().getViewRoot());
-					RequestContext.getCurrentInstance().update(component.getClientId() + ":selectOneMenu");
+					
+					System.out.println("YYYYYYY " + _moduleName + " PostUpdateAction ");
+					
+					// update all related components 
+					for(String componentId : _boundComponentIds){
+						System.out.println("YYYYYYY " + _moduleName + " " +  componentId);
+						UIComponent component = getComponentById(componentId, FacesContext.getCurrentInstance().getViewRoot());
+						//RequestContext.getCurrentInstance().update(component.getClientId() + ":selectOneMenu");
+						RequestContext.getCurrentInstance().update(component.getClientId() + ":selectOneMenu" );
+					}
 				}
 			}
 		});

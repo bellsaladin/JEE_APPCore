@@ -35,19 +35,19 @@
         	<p:panelGrid styleClass="no-border-table full-width">
 								<p:row>	
 		       		<p:column>        		        	 
-				       	<h:outputLabel for="login" value="Login: *" />
+				       	<h:outputLabel value="Login: *" />
 				    </p:column>
 				    <p:column>  
-				           <p:inputText id="login"   
-				               value="#{core.bean().object.login}" required="true" label="Login">  
+				           <p:inputText   
+				               value="#{core.bean().object.login}" required="true">  
 				               <f:validateLength minimum="2" />  
 				           </p:inputText>
 				     </p:column>
 				     <p:column>      
-				          <h:outputLabel for="email" value="Email *" />
+				          <h:outputLabel value="Email *" />
 				    </p:column>
 				    <p:column>  
-				          <p:inputText id="email" value="#{core.bean().object.email}" required="true" label="Email"/>  
+				          <p:inputText value="#{core.bean().object.email}" required="true"/>  
 				    </p:column>
 				 				
 				 </p:row>
@@ -94,17 +94,16 @@
 					              value="#{core.bean().object.prenom}" required="true" label="Prénom"/>  
 					    </p:column>     
 						<p:column>          	            
-				          <h:outputLabel for="nom" value="Nom : *" />
+				          <h:outputLabel value="Nom : *" />
 					    </p:column>
 					    <p:column>  
-					          <p:inputText id="nom"   
-					              value="#{core.bean().object.nom}" required="true" label="Nom">  
+					          <p:inputText value="#{core.bean().object.nom}" required="true">  
 					              <f:validateLength minimum="2" />  
 					          </p:inputText>  
 					    </p:column>
 				    </p:row> 
 				 <p:row>
-				 	<p:column><h:outputText for="profil" value="Profile: " /></p:column>
+				 	<p:column><h:outputText value="Profil : " /></p:column>
 			     	 <p:column colspan="3">
 				        <p:fragment id="profilPanel" widgetVar="profilPanel">			        		       
 				        	<p:fragment columns="1" rendered="#{core.bean().object.type == 'utilisateur'}">
