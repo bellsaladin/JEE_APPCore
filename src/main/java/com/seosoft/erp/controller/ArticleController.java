@@ -11,11 +11,16 @@ import javax.inject.Named;
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.primefaces.context.RequestContext;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.seosoft.erp.controller.generic.Action;
 import com.seosoft.erp.controller.generic.GenericCRUDController;
 import com.seosoft.erp.model.entity.Article;
+import com.seosoft.erp.model.entity.Stock;
+import com.seosoft.erp.service.business.StockService;
 import com.seosoft.erp.service.parametrage.ArticleService;
+import com.seosoft.erp.service.parametrage.v2_ProfilRoleService;
+import com.seosoft.erp.service.parametrage.v2_RoleService;
 import com.seosoft.erp.util.scopes.view.SpringViewScoped;
 
 @Named
@@ -23,16 +28,25 @@ import com.seosoft.erp.util.scopes.view.SpringViewScoped;
 public class ArticleController extends GenericCRUDController<Article, ArticleService> implements Serializable {
 	private static final long serialVersionUID = -986331859933454787L;
 	
-	private String _messageHello = "helllo mannnn";
+	@Autowired
+	private StockService stockService;
+	
+	private Stock stock = new Stock(); ;
 	
 	protected void prepareData(){
 		super.prepareData();
 		_moduleName = "article";
-		_object = new Article();
+		prepareForCreateNew();
+		
 	}
 	
+	public void prepareForCreateNew(){
+		_object = new Article();
+	}
 
 	protected void onDataReady(){
+		
+		loadStockOfDepot();
 		
 		addRelatedModule((FamilleArticleController) Core.bean("familleArticle"), new Action(){
 			@Override
@@ -105,6 +119,32 @@ public class ArticleController extends GenericCRUDController<Article, ArticleSer
 				FacesContext.getCurrentInstance().addMessage(null, msg);
 			}
 		});
+		
+		_actions.put("loadDetailsStock", new Action(){
+			@Override
+			public void run() {
+				loadStockOfDepot();
+			}
+		});
 	}
+	
+	public void loadStockOfDepot(){
+		if(((DepotController) Core.bean("depot")).getObject() == null && _object.getId() == null)
+			return;
+		
+		stock = stockService.findByArticleAndDepot(_object, ((DepotController) Core.bean("depot")).getObject());
+		if(stock == null)
+			stock = new Stock(); // creer un objet vide pour mettre les attributs aux valeurs par défaut
+	}
+
+	public Stock getStock() {
+		return stock;
+	}
+
+	public void setStock(Stock stock) {
+		this.stock = stock;
+	}
+	
+	
 	
 }

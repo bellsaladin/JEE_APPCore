@@ -48,11 +48,9 @@ public class ProfilController extends GenericCRUDController<v2_Profil, v2_Profil
 	
 	public void prepareForCreateNew(){
 		_object = new v2_Profil();
-		
 		roles = v2_roleService.findByParentRoleIsNull();
 		root2 = new CheckboxTreeNode("Root", null);
 		CheckboxTreeNode node = new CheckboxTreeNode("", root2); // adding node to avoid error
-		
 		updateTreeNodes();
 	}
 	

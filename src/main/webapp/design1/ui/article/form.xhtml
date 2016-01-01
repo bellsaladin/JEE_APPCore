@@ -146,8 +146,11 @@
 	       	  </p:tab>
 	       	  <p:tab title="Achats">
 	       	  		<p:fieldset legend="Fournisseur principal" style="margin-bottom:20px">
-			       	  	  <seosoft:OneEntitySelectMenu id="fournisseurPrincipal" entityName="fournisseur" value="#{core.bean().object.fournisseurPrincipal}"></seosoft:OneEntitySelectMenu>
 			       	  	  <p:panelGrid  columns="4"  styleClass="no-border-table full-width panelTopAlign">
+			       	  	  		<h:outputLabel value="Fournisseur" />
+			       	  	  		<seosoft:OneEntitySelectMenu id="fournisseurPrincipal" entityName="fournisseur" value="#{core.bean().object.fournisseurPrincipal}"></seosoft:OneEntitySelectMenu>
+			       	  	  		<h:outputLabel value="" />
+			       	  	  		<h:outputLabel value="" />
 			       	  	  	   	<h:outputLabel value="PU D'achat" />
 								<p:inputText value="#{core.bean().object.prixUnitaireAchat}"/>
 								<h:outputLabel value="PU HT de vente" />
@@ -189,6 +192,89 @@
 			       	</p:panelGrid>
 	       	  </p:tab>
 	       	  <p:tab title="Stock">
+	       	  		<div style="text-align:center; margin: 10px 0;">
+		       	  		<b><h:outputLabel value="Consulter le stock du dépot : " /></b>
+					    <p:selectOneMenu value="#{core.bean('depot').object}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
+	   					 style="width:160px">      	    
+				        	<f:selectItem itemLabel="" itemValue="" />
+				        	<f:selectItems value="#{core.bean('depot').list}" var="entity" itemLabel="#{entity.getDisplayText()}" itemValue="#{entity}" />
+				        	<p:ajax event="change" update="detailsStock" listener="#{core.bean().runAction('loadDetailsStock')}"/>
+				        </p:selectOneMenu>
+			        </div>
+				    <h:panelGroup id="detailsStock">
+				    	<p:panelGrid  columns="2"  styleClass="no-border-table full-width panelTopAlign">
+				    		<h:panelGroup>
+					    		<p:fieldset legend="Entrées">
+					    			<p:panelGrid  columns="2">
+						    			<h:outputLabel value="Quantité entrée :" />
+									    <p:inputText disabled="true" value="#{core.bean().stock.qteEntree}"/>
+									    
+									    <h:outputLabel value="P.M.P.A :" />
+									    <p:inputText disabled="true" value="#{core.bean().stock.prixMoyenPondereAchat}"/>
+									    
+									    <h:outputLabel value="Derniere entrée le :" />
+									    <p:inputText disabled="true" value="#{core.bean().stock.dateDerniereEntree}"/>
+									    
+									    <h:outputLabel value="Dernier P.U.H.T. :" />
+									    <p:inputText disabled="true" value="#{core.bean().stock.dernierPrixUnitaireHTAchat}"/>
+								    </p:panelGrid>
+					    		</p:fieldset>
+					    		<p:fieldset legend="Sorties">
+					    			<p:panelGrid  columns="2">
+						    			<h:outputLabel value="Quantité sortie :" />
+									    <p:inputText disabled="true" value="#{core.bean().stock.qteSortie}"/>
+									    
+									    <h:outputLabel value="P.M.P.V :" />
+									    <p:inputText disabled="true" value="#{core.bean().stock.prixMoyenPondereVente}"/>
+									    
+									    <h:outputLabel value="Derniere sortie le :" />
+									    <p:inputText disabled="true" value="#{core.bean().stock.dateDerniereSortie}"/>
+									    
+									    <h:outputLabel value="Dernier P.U.H.T. :" />
+									    <p:inputText disabled="true" value="#{core.bean().stock.dernierPrixUnitaireHTVente}"/>
+									</p:panelGrid>
+					    		</p:fieldset>
+				    		</h:panelGroup>
+				    		<p:fieldset legend="Quantites">
+					    			<p:panelGrid  columns="2">
+						    			<h:outputLabel value="Quantité intiale :" />
+									    <p:inputText disabled="true" value="#{core.bean().stock.qteInitiale}"/>
+									    
+									    <h:outputLabel value="Stock réel :" />
+									    <p:inputText disabled="true" value="#{core.bean().stock.stockReel}"/>
+									    
+									    <h:outputLabel value="Quantité en réception :" />
+									    <p:inputText disabled="true" value="#{core.bean().stock.qteEnReception}"/>
+									    
+									    <h:outputLabel value="Quantité à livrer :" />
+									    <p:inputText disabled="true" value="#{core.bean().stock.qteALivrer}"/>
+									    
+									    <h:outputLabel value="Quantité disponible :" />
+									    <p:inputText disabled="true" value="#{core.bean().stock.stockDisponible}"/>
+									    
+									    <h:outputLabel value="Quantité à recevoir :" />
+									    <p:inputText disabled="true" value="#{core.bean().stock.qteARecevoir}"/>
+									    
+									    <h:outputLabel value="Quantité reservée :" />
+									    <p:inputText disabled="true" value="#{core.bean().stock.qteReservee}"/>
+									    
+									    <h:outputLabel value="Stock virtuel :" />
+									    <p:inputText disabled="true" value="#{core.bean().stock.stockVirtuel}"/>
+									</p:panelGrid>
+					    	</p:fieldset>
+					    	
+					    	<p:fieldset legend="Marge réalisée">
+					    			<p:panelGrid  columns="2">
+						    			<h:outputLabel value="Coefficient multiplicateur :" />
+									    <p:inputText disabled="true" value="#{core.bean().stock.coefficientMuliplicateur}"/>
+									    
+									    <h:outputLabel value="Marge au PMPA depuis cloture :" />
+									    <p:inputText disabled="true" value="#{core.bean().stock.margeAuPmpaDepuisCloture}"/>
+									</p:panelGrid>
+					    	</p:fieldset>
+					    		
+				    	</p:panelGrid>
+				    </h:panelGroup>
 	       	  </p:tab>
 	       	  <p:tab title="Options">
 	       	  </p:tab>
