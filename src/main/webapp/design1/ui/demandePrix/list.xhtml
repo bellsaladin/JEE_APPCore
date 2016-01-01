@@ -1,0 +1,107 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                template="/design1/_general/list.xhtml">
+    
+    <ui:define name="contextMenuExtraActions">
+    	<p:menuitem value="Some specific action" icon="ui-icon-signal" />
+    </ui:define>
+    
+    <ui:define name="filter">
+    	<p:fieldset legend="Filtre">
+    	</p:fieldset>
+    </ui:define>
+
+	<ui:define name="dataTableColumns">
+		
+		<!-- <p:column style="width:16px">
+            <h:outputText id="dragIcon" styleClass="ui-icon ui-icon-arrow-4" />
+            <p:draggable for="dragIcon" revert="true" helper="clone"/>
+        </p:column> -->
+        
+        <p:column style="width:16px">
+  			<p:outputLabel rendered="#{!object.valide and !object.transforme}">
+  				<i class="fa fa-caret-right" style="color:green; font-size: 18px;"></i>
+  			</p:outputLabel>
+ 			<p:outputLabel rendered="#{object.valide and !object.transforme}">
+  				<i class="fa fa-caret-right" style="color:orange;font-size: 18px;"></i>
+  			</p:outputLabel>
+  			<p:outputLabel rendered="#{object.valide and object.transforme}">
+  				<i class="fa fa-caret-right" style="color:blue;  font-size: 18px;"></i>
+  			</p:outputLabel>
+        </p:column>
+		
+		<p:column sortBy="#{object.date}">
+            <f:facet name="header">
+                <h:outputText value="#{lbl['lbl.date']}" />
+            </f:facet>
+            <h:outputText value="#{object.date}" />
+        </p:column>
+
+        <p:column sortBy="#{object.totalHt}">
+            <f:facet name="header">
+                <h:outputText value="#{lbl['lbl.totalHt']}"/>
+            </f:facet>
+            <h:outputText value="#{object.totalHt}">
+            	<f:convertNumber pattern="#0.00" />
+            </h:outputText>
+        </p:column>
+        
+        <p:column sortBy="#{object.totalTva}">
+            <f:facet name="header">
+                <h:outputText value="#{lbl['lbl.totalTva']}" />
+            </f:facet>
+            <h:outputText value="#{object.totalTva}">
+            	<f:convertNumber pattern="#0.00" />
+            </h:outputText>
+        </p:column>
+        
+        <p:column sortBy="#{object.totalTtc}">
+            <f:facet name="header">
+                <h:outputText value="#{lbl['lbl.totalTtc']}" />
+            </f:facet>
+            <h:outputText value="#{object.totalTtc}">
+            	<f:convertNumber pattern="#0.00" />
+            </h:outputText>
+        </p:column>
+        
+        <p:column sortBy="#{object.valide}">
+            <f:facet name="header">
+                <h:outputText value="#{lbl['lbl.valide']}" />
+            </f:facet>
+            <h:outputText value="#{object.valide? 'Oui' : 'Non'}" />
+        </p:column>
+        
+        <p:column sortBy="#{object.transforme}">
+            <f:facet name="header">
+                <h:outputText value="#{lbl['lbl.transforme']}" />
+            </f:facet>
+            <h:outputText value="#{object.transforme? 'Oui' : 'Non'}" />
+        </p:column>
+        
+    </ui:define>
+    
+	<ui:define name="actions">
+		<p:button value="Aide" href="article" styleClass="ui-whiteBtn pull-right"/>
+		<p:button value="Nouveau" href="/design1/ui/#{core.bean().moduleName}/form" styleClass="ui-whiteBtn pull-right" style="margin-right:10px;"/>
+		<p:commandButton value="Colonnes" onclick="PF('selectDataTableColumnsDialog').show()" icon="ui-icon-grip-dotted-horizontal" styleClass="ui-whiteBtn pull-right" style="margin-right:10px;"/>
+	    <p:commandButton value="Transformer" rendered="#{core.bean().selectedObjects.size() gt 0}" actionListener="#{core.bean().runAction('test')}" icon="ui-icon-seek-next" styleClass="ui-whiteBtn pull-right" style="margin-right:10px;"/>
+	    <p:commandButton value="Valider" rendered="#{core.bean().selectedObjects.size() gt 0}" actionListener="#{notifyView.send}" icon="ui-icon-eject"  styleClass="ui-whiteBtn pull-right" style="margin-right:10px;"/>
+	    <p:commandButton value="Action 3" rendered="#{core.bean().selectedObjects.size() gt 0}" actionListener="#{notifyView.send}" styleClass="ui-whiteBtn pull-right" style="margin-right:10px;"/>
+	    <p:menuButton value="Plus" rendered="#{core.bean().list.size() gt 0}" styleClass="ui-whiteBtn pull-right"  style="margin-right:10px;">
+	        <p:menuitem value="Action 1" actionListener="#{menuView.save}" update=":mainForm" icon="ui-icon-disk"/>
+	        <p:menuitem value="Action 2" actionListener="#{menuView.update}" update=":mainForm" icon="ui-icon-arrowrefresh-1-w"/>
+	        <p:menuitem value="Action 3" actionListener="#{menuView.delete}" ajax="false" icon="ui-icon-close"/>
+	        <p:separator />
+	        <p:menuitem value="Ajouter aux favoris" actionListener="#{sessionController.addToFavorites(core.bean().moduleName)}" icon="ui-icon-star"/>
+	    </p:menuButton>
+	</ui:define>
+	
+	<ui:define name="dialogs">
+		
+	</ui:define>
+	
+</ui:composition>

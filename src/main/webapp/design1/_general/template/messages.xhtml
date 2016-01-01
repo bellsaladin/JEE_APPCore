@@ -6,7 +6,7 @@
 	
 	<!-- <p:growl id="msgInfo" life="50000000" autoUpdate="true" showDetail="true" showSummary="true"/>  -->
 			
-   	<p:outputPanel autoUpdate="true">
+   	<p:outputPanel autoUpdate="true" rendered="false">
 		<p:dialog id="msgDialog" widgetVar="msgDialogVar" modal="false" width="500" resizable="false" showEffect="true"
 			visible="#{facesContext.maximumSeverity.ordinal >= 0}" dir="#{sessionManager.direction}" closable="false">
 			

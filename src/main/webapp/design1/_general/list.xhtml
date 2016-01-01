@@ -27,7 +27,13 @@
     	...
     </ui:define>
 
+	
     <ui:define name="implementation">
+    	
+    	<p:panel id="filter" visible="true">
+			<ui:insert name="filter" />
+		</p:panel>
+		<p:hotkey bind="ctrl+shift+r" handler="PF('mainForm:filter').show();" />
     		
 		<p:messages/>
 				
@@ -60,9 +66,11 @@
 			      		        		       
 	    </p:dataTable>	
 	    <p:dialog id="selectDataTableColumnsDialog" widgetVar="selectDataTableColumnsDialog" width="480" resizable="false" header="Choix des colonnes à afficher">
-		    <p:selectManyCheckbox id="selectDataTableColumnsManyCheckbox" value="#{core.bean()._dataTableColumnsKeys}" layout="grid"  columns="1">
-		        <f:selectItems value="#{core.bean().getObject().getFieldsNames()}" var="column" itemLabel="#{column}" itemValue="#{column}" />
-		    </p:selectManyCheckbox>
+	    	<p:scrollPanel mode="native" style="height:400px; border:0">
+			    <p:selectManyCheckbox id="selectDataTableColumnsManyCheckbox" value="#{core.bean()._dataTableColumnsKeys}" layout="grid"  columns="1">
+			        <f:selectItems value="#{core.bean().getObject().getFieldsNames()}" var="column" itemLabel="#{column}" itemValue="#{column}" />
+			    </p:selectManyCheckbox>
+		    </p:scrollPanel>
 		    <p:commandButton value="Mettre à jour les colonnes" actionListener="#{core.bean().runAction('updateDataTableColumns')}" update=":mainForm:dataTable" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
 		</p:dialog>	    	    
    		<!--<p:blockUI block="dataTable" trigger="dataTable">
