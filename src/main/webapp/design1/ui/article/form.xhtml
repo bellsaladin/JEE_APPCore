@@ -174,17 +174,21 @@
 			       	</p:fieldset>
 			       	<p:panelGrid  columns="2"  styleClass="no-border-table full-width panelTopAlign">
 			       		<p:fieldset legend="Unité d'achat et unité de vente" style="margin-bottom:20px">
-			       	  	  	 <p:panelGrid  columns="4"  styleClass="no-border-table full-width panelTopAlign">
+			       	  	  	 <p:panelGrid  columns="6"  styleClass="no-border-table full-width panelTopAlign">
 				       	  	  	   	<h:outputLabel value="Unité d'achat" />
 									<p:inputText disabled="true" value="#{core.bean().object.prixUnitaireAchat}"/>
+									<i class="fa fa-arrow-left"></i>
+									<i class="fa fa-arrow-right"></i>
 									<h:outputLabel value="Unité de vente" />
 									<p:inputText value="#{core.bean().object.uniteVente}"/>
 				       	  	  </p:panelGrid>
 				       	</p:fieldset>
 				       	<p:fieldset legend="Prix unitaire d'achat HT" style="margin-bottom:20px">
-				       	  	  <p:panelGrid  columns="4"  styleClass="no-border-table full-width panelTopAlign">
+				       	  	  <p:panelGrid  columns="6"  styleClass="no-border-table full-width panelTopAlign">
 				       	  	  	   	<h:outputLabel value="P.A. d'une unité d'achat" />
 									<p:inputText disabled="true" value="#{core.bean().object.prixUnitaireAchat}"/>
+									<i class="fa fa-arrow-left"></i>
+									<i class="fa fa-arrow-right"></i>
 									<h:outputLabel value="P.A. d'une unité de vente" />
 									<p:inputText disabled="true" value="#{core.bean().object.uniteVente}"/>
 				       	  	  </p:panelGrid>
@@ -240,7 +244,7 @@
 						    			<h:outputLabel value="Quantité intiale :" />
 									    <p:inputText disabled="true" value="#{core.bean().stock.qteInitiale}"/>
 									    
-									    <h:outputLabel value="Stock réel :" />
+									    <h:outputLabel value="Stock réel :" style="font-weight:bold"/>
 									    <p:inputText disabled="true" value="#{core.bean().stock.stockReel}"/>
 									    
 									    <h:outputLabel value="Quantité en réception :" />
@@ -249,7 +253,7 @@
 									    <h:outputLabel value="Quantité à livrer :" />
 									    <p:inputText disabled="true" value="#{core.bean().stock.qteALivrer}"/>
 									    
-									    <h:outputLabel value="Quantité disponible :" />
+									    <h:outputLabel value="Quantité disponible :"  style="font-weight:bold"/>
 									    <p:inputText disabled="true" value="#{core.bean().stock.stockDisponible}"/>
 									    
 									    <h:outputLabel value="Quantité à recevoir :" />
@@ -258,22 +262,20 @@
 									    <h:outputLabel value="Quantité reservée :" />
 									    <p:inputText disabled="true" value="#{core.bean().stock.qteReservee}"/>
 									    
-									    <h:outputLabel value="Stock virtuel :" />
+									    <h:outputLabel value="Stock virtuel :"  style="font-weight:bold"/>
 									    <p:inputText disabled="true" value="#{core.bean().stock.stockVirtuel}"/>
 									</p:panelGrid>
 					    	</p:fieldset>
-					    	
-					    	<p:fieldset legend="Marge réalisée">
-					    			<p:panelGrid  columns="2">
-						    			<h:outputLabel value="Coefficient multiplicateur :" />
-									    <p:inputText disabled="true" value="#{core.bean().stock.coefficientMuliplicateur}"/>
-									    
-									    <h:outputLabel value="Marge au PMPA depuis cloture :" />
-									    <p:inputText disabled="true" value="#{core.bean().stock.margeAuPmpaDepuisCloture}"/>
-									</p:panelGrid>
-					    	</p:fieldset>
-					    		
 				    	</p:panelGrid>
+				    	<p:fieldset legend="Marge réalisée">
+				    			<p:panelGrid  columns="4" styleClass="no-border-table full-width">
+					    			<h:outputLabel value="Coefficient multiplicateur :" />
+								    <p:inputText disabled="true" value="#{core.bean().stock.coefficientMuliplicateur}"/>
+								    
+								    <h:outputLabel value="Marge au PMPA depuis cloture :" />
+								    <p:inputText disabled="true" value="#{core.bean().stock.margeAuPmpaDepuisCloture}"/>
+								</p:panelGrid>
+				    	</p:fieldset>
 				    </h:panelGroup>
 	       	  </p:tab>
 	       	  <p:tab title="Options">

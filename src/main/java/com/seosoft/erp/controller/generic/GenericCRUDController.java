@@ -11,6 +11,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.faces.model.ListDataModel;
 
 import org.apache.commons.lang.StringUtils;
@@ -45,6 +46,8 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 	// the following attributes are special attributes used for quick create & update dialogs on related modules
 	protected HashMap<String,GenericController<?,?>> _relatedModules;
 	protected List<String> _boundComponentIds;
+	protected String lastQuickDialogCallerComponentId;
+
 	
 	protected HashMap<String,Action> _relatedModulesActions;
 	protected BaseEntity entitySubjectOfQuickDialog; // FIXME : SHOULD BE DYNAMIC and embeded on a list
@@ -141,7 +144,6 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 				RequestContext.getCurrentInstance().update("dialog"+ WordUtils.capitalize(relatedModuleName));
 			}
 		});
-		
 	}
 
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
@@ -155,6 +157,11 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
 	
 
+	public void runAction(String actionName, String callerComponentId){
+		this.lastQuickDialogCallerComponentId = callerComponentId;
+		runAction(actionName);
+	}
+	
 	public void runAction(String actionName){
 		Action action = _actions.get(actionName);
 		if(action != null){ 
