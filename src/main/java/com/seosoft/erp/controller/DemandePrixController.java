@@ -114,6 +114,10 @@ public class DemandePrixController extends GenericCRUDController<DemandePrix, De
 		_actions.put("valider", new Action(){
 			@Override
 			public void run() {
+				for(DemandePrix demandePrix : _selectedObjects){
+					demandePrix.setValide(true);
+				}
+				_service.save(_selectedObjects);
 				FacesMessage msg = new FacesMessage("La demande(s) de prix a été validé(s)");
 				FacesContext.getCurrentInstance().addMessage(null, msg);
 			}
@@ -122,7 +126,17 @@ public class DemandePrixController extends GenericCRUDController<DemandePrix, De
 		_actions.put("transformer", new Action(){
 			@Override
 			public void run() {
-				FacesMessage msg = new FacesMessage("La demande(s) de prix a été validé(s)");
+				for(DemandePrix demandePrix : _selectedObjects){
+					if(!demandePrix.getValide()){
+						FacesMessage msg = new FacesMessage("Impossible de transformer la séléction, il y a des objets non validés !");
+						msg.setSeverity(FacesMessage.SEVERITY_WARN);
+						FacesContext.getCurrentInstance().addMessage(null, msg);
+						return;
+					}
+					demandePrix.setTransforme(true);
+				}
+				//_service.save(_selectedObjects);
+				FacesMessage msg = new FacesMessage("La demande(s) de prix a été tranformée(s)");
 				FacesContext.getCurrentInstance().addMessage(null, msg);
 			}
 		});

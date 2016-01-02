@@ -658,3 +658,11 @@ li.ui-state-active a { color:rgb(1, 154, 249) !important; }
 }
 
 .ui-fileupload-content{ display:none}
+
+.statusBar{
+	position:fixed;bottom:0px; left:80px; z-index:1000; width:100%; padding-right:90px;	
+}
+
+.statusBar .ui-messages-info, .statusBar .ui-messages-warn, .statusBar .ui-messages-error, .statusBar .ui-messages-fatal{
+	margin:0 !important;
+}

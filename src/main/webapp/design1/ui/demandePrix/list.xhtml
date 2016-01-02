@@ -88,8 +88,8 @@
 		<p:button value="Aide" href="article" styleClass="ui-whiteBtn pull-right"/>
 		<p:button value="Nouveau" href="/design1/ui/#{core.bean().moduleName}/form" styleClass="ui-whiteBtn pull-right" style="margin-right:10px;"/>
 		<p:commandButton value="Colonnes" onclick="PF('selectDataTableColumnsDialog').show()" icon="ui-icon-grip-dotted-horizontal" styleClass="ui-whiteBtn pull-right" style="margin-right:10px;"/>
-	    <p:commandButton value="Transformer" rendered="#{core.bean().selectedObjects.size() gt 0}" actionListener="#{core.bean().runAction('test')}" icon="ui-icon-seek-next" styleClass="ui-whiteBtn pull-right" style="margin-right:10px;"/>
-	    <p:commandButton value="Valider" rendered="#{core.bean().selectedObjects.size() gt 0}" actionListener="#{notifyView.send}" icon="ui-icon-eject"  styleClass="ui-whiteBtn pull-right" style="margin-right:10px;"/>
+	    <p:commandButton value="Transformer" rendered="#{core.bean().selectedObjects.size() gt 0}" actionListener="#{core.bean().runAction('transformer')}" update="dataTable,messages" icon="ui-icon-seek-next" styleClass="ui-whiteBtn pull-right" style="margin-right:10px;"/>
+	    <p:commandButton value="Valider" rendered="#{core.bean().selectedObjects.size() gt 0}" actionListener="#{core.bean().runAction('valider')}" update="dataTable,messages" icon="ui-icon-eject"  styleClass="ui-whiteBtn pull-right" style="margin-right:10px;"/>
 	    <p:commandButton value="Action 3" rendered="#{core.bean().selectedObjects.size() gt 0}" actionListener="#{notifyView.send}" styleClass="ui-whiteBtn pull-right" style="margin-right:10px;"/>
 	    <p:menuButton value="Plus" rendered="#{core.bean().list.size() gt 0}" styleClass="ui-whiteBtn pull-right"  style="margin-right:10px;">
 	        <p:menuitem value="Action 1" actionListener="#{menuView.save}" update=":mainForm" icon="ui-icon-disk"/>

@@ -34,23 +34,21 @@
 			<ui:insert name="filter" />
 		</p:panel>
 		<p:hotkey bind="ctrl+shift+r" handler="PF('mainForm:filter').show();" />
-    		
-		<p:messages/>
-				
+    	
 	    <p:dataTable id="dataTable" widgetVar="dataTable" var="object" value="#{core.bean().dataModel}"
 	    			 stickyHeader="true"
 	    			 sortMode="multiple"
 	    			 selection="#{core.bean().selectedObjects}"
-	                 paginator="true" rows="25"
+	                 paginator="true" rows="5"
 	                 paginatorPosition="bottom"
 	                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 	                 rowsPerPageTemplate="25,50,100"
 	                 currentPageReportTemplate="[ {totalRecords} #{lbl['lbl.lignes']} ]">
-        		<p:ajax event="rowSelect" update=":mainForm:actions,:mainForm:contextMenu"/>
-      			<p:ajax event="rowUnselect" update=":mainForm:actions,:mainForm:contextMenu"/>
-      			<p:ajax event="rowSelectCheckbox" update=":mainForm:actions,:mainForm:contextMenu"/>
-      			<p:ajax event="rowUnselectCheckbox" update=":mainForm:actions,:mainForm:contextMenu"/>	                 		                 		        		      
-      			<p:ajax event="toggleSelect" update=":mainForm:actions,:mainForm:contextMenu"/>
+        		<p:ajax event="rowSelect" update=":mainForm:actions,:mainForm:contextMenu,:mainForm:messages,:mainForm:dataTable"/>
+      			<p:ajax event="rowUnselect" update=":mainForm:actions,:mainForm:contextMenu,:mainForm:messages,:mainForm:dataTable"/>
+      			<p:ajax event="rowSelectCheckbox" update=":mainForm:actions,:mainForm:contextMenu,:mainForm:messages,:mainForm:dataTable"/>
+      			<p:ajax event="rowUnselectCheckbox" update=":mainForm:actions,:mainForm:contextMenu,:mainForm:messages,:mainForm:dataTable"/>	                 		                 		        		      
+      			<p:ajax event="toggleSelect" update=":mainForm:actions,:mainForm:contextMenu,:mainForm:messages,:mainForm:dataTable"/>
 <!-- 			<p:ajax event="rowSelect" update=":dialogUpdateUser" oncomplete="PF('dlgUpdateUser').show()"/> -->
 			
 			<p:column selectionMode="multiple" headerText="" style="width:20px;"/>
