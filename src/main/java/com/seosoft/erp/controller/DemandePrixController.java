@@ -1,25 +1,37 @@
 package com.seosoft.erp.controller;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 import org.apache.commons.lang.StringUtils;
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormatter;
+import org.primefaces.event.CellEditEvent;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.seosoft.erp.controller.generic.Action;
 import com.seosoft.erp.controller.generic.GenericCRUDController;
+import com.seosoft.erp.model.entity.Article;
 import com.seosoft.erp.model.entity.DemandePrix;
+import com.seosoft.erp.model.entity.DetailsDemandePrix;
 import com.seosoft.erp.service.business.DemandePrixService;
+import com.seosoft.erp.service.business.DetailsDemandePrixService;
 import com.seosoft.erp.util.scopes.view.SpringViewScoped;
 
 @Named
 @SpringViewScoped
 public class DemandePrixController extends GenericCRUDController<DemandePrix, DemandePrixService> implements Serializable {
 	private static final long serialVersionUID = 7838900790101299064L;
+	
+	@Autowired
+	private DetailsDemandePrixService detailsDemandePrixService;
+	
+	private List<DetailsDemandePrix> detailsDemandePrixList;
+	private Article emptyArticle = new Article();
+	
 
 	protected void prepareData(){
 		super.prepareData();
@@ -33,6 +45,13 @@ public class DemandePrixController extends GenericCRUDController<DemandePrix, De
 	
 	protected void onDataReady(){
 		
+		if(_object.getId() == null || _object.getId() ==""){
+			detailsDemandePrixList = new ArrayList<DetailsDemandePrix>();
+			addNewRowToDetailsDatatable();
+		}else{
+			detailsDemandePrixList = detailsDemandePrixService.findByDemandePrix(_object);
+		}
+				
 		addRelatedModule((ModeTransportController) Core.bean("modeTransport"), "modeTransport", new Action(){
 			@Override
 			public void run() {
@@ -107,5 +126,92 @@ public class DemandePrixController extends GenericCRUDController<DemandePrix, De
 				FacesContext.getCurrentInstance().addMessage(null, msg);
 			}
 		});
+		
+		_actions.put("persist", new Action(){
+			@Override
+			public void run() {
+				System.out.println("SAVE : "  + _moduleName);
+
+				boolean isNewInsert = (_object.getId()==null)?true:false;
+				
+				// save Demande Prix
+				_service.save(_object); 
+				// save details Demande Prix
+				//detailsDemandePrixService.save(detailsDemandePrixList);
+				
+				for(DetailsDemandePrix ligneDetails : detailsDemandePrixList){
+					ligneDetails.setDemandePrix(_object);
+					detailsDemandePrixService.save(ligneDetails);
+				}
+				
+				String message = "Enregistrement '" + StringUtils.capitalize(_moduleName) + "' effectué avec succés ! ";
+				message = (isNewInsert)?message:"Modification '" + StringUtils.capitalize(_moduleName) + "' effectuée avec succés ! ";
+				FacesMessage msg = new FacesMessage(message);
+				FacesContext.getCurrentInstance().addMessage(null, msg);
+			}
+		});
+		
+	
 	}
+	
+	/**************************************************************************************************/
+	/********************************** UTIL FUNCTIONS ****************************************/
+	/************************************************************************************************/
+	
+	public void addRowToDetailsDatatable(){
+		addNewRowToDetailsDatatable();
+		for(DetailsDemandePrix ligneDetails : detailsDemandePrixList){
+			System.out.println("DetailsDemandePrix : " + ligneDetails.getArticle().getDisplayText());
+		}
+	}
+	
+	
+	public void removeRowToDetailsDatatable(int index){
+		detailsDemandePrixList.remove(index);
+	}
+	
+	public void onDetailsDatatableCellEdit(CellEditEvent event) {
+        Object oldValue = event.getOldValue();
+        Object newValue = event.getNewValue();
+         
+        //if(newValue != null && !newValue.equals(oldValue)) {
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell ChangedOld: " + oldValue + ", New:" + newValue, "");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+        //}
+    }
+	
+	private void addNewRowToDetailsDatatable(){
+		DetailsDemandePrix ligneDemandePrix = new DetailsDemandePrix();
+		ligneDemandePrix.setDemandePrix(_object);
+		emptyArticle.setLibelle("...");
+		if(((ArticleController) Core.bean("article")).getList().size() > 0){
+			ligneDemandePrix.setArticle(((ArticleController) Core.bean("article")).getList().get(0));
+		}else{
+			ligneDemandePrix.setArticle(emptyArticle);
+		}
+		detailsDemandePrixList.add(ligneDemandePrix);
+	}
+	
+	
+	/**************************************************************************************************/
+	/********************************** GETTERS & SETTERS ****************************************/
+	/************************************************************************************************/
+	
+
+	public List<DetailsDemandePrix> getDetailsDemandePrixList() {
+		return detailsDemandePrixList;
+	}
+
+	public void setDetailsDemandePrixList(List<DetailsDemandePrix> detailsDemandePrixList) {
+		this.detailsDemandePrixList = detailsDemandePrixList;
+	}
+
+	public Article getEmptyArticle() {
+		return emptyArticle;
+	}
+
+	public void setEmptyArticle(Article emptyArticle) {
+		this.emptyArticle = emptyArticle;
+	}
+	
 }

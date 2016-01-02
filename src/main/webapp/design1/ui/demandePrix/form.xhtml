@@ -40,7 +40,7 @@
 							<h:panelGrid columns="2" cellpadding="5"  styleClass="no-border-table full-width" >
 								<p:outputLabel value="Date:" />
 <!-- 		       					<p:inputText value="#{core.bean().object.date}" pattern="dd-MM-yyyy" mask="true" /> -->
-		       					<p:calendar value="#{core.bean().object.date}" custompattern="dd/MM/yyyy;ddMMyyyy" pattern="dd/MM/yyyy" mask="true"/>
+		       					<p:calendar value="#{core.bean().object.date}" pattern="dd/MM/yyyy" mask="true"/>
 		       					
 		       					<h:outputLabel value="Fournisseur :" />
 		       					
@@ -68,9 +68,9 @@
 						    </h:panelGrid>
 						</h:panelGroup>
 					</p:column>
-					<p:column>	
+					<p:column style="width:50%">	
 						<h:panelGroup>
-							<p:tabView>
+							<p:tabView >
 				       			<p:tab title="Valeurs">
 				       			
 				       		   	</p:tab>
@@ -78,7 +78,6 @@
 				       				<p:tabView>
 							       		<p:tab title="Adresse livraison">
 							       			<h:panelGrid id="adresseLivraison" columns="2" cellpadding="5">
-							       			   <h:outputLabel value="" />
 						       				   <h:outputLabel value=" Adresse : *" />
 									           <p:inputText id="adresseLivraisonLigne1" value="#{core.bean().object.adresseLivraisonLigne1}" size="50"/>
 									           <h:outputLabel value="" />
@@ -165,13 +164,74 @@
 			       		</h:panelGroup>
 			       	</p:column>
 	       		</p:row>
+	       		<p:row>
+	       			<p:column colspan="2">
+		       			<p:dataTable id="detailsDatatable" var="ligneDetails" value="#{core.bean().detailsDemandePrixList}" editable="true" editMode="cell" widgetVar="detailsVar">
+					 
+						   <p:ajax event="cellEdit" listener="#{core.bean().onDetailsDatatableCellEdit}" update=":mainForm:messages" />
+					 
+					       <p:column headerText="Article">
+					           <p:cellEditor>
+					               <f:facet name="output">
+					               	<h:outputText value="#{ligneDetails.article.getDisplayText()}" />
+<!-- 					               	    <h:selectOneMenu value="#{ligneDetails.article}" style="width:90%; opacity:0.6" converter="omnifaces.SelectItemsConverter"> -->
+<!-- 						        		  	<f:selectItem itemLabel="" itemValue="" />  -->
+<!-- 						        		  	<f:selectItems value="#{core.bean('article').list}" var="entity" itemLabel="#{entity.getDisplayText()}" itemValue="#{entity}" /> -->
+<!-- 					                    </h:selectOneMenu> -->
+					               </f:facet>
+					               <f:facet name="input">
+					                   <h:selectOneMenu value="#{ligneDetails.article}" style="width:90%" converter="omnifaces.SelectItemsConverter">
+<!-- 						        		    <f:selectItem itemLabel="" itemValue="" /> -->
+						        		    <f:selectItems value="#{core.bean('article').list}" var="entity" itemLabel="#{entity.getDisplayText()}" itemValue="#{entity}" />
+						        		    <p:ajax event="change" update="detailsDatatable"/>
+					                   </h:selectOneMenu>
+					               </f:facet>
+					           </p:cellEditor>
+					       </p:column>
+					       
+					       <p:column headerText="Qte">
+					           <p:cellEditor>
+					               <f:facet name="output"><p:inputText value="#{ligneDetails.qte}" style="width:95%;opacity:0.6" /></f:facet>
+					               <f:facet name="input"><p:inputText value="#{ligneDetails.qte}" style="width:95%"/></f:facet>
+					           </p:cellEditor>
+				       	   </p:column>
+				       	   
+				       	   <p:column headerText="P.U.A.">
+					           <p:cellEditor>
+					               <f:facet name="output">
+					               		<p:inputText value="#{ligneDetails.article.prixUnitaireAchat}" style="width:95%;opacity:0.6"  >
+					               			<f:convertNumber pattern="#0.00" />
+					               		</p:inputText>
+					               	</f:facet>
+					               <f:facet name="input"><p:inputText value="#{ligneDetails.article.prixUnitaireAchat}" style="width:95%"/></f:facet>
+					           </p:cellEditor>
+				       	   </p:column>
+				       	   
+				       	   
+				       	   <p:column headerText="Mt. HT">
+					           <p:cellEditor>
+					               <f:facet name="output"><p:inputText value="#{ligneDetails.qte * ligneDetails.prixHt}" style="width:95%;opacity:0.6" /></f:facet>
+					               <f:facet name="input"><p:inputText value="#{ligneDetails.qte * igneDetails.prixHt}" style="width:95%"/></f:facet>
+					           </p:cellEditor>
+				       	   </p:column>
+				       	   
+				       	   <p:column headerText="" style="width:32px">
+				       	   	  <f:facet name="header">
+						         <h:outputText value="" />
+						      </f:facet>
+					          <p:commandButton rendered="#{core.bean().detailsDemandePrixList.size() - 1 eq core.bean().detailsDemandePrixList.indexOf(ligneDetails)}" actionListener="#{core.bean().addRowToDetailsDatatable}" update="detailsDatatable" process="detailsDatatable" icon="ui-icon-plus" ajax="true"/>
+					          <p:commandButton rendered="#{core.bean().detailsDemandePrixList.size() - 1 ne core.bean().detailsDemandePrixList.indexOf(ligneDetails)}" actionListener="#{core.bean().removeRowToDetailsDatatable(core.bean().detailsDemandePrixList.indexOf(ligneDetails))}" update="detailsDatatable" process="@this" icon="ui-icon-closethick" ajax="true" styleClass="ui-whiteBtn"/>
+				       	   </p:column>
+					   </p:dataTable>
+					</p:column>
+	       		</p:row>
        		</p:panelGrid>
 		       	
       </div>
     </ui:define>
     
 	<ui:define name="actions">	
-		<p:commandButton value="Enregistrer" actionListener="#{core.bean().runAction('persist')}" update="mainForm" process="mainForm" ajax="false" styleClass="ui-whiteBtn" />
+		<p:commandButton value="Enregistrer" actionListener="#{core.bean().runAction('persist')}" update="mainForm" process="mainForm" styleClass="ui-whiteBtn" />
 		<p:button value="Retour" href="/design1/ui/#{core.bean().moduleName}/list" styleClass="ui-whiteBtn pull-right"/>
 		<!-- <p:commandButton value="Vider" actionListener="#{notifyView.send}" styleClass="ui-whiteBtn pull-right" style="margin-right:10px;"/> -->
 		<p:commandButton value="Supprimer" rendered="#{core.bean().paramId != null }" actionListener="#{core.bean().runAction('delete')}" update=":mainForm" styleClass="ui-whiteBtn" />

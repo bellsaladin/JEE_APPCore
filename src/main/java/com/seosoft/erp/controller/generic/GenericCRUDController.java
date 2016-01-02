@@ -455,4 +455,8 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 		}
 		return keys.toArray(new String[keys.size()]);
 	}
+	
+	protected boolean isMainModule(){
+		return Core.getCurrentModuleName() == this.getModuleName();
+	}
 }

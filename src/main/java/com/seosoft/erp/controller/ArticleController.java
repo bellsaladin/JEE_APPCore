@@ -45,6 +45,14 @@ public class ArticleController extends GenericCRUDController<Article, ArticleSer
 	}
 
 	protected void onDataReady(){
+		/******************  ********  TEST BLOCK  ********  ********    *************/
+		
+		/*
+		 * the purpose of the folowing code is to stop calling unecessary function when the module is only secondary 
+		 */
+		if(!isMainModule()) return;
+		
+		/******************  ********  TEST BLOCK  ********  ********    *************/
 		
 		loadStockOfDepot();
 		
