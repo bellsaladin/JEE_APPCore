@@ -42,7 +42,7 @@
 		       					
 		       					<h:outputLabel value="Fournisseur :" />
 		       					
-		       					<p:selectOneMenu id="fournisseur" widgetVar="fournisseurVar" value="#{core.bean().object.fournisseur}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
+		       					<p:selectOneMenu id="fournisseur" label="Fournisseur" widgetVar="fournisseurVar" value="#{core.bean().object.fournisseur}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
 		    									 style="width:160px" required="true">      	    
 						        	<f:selectItem itemLabel="" itemValue="" />
 						        	<f:selectItems value="#{core.bean('fournisseur').list}" var="entity" itemLabel="#{entity.getDisplayText()}" itemValue="#{entity}" />
@@ -131,7 +131,7 @@
 					       		   		<h:panelGrid columns="2" cellpadding="5">
 					       		   			<h:outputLabel value="Dépôt par défaut" />
 					       		   			
-					       		   			<p:selectOneMenu id="depot" widgetVar="depotVar" value="#{core.bean().object.depot}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
+					       		   			<p:selectOneMenu id="depot" label="Dépôt" widgetVar="depotVar" value="#{core.bean().object.depot}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
 		    									 style="width:160px" required="true">      	    
 									        	<f:selectItem itemLabel="" itemValue="" />
 									        	<f:selectItems value="#{core.bean('depot').list}" var="entity" itemLabel="#{entity.getDisplayText()}" itemValue="#{entity}" />
