@@ -68,9 +68,79 @@
 					</p:column>
 					<p:column style="width:50%">	
 						<h:panelGroup>
-							<p:tabView >
+							<p:tabView id="tabView">
 				       			<p:tab title="Valeurs">
-				       			
+				       				<h:panelGroup>
+				       					<div style="text-align:right; margin-right:10px">
+					       					<h:outputLabel value="Total HT Brut" />
+											<p:inputText value="#{core.bean().object.totalHt}" disabled="true"/>
+											<br/>
+											<h:outputLabel value="% Remise" />
+											<p:inputText value="#{core.bean().object.remise}">
+					               				<p:ajax event="change" update="tabView"/>
+											</p:inputText>
+											<h:outputLabel value=" Soit  " />
+											<p:inputText value="#{core.bean().object.remise * core.bean().object.totalHt / 100}" disabled="true"/>
+										</div>
+				       				</h:panelGroup>
+				       				<h:panelGrid columns="2" cellpadding="5"  styleClass="no-border-table full-width" >
+				       					<h:panelGroup>
+					       					<p:fieldset legend="Port" style="margin-bottom:10px">
+					       						<h:panelGrid columns="4" cellpadding="5"  styleClass="no-border-table full-width" >
+					       							<h:outputLabel value="HT" />
+													<p:inputText value="#{core.bean().object.portHt}">
+														<p:ajax event="change" update="tabView"/>
+														<f:convertNumber pattern="#0.00" />
+													</p:inputText>
+													<h:outputLabel value="TVA" />
+													<p:selectOneMenu  value="#{core.bean().object.tvaPort}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
+				    									 style="width:160px" required="#{core.bean().object.portHt gt 0}">      	    
+											        	<f:selectItem itemLabel="" itemValue="" />
+											        	<f:selectItems value="#{core.bean('tva').list}" var="entity" itemLabel="#{entity.getDisplayText()}" itemValue="#{entity}" />
+							 				        	<p:ajax event="change" update="tabView"/>
+											        </p:selectOneMenu>
+													<h:outputLabel value="TTC" />
+													<p:inputText value="#{core.bean().object.tvaPort.taux * core.bean().object.portHt / 100}" disabled="true">
+														<f:convertNumber pattern="#0.00" />
+													</p:inputText>
+					       						</h:panelGrid>
+					       					</p:fieldset>
+					       					<p:fieldset legend="Frais">
+					       						<h:panelGrid columns="4" cellpadding="5"  styleClass="no-border-table full-width">
+					       							<h:outputLabel value="HT" />
+													<p:inputText value="#{core.bean().object.fraisHt}">
+														<p:ajax event="change" update="tabView"/>
+														<f:convertNumber pattern="#0.00" />
+													</p:inputText>
+													<h:outputLabel value="TVA" />
+													<p:selectOneMenu  value="#{core.bean().object.tvaFrais}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
+				    									 style="width:160px" required="#{core.bean().object.fraisHt gt 0}">      	    
+											        	<f:selectItem itemLabel="" itemValue="" />
+											        	<f:selectItems value="#{core.bean('tva').list}" var="entity" itemLabel="#{entity.getDisplayText()}" itemValue="#{entity}" />
+							 				        	<p:ajax event="change" update="tabView"/>
+											        </p:selectOneMenu>
+													<h:outputLabel value="TTC" />
+													<p:inputText value="#{core.bean().object.tvaFrais.taux * core.bean().object.fraisHt / 100}" disabled="true">
+														<f:convertNumber pattern="#0.00" />
+													</p:inputText>
+					       						</h:panelGrid>
+					       					</p:fieldset>
+					       				</h:panelGroup>
+					       				<p:fieldset>
+					       					<h:panelGrid columns="2" cellpadding="5"  styleClass="no-border-table full-width">
+					       						<h:outputLabel value="Total HT Net" />
+												<p:inputText value="#{core.bean().object.totalHt}" disabled="true"/>
+												<h:outputLabel value="" />
+												<h:outputLabel value="" />
+												<h:outputLabel value="Total TVA" />
+												<p:inputText value="#{core.bean().object.totalHt}" disabled="true"/>
+												<h:outputLabel value="Total TTC" />
+												<p:inputText value="#{core.bean().object.totalTva}" disabled="true"/>
+												<h:outputLabel value="Net à payer" />
+												<p:inputText value="#{core.bean().object.totalHt}" disabled="true"/>
+					       					</h:panelGrid>
+				       					</p:fieldset>
+				       				</h:panelGrid>
 				       		   	</p:tab>
 				       		   	<p:tab title="Coordonnées">
 				       				<p:tabView>
@@ -190,7 +260,11 @@
 					       <p:column headerText="Qte">
 					           <p:cellEditor>
 					               <f:facet name="output"><p:inputText value="#{ligneDetails.qte}" style="width:95%;opacity:0.6" /></f:facet>
-					               <f:facet name="input"><p:inputText value="#{ligneDetails.qte}" style="width:95%"/></f:facet>
+					               <f:facet name="input">
+					               		<p:inputText value="#{ligneDetails.qte}" style="width:95%">
+					               			<p:ajax event="change" update="detailsDatatable"/>
+					               		</p:inputText>
+					               	</f:facet>
 					           </p:cellEditor>
 				       	   </p:column>
 				       	   
@@ -201,15 +275,19 @@
 					               			<f:convertNumber pattern="#0.00" />
 					               		</p:inputText>
 					               	</f:facet>
-					               <f:facet name="input"><p:inputText value="#{ligneDetails.article.prixUnitaireAchat}" style="width:95%"/></f:facet>
+					               <f:facet name="input">
+					               		<p:inputText value="#{ligneDetails.article.prixUnitaireAchat}" style="width:95%">
+					               			<p:ajax event="change" update="detailsDatatable"/>
+					               		</p:inputText>
+					               </f:facet>
 					           </p:cellEditor>
 				       	   </p:column>
 				       	   
 				       	   
 				       	   <p:column headerText="Mt. HT">
 					           <p:cellEditor>
-					               <f:facet name="output"><p:inputText value="#{ligneDetails.qte * ligneDetails.prixHt}" style="width:95%;opacity:0.6" /></f:facet>
-					               <f:facet name="input"><p:inputText value="#{ligneDetails.qte * igneDetails.prixHt}" style="width:95%"/></f:facet>
+					               <f:facet name="output"><p:inputText value="#{ligneDetails.qte * ligneDetails.article.prixUnitaireAchat}" style="width:95%;opacity:0.6" /></f:facet>
+					               <f:facet name="input"><p:inputText value="#{ligneDetails.qte * ligneDetails.article.prixUnitaireAchat}" style="width:95%"/></f:facet>
 					           </p:cellEditor>
 				       	   </p:column>
 				       	   

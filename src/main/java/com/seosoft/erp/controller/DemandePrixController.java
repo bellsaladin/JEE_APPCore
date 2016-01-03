@@ -9,6 +9,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 import org.apache.commons.lang.StringUtils;
+import org.primefaces.context.RequestContext;
 import org.primefaces.event.CellEditEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -192,8 +193,20 @@ public class DemandePrixController extends GenericCRUDController<DemandePrix, De
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell ChangedOld: " + oldValue + ", New:" + newValue, "");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         //}
+            
+       calculDesTotaux();     
     }
 	
+	private void calculDesTotaux() {
+		float totalHt = 0;
+		for(DetailsDemandePrix ligneDetails : detailsDemandePrixList){
+			totalHt += ligneDetails.getArticle().getPrixUnitaireAchat() * ligneDetails.getQte();
+		}
+		_object.setTotalHt(totalHt);
+		RequestContext.getCurrentInstance().update(getComponentById("detailsDatatable").getClientId());
+		RequestContext.getCurrentInstance().update(getComponentById("tabView").getClientId());
+	}
+
 	private void addNewRowToDetailsDatatable(){
 		DetailsDemandePrix ligneDemandePrix = new DetailsDemandePrix();
 		ligneDemandePrix.setDemandePrix(_object);

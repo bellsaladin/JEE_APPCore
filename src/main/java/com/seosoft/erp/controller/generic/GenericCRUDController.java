@@ -226,6 +226,7 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 						}else{
 							_object = _list.get(_list.size() - 1);
 						}
+						onDataReady();
 						return;
 					}
 				}
@@ -243,6 +244,7 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 						}else{
 							_object = _list.get(0);
 						}
+						onDataReady();
 						return;
 					}
 				}	

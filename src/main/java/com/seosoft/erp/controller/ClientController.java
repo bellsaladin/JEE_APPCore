@@ -40,7 +40,7 @@ public class ClientController extends GenericCRUDController<Client, ClientServic
 	
 	protected void onDataReady(){
 		
-		addRelatedModule((FamilleClientController) Core.bean("familleClient"), "familleClient", new Action(){
+		addRelatedModule((FamilleClientController) Core.bean("familleClient"), "famille", new Action(){
 			@Override
 			public void run() {
 				_object.setFamille(((FamilleClientController) Core.bean("familleClient")).getObject());
@@ -51,7 +51,40 @@ public class ClientController extends GenericCRUDController<Client, ClientServic
 			}}
 		);
 		
-		addRelatedModule((UserController) Core.bean("user"), "user", new Action(){
+		addRelatedModule((ContactController) Core.bean("contact"), "contactPrincipal" ,new Action(){
+			@Override
+			public void run() {
+				_object.setContactPrincipal(((ContactController) Core.bean("contact")).getObject());
+			}},new Action(){
+			@Override
+			public void run() {
+				((ContactController) Core.bean("contact")).setObject(_object.getContactPrincipal());
+			}}
+		);
+		
+		addRelatedModule((ContactController) Core.bean("contact"), "representant" ,new Action(){
+			@Override
+			public void run() {
+				_object.setRepresentant(((ContactController) Core.bean("contact")).getObject());
+			}},new Action(){
+			@Override
+			public void run() {
+				((ContactController) Core.bean("contact")).setObject(_object.getRepresentant());
+			}}
+		);
+		
+		addRelatedModule((BanqueController) Core.bean("banque"), "banque",new Action(){
+			@Override
+			public void run() {
+				_object.setBanque(((BanqueController) Core.bean("banque")).getObject());
+			}},new Action(){
+			@Override
+			public void run() {
+				((BanqueController) Core.bean("banque")).setObject(_object.getBanque());
+			}}
+		);
+		
+		/*addRelatedModule((UserController) Core.bean("user"), "user", new Action(){
 			@Override
 			public void run() {
 				_object.setUser(((UserController) Core.bean("user")).getObject());
@@ -60,7 +93,7 @@ public class ClientController extends GenericCRUDController<Client, ClientServic
 			public void run() {
 				((UserController) Core.bean("user")).setObject(_object.getUser());
 			}}
-		);
+		);*/
 		
 	}
 	

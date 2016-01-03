@@ -217,7 +217,9 @@
 <!-- 				<p:outputPanel deferred="true"> -->
 					<h:form id="mainForm">
 						<div class="statusBar">
-								<p:messages id="messages"/>
+							<p:messages id="messages" closable="true">
+								<p:effect type="fade" event="load" delay="10000" />
+							</p:messages>
 						</div>		
 						<div class="ContentSideSections actionsSection Implementation">
 							<h:panelGroup id="actions">

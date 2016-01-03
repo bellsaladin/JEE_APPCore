@@ -29,48 +29,304 @@
 	
     <ui:define name="implementation">
 	  <div style="padding:30px">
+      		<p:growl widgetVar="growl" showDetail="true" sticky="true" />        
         	
-        	<p:growl widgetVar="growl" showDetail="true" sticky="true" />
-                	  
-        	<p:panelGrid styleClass="no-border-table full-width">
-				<p:row>	
-		       		<p:column>        		        	 
-				       	<h:outputLabel for="code" value="Code: *" />
-				    </p:column>
-				    <p:column>  
-				           <p:inputText id="code"   
-				               value="#{core.bean().object.code}" required="true" label="Login">  
-				               <f:validateLength minimum="2" />  
-				           </p:inputText>
-				     </p:column>
-				     <p:column>      
-				          <h:outputLabel for="raisonSociale" value="Raison sociale *" />
-				    </p:column>
-				    <p:column>  
-				          <p:inputText id="raisonSociale" value="#{core.bean().object.raisonSociale}" required="true" label="Raison Sociale:"/>  
-				    </p:column>
-				 	<p:column>
-				 		  <seosoft:rating score="60" /><br />
-<!-- 				 		  <seosoft:inputDate id="inputDate1" /><br /> -->
-				 		  <seosoft:expandableTextComponent name="test" maxCharacters="10" value="expandableTextComponent" /><br /> 
-				 		  <p:commandButton value="Voir la date correspondante" actionListener="#{testController.doTest()}" process="@this"/>
-				 	</p:column>
-				 </p:row>  
-				
-				 <p:row>
-				 	<p:column><h:outputText for="familleClient" value="Famille Client" /></p:column>
-			     	<p:column colspan="3">
-						<seosoft:OneEntitySelectMenu id="familleClient" entityName="familleClient" value="#{core.bean().object.famille}"></seosoft:OneEntitySelectMenu>
-			        </p:column>
-				 </p:row> 
-				 <p:row>
-				 	<p:column><h:outputText for="user" value="Compte utilisateur" /></p:column>
-			     	<p:column colspan="3">
-			     			<seosoft:OneEntitySelectMenu id="user" entityName="user" value="#{core.bean().object.user}"></seosoft:OneEntitySelectMenu>
-			        </p:column>
-				 </p:row>
-				 	 			        			      
-       		</p:panelGrid>
+       		<p:tabView scrollable="true">
+       			<p:tab title="Généralités">
+       			
+		        	<p:panelGrid styleClass="no-border-table full-width">
+						<p:row>	
+				       		<p:column>        		        	 
+						       	<h:outputLabel value="Code: *" />
+						    </p:column>
+						    <p:column>  
+						           <p:inputText  
+						               value="#{core.bean().object.code}" required="true">  
+						               <f:validateLength minimum="2" />  
+						           </p:inputText>
+						     </p:column>
+						     <p:column>      
+						          <h:outputLabel value="Raison sociale: *" />
+						    </p:column>
+						    <p:column>  
+						          <p:inputText id="raisonSociale" value="#{core.bean().object.raisonSociale}" required="true"/>  
+						    </p:column>
+						</p:row>
+						<p:row>
+						 	<p:column>
+						 		Mode de réglement : *
+						 	</p:column>
+						 	<p:column>
+								<seosoft:OneEntitySelectMenu entityName="modeReglement" value="#{core.bean().object.modeReglement}"></seosoft:OneEntitySelectMenu>
+						 	</p:column>
+						 <p:row>
+						 </p:row>
+						 	<p:column><h:outputText value="Famille Client " /></p:column>
+					     	<p:column colspan="3">
+								<seosoft:OneEntitySelectMenu id="famille" entityName="familleClient" value="#{core.bean().object.famille}"></seosoft:OneEntitySelectMenu>
+					        </p:column>
+						 </p:row>
+						 <p:row>
+						 	<p:column>
+						 		<h:outputLabel value="Expédition " />
+						 	</p:column>
+						 	<p:column>
+					       		<seosoft:OneEntitySelectMenu id="modeExpedition" entityName="modeExpedition" value="#{core.bean().object.modeExpedition}"></seosoft:OneEntitySelectMenu>
+					       	</p:column>	
+						 </p:row>
+						 <p:row>
+						 	<p:column> 		   			
+	       		   				<h:outputLabel value="Transport " />
+	       		   			</p:column>
+	       		   			<p:column>
+	       		   				<seosoft:OneEntitySelectMenu id="modeTransport" entityName="modeTransport" value="#{core.bean().object.modeTransport}"></seosoft:OneEntitySelectMenu>
+	       		   			</p:column>
+	       		   		</p:row>
+						 <p:row>
+						 	<p:column  colspan="2">
+							 	<p:fieldset legend="Dates" style="margin-bottom:20px">
+							 		 <h:panelGrid columns="2" cellpadding="5">
+				       				   <h:outputLabel value=" Date de création : " />
+							           <p:outputLabel value="#{core.bean().object.dateCreation.toString('dd MMM YY à H:m', Locale.US)}"/>
+							           <h:outputLabel value=" Date de modification : " />
+							           <p:outputLabel value="#{core.bean().object.dateModification.toString('dd MMM YY à H:m', Locale.US)}"/>
+							         </h:panelGrid>
+							 	</p:fieldset>
+							 	
+						 	</p:column>
+						 	<p:column  colspan="2">
+							 	<p:fieldset legend="Divers" style="margin-bottom:20px">
+							 		 <h:panelGrid columns="2" cellpadding="5">
+				       				    <h:outputLabel value="Nbr ex. devis : *" />
+					           			<p:inputText id="nbrDemandesPrix" value="#{core.bean().object.nbrDevis}" size="50"/>
+					           			<h:outputLabel value="Nbr ex. BC : *" />
+					           			<p:inputText id="nbrBonsRepections" value="#{core.bean().object.nbrBonsCommandes}" size="50"/>
+					           			<h:outputLabel value="Nbr ex. BL : *" />
+					           			<p:inputText id="nbrBonsCommandes" value="#{core.bean().object.nbrBonsLivraison}" size="50"/>
+					           			<h:outputLabel value="Nbr ex. Factures : *" />
+					           			<p:inputText id="nbrFactures" value="#{core.bean().object.nbrFactures}" size="50"/>
+							         </h:panelGrid>
+							 	</p:fieldset>
+						 	</p:column>
+						 </p:row>
+		       		</p:panelGrid>
+       		   	</p:tab>
+       		   	<p:tab title="Bloc notes">
+       		   		<p:fieldset legend="Photo" style="margin-bottom:20px">
+	<!-- 		       	  		<p:fileUpload fileUploadListener="#{core.bean().handleFileUpload}" mode="advanced" -->
+	<!-- 			                     	  update="image" auto="true" sizeLimit="100000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" value="choisir" /> -->
+				            <p:graphicImage name="images/societe/#{core.bean().object.logoSrc}" width="350" height="400"/>
+			       	 </p:fieldset>
+			       	 <p:fieldset legend="commentaires" style="margin-bottom:20px">
+		       				 <p:inputTextarea rows="6" cols="140"  value="#{core.bean().object.commentaires}"/>
+					 </p:fieldset>
+       		   	</p:tab>
+		       	<p:tab title="Adresses">
+		       		<p:tabView>
+			       		<p:tab title="Adresse">
+			       			<h:panelGrid columns="2" cellpadding="5">
+		       				   <h:outputLabel value=" adresseFacturation : *" />
+					           <p:inputText id="adresseFacturationLigne1" value="#{core.bean().object.adresseFacturationLigne1}" required="true" size="50"/>
+					           <h:outputLabel value="" />
+					           <p:inputText id="adresseFacturationigne2" value="#{core.bean().object.adresseFacturationLigne2}" size="50"/>
+				           	   <h:outputLabel value="Code postal : *" />
+					           <p:inputText id="adresseFacturationCodePostal" value="#{core.bean().object.adresseFacturationCodePostal}" required="true" size="50"/>
+				           	   <h:outputLabel value="" />
+				           	   <h:panelGrid columns="2">
+					           	   <p:selectOneMenu id="adresseFacturationPays" widgetVar="adresseFacturationPaysVar" value="#{core.bean().object.adresseFacturationPays}" filter="true" filterMatchMode="startsWith"
+		    										style="width:134px">      	    
+							        	<f:selectItem itemLabel="Maroc" itemValue="MA" />
+							        	<f:selectItem itemLabel="France" itemValue="FR" />
+							        	<f:selectItem itemLabel="Etats Unis d'amérique" itemValue="USA" />
+							       </p:selectOneMenu>
+							       <p:selectOneMenu id="adresseFacturationVille" widgetVar="adresseFacturationVilleVar" value="#{core.bean().object.adresseFacturationVille}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
+		    										style="width:134px">      	    
+							        	<f:selectItem itemLabel="Rabat" itemValue="rabat" />
+							        	<f:selectItem itemLabel="Paris" itemValue="paris" />
+							        	<f:selectItem itemLabel="New York" itemValue="new york" />
+							       </p:selectOneMenu>
+				           	   </h:panelGrid>
+				           	   <h:outputLabel value="Téléphone : *" />
+					           <p:inputText id="adresseFacturationTelephone" value="#{core.bean().object.adresseFacturationTelephone}" required="true" size="50"/>
+				           	   <h:outputLabel value="Fax : *" />
+					           <p:inputText id="adresseFacturationFax" value="#{core.bean().object.adresseFacturationFax}" required="true" size="50"/>
+				           	   <h:outputLabel value="Mobile : *" />
+					           <p:inputText id="adresseFacturationMobile" value="#{core.bean().object.adresseFacturationMobile}" required="true" size="50"/>
+				           	   <h:outputLabel value="Email : *" />
+					           <p:inputText id="adresseFacturationEmail" value="#{core.bean().object.adresseFacturationEmail}" required="true" size="50" />  
+				           	   <h:outputLabel value="Siteweb : *" />
+					           <p:inputText id="adresseFacturationSiteweb" value="#{core.bean().object.adresseFacturationSiteweb}" required="true" size="50"/>    
+			       			</h:panelGrid>
+			       		</p:tab>
+			       		<p:tab title="Adresse réglement">
+			       			<h:panelGrid columns="2" cellpadding="5">
+			       				<h:outputLabel value="" />
+			       			   <p:selectBooleanCheckbox value="#{core.bean().object.adresseLivraisonDifferente}" itemLabel="Adresse de réglement différente"/>
+		       				   <h:outputLabel value=" Adresse : *" />
+					           <p:inputText id="adresseLivraisonLigne1" value="#{core.bean().object.adresseLivraisonLigne1}" size="50"/>
+					           <h:outputLabel value="" />
+					           <p:inputText id="adresseLivraisonigne2" value="#{core.bean().object.adresseLivraisonLigne2}" size="50"/>
+				           	   <h:outputLabel value="Code postal : *" />
+					           <p:inputText id="adresseLivraisonCodePostal" value="#{core.bean().object.adresseLivraisonCodePostal}" size="50"/>
+				           	   <h:outputLabel value="" />
+				           	   <h:panelGrid columns="2">
+					           	   <p:selectOneMenu id="adresseLivraisonPays" widgetVar="adresseLivraisonPaysVar" value="#{core.bean().object.adresseLivraisonPays}" filter="true" filterMatchMode="startsWith"
+		    										style="width:134px">      	    
+							        	<f:selectItem itemLabel="Maroc" itemValue="MA" />
+							        	<f:selectItem itemLabel="France" itemValue="FR" />
+							        	<f:selectItem itemLabel="Etats Unis d'amérique" itemValue="USA" />
+							       </p:selectOneMenu>
+							       <p:selectOneMenu id="adresseLivraisonVille" widgetVar="adresseLivraisonVilleVar" value="#{core.bean().object.adresseLivraisonVille}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
+		    										style="width:134px">      	    
+							        	<f:selectItem itemLabel="Rabat" itemValue="rabat" />
+							        	<f:selectItem itemLabel="Paris" itemValue="paris" />
+							        	<f:selectItem itemLabel="New York" itemValue="new york" />
+							       </p:selectOneMenu>
+				           	   </h:panelGrid>
+				           	   <h:outputLabel value="Téléphone : *" />
+					           <p:inputText id="adresseLivraisonTelephone" value="#{core.bean().object.adresseLivraisonTelephone}" size="50"/>
+				           	   <h:outputLabel value="Fax : *" />
+					           <p:inputText id="adresseLivraisonFax" value="#{core.bean().object.adresseLivraisonFax}" size="50"/>
+				           	   <h:outputLabel value="Mobile : *" />
+					           <p:inputText id="adresseLivraisonMobile" value="#{core.bean().object.adresseLivraisonMobile}" size="50"/>
+				           	   <h:outputLabel value="Email : *" />
+					           <p:inputText id="adresseLivraisonEmail" value="#{core.bean().object.adresseLivraisonEmail}"  size="50" />  
+				           	   <h:outputLabel value="Siteweb : *" />
+					           <p:inputText id="adresseLivraisonSiteweb" value="#{core.bean().object.adresseLivraisonSiteweb}" size="50"/>    
+			       			</h:panelGrid>
+			       		</p:tab>
+		       		</p:tabView>
+		       	</p:tab>
+		       	<p:tab title="Achats">
+		       		<h:panelGrid columns="2" cellpadding="5"  styleClass="no-border-table full-width panelTopAlign">
+		       			<h:panelGroup>
+			       			<p:fieldset legend="Mode de réglement" style="margin-bottom:20px">
+			       				<seosoft:OneEntitySelectMenu id="modeReglement" entityName="modeReglement" value="#{core.bean().object.modeReglement}"></seosoft:OneEntitySelectMenu>
+			       			</p:fieldset>
+			       			
+			       			<p:fieldset legend="Conditions de réglement" style="margin-bottom:20px">
+			       				<h:panelGrid columns="4" cellpadding="5"  styleClass="no-border-table full-width">
+				       				<h:outputLabel value="Paiement à : *" />
+							        <p:inputText value="#{core.bean().object.conditionReglementPaiementAJours}" size="50"/>
+							        <h:outputLabel value="jours" />
+				       				<p:selectOneMenu value="#{core.bean().object.conditionReglementType}" style="width:134px">      	    
+							        	<f:selectItem itemLabel="Net" itemValue="NET" />
+							        	<f:selectItem itemLabel="Fin de mois" itemValue="FM" />
+							        	<f:selectItem itemLabel="Fin de décade" itemValue="FD" />
+								    </p:selectOneMenu>
+								    
+								    <h:outputLabel value="Décalage le : *" />
+							        <p:inputText  value="#{core.bean().object.conditionReglementDecalageLe}" size="50"/>
+							        <h:outputLabel value="" />
+							        <p:selectBooleanCheckbox value="#{core.bean().object.conditionReglementFdmPuisNbrJours}" itemLabel="FDM Puis br de jours"/>
+							        <h:outputLabel value="" />
+							        
+							        <h:outputLabel value="" />
+							        <h:outputLabel value="" />
+							        <p:selectBooleanCheckbox value="#{core.bean().object.conditionReglementApplicationLoiLME}" itemLabel="Application de la loi LME"/>
+							        <h:outputLabel value="" />
+								 </h:panelGrid>
+			       			</p:fieldset>
+		       			</h:panelGroup>
+		       			<p:fieldset legend="En cours client" style="margin-bottom:20px">
+		       				<h:panelGrid columns="2" cellpadding="5">
+			       				<h:outputLabel value="C.A des BC non livrés : " />
+								<p:outputLabel value="0.00"/>
+								<h:outputLabel value="C.A des BR non facturés : " />
+								<p:outputLabel value="0.00"/>
+								<h:outputLabel value="Report TC : " />
+								<p:outputLabel value="0.00"/>
+								<h:outputLabel value="C.A facturé : " />
+								<p:outputLabel value="0.00"/>
+								<h:outputLabel value="C.A réglé : " />
+								<p:outputLabel value="0.00"/>
+								<h:outputLabel value="C.A des avoirs à imputer : " />
+								<p:outputLabel value="0.00"/>
+								<h:outputLabel value="C.A des acomptes à imputer : " />
+								<p:outputLabel value="0.00"/>
+								<h:outputLabel value="Reste dû : " />
+							</h:panelGrid>
+		       			</p:fieldset>
+		       		</h:panelGrid>
+		       	</p:tab>
+		       	<p:tab title="Relations">
+		       		<p:panelGrid styleClass="no-border-table full-width">
+			       		<p:row>
+						 	<p:column><h:outputText value="Contact principal:" /></p:column>
+					     	<p:column>
+								<seosoft:OneEntitySelectMenu id="contactPrincipal" entityName="contact" value="#{core.bean().object.contactPrincipal}"></seosoft:OneEntitySelectMenu>
+					        </p:column>
+						 </p:row>
+						 <p:row>
+						 	<p:column><h:outputText value="Demandeur :" /></p:column>
+					     	<p:column>
+								<seosoft:OneEntitySelectMenu id="representant" entityName="contact" value="#{core.bean().object.representant}"></seosoft:OneEntitySelectMenu>
+					        </p:column>
+						 </p:row>
+					</p:panelGrid>
+		       	</p:tab>
+		       	<p:tab title="Statut">
+		       		<h:panelGrid columns="2" cellpadding="0"  styleClass="no-border-table full-width panelTopAlign">
+		       			<p:fieldset legend="Informations juridiques" style="margin-bottom:20px">
+		       				<h:panelGrid columns="2" cellpadding="5">
+		       					<h:outputLabel value="Statut : " />
+					            <p:inputText value="#{core.bean().object.statut}" size="50"/>
+					            <h:outputLabel value="Capital : " />
+					            <p:inputText value="#{core.bean().object.capital}" size="50"/>
+					            <h:outputLabel value="SIRET : " />
+					            <p:inputText  value="#{core.bean().object.siret}" size="50"/>
+					            <h:outputLabel value="Code APE : " />
+					            <p:inputText  value="#{core.bean().object.codeAPE}" size="50"/>
+					            <h:outputLabel value="N° TVA Intracom. : " />
+					            <p:inputText  value="#{core.bean().object.numTvaIntracom}" size="50"/>
+					            <h:outputLabel value="Code EDI : *" />
+					            <p:inputText  value="#{core.bean().object.codeEdi}" size="50"/>
+					            <h:outputLabel value="Effectif : *" />
+					            <p:inputText  value="#{core.bean().object.effectif}" size="50"/>
+					        </h:panelGrid>    
+			       		</p:fieldset>
+			       		
+			       		<p:fieldset legend="Coordonnées bancaires" style="margin-bottom:20px">
+			       			<p:selectOneMenu id="banque" widgetVar="banqueVar" value="#{core.bean().object.banque}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
+	    					 style="width:160px">      	    
+					        	<f:selectItem itemLabel="" itemValue="" />
+					        	<f:selectItems value="#{core.bean('banque').list}" var="entity" itemLabel="#{entity.getDisplayText()}" itemValue="#{entity}" />
+					        	<p:ajax event="change" update="banqueDetails" />
+					        </p:selectOneMenu>
+			       			<h:panelGrid id="banqueDetails" columns="2" cellpadding="5" width="350">
+						        <p:outputLabel value="#{core.bean().object.banque.adresseLigne1}"/>
+						        <p:outputLabel value="#{core.bean().object.banque.adresseLigne2}"/>
+						        <h:panelGroup>
+						        	<p:outputLabel value="#{core.bean().object.banque.adresseCodePostal}"/>
+						        	<span>    </span>    
+						        	<p:outputLabel value="#{core.bean().object.banque.adresseVille}"/>
+						        </h:panelGroup>
+						        <p:outputLabel value="#{core.bean().object.banque.adressePays}"/>
+						        Telephone : <p:outputLabel value="#{core.bean().object.banque.adresseTelephone}"/>
+						        Mobile : <p:outputLabel value="#{core.bean().object.banque.adresseMobile}"/>
+						        Fax : <p:outputLabel value="#{core.bean().object.banque.adresseFax}"/>
+						        Email : <p:outputLabel value="#{core.bean().object.banque.adresseEmail}"/>
+						        Siteweb : <p:outputLabel value="#{core.bean().object.banque.adresseSiteweb}"/>
+					        </h:panelGrid>
+			       		</p:fieldset>
+			       	</h:panelGrid>
+					<h:panelGrid columns="1" cellpadding="0"  styleClass="no-border-table full-width panelTopAlign">
+			       		<p:fieldset legend="Relevé d'indentité bancaire" style="margin-bottom:20px">
+			       			<h:panelGrid columns="4" cellpadding="5">
+			       				<p:outputLabel value="Agence"/>
+			       				<p:outputLabel value="Guichet"/>
+			       				<p:outputLabel value="N° Compte"/>
+			       				<p:outputLabel value="Clé"/>
+			       				<p:inputText  value="#{core.bean().object.ribAgence}" size="40"/>
+			       				<p:inputText  value="#{core.bean().object.ribGuichet}" size="40"/>
+			       				
+			       				<p:inputText  value="#{core.bean().object.ribNumCompte}" size="40"/>
+			       				<p:inputText  value="#{core.bean().object.ribCle}" size="20"/>
+			       			</h:panelGrid>
+			       		</p:fieldset>
+		       		</h:panelGrid>
+		       	</p:tab>
+		     </p:tabView>
       </div>
     </ui:define>
     
