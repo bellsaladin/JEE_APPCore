@@ -34,9 +34,44 @@
         
         <p:column sortBy="#{object.libelle}">
             <f:facet name="header">
-                <h:outputText value="#{lbl['lbl.libelle']}" />
+                <h:outputText value="#{lbl['lbl.designation']}" />
             </f:facet>
             <h:outputText value="#{object.libelle}" />
+        </p:column>
+        
+        <p:column sortBy="#{object.famille}">
+            <f:facet name="header">
+                <h:outputText value="#{lbl['lbl.famille']}" />
+            </f:facet>
+            <h:outputText value="#{object.famille}" />
+        </p:column>
+        
+        <p:column sortBy="#{object.sousFamille}">
+            <f:facet name="header">
+                <h:outputText value="#{lbl['lbl.sousFamille']}" />
+            </f:facet>
+            <h:outputText value="#{object.sousFamille}" />
+        </p:column>
+        
+        <p:column sortBy="#{object.categorie}">
+            <f:facet name="header">
+                <h:outputText value="#{lbl['lbl.categorie']}" />
+            </f:facet>
+            <h:outputText value="#{object.categorie}" />
+        </p:column>
+        
+        <p:column sortBy="#{object.prixUnitaireHT}">
+            <f:facet name="header">
+                <h:outputText value="#{lbl['lbl.prixUnitaire']}" />
+            </f:facet>
+            <h:outputText value="#{object.prixUnitaireHT}" />
+        </p:column>
+        
+        <p:column sortBy="#{object.fournisseurPrincipal}">
+            <f:facet name="header">
+                <h:outputText value="#{lbl['lbl.fournisseurPrincipal']}" />
+            </f:facet>
+            <h:outputText value="#{object.fournisseurPrincipal}" />
         </p:column>
         
     </ui:define>

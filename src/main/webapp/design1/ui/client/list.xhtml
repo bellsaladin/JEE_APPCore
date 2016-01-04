@@ -19,24 +19,46 @@
 		
 		<p:column sortBy="#{object.code}">
             <f:facet name="header">
-                <h:outputText value="#{lbl['lbl.code']}" />
+                <h:outputText value="Code" />
             </f:facet>
             <h:outputText value="#{object.code}" />
         </p:column>
 
         <p:column sortBy="#{object.raisonSociale}">
             <f:facet name="header">
-                <h:outputText value="#{lbl['lbl.raisonSociale']}" />
+                <h:outputText value="Raison sociale" />
             </f:facet>
             <h:outputText value="#{object.raisonSociale}" />
         </p:column>
 
         <p:column sortBy="#{object.famille.getDisplayText()}">
             <f:facet name="header">
-                <h:outputText value="#{lbl['lbl.famille']}" />
+                <h:outputText value="Famille" />
             </f:facet>
             <h:outputText value="#{object.famille.getDisplayText()}" />
         </p:column>
+        
+        <p:column sortBy="#{object.adresseFacturationTelephone}">
+            <f:facet name="header">
+                <h:outputText value="Telephone" />
+            </f:facet>
+            <h:outputText value="#{object.adresseFacturationTelephone}" />
+        </p:column>
+        
+        <p:column sortBy="#{object.adresseFacturationFax}">
+            <f:facet name="header">
+                <h:outputText value="Fax" />
+            </f:facet>
+            <h:outputText value="#{object.adresseFacturationFax}" />
+        </p:column>
+        
+        <p:column sortBy="#{object.contactPrincipal}">
+            <f:facet name="header">
+                <h:outputText value="Contact" />
+            </f:facet>
+            <h:outputText value="#{object.contactPrincipal}" />
+        </p:column>
+        
         
     </ui:define>
     

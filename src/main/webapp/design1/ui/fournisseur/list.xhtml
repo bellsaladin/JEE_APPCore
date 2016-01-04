@@ -19,14 +19,14 @@
 		
 		<p:column sortBy="#{object.code}">
             <f:facet name="header">
-                <h:outputText value="#{lbl['lbl.code']}" />
+                <h:outputText value="Code" />
             </f:facet>
             <h:outputText value="#{object.code}" />
         </p:column>
 
         <p:column sortBy="#{object.raisonSociale}">
             <f:facet name="header">
-                <h:outputText value="#{lbl['lbl.raisonSociale']}" />
+                <h:outputText value="Raison sociale" />
             </f:facet>
             <h:outputText value="#{object.raisonSociale}" />
         </p:column>
@@ -40,21 +40,21 @@
         
         <p:column sortBy="#{object.adresseTelephone}">
             <f:facet name="header">
-                <h:outputText value="#{lbl['lbl.adresseTelephone']}" />
+                <h:outputText value="Telephone" />
             </f:facet>
             <h:outputText value="#{object.adresseTelephone}" />
         </p:column>
         
         <p:column sortBy="#{object.adresseFax}">
             <f:facet name="header">
-                <h:outputText value="#{lbl['lbl.adresseFax']}" />
+                <h:outputText value="Fax" />
             </f:facet>
             <h:outputText value="#{object.adresseFax}" />
         </p:column>
         
         <p:column sortBy="#{object.contactPrincipal.getDisplayText()}">
             <f:facet name="header">
-                <h:outputText value="#{lbl['lbl.contactPrincipal']}" />
+                <h:outputText value="Contact" />
             </f:facet>
             <h:outputText value="#{object.contactPrincipal.getDisplayText()}" />
         </p:column>

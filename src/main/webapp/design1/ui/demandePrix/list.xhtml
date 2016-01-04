@@ -36,14 +36,14 @@
 		
 		<p:column sortBy="#{object.date}">
             <f:facet name="header">
-                <h:outputText value="#{lbl['lbl.date']}" />
+                <h:outputText value="Date" />
             </f:facet>
             <h:outputText value="#{object.date}" />
         </p:column>
 
         <p:column sortBy="#{object.totalHt}">
             <f:facet name="header">
-                <h:outputText value="#{lbl['lbl.totalHt']}"/>
+                <h:outputText value="Total HT"/>
             </f:facet>
             <h:outputText value="#{object.totalHt}">
             	<f:convertNumber pattern="#0.00" />
@@ -52,7 +52,7 @@
         
         <p:column sortBy="#{object.totalTva}">
             <f:facet name="header">
-                <h:outputText value="#{lbl['lbl.totalTva']}" />
+                <h:outputText value="Total TVA" />
             </f:facet>
             <h:outputText value="#{object.totalTva}">
             	<f:convertNumber pattern="#0.00" />
@@ -61,7 +61,7 @@
         
         <p:column sortBy="#{object.totalTtc}">
             <f:facet name="header">
-                <h:outputText value="#{lbl['lbl.totalTtc']}" />
+                <h:outputText value="Total TTC" />
             </f:facet>
             <h:outputText value="#{object.totalTtc}">
             	<f:convertNumber pattern="#0.00" />
@@ -70,14 +70,14 @@
         
         <p:column sortBy="#{object.valide}">
             <f:facet name="header">
-                <h:outputText value="#{lbl['lbl.valide']}" />
+                <h:outputText value="Validée" />
             </f:facet>
             <h:outputText value="#{object.valide? 'Oui' : 'Non'}" />
         </p:column>
         
         <p:column sortBy="#{object.transforme}">
             <f:facet name="header">
-                <h:outputText value="#{lbl['lbl.transforme']}" />
+                <h:outputText value="Transformée" />
             </f:facet>
             <h:outputText value="#{object.transforme? 'Oui' : 'Non'}" />
         </p:column>
