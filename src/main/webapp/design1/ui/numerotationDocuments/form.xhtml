@@ -27,14 +27,27 @@
 	  <div style="padding:30px">
        	<p:tabView scrollable="true">
        		<p:tab title="Description">
-	       		<p:fieldset>
-	       			Ce traitement vous permet de modifier la numérotation des documents d'achat et de vente ...
+	       		<p:fieldset style="font-size:12px; padding:20px">
+	       			<b>Ce traitement vous permet de modifier la numérotation des documents d'achat ou de vente.</b><br/>
+	       			 Vous pouvez donc modifier : <br/><br/>
+	       			 <ul>
+	       			 	<li>Le prefixe des pieces d'achat ou de vente</li>
+	       			 	<li>Le numéro de départ de la série<br/>
+	       			 		<div style="padding-left:20px">
+	       			 			(Si le prefixe est changé, premier numéro de la serie)<br/>
+	       			 			(Si le prefixe est inchangé, le  numéro de la prochaine pièce créée)<br/>
+	       			 		</div>
+	       			 	</li>
+	       			 </ul>
+	       			 <hr/>
+	       			 <b><u>Attention</u>! Il est fortement recommandé de ne modifier les préfixes qu'en début de mois ou d'année.<br/>
+	       			 Vérifiez que vos nouveaux prefixes ne génèreront pas des numéros qui existent déjà.</b>
 	       		</p:fieldset>
        		</p:tab>
        		<p:tab title="Numérotation des achats">
       			<p:fieldset legend="Prefixe de numérotation" style="margin-bottom:30px">
       				<p:selectOneRadio value="#{core.bean().object.numerotationAchatsMode}"  layout="grid" columns="1">
-			            <f:selectItem itemLabel="Pas de prefixe de numérotation" itemValue="1" noSelectionOption="true" />
+			            <f:selectItem itemLabel="Pas de prefixe de numérotation" itemValue="1"/>
 			            <f:selectItem itemLabel="Numérotation préfixée par l'année sur 2 caractères" itemValue="2" />
 			            <f:selectItem itemLabel="Numérotation préfixée par l'année sur 4 caractères" itemValue="3" />
 			            <f:selectItem itemLabel="Numérotation préfixée par l'année sur 2 caractères et le mois" itemValue="4" />
@@ -45,19 +58,43 @@
       			<p:fieldset legend="Numéro de départ pour le prefixe choisi">
       				<h:panelGrid columns="2" cellpadding="5">
       				    <h:outputLabel value="Prefixe choisi" />
-           			<p:inputText id="nbrDemandesPrix" value="" size="50"/>
-		         </h:panelGrid>
+           				<p:inputText value="#{core.bean().object.numerotationAchatsPrefixeChoisi}" size="50"/>
+           				<h:outputLabel value="Num départ demandes prix" />
+           				<p:inputText value="#{core.bean().object.numerotationAchatsNumDepartDemandesPrix}" size="50"/>
+           				<h:outputLabel value="Num départ B.C" />
+           				<p:inputText value="#{core.bean().object.numerotationAchatsNumDepartBC}" size="50"/>
+           				<h:outputLabel value="Num départ B.R" />
+           				<p:inputText value="#{core.bean().object.numerotationAchatsNumDepartBR}" size="50"/>
+           				<h:outputLabel value="Num départ Factures" />
+           				<p:inputText value="#{core.bean().object.numerotationAchatsNumDepartFactures}" size="50"/>
+		         	</h:panelGrid>
       			</p:fieldset>
        		</p:tab>
        		<p:tab title="Numérotation des vente">
        			<p:fieldset legend="Prefixe de numérotation" style="margin-bottom:30px">
       				<p:selectOneRadio value="#{core.bean().object.numerotationVentesMode}"  layout="grid" columns="1">
-			            <f:selectItem itemLabel="Pas de prefixe de numérotation" itemValue="1" noSelectionOption="true"  />
+			            <f:selectItem itemLabel="Pas de prefixe de numérotation" itemValue="1" />
 			            <f:selectItem itemLabel="Numérotation préfixée par l'année sur 2 caractères" itemValue="2" />
 			            <f:selectItem itemLabel="Numérotation préfixée par l'année sur 4 caractères" itemValue="3" />
 			            <f:selectItem itemLabel="Numérotation préfixée par l'année sur 2 caractères et le mois" itemValue="4" />
 			            <f:selectItem itemLabel="Numérotation préfixée par l'année sur 4 caractères et le mois" itemValue="5" />
 			        </p:selectOneRadio>
+      			</p:fieldset>
+      			<p:fieldset legend="Numéro de départ pour le prefixe choisi">
+      				<h:panelGrid columns="2" cellpadding="5">
+      				    <h:outputLabel value="Prefixe choisi" />
+           				<p:inputText value="#{core.bean().object.numerotationVentesPrefixeChoisi}" size="50"/>
+           				<h:outputLabel value="Num départ Devis" />
+           				<p:inputText value="#{core.bean().object.numerotationVentesNumDepartDevis}" size="50"/>
+           				<h:outputLabel value="Num départ B.C" />
+           				<p:inputText value="#{core.bean().object.numerotationVentesNumDepartBC}" size="50"/>
+           				<h:outputLabel value="Num départ B.L" />
+           				<p:inputText value="#{core.bean().object.numerotationVentesNumDepartBL}" size="50"/>
+           				<h:outputLabel value="Num départ Factures" />
+           				<p:inputText value="#{core.bean().object.numerotationVentesNumDepartFactures}" size="50"/>
+           				<h:outputLabel value="Num départ contrats d'abonnement" />
+           				<p:inputText value="#{core.bean().object.numerotationVentesNumDepartContratsAbonnement}" size="50"/>
+		         	</h:panelGrid>
       			</p:fieldset>
        		</p:tab>
        	</p:tabView> 
