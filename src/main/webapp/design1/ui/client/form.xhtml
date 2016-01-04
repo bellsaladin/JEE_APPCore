@@ -29,7 +29,7 @@
 	
     <ui:define name="implementation">
 	  <div style="padding:30px">
-      		<p:growl widgetVar="growl" showDetail="true" sticky="true" />        
+<!--       		<p:growl widgetVar="growl" showDetail="true" sticky="true" />         -->
         	
        		<p:tabView scrollable="true">
        			<p:tab title="Généralités">
@@ -112,25 +112,27 @@
 		       		</p:panelGrid>
        		   	</p:tab>
        		   	<p:tab title="Bloc notes">
-       		   		<p:fieldset legend="Photo" style="margin-bottom:20px">
-	<!-- 		       	  		<p:fileUpload fileUploadListener="#{core.bean().handleFileUpload}" mode="advanced" -->
-	<!-- 			                     	  update="image" auto="true" sizeLimit="100000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" value="choisir" /> -->
-				            <p:graphicImage name="images/societe/#{core.bean().object.logoSrc}" width="350" height="400"/>
-			       	 </p:fieldset>
-			       	 <p:fieldset legend="commentaires" style="margin-bottom:20px">
-		       				 <p:inputTextarea rows="6" cols="140"  value="#{core.bean().object.commentaires}"/>
-					 </p:fieldset>
+       		   		<h:panelGrid columns="2" cellpadding="5" style="margin:15px auto 0 auto">
+	       		   		<p:fieldset legend="Photo" style="margin-bottom:20px">
+				         	<p:graphicImage id="logo" name="images/societe/#{core.bean().object.logoSrc}" width="290" height="340"/>
+				            <p:fileUpload fileUploadListener="#{core.bean().handleFileUpload}" mode="advanced" 
+			                     		update="logo" process="@this" auto="true" multiple="false" sizeLimit="10000000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" value="choisir" />
+				       	 </p:fieldset>
+				       	 <p:fieldset legend="commentaires" style="margin-bottom:20px">
+			       				 <p:inputTextarea rows="30" cols="140"  value="#{core.bean().object.commentaires}"/>
+						 </p:fieldset>
+					 </h:panelGrid>
        		   	</p:tab>
 		       	<p:tab title="Adresses">
 		       		<p:tabView>
 			       		<p:tab title="Adresse">
 			       			<h:panelGrid columns="2" cellpadding="5">
 		       				   <h:outputLabel value=" adresseFacturation : *" />
-					           <p:inputText id="adresseFacturationLigne1" value="#{core.bean().object.adresseFacturationLigne1}" required="true" size="50"/>
+					           <p:inputText id="adresseFacturationLigne1" value="#{core.bean().object.adresseFacturationLigne1}" size="50"/>
 					           <h:outputLabel value="" />
 					           <p:inputText id="adresseFacturationigne2" value="#{core.bean().object.adresseFacturationLigne2}" size="50"/>
 				           	   <h:outputLabel value="Code postal : *" />
-					           <p:inputText id="adresseFacturationCodePostal" value="#{core.bean().object.adresseFacturationCodePostal}" required="true" size="50"/>
+					           <p:inputText id="adresseFacturationCodePostal" value="#{core.bean().object.adresseFacturationCodePostal}" size="50"/>
 				           	   <h:outputLabel value="" />
 				           	   <h:panelGrid columns="2">
 					           	   <p:selectOneMenu id="adresseFacturationPays" widgetVar="adresseFacturationPaysVar" value="#{core.bean().object.adresseFacturationPays}" filter="true" filterMatchMode="startsWith"
@@ -147,53 +149,56 @@
 							       </p:selectOneMenu>
 				           	   </h:panelGrid>
 				           	   <h:outputLabel value="Téléphone : *" />
-					           <p:inputText id="adresseFacturationTelephone" value="#{core.bean().object.adresseFacturationTelephone}" required="true" size="50"/>
+					           <p:inputText id="adresseFacturationTelephone" value="#{core.bean().object.adresseFacturationTelephone}" size="50"/>
 				           	   <h:outputLabel value="Fax : *" />
-					           <p:inputText id="adresseFacturationFax" value="#{core.bean().object.adresseFacturationFax}" required="true" size="50"/>
+					           <p:inputText id="adresseFacturationFax" value="#{core.bean().object.adresseFacturationFax}" size="50"/>
 				           	   <h:outputLabel value="Mobile : *" />
-					           <p:inputText id="adresseFacturationMobile" value="#{core.bean().object.adresseFacturationMobile}" required="true" size="50"/>
+					           <p:inputText id="adresseFacturationMobile" value="#{core.bean().object.adresseFacturationMobile}" size="50"/>
 				           	   <h:outputLabel value="Email : *" />
-					           <p:inputText id="adresseFacturationEmail" value="#{core.bean().object.adresseFacturationEmail}" required="true" size="50" />  
+					           <p:inputText id="adresseFacturationEmail" value="#{core.bean().object.adresseFacturationEmail}" size="50" />  
 				           	   <h:outputLabel value="Siteweb : *" />
-					           <p:inputText id="adresseFacturationSiteweb" value="#{core.bean().object.adresseFacturationSiteweb}" required="true" size="50"/>    
+					           <p:inputText id="adresseFacturationSiteweb" value="#{core.bean().object.adresseFacturationSiteweb}" size="50"/>    
 			       			</h:panelGrid>
 			       		</p:tab>
-			       		<p:tab title="Adresse réglement">
-			       			<h:panelGrid columns="2" cellpadding="5">
-			       				<h:outputLabel value="" />
-			       			   <p:selectBooleanCheckbox value="#{core.bean().object.adresseLivraisonDifferente}" itemLabel="Adresse de réglement différente"/>
-		       				   <h:outputLabel value=" Adresse : *" />
-					           <p:inputText id="adresseLivraisonLigne1" value="#{core.bean().object.adresseLivraisonLigne1}" size="50"/>
-					           <h:outputLabel value="" />
-					           <p:inputText id="adresseLivraisonigne2" value="#{core.bean().object.adresseLivraisonLigne2}" size="50"/>
-				           	   <h:outputLabel value="Code postal : *" />
-					           <p:inputText id="adresseLivraisonCodePostal" value="#{core.bean().object.adresseLivraisonCodePostal}" size="50"/>
-				           	   <h:outputLabel value="" />
-				           	   <h:panelGrid columns="2">
-					           	   <p:selectOneMenu id="adresseLivraisonPays" widgetVar="adresseLivraisonPaysVar" value="#{core.bean().object.adresseLivraisonPays}" filter="true" filterMatchMode="startsWith"
-		    										style="width:134px">      	    
-							        	<f:selectItem itemLabel="Maroc" itemValue="MA" />
-							        	<f:selectItem itemLabel="France" itemValue="FR" />
-							        	<f:selectItem itemLabel="Etats Unis d'amérique" itemValue="USA" />
-							       </p:selectOneMenu>
-							       <p:selectOneMenu id="adresseLivraisonVille" widgetVar="adresseLivraisonVilleVar" value="#{core.bean().object.adresseLivraisonVille}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
-		    										style="width:134px">      	    
-							        	<f:selectItem itemLabel="Rabat" itemValue="rabat" />
-							        	<f:selectItem itemLabel="Paris" itemValue="paris" />
-							        	<f:selectItem itemLabel="New York" itemValue="new york" />
-							       </p:selectOneMenu>
-				           	   </h:panelGrid>
-				           	   <h:outputLabel value="Téléphone : *" />
-					           <p:inputText id="adresseLivraisonTelephone" value="#{core.bean().object.adresseLivraisonTelephone}" size="50"/>
-				           	   <h:outputLabel value="Fax : *" />
-					           <p:inputText id="adresseLivraisonFax" value="#{core.bean().object.adresseLivraisonFax}" size="50"/>
-				           	   <h:outputLabel value="Mobile : *" />
-					           <p:inputText id="adresseLivraisonMobile" value="#{core.bean().object.adresseLivraisonMobile}" size="50"/>
-				           	   <h:outputLabel value="Email : *" />
-					           <p:inputText id="adresseLivraisonEmail" value="#{core.bean().object.adresseLivraisonEmail}"  size="50" />  
-				           	   <h:outputLabel value="Siteweb : *" />
-					           <p:inputText id="adresseLivraisonSiteweb" value="#{core.bean().object.adresseLivraisonSiteweb}" size="50"/>    
-			       			</h:panelGrid>
+			       		<p:tab title="Adresse livraison" >
+			       			<p:selectBooleanCheckbox value="#{core.bean().object.adresseLivraisonDifferente}" itemLabel="Adresse de réglement différente">
+			       			   		<f:ajax render="fragmentAdresseLivraison" />
+			       			   </p:selectBooleanCheckbox>
+			       			<p:fragment id="fragmentAdresseLivraison">
+				       			<h:panelGrid rendered="#{core.bean().object.adresseLivraisonDifferente}" columns="2" cellpadding="5" >
+			       				   <h:outputLabel value=" Adresse : *" />
+						           <p:inputText id="adresseLivraisonLigne1" value="#{core.bean().object.adresseLivraisonLigne1}" size="50"/>
+						           <h:outputLabel value="" />
+						           <p:inputText id="adresseLivraisonigne2" value="#{core.bean().object.adresseLivraisonLigne2}" size="50"/>
+					           	   <h:outputLabel value="Code postal : *" />
+						           <p:inputText id="adresseLivraisonCodePostal" value="#{core.bean().object.adresseLivraisonCodePostal}" size="50"/>
+					           	   <h:outputLabel value="" />
+					           	   <h:panelGrid columns="2">
+						           	   <p:selectOneMenu id="adresseLivraisonPays" widgetVar="adresseLivraisonPaysVar" value="#{core.bean().object.adresseLivraisonPays}" filter="true" filterMatchMode="startsWith"
+			    										style="width:134px">      	    
+								        	<f:selectItem itemLabel="Maroc" itemValue="MA" />
+								        	<f:selectItem itemLabel="France" itemValue="FR" />
+								        	<f:selectItem itemLabel="Etats Unis d'amérique" itemValue="USA" />
+								       </p:selectOneMenu>
+								       <p:selectOneMenu id="adresseLivraisonVille" widgetVar="adresseLivraisonVilleVar" value="#{core.bean().object.adresseLivraisonVille}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
+			    										style="width:134px">      	    
+								        	<f:selectItem itemLabel="Rabat" itemValue="rabat" />
+								        	<f:selectItem itemLabel="Paris" itemValue="paris" />
+								        	<f:selectItem itemLabel="New York" itemValue="new york" />
+								       </p:selectOneMenu>
+					           	   </h:panelGrid>
+					           	   <h:outputLabel value="Téléphone : *" />
+						           <p:inputText id="adresseLivraisonTelephone" value="#{core.bean().object.adresseLivraisonTelephone}" size="50"/>
+					           	   <h:outputLabel value="Fax : *" />
+						           <p:inputText id="adresseLivraisonFax" value="#{core.bean().object.adresseLivraisonFax}" size="50"/>
+					           	   <h:outputLabel value="Mobile : *" />
+						           <p:inputText id="adresseLivraisonMobile" value="#{core.bean().object.adresseLivraisonMobile}" size="50"/>
+					           	   <h:outputLabel value="Email : *" />
+						           <p:inputText id="adresseLivraisonEmail" value="#{core.bean().object.adresseLivraisonEmail}"  size="50" />  
+					           	   <h:outputLabel value="Siteweb : *" />
+						           <p:inputText id="adresseLivraisonSiteweb" value="#{core.bean().object.adresseLivraisonSiteweb}" size="50"/>
+				       			</h:panelGrid>
+			       			</p:fragment>
 			       		</p:tab>
 		       		</p:tabView>
 		       	</p:tab>

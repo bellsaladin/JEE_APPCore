@@ -8,6 +8,11 @@
 
 	<web>
 		<link target="/">
+			<dir name="/Users/mac/Documents/_MyProjectsWorkspace/eclipse_workspaces/workspace_SEOSoft/SEOSoft_ERP/target/m2e-wtp/web-resources">
+				<exclude name="/"/>
+			</dir>
+		</link>
+		<link target="/">
 			<dir name="/Users/mac/Documents/_MyProjectsWorkspace/eclipse_workspaces/workspace_SEOSoft/SEOSoft_ERP/src/main/webapp">
 			</dir>
 		</link>

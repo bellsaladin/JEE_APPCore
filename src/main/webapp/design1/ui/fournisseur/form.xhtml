@@ -142,9 +142,11 @@
 			       			</h:panelGrid>
 			       		</p:tab>
 			       		<p:tab title="Adresse réglement">
-			       			<h:panelGrid columns="2" cellpadding="5">
-			       				<h:outputLabel value="" />
-			       			   <p:selectBooleanCheckbox value="#{core.bean().object.adresseReglementDifferente}" itemLabel="Adresse de réglement différente"/>
+			       			<p:selectBooleanCheckbox value="#{core.bean().object.adresseReglementDifferente}" itemLabel="Adresse de réglement différente">
+			       				<f:ajax render="fragmentAdresseReglement" />
+			       			</p:selectBooleanCheckbox>
+			       			<p:fragment id="fragmentAdresseReglement">
+			       			<h:panelGrid rendered="#{core.bean().object.adresseReglementDifferente}" columns="2" cellpadding="5">
 		       				   <h:outputLabel value=" Adresse : *" />
 					           <p:inputText id="adresseReglementLigne1" value="#{core.bean().object.adresseReglementLigne1}" size="50"/>
 					           <h:outputLabel value="" />
@@ -177,6 +179,7 @@
 				           	   <h:outputLabel value="Siteweb : *" />
 					           <p:inputText id="adresseReglementSiteweb" value="#{core.bean().object.adresseReglementSiteweb}" size="50"/>    
 			       			</h:panelGrid>
+			       			</p:fragment>
 			       		</p:tab>
 		       		</p:tabView>
 		       	</p:tab>

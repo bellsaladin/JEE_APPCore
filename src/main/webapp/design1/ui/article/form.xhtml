@@ -1,3 +1,4 @@
+
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
 	xmlns:pe="http://primefaces.org/ui/extensions" xmlns:t="http://myfaces.apache.org/tomahawk" xmlns:c="http://java.sun.com/jstl/core"
@@ -132,11 +133,11 @@
 					</p:panelGrid>
 	       	  </p:tab>
 	       	  <p:tab title="Descriptif">
-	       	  	 <p:panelGrid  columns="2"  styleClass="no-border-table full-width panelTopAlign">
+	       	  	 <p:panelGrid  columns="2"  styleClass="no-border-table panelTopAlign" style="margin:0 auto">
 			       	  <p:fieldset legend="Photo" style="margin-bottom:20px">
-	<!-- 		       	  		<p:fileUpload fileUploadListener="#{core.bean().handleFileUpload}" mode="advanced" -->
-	<!-- 			                     	  update="image" auto="true" sizeLimit="100000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" value="choisir" /> -->
-				            <p:graphicImage name="images/societe/#{core.bean().object.photoSrc}" width="350" height="400"/>
+							<p:graphicImage id="photo" name="images/societe/#{core.bean().object.photoSrc}" width="290" height="340"/>
+				            <p:fileUpload id="file-input" widgetVar="file-input" fileUploadListener="#{core.bean().handleFileUpload}" mode="advanced" 
+			                     		update="photo" process="@this" auto="true" multiple="false" sizeLimit="10000000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" value="choisir" />
 			       	  </p:fieldset>
 			       	  <p:fieldset legend="Descriptif" style="margin-bottom:20px">
 			       	  		<p:inputTextarea rows="28" cols="140"  value="#{core.bean().object.descriptif}"/>

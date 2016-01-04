@@ -41,42 +41,13 @@ public class ParametreController extends GenericUpdateOnlyController<Parametre, 
 	}
 	
 	public void handleFileUpload(FileUploadEvent event) {
-		// Do what you want with the file        
         try {
-            copyFile(event.getFile().getFileName(), event.getFile().getInputstream());
+            Commons.copyFile(event.getFile().getFileName(), "/resources/images/societe/", event.getFile().getInputstream());
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
 		_object.setImageSrc(event.getFile().getFileName());
     }
-
-	public void copyFile(String fileName, InputStream in) {
-		System.out.println("copyFile");
-		String relativeWebPath = "/resources/images/societe/";
-		
-		ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
-		String absoluteDiskPath = servletContext.getRealPath(relativeWebPath);
-		
-        try {
-
-             // write the inputStream to a FileOutputStream
-             OutputStream out = new FileOutputStream(new File(absoluteDiskPath + "/" + fileName));
-           
-             int read = 0;
-             byte[] bytes = new byte[1024];
-           
-             while ((read = in.read(bytes)) != -1) {
-                 out.write(bytes, 0, read);
-             }
-             in.close();
-             out.flush();
-             out.close();
-             System.out.println("New file created!");
-         } catch (IOException e) {
-             System.out.println(e.getMessage());
-         }
-	}
 	
 	
 	public void prepareForCreateNew(){

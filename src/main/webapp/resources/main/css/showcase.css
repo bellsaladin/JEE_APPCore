@@ -619,6 +619,10 @@ li.ui-state-active a { color:rgb(1, 154, 249) !important; }
 	color:#686868 !important;
 }
 
+.ui-tabs.ui-tabs-top .ui-tabs-nav{
+	border-bottom:0;
+}
+
 .ui-tabs.ui-tabs-top .ui-tabs-nav li.ui-tabs-selected{
 	padding-bottom: 0px;
 }
@@ -660,9 +664,14 @@ li.ui-state-active a { color:rgb(1, 154, 249) !important; }
 .ui-fileupload-content{ display:none}
 
 .statusBar{
-	position:fixed;bottom:0px; left:80px; z-index:1000; width:100%; padding-right:90px;	
+	position:fixed;bottom:0px; left:0px; z-index:1000; width:100%; padding-right:90px;	
+}
+
+.statusBar .ui-messages{
+	margin-left: 80px	
 }
 
 .statusBar .ui-messages-info, .statusBar .ui-messages-warn, .statusBar .ui-messages-error, .statusBar .ui-messages-fatal{
 	margin:0 !important;
 }
+

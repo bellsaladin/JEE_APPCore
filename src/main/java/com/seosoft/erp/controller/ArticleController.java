@@ -1,5 +1,6 @@
 package com.seosoft.erp.controller;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import javax.inject.Named;
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.primefaces.context.RequestContext;
+import org.primefaces.event.FileUploadEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.seosoft.erp.controller.generic.Action;
@@ -109,6 +111,15 @@ public class ArticleController extends GenericCRUDController<Article, ArticleSer
 			}}
 		);
 	}
+	
+	public void handleFileUpload(FileUploadEvent event) {
+        try {
+            Commons.copyFile(_object.getId(), "/resources/images/societe/", event.getFile().getInputstream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+		_object.setPhotoSrc(_object.getId());
+    }
 	
 	protected void registerActions(){
 		_actions.put("persist", new Action(){
