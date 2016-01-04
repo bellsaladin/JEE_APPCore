@@ -118,6 +118,139 @@
        		</p:tab>
        		<p:tab title="Options">
        		</p:tab>
+       		<p:tab title="Impression">
+       			<h:panelGrid columns="2" cellpadding="5" style="margin:0 auto">
+       				<p:fieldset legend="Visibilite">
+		       			<h:panelGrid columns="7" cellpadding="5">
+							<h:outputLabel value=" DOCUMENT" />
+							<h:outputLabel value=" ENTETE" />
+							<h:outputLabel value=" PIED" />
+							<h:outputLabel value=" LOGO " />
+							<h:outputLabel value=" MARQUE " />
+							<h:outputLabel value=" APPELATION" />
+							<h:outputLabel value=" REREFENCE" />
+							
+							<h:outputLabel value=" Devis" />
+							<p:selectBooleanCheckbox value="#{core.bean().object.enteteVisibleEnDevis}" />
+							<p:selectBooleanCheckbox value="#{core.bean().object.piedVisibleEnDevis}" />
+							<p:selectBooleanCheckbox value="#{core.bean().object.logoVisibleEnDevis}" />
+							<p:selectBooleanCheckbox value="#{core.bean().object.marqueVisibleEnDevis}" />
+							<p:selectBooleanCheckbox value="#{core.bean().object.appelationVisibleEnDevis}" />
+							<p:selectBooleanCheckbox value="#{core.bean().object.referenceVisibleEnDevis}" />
+							
+							
+							<h:outputLabel value=" Bon de commande" />
+							<p:selectBooleanCheckbox value="#{core.bean().object.enteteVisibleEnBonCommande}" />
+							<p:selectBooleanCheckbox value="#{core.bean().object.piedVisibleEnBonCommande}" />
+							<p:selectBooleanCheckbox value="#{core.bean().object.logoVisibleEnBonCommande}" />
+							<p:selectBooleanCheckbox value="#{core.bean().object.marqueVisibleEnBonCommande}" />
+							<p:selectBooleanCheckbox value="#{core.bean().object.appelationVisibleEnBonCommande}" />
+							<p:selectBooleanCheckbox value="#{core.bean().object.referenceVisibleEnBonCommande}" />
+							
+							<h:outputLabel value=" Bon de livraison" />
+							<p:selectBooleanCheckbox value="#{core.bean().object.enteteVisibleBonLivraison}" />
+							<p:selectBooleanCheckbox value="#{core.bean().object.piedVisibleBonLivraison}" />
+							<p:selectBooleanCheckbox value="#{core.bean().object.logoVisibleBonLivraison}" />
+							<p:selectBooleanCheckbox value="#{core.bean().object.marqueVisibleBonLivraison}" />
+							<p:selectBooleanCheckbox value="#{core.bean().object.appelationVisibleBonLivraison}" />
+							<p:selectBooleanCheckbox value="#{core.bean().object.referenceVisibleBonLivraison}" />
+							
+							<h:outputLabel value=" Bon de reception" />
+							<p:selectBooleanCheckbox value="#{core.bean().object.enteteVisibleBonReception}" />
+							<p:selectBooleanCheckbox value="#{core.bean().object.piedVisibleBonReception}" />
+							<p:selectBooleanCheckbox value="#{core.bean().object.logoVisibleBonReception}" />
+							<p:selectBooleanCheckbox value="#{core.bean().object.marqueVisibleBonReception}" />
+							<p:selectBooleanCheckbox value="#{core.bean().object.appelationVisibleBonReception}" />
+							<p:selectBooleanCheckbox value="#{core.bean().object.referenceVisibleBonReception}" />
+							
+							<h:outputLabel value=" Facture" />
+							<p:selectBooleanCheckbox value="#{core.bean().object.enteteVisibleFacture}" />
+							<p:selectBooleanCheckbox value="#{core.bean().object.piedVisibleFacture}" />
+							<p:selectBooleanCheckbox value="#{core.bean().object.logoVisibleFacture}" />
+							<p:selectBooleanCheckbox value="#{core.bean().object.marqueVisibleFacture}" />
+							<p:selectBooleanCheckbox value="#{core.bean().object.appelationVisibleFacture}" />
+							<p:selectBooleanCheckbox value="#{core.bean().object.referenceVisibleFacture}" />
+							
+							<h:outputLabel value=" Avoir" />
+							<p:selectBooleanCheckbox value="#{core.bean().object.enteteVisibleAvoir}" />
+							<p:selectBooleanCheckbox value="#{core.bean().object.piedVisibleAvoir}" />
+							<p:selectBooleanCheckbox value="#{core.bean().object.logoVisibleAvoir}" />
+							<p:selectBooleanCheckbox value="#{core.bean().object.marqueVisibleAvoir}" />
+							<p:selectBooleanCheckbox value="#{core.bean().object.appelationVisibleAvoir}" />
+							<p:selectBooleanCheckbox value="#{core.bean().object.referenceVisibleAvoir}" />
+							
+						</h:panelGrid>
+						<p:inputTextarea rows="8" cols="140"  value="#{core.bean().object.observationsImpression}" placeholder="Observations"/>
+					</p:fieldset>
+					<h:panelGroup>
+						<p:fieldset legend="Entete">
+								<p:editor value="#{core.bean().object.enteteRTF}" width="400" height="130"/>
+							</p:fieldset>
+							<p:fieldset legend="Pied">
+								<p:editor value="#{core.bean().object.piedRTF}" width="400" height="130" />
+							</p:fieldset>
+					</h:panelGroup>
+				</h:panelGrid>
+				
+       		</p:tab>
+       		<p:tab title="Analytique">
+       			<p:tabView>
+       				<p:tab title="Chaine des ventes">
+		       			<p:fieldset legend="Dossier" style="margin-bottom:30px">
+		       				<p:selectOneRadio value="#{core.bean().object.chaineVentesDossier}"  layout="grid" columns="1">
+					            <f:selectItem itemLabel="En attente" itemValue="EN_ATTENTE" />
+					            <f:selectItem itemLabel="Saisie de dossier dans les ENTETES des documents de vente" itemValue="ENTETES" />
+					            <f:selectItem itemLabel="Saisie de dossier dans les LIGNES des documents de vente" itemValue="LIGNES" />
+					        </p:selectOneRadio>
+		       			</p:fieldset>
+		       			
+		       			<p:fieldset legend="Saisi du code de Dossier"  style="margin-bottom:30px">
+		       				<p:selectOneRadio value="#{core.bean().object.chaineVentesSaisieCodeDossier}"  layout="grid" columns="2">
+					            <f:selectItem itemLabel="Saisie à partir des Devis" itemValue="DEVIS" />
+					            <f:selectItem itemLabel="Saisie à partir des B.C" itemValue="BC" />
+					            <f:selectItem itemLabel="Saisie à partir des B.L" itemValue="BL" />
+					            <f:selectItem itemLabel="Saisie à partir des Factures" itemValue="FACTURES" />
+					        </p:selectOneRadio>
+		       			</p:fieldset>
+		       			
+		       			<p:fieldset legend="Contrôle du code de Dossier">
+		       				<p:selectOneRadio value="#{core.bean().object.chaineVentesControleCodeDossier}"  layout="grid" columns="2">
+					            <f:selectItem itemLabel="Contrôle à partir des Devis" itemValue="DEVIS" />
+					            <f:selectItem itemLabel="Contrôle à partir des B.C" itemValue="BC" />
+					            <f:selectItem itemLabel="Contrôle à partir des B.L" itemValue="BL" />
+					            <f:selectItem itemLabel="Contrôle à partir des Factures" itemValue="FACTURES" />
+					        </p:selectOneRadio>
+		       			</p:fieldset>
+       				</p:tab>
+       				<p:tab title="Chaine des achats">
+		       			<p:fieldset legend="Dossier" style="margin-bottom:30px">
+		       				<p:selectOneRadio value="#{core.bean().object.chaineAchatsDossier}"  layout="grid" columns="1">
+					            <f:selectItem itemLabel="En attente" itemValue="EN_ATTENTE" />
+					            <f:selectItem itemLabel="Saisie de dossier dans les ENTETES des documents d'achat" itemValue="ENTETES" />
+					            <f:selectItem itemLabel="Saisie de dossier dans les LIGNES des documents d'achat" itemValue="LIGNES" />
+					        </p:selectOneRadio>
+		       			</p:fieldset>
+		       			
+		       			<p:fieldset legend="Saisi du code de Dossier"  style="margin-bottom:30px">
+		       				<p:selectOneRadio value="#{core.bean().object.chaineAchatsSaisieCodeDossier}"  layout="grid" columns="2">
+					            <f:selectItem itemLabel="Saisie à partir des Devis" itemValue="DEVIS" />
+					            <f:selectItem itemLabel="Saisie à partir des B.C" itemValue="BC" />
+					            <f:selectItem itemLabel="Saisie à partir des B.L" itemValue="BL" />
+					            <f:selectItem itemLabel="Saisie à partir des Factures" itemValue="FACTURES" />
+					        </p:selectOneRadio>
+		       			</p:fieldset>
+		       			
+		       			<p:fieldset legend="Contrôle du code de Dossier">
+		       				<p:selectOneRadio value="#{core.bean().object.chaineAchatsControleCodeDossier}"  layout="grid" columns="2">
+					            <f:selectItem itemLabel="Contrôle à partir des Demandes de prix" itemValue="DEMANDES_DEVIS" />
+					            <f:selectItem itemLabel="Contrôle à partir des B.C" itemValue="BC" />
+					            <f:selectItem itemLabel="Contrôle à partir des B.R" itemValue="BR" />
+					            <f:selectItem itemLabel="Contrôle à partir des Factures" itemValue="FACTURES" />
+					        </p:selectOneRadio>
+		       			</p:fieldset>
+       				</p:tab>
+       			</p:tabView>
+       		</p:tab>
        	</p:tabView> 
       </div>
     </ui:define>  
