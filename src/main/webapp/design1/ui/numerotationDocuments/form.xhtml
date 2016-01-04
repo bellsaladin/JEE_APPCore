@@ -1,0 +1,75 @@
+<ui:composition 
+	xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" 
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions" 
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	xmlns:c="http://java.sun.com/jstl/core"
+    template="/design1/_general/template.xhtml">
+	
+	<ui:include src="../_config.xhtml" />
+	
+    <ui:define name="head">        
+        <script type="text/javascript">
+            //<![CDATA[
+                function handleMessage(facesmessage) {
+                    facesmessage.severity = 'info';
+                    
+                    PF('growl').show([facesmessage]);
+                }
+            //]]> 
+        </script>
+    </ui:define>
+	
+    <ui:define name="implementation">
+	  <div style="padding:30px">
+       	<p:tabView scrollable="true">
+       		<p:tab title="Description">
+	       		<p:fieldset>
+	       			Ce traitement vous permet de modifier la numérotation des documents d'achat et de vente ...
+	       		</p:fieldset>
+       		</p:tab>
+       		<p:tab title="Numérotation des achats">
+      			<p:fieldset legend="Prefixe de numérotation" style="margin-bottom:30px">
+      				<p:selectOneRadio value="#{core.bean().object.numerotationAchatsMode}"  layout="grid" columns="1">
+			            <f:selectItem itemLabel="Pas de prefixe de numérotation" itemValue="1" noSelectionOption="true" />
+			            <f:selectItem itemLabel="Numérotation préfixée par l'année sur 2 caractères" itemValue="2" />
+			            <f:selectItem itemLabel="Numérotation préfixée par l'année sur 4 caractères" itemValue="3" />
+			            <f:selectItem itemLabel="Numérotation préfixée par l'année sur 2 caractères et le mois" itemValue="4" />
+			            <f:selectItem itemLabel="Numérotation préfixée par l'année sur 4 caractères et le mois" itemValue="5" />
+			        </p:selectOneRadio>
+      			</p:fieldset>
+      			
+      			<p:fieldset legend="Numéro de départ pour le prefixe choisi">
+      				<h:panelGrid columns="2" cellpadding="5">
+      				    <h:outputLabel value="Prefixe choisi" />
+           			<p:inputText id="nbrDemandesPrix" value="" size="50"/>
+		         </h:panelGrid>
+      			</p:fieldset>
+       		</p:tab>
+       		<p:tab title="Numérotation des vente">
+       			<p:fieldset legend="Prefixe de numérotation" style="margin-bottom:30px">
+      				<p:selectOneRadio value="#{core.bean().object.numerotationVentesMode}"  layout="grid" columns="1">
+			            <f:selectItem itemLabel="Pas de prefixe de numérotation" itemValue="1" noSelectionOption="true"  />
+			            <f:selectItem itemLabel="Numérotation préfixée par l'année sur 2 caractères" itemValue="2" />
+			            <f:selectItem itemLabel="Numérotation préfixée par l'année sur 4 caractères" itemValue="3" />
+			            <f:selectItem itemLabel="Numérotation préfixée par l'année sur 2 caractères et le mois" itemValue="4" />
+			            <f:selectItem itemLabel="Numérotation préfixée par l'année sur 4 caractères et le mois" itemValue="5" />
+			        </p:selectOneRadio>
+      			</p:fieldset>
+       		</p:tab>
+       	</p:tabView> 
+      </div>
+    </ui:define>  
+    
+	<ui:define name="actions">
+		<p:commandButton value="Enregistrer" actionListener="#{core.bean().runAction('persist')}" update="mainForm" styleClass="ui-whiteBtn" />
+		<p:button value="Retour" href="/design1/ui/#{core.bean().moduleName}/list" styleClass="ui-whiteBtn pull-right"/>
+	</ui:define>
+	
+	<ui:define name="dialogs"> 
+	</ui:define>
+	
+</ui:composition>
