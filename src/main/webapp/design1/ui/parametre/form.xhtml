@@ -117,6 +117,156 @@
 	       		</p:panelGrid>	
        		</p:tab>
        		<p:tab title="Options">
+       			<h:panelGrid columns="2" cellpadding="5" style="margin:0 auto">
+	       			<p:fieldset legend="Frais de facturation (par défaut)">
+	     				<h:panelGrid columns="2" cellpadding="5"  styleClass="no-border-table full-width">
+	     					<h:outputLabel value="Montant" />
+							<p:inputText value="#{core.bean().object.montantFacturation}">
+								<f:convertNumber pattern="#0.00" />
+							</p:inputText>
+							<h:outputLabel value="TVA" />
+							<p:selectOneMenu  value="#{core.bean().object.tvaFacturation}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
+											 style="width:160px">      	    
+					        	<f:selectItem itemLabel="" itemValue="" />
+					        	<f:selectItems value="#{core.bean('tva').list}" var="entity" itemLabel="#{entity.getDisplayText()}" itemValue="#{entity}" />
+					        </p:selectOneMenu>
+	   					</h:panelGrid>
+	   					<p:selectBooleanCheckbox value="#{core.bean().object.facturationParDefautToutMontant}" itemLabel="Par défaut pour tout montant" />
+	   				</p:fieldset>
+	   				<p:fieldset legend="TVA sur port (par défaut)">
+	     				<h:panelGrid columns="2" cellpadding="5"  styleClass="no-border-table full-width">
+							<h:outputLabel value="TVA" />
+							<p:selectOneMenu  value="#{core.bean().object.tvaPort}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
+											 style="width:160px">      	    
+					        	<f:selectItem itemLabel="" itemValue="" />
+					        	<f:selectItems value="#{core.bean('tva').list}" var="entity" itemLabel="#{entity.getDisplayText()}" itemValue="#{entity}" />
+					        </p:selectOneMenu>
+	   					</h:panelGrid>
+	   					<p:selectBooleanCheckbox value="#{core.bean().object.portParDefautToutMontant}" itemLabel="Par défaut pour tout montant" />
+	   				</p:fieldset>
+	   				<p:fieldset legend="Marges sur les pieces de vente">
+	     				<h:panelGrid columns="2" cellpadding="5"  styleClass="no-border-table full-width">
+							<h:outputLabel value="" />
+							<p:selectBooleanCheckbox value="#{core.bean().object.margePiecesVenteAlerteSiMargeNegative}" itemLabel="Alerte si marge négative pour l'article" />
+							<h:outputLabel value="" />
+							<p:selectBooleanCheckbox value="#{core.bean().object.calculEtAffichageDesMargesVente}" itemLabel="Calcul et affichage des marges / vente" />
+							<h:outputLabel value="Prix d'achat pour alerte et marge" />
+							<p:selectOneRadio value="#{core.bean().object.prixAchatPourAlerteEtMarge}"  layout="grid" columns="3">
+					            <f:selectItem itemLabel="CUMP" itemValue="1" />
+					            <f:selectItem itemLabel="DPA" itemValue="2" />
+					            <f:selectItem itemLabel="Prix achat fourn. princ." itemValue="3" />
+					        </p:selectOneRadio>
+	   					</h:panelGrid>
+	   				</p:fieldset>
+	   				<p:fieldset legend="Gestion Comptabilité Analytique">
+	   					<p:selectOneRadio value="#{core.bean().object.gestionComptabiliteAnalytique}"  layout="grid" columns="3">
+				            <f:selectItem itemLabel="Oui" itemValue="#{true}" />
+				            <f:selectItem itemLabel="Non" itemValue="#{false}" />
+				        </p:selectOneRadio>
+	   				</p:fieldset>
+	   				<p:fieldset legend="Transformation et contrôles">
+						<p:selectOneRadio value="#{core.bean().object.typeControleStock}"  layout="grid" columns="1">
+				            <f:selectItem itemLabel="Contrôle de stock bloquant" itemValue="1" />
+				            <f:selectItem itemLabel="Contrôle de stock avec boite de dialogue" itemValue="2" />
+				            <f:selectItem itemLabel="Pas de contrôle de stock" itemValue="3" />
+				        </p:selectOneRadio>
+				        <p:panel>
+				        	Dans le cas d'un stock contrôlé : une ligne dont le stock disponible deviendrait négatif n'est transformée qu'après confirmation  par une boite de dialogue.
+				        </p:panel>
+	   					<h:panelGrid columns="2" cellpadding="5"  styleClass="no-border-table full-width">
+							<p:selectBooleanCheckbox value="#{core.bean().object.controleEncoursClient}" itemLabel="Contrôle de l'encours client" />
+							<p:selectBooleanCheckbox value="#{core.bean().object.encoursClientSelonEncaisse}" itemLabel="Encours client selon encaissé" />
+						</h:panelGrid>
+	   				</p:fieldset>
+	   				<p:fieldset legend="Prix des articles">
+	   					<h:outputLabel value="Coefficient de vente fixe " />
+	   					<p:selectBooleanCheckbox value="#{core.bean().object.coefficientVenteFixe}" /><br/><br/>
+	   					<h:outputLabel value="Défintion des formules de mise à jour " />
+						<p:commandLink onclick="PF('dialogFormulesMiseAJourPrix').show()">
+					        <i class="fa fa-pencil-square-o"></i>
+					    </p:commandLink><br/><br/>
+					    <p:dialog header="Formules de mise à jour des prix  " widgetVar="dialogFormulesMiseAJourPrix" minHeight="40" width="615">
+						    <p:tabView>
+						    	<p:tab title="Ventes">
+						    		<p:inputTextarea rows="6" cols="105"  value="#{core.bean().object.formuleMiseAJourPrixVente}"/>
+						    		<p:panel style="width:auto">
+							        	Pour constituer votre formule vous pouvez utiliser les champs GCDE1, DHFX2 et DJRY3.<br/><br/>
+							        	Exemple : GCDE1 * DHFX2.
+							        </p:panel>
+						    	</p:tab>
+						    	<p:tab title="Achats">
+						    		<p:inputTextarea rows="6" cols="105"  value="#{core.bean().object.formuleMiseAJourPrixAchat}"/>
+						    		<p:panel style="width:auto">
+							        	Pour constituer votre formule vous pouvez utiliser les champs GCDE1, DHFX2 et DJRY3.<br/><br/>
+							        	Exemple : GCDE1 * DHFX2.
+							        </p:panel>
+						    	</p:tab>
+						    </p:tabView>
+						</p:dialog>
+					    <h:outputLabel value="Arrondir par défaut à  " />
+					    <p:selectOneMenu  value="#{core.bean().object.prixArticleArrondirParDefaultA}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
+									 style="width:160px">      	    
+			        		<f:selectItem itemLabel="1" itemValue="1" />
+			        		<f:selectItem itemLabel="2" itemValue="2" />
+			        		<f:selectItem itemLabel="3" itemValue="3" />
+			        		<f:selectItem itemLabel="4" itemValue="4" />
+			        		<f:selectItem itemLabel="5" itemValue="5" />
+			        	</p:selectOneMenu>	
+	   				</p:fieldset>
+	   				<p:fieldset legend="Autres" style="margin-bottom:15px">
+	   					<p:selectBooleanCheckbox value="#{core.bean().object.utilisateurAccedeSeulementACesDocuments}" itemLabel="L'utilisateur n'accède qu'à ces documents"/><br/><br/>
+	   					<p:selectBooleanCheckbox value="#{core.bean().object.gestionCode2}" itemLabel="Gestion CODE 2"/><br/><br/>
+	   					<p:selectBooleanCheckbox value="#{core.bean().object.chainerCodeCode2}" itemLabel="Chaîner CODE / CODE 2" /><br/><br/>
+	   					<p:fieldset legend="Seuil minimum de commande" style="margin-bottom:10px">
+		   					<p:inputText value="#{core.bean().object.seuilMinimumCommande}">
+									<f:convertNumber pattern="#0.00" />
+							</p:inputText>
+		   				</p:fieldset>
+		   				
+	   					<p:fieldset legend="Masquer sur les documents" style="margin-bottom:10px">
+	   						<p:selectBooleanCheckbox value="#{core.bean().object.masquerUniteSurDocument}" itemLabel="Unité"/><br/><br/>
+	   						<p:selectBooleanCheckbox value="#{core.bean().object.masquerDepotSurDocument}" itemLabel="Dépôt"/><br/><br/>
+	   					</p:fieldset>
+	   					<p:selectBooleanCheckbox value="#{core.bean().object.masquerDetailsArticleCompose}" itemLabel="Masquer détail article composé" /><br/><br/>
+	   					<p:selectBooleanCheckbox value="#{core.bean().object.quantiteEnCarton}" itemLabel="Quantité en carton" /><br/><br/>
+	   					<p:fieldset legend="Saisie des prix">
+	   						<h:panelGrid columns="2" cellpadding="5">
+		   						<h:outputLabel value="Prix achats : " />
+	   							<p:selectOneRadio value="#{core.bean().object.prixEnHTAchat}"  layout="grid" columns="3">
+						            <f:selectItem itemLabel="HT" itemValue="#{true}" />
+						            <f:selectItem itemLabel="TTC" itemValue="#{false}" />
+						        </p:selectOneRadio>
+						        <h:outputLabel value="Prix ventes : " />
+	   							<p:selectOneRadio value="#{core.bean().object.prixEnHTVente}"  layout="grid" columns="3">
+						            <f:selectItem itemLabel="HT" itemValue="#{true}" />
+						            <f:selectItem itemLabel="TTC" itemValue="#{false}" />
+						        </p:selectOneRadio>
+						    </h:panelGrid> 
+	   					</p:fieldset>
+	   					<p:fieldset legend="Arrondir">
+	   						<h:panelGrid columns="2" cellpadding="5">
+	   							<h:outputLabel value="Prix : " />
+		   						<p:selectOneMenu  value="#{core.bean().object.arrondirPrixArticle}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
+										 style="width:160px">      	    
+					        		<f:selectItem itemLabel="1" itemValue="1" />
+					        		<f:selectItem itemLabel="2" itemValue="2" />
+					        		<f:selectItem itemLabel="3" itemValue="3" />
+					        		<f:selectItem itemLabel="4" itemValue="4" />
+					        		<f:selectItem itemLabel="5" itemValue="5" />
+					        	</p:selectOneMenu>
+					        	<h:outputLabel value="Quantité : " />
+		   						<p:selectOneMenu  value="#{core.bean().object.arrondirQuantite}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
+										 style="width:160px">      	    
+					        		<f:selectItem itemLabel="1" itemValue="1" />
+					        		<f:selectItem itemLabel="2" itemValue="2" />
+					        		<f:selectItem itemLabel="3" itemValue="3" />
+					        		<f:selectItem itemLabel="4" itemValue="4" />
+					        		<f:selectItem itemLabel="5" itemValue="5" />
+					        	</p:selectOneMenu>
+					        </h:panelGrid>	
+	   					</p:fieldset>
+	   				</p:fieldset>
+				</h:panelGrid>	
        		</p:tab>
        		<p:tab title="Impression">
        			<h:panelGrid columns="2" cellpadding="5" style="margin:0 auto">
