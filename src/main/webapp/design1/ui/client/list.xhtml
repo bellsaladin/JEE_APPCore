@@ -74,7 +74,7 @@
 	        <p:menuitem value="Action 2" actionListener="#{menuView.update}" update=":mainForm" icon="ui-icon-arrowrefresh-1-w"/>
 	        <p:menuitem value="Action 3" actionListener="#{menuView.delete}" ajax="false" icon="ui-icon-close"/>
 	        <p:separator />
-	        <p:menuitem value="Ajouter aux favoris" actionListener="#{sessionController.addToFavorites(core.bean().moduleName)}" icon="ui-icon-star"/>
+	        <p:menuitem value="Ajouter aux favoris" actionListener="#{sessionController.addToFavorites(core.bean().moduleName)}" update="mainForm:messages" icon="ui-icon-star"/>
 	    </p:menuButton>
 	</ui:define>
 	
