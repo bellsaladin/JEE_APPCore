@@ -49,7 +49,6 @@
 		 				        	<p:ajax event="change" update="#{core.bean().getComponentById('adresseCommande').getClientId()}" listener="#{core.bean().runAction('updateAdresseCommande')}"/>
 						        </p:selectOneMenu>
 		       					
-		       					
 		       					<h:outputLabel value="Origine :" />
 								<p:inputText value="#{core.bean().object.origine}" size="50"/>
 								
@@ -221,11 +220,29 @@
 				       		   		</p:panel>
 				       		   		
 				       		   		<p:panel>
-					       		   		<h:panelGrid columns="2" cellpadding="5">
-					       		   			<h:outputLabel value="Mode de réglement" />
+				       		   			<h:panelGrid columns="2" cellpadding="5">
+				       		   				<h:outputLabel value="Mode de réglement" />
 					       		   			<seosoft:OneEntitySelectMenu id="modeReglement" entityName="modeReglement" value="#{core.bean().object.modeReglement}"></seosoft:OneEntitySelectMenu>
-					       		   			
+					       		   		</h:panelGrid>	
+					       		   		<h:panelGrid columns="7" cellpadding="5">
+					       		   			<h:outputLabel value="A " />
+									        <p:inputText value="#{core.bean().object.reglementEnXJours}" size="10"/>
+									        <h:outputLabel value="jours" />
+						       				<p:selectOneMenu value="#{core.bean().object.reglementType}" style="width:70px">      	    
+									        	<f:selectItem itemLabel="Net" itemValue="NET" />
+									        	<f:selectItem itemLabel="Fin de mois" itemValue="FM" />
+									        	<f:selectItem itemLabel="Fin de décade" itemValue="FD" />
+										    </p:selectOneMenu>
+										    <h:outputLabel value="Le" />
+							        		<p:inputText  value="#{core.bean().object.reglementDecalageLe}" size="10"/>
+									        <p:selectBooleanCheckbox value="#{core.bean().object.reglementFdmPuisNbrJours}" itemLabel="FDM Puis nbr de jours"/>
 					       		   		</h:panelGrid>
+				       		   		</p:panel>
+				       		   		<p:panel>
+				       		   			<h:panelGrid columns="2" cellpadding="5">
+				       		   				<h:outputLabel value="TVA " />
+					       		   			<seosoft:OneEntitySelectMenu id="tva" entityName="tva" value="#{core.bean().object.tva}"></seosoft:OneEntitySelectMenu>
+					       		   		</h:panelGrid>	
 				       		   		</p:panel>
 				       		   	</p:tab>
 				       		</p:tabView>
