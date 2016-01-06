@@ -48,6 +48,17 @@
 				               <f:validateLength minimum="2" />  
 				           </p:inputText>
 				     </p:column>
+				 </p:row>	
+				 <p:row>	
+		       		<p:column>      
+				          <h:outputLabel for="taux" value="Taux : *" />
+				    </p:column>
+				    <p:column>  
+				           <p:inputText id="taux"   
+				               value="#{core.bean().object.taux}" required="true" label="Libellé :">  
+				               <f:validateLength minimum="2" />  
+				           </p:inputText>
+				     </p:column>
 				 </p:row>			        			      
        		</p:panelGrid>
       </div>

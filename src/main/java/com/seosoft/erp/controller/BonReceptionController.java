@@ -16,41 +16,42 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.seosoft.erp.controller.generic.Action;
 import com.seosoft.erp.controller.generic.GenericCRUDController;
 import com.seosoft.erp.model.entity.Article;
-import com.seosoft.erp.model.entity.DemandePrix;
-import com.seosoft.erp.model.entity.DetailsDemandePrix;
-import com.seosoft.erp.service.business.DemandePrixService;
-import com.seosoft.erp.service.business.DetailsDemandePrixService;
+import com.seosoft.erp.model.entity.BonReception;
+import com.seosoft.erp.model.entity.BonReception;
+import com.seosoft.erp.model.entity.DetailsBonReception;
+import com.seosoft.erp.service.business.BonReceptionService;
+import com.seosoft.erp.service.business.DetailsBonReceptionService;
 import com.seosoft.erp.util.scopes.view.SpringViewScoped;
 
 @Named
 @SpringViewScoped
-public class DemandePrixController extends GenericCRUDController<DemandePrix, DemandePrixService> implements Serializable {
+public class BonReceptionController extends GenericCRUDController<BonReception, BonReceptionService> implements Serializable {
 	private static final long serialVersionUID = 7838900790101299064L;
-	
+
 	@Autowired
-	private DetailsDemandePrixService detailsDemandePrixService;
+	private DetailsBonReceptionService detailsBonReceptionService;
 	
-	private List<DetailsDemandePrix> detailsDemandePrixList;
+	private List<DetailsBonReception> detailsList;
 	private Article emptyArticle = new Article();
 	
 
 	protected void prepareData(){
 		super.prepareData();
-		_moduleName = "demandePrix";
+		_moduleName = "bonReception";
 		prepareForCreateNew();
 	}
 	
 	public void prepareForCreateNew(){
-		_object = new DemandePrix();
+		_object = new BonReception();
 	}
 	
 	protected void onDataReady(){
 		
 		if(_object.getId() == null || _object.getId() ==""){
-			detailsDemandePrixList = new ArrayList<DetailsDemandePrix>();
+			detailsList = new ArrayList<DetailsBonReception>();
 			addNewRowToDetailsDatatable();
 		}else{
-			detailsDemandePrixList = detailsDemandePrixService.findByDemandePrix(_object);
+			detailsList = detailsBonReceptionService.findByBonReception(_object);
 		}
 				
 		addRelatedModule((ModeTransportController) Core.bean("modeTransport"), "modeTransport", new Action(){
@@ -115,8 +116,8 @@ public class DemandePrixController extends GenericCRUDController<DemandePrix, De
 		_actions.put("valider", new Action(){
 			@Override
 			public void run() {
-				for(DemandePrix demandePrix : _selectedObjects){
-					demandePrix.setValide(true);
+				for(BonReception BonReception : _selectedObjects){
+					BonReception.setValide(true);
 				}
 				_service.save(_selectedObjects);
 				FacesMessage msg = new FacesMessage("La demande(s) de prix a été validé(s)");
@@ -127,14 +128,14 @@ public class DemandePrixController extends GenericCRUDController<DemandePrix, De
 		_actions.put("transformer", new Action(){
 			@Override
 			public void run() {
-				for(DemandePrix demandePrix : _selectedObjects){
-					if(!demandePrix.getValide()){
+				for(BonReception BonReception : _selectedObjects){
+					if(!BonReception.getValide()){
 						FacesMessage msg = new FacesMessage("Impossible de transformer la séléction, il y a des objets non validés !");
 						msg.setSeverity(FacesMessage.SEVERITY_WARN);
 						FacesContext.getCurrentInstance().addMessage(null, msg);
 						return;
 					}
-					demandePrix.setTransforme(true);
+					BonReception.setLivre(true);
 				}
 				//_service.save(_selectedObjects);
 				FacesMessage msg = new FacesMessage("La demande(s) de prix a été tranformée(s)");
@@ -152,43 +153,17 @@ public class DemandePrixController extends GenericCRUDController<DemandePrix, De
 				// save Demande Prix
 				_service.save(_object); 
 				// save details Demande Prix
-				//detailsDemandePrixService.save(detailsDemandePrixList);
+				//detailsBonReceptionService.save(detailsBonReceptionList);
 				
-				for(DetailsDemandePrix ligneDetails : detailsDemandePrixList){
-					ligneDetails.setDemandePrix(_object);
-					detailsDemandePrixService.save(ligneDetails);
+				for(DetailsBonReception ligneDetails : detailsList){
+					ligneDetails.setBonReception(_object);
+					detailsBonReceptionService.save(ligneDetails);
 				}
 				
 				String message = "Enregistrement '" + StringUtils.capitalize(_moduleName) + "' effectué avec succés ! ";
 				message = (isNewInsert)?message:"Modification '" + StringUtils.capitalize(_moduleName) + "' effectuée avec succés ! ";
 				FacesMessage msg = new FacesMessage(message);
 				FacesContext.getCurrentInstance().addMessage(null, msg);
-			}
-		});
-		
-		
-		_actions.put("transformerEnBonCommande", new Action(){
-			@Override
-			public void run() {
-//				System.out.println("Transformer en bon de commande : "  + _moduleName);
-//				
-//				String message ="";
-//				if(_object.getTransforme()){
-//					message = "Cet élément a  déjà été transformé !";
-//				}else{
-//					_service.save(_object); 
-//					// save details Demande Prix				
-//					for(DetailsDemandePrix ligneDetails : detailsDemandePrixList){
-//						ligneDetails.setDemandePrix(_object);
-//						detailsDemandePrixService.save(ligneDetails);
-//					}
-//					
-//					message = "Transformation '" + StringUtils.capitalize(_moduleName) + "' effectuée avec succés ! ";
-//				}	
-//				
-//				
-//				FacesMessage msg = new FacesMessage(message);
-//				FacesContext.getCurrentInstance().addMessage(null, msg);
 			}
 		});
 		
@@ -201,14 +176,14 @@ public class DemandePrixController extends GenericCRUDController<DemandePrix, De
 	
 	public void addRowToDetailsDatatable(){
 		addNewRowToDetailsDatatable();
-		for(DetailsDemandePrix ligneDetails : detailsDemandePrixList){
-			System.out.println("DetailsDemandePrix : " + ligneDetails.getArticle().getDisplayText());
+		for(DetailsBonReception ligneDetails : detailsList){
+			System.out.println("DetailsBonReception : " + ligneDetails.getArticle().getDisplayText());
 		}
 	}
 	
 	
 	public void removeRowToDetailsDatatable(int index){
-		detailsDemandePrixList.remove(index);
+		detailsList.remove(index);
 	}
 	
 	public void onDetailsDatatableCellEdit(CellEditEvent event) {
@@ -225,7 +200,7 @@ public class DemandePrixController extends GenericCRUDController<DemandePrix, De
 	
 	private void calculDesTotaux() {
 		float totalHt = 0;
-		for(DetailsDemandePrix ligneDetails : detailsDemandePrixList){
+		for(DetailsBonReception ligneDetails : detailsList){
 			totalHt += ligneDetails.getArticle().getPrixUnitaireAchat() * ligneDetails.getQte();
 		}
 		_object.setTotalHt(totalHt);
@@ -234,29 +209,27 @@ public class DemandePrixController extends GenericCRUDController<DemandePrix, De
 	}
 
 	private void addNewRowToDetailsDatatable(){
-		DetailsDemandePrix ligneDemandePrix = new DetailsDemandePrix();
-		ligneDemandePrix.setDemandePrix(_object);
+		DetailsBonReception ligneDetail = new DetailsBonReception();
+		ligneDetail.setBonReception(_object);
 		emptyArticle.setLibelle("...");
 		if(((ArticleController) Core.bean("article")).getList().size() > 0){
-			ligneDemandePrix.setArticle(((ArticleController) Core.bean("article")).getList().get(0));
+			ligneDetail.setArticle(((ArticleController) Core.bean("article")).getList().get(0));
 		}else{
-			ligneDemandePrix.setArticle(emptyArticle);
+			ligneDetail.setArticle(emptyArticle);
 		}
-		detailsDemandePrixList.add(ligneDemandePrix);
+		detailsList.add(ligneDetail);
 	}
-	
 	
 	/**************************************************************************************************/
-	/********************************** GETTERS & SETTERS ****************************************/
-	/************************************************************************************************/
+	/********************************** GETTERS & SETTERS *********************************************/
+	/**************************************************************************************************/
 	
-
-	public List<DetailsDemandePrix> getDetailsDemandePrixList() {
-		return detailsDemandePrixList;
+	public List<DetailsBonReception> getDetailsList() {
+		return detailsList;
 	}
 
-	public void setDetailsDemandePrixList(List<DetailsDemandePrix> detailsDemandePrixList) {
-		this.detailsDemandePrixList = detailsDemandePrixList;
+	public void setDetailsList(List<DetailsBonReception> detailsList) {
+		this.detailsList = detailsList;
 	}
 
 	public Article getEmptyArticle() {

@@ -26,6 +26,13 @@
             <h:outputText value="#{object.libelle}" />
         </p:column>
         
+        <p:column sortBy="#{object.taux}">
+            <f:facet name="header">
+                <h:outputText value="#{lbl['lbl.taux']}" />
+            </f:facet>
+            <h:outputText value="#{object.taux}" />
+        </p:column>
+        
     </ui:define>
     
 	<ui:define name="actions">
