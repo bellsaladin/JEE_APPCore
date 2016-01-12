@@ -15,31 +15,18 @@
     		<p:ajax event="toggle" update="mainForm:dataTable" />
    			<p:tabView >
    				<p:tab title="">
-   					<p:selectOneMenu label="Fournisseur" widgetVar="fournisseurVar" value="#{core.bean().filter.fournisseur}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
-		    									 style="width:160px">      	    
-			        	<f:selectItem itemLabel="Tous les fournisseurs" itemValue="#{null}"/>
-			        	<f:selectItems value="#{core.bean('fournisseur').list}" var="entity" itemLabel="#{entity.getDisplayText()}" itemValue="#{entity}" />
-				        <p:ajax event="change" update="mainForm:dataTable" listener="#{core.bean().handleFilter()}"/>
-			        </p:selectOneMenu>
 			        <p:selectOneMenu label="Depot" widgetVar="depotVar" value="#{core.bean().filter.depot}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
 		    									 style="width:160px">      	    
 			        	<f:selectItem itemLabel="Tous les dépôts" noSelectionOption="true" itemValue=""/>
 			        	<f:selectItems value="#{core.bean('depot').list}" var="entity" itemLabel="#{entity.getDisplayText()}" itemValue="#{entity}" />
 				        	<p:ajax event="change" update="mainForm:dataTable" listener="#{core.bean().handleFilter()}"/>
 			        </p:selectOneMenu>
-			        
-			        <p:selectOneRadio value="#{core.bean().filter.valide}" layout="grid" columns="3">
-			            <f:selectItem itemLabel="Tous" itemValue="-1"/>
-			            <f:selectItem itemLabel="Validé" itemValue="1" />
-			            <f:selectItem itemLabel="Non Validé" itemValue="0" />
-			            <p:ajax event="valueChange" update="mainForm:dataTable" listener="#{core.bean().handleFilter()}"/>
-			        </p:selectOneRadio>
-			        <p:selectOneRadio value="#{core.bean().filter.transforme}" layout="grid" columns="3">
-			            <f:selectItem itemLabel="Tous" itemValue="-1"/>
-			            <f:selectItem itemLabel="Transformé" itemValue="1" />
-			            <f:selectItem itemLabel="Non tranformé" itemValue="0" />
-			            <p:ajax event="valueChange" update="mainForm:dataTable" listener="#{core.bean().handleFilter()}"/>
-			        </p:selectOneRadio>
+			        <p:selectOneMenu label="Fournisseur" widgetVar="fournisseurVar" value="#{core.bean().filter.fournisseur}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
+		    									 style="width:160px">      	    
+			        	<f:selectItem itemLabel="Tous les fournisseurs" itemValue="#{null}"/>
+			        	<f:selectItems value="#{core.bean('fournisseur').list}" var="entity" itemLabel="#{entity.getDisplayText()}" itemValue="#{entity}" />
+				        <p:ajax event="change" update="mainForm:dataTable" listener="#{core.bean().handleFilter()}"/>
+			        </p:selectOneMenu>
 			        
 <!-- 			        <p:calendar value="#{core.bean().filter.dateDu}" pattern="dd/MM/yyyy" mask="true"> -->
 <!-- 			        	<p:ajax event="dateSelect" update="mainForm:dataTable" listener="#{core.bean().handleFilter()}"/> -->
@@ -59,7 +46,7 @@
             <p:draggable for="dragIcon" revert="true" helper="clone"/>
         </p:column> -->
         
-        <p:column style="width:16px">
+        <!-- <p:column style="width:16px">
   			<p:outputLabel rendered="#{!object.valide and !object.transforme}">
   				<i class="fa fa-caret-right" style="color:green; font-size: 18px;"></i>
   			</p:outputLabel>
@@ -69,55 +56,66 @@
   			<p:outputLabel rendered="#{object.valide and object.transforme}">
   				<i class="fa fa-caret-right" style="color:blue;  font-size: 18px;"></i>
   			</p:outputLabel>
+        </p:column>  -->
+		
+		<p:column sortBy="#{object.article.code}">
+            <f:facet name="header">
+                <h:outputText value="Code article" />
+            </f:facet>
+            <h:outputText value="#{object.article.code}" />
         </p:column>
 		
-		<p:column sortBy="#{object.date}">
+		<p:column sortBy="#{object.article.libelle}">
             <f:facet name="header">
-                <h:outputText value="Date" />
+                <h:outputText value="Désignation article" />
             </f:facet>
-            <h:outputText value="#{object.date}" />
+            <h:outputText value="#{object.article.libelle}" />
         </p:column>
-
-        <p:column sortBy="#{object.totalHt}">
+		
+        <p:column sortBy="#{object.stockReel}">
             <f:facet name="header">
-                <h:outputText value="Total HT"/>
+                <h:outputText value="Stock réel"/>
             </f:facet>
-            <h:outputText value="#{object.totalHt}">
+            <h:outputText value="#{object.stockReel}">
             	<f:convertNumber pattern="#0.00" />
             </h:outputText>
         </p:column>
         
-        <p:column sortBy="#{object.totalTva}">
+        <p:column sortBy="#{object.stockReel}">
             <f:facet name="header">
-                <h:outputText value="Total TVA" />
+                <h:outputText value="Stock réel"/>
             </f:facet>
-            <h:outputText value="#{object.totalTva}">
+            <h:outputText value="#{object.stockReel}">
             	<f:convertNumber pattern="#0.00" />
             </h:outputText>
         </p:column>
         
-        <p:column sortBy="#{object.totalTtc}">
+        <p:column sortBy="#{object.stockDisponible}">
             <f:facet name="header">
-                <h:outputText value="Total TTC" />
+                <h:outputText value="Stock disponible"/>
             </f:facet>
-            <h:outputText value="#{object.totalTtc}">
+            <h:outputText value="#{object.stockDisponible}">
             	<f:convertNumber pattern="#0.00" />
             </h:outputText>
         </p:column>
         
-        <p:column sortBy="#{object.valide}">
+        <p:column sortBy="#{object.stockVirtuel}">
             <f:facet name="header">
-                <h:outputText value="Validée" />
+                <h:outputText value="Stock virtuel"/>
             </f:facet>
-            <h:outputText value="#{object.valide? 'Oui' : 'Non'}" />
+            <h:outputText value="#{object.stockVirtuel}">
+            	<f:convertNumber pattern="#0.00" />
+            </h:outputText>
         </p:column>
         
-        <p:column sortBy="#{object.transforme}">
+        <!-- <p:column sortBy="#{object.stockAlerte}">
             <f:facet name="header">
-                <h:outputText value="Transformée" />
+                <h:outputText value="Stock alerte"/>
             </f:facet>
-            <h:outputText value="#{object.transforme? 'Oui' : 'Non'}" />
-        </p:column>
+            <h:outputText value="#{object.stockAlerte}">
+            	<f:convertNumber pattern="#0.00" />
+            </h:outputText>
+        </p:column>-->
         
     </ui:define>
     

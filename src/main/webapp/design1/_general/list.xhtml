@@ -36,10 +36,10 @@
 		<p:hotkey bind="ctrl+shift+r" handler="PF('mainForm:filter').show();" />
     	
 	    <p:dataTable id="dataTable" widgetVar="dataTable" var="object" value="#{core.bean().dataModel}"
-	    			 stickyHeader="true"
+	    			 stickyHeader="false"
 	    			 sortMode="multiple"
 	    			 selection="#{core.bean().selectedObjects}"
-	                 paginator="true" rows="5"
+	                 paginator="true" rows="25"
 	                 paginatorPosition="bottom"
 	                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 	                 rowsPerPageTemplate="25,50,100"

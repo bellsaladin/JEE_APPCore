@@ -21,7 +21,6 @@ import com.seosoft.erp.model.base.SearchCriteria;
 import com.seosoft.erp.model.entity.Article;
 import com.seosoft.erp.model.entity.DemandePrix;
 import com.seosoft.erp.model.entity.DetailsDemandePrix;
-import com.seosoft.erp.model.entity.Fournisseur;
 import com.seosoft.erp.service.business.DemandePrixService;
 import com.seosoft.erp.service.business.DetailsDemandePrixService;
 import com.seosoft.erp.util.scopes.view.SpringViewScoped;
@@ -31,7 +30,7 @@ import com.seosoft.erp.util.scopes.view.SpringViewScoped;
 public class DemandePrixController extends GenericCRUDController<DemandePrix, DemandePrixService> implements Serializable {
 	private static final long serialVersionUID = 7838900790101299064L;
 	
-	private DemandePrix _filter;
+	private DemandePrix.Filter _filter;
 	
 	@Autowired
 	private DetailsDemandePrixService detailsDemandePrixService;
@@ -44,7 +43,7 @@ public class DemandePrixController extends GenericCRUDController<DemandePrix, De
 		super.prepareData();
 		_moduleName = "demandePrix";
 		prepareForCreateNew();
-		_filter = new DemandePrix();
+		_filter = new DemandePrix.Filter();
 	}
 	
 	public void prepareForCreateNew(){
@@ -143,7 +142,7 @@ public class DemandePrixController extends GenericCRUDController<DemandePrix, De
 					}
 					demandePrix.setTransforme(true);
 				}
-				//_service.save(_selectedObjects);
+				_service.save(_selectedObjects);
 				FacesMessage msg = new FacesMessage("La demande(s) de prix a été tranformée(s)");
 				FacesContext.getCurrentInstance().addMessage(null, msg);
 			}
@@ -204,12 +203,25 @@ public class DemandePrixController extends GenericCRUDController<DemandePrix, De
 	
 	public void handleFilter(){
 		Specification<DemandePrix> spec = null;
-		System.out.println("  _filter.getFournisseur() " +   _filter.getFournisseur() );
+		System.out.println(" _filter.getFournisseur() " +   _filter.getFournisseur() );
 		System.out.println(" _filter.getDepot() " +  _filter.getDepot() );
+		System.out.println(" _filter.getValide() " +  _filter.getValide() );
+//		System.out.println(" _filter.getDateDu() " +  _filter.getDateDu() );
+//		System.out.println(" _filter.getDateAu() " +  _filter.getDateAu() );
 		if( _filter.getFournisseur() != null)
 			spec = new DemandePrix._Specification(new SearchCriteria("fournisseur", "=", _filter.getFournisseur()));
 		if( _filter.getDepot() != null){
 			spec = Specifications.where(spec).and( new DemandePrix._Specification(new SearchCriteria("depot", "=", _filter.getDepot())) );
+		}
+		if( _filter.getValide() != -1){
+			spec = Specifications.where(spec).and( new DemandePrix._Specification(new SearchCriteria("valide", "=", _filter.getValide())) );
+		}
+		if( _filter.getTransforme() != -1){
+			spec = Specifications.where(spec).and( new DemandePrix._Specification(new SearchCriteria("transforme", "=", _filter.getTransforme())) );
+		}
+		if( _filter.getDateDu() != null &&  _filter.getDateAu() != null){
+			spec = Specifications.where(spec).and( new DemandePrix._Specification(new SearchCriteria("date", ">", new java.sql.Date(_filter.getDateDu().getTime()) )));
+			spec = Specifications.where(spec).and( new DemandePrix._Specification(new SearchCriteria("date", "<", new java.sql.Date(_filter.getDateAu().getTime()) )));
 		}
 		
 		_list = _service.findAll(spec);
@@ -289,11 +301,11 @@ public class DemandePrixController extends GenericCRUDController<DemandePrix, De
 		this.emptyArticle = emptyArticle;
 	}
 
-	public DemandePrix getFilter() {
+	public DemandePrix.Filter getFilter() {
 		return _filter;
 	}
 
-	public void setFilter(DemandePrix filter) {
+	public void setFilter(DemandePrix.Filter filter) {
 		this._filter = filter;
 	}
 	
