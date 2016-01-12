@@ -66,7 +66,7 @@
 				       				<seosoft:OneEntitySelectMenu id="famille" entityName="familleArticle" value="#{core.bean().object.famille}"></seosoft:OneEntitySelectMenu>
 				       				<h:outputLabel value="Sous Famille " />
 				       				<seosoft:OneEntitySelectMenu id="sousFamille" entityName="sousFamilleArticle" value="#{core.bean().object.sousFamille}"></seosoft:OneEntitySelectMenu>
-				       				<h:outputLabel value="Famille " />
+				       				<h:outputLabel value="Marque" />
 				       				<seosoft:OneEntitySelectMenu id="cateogrie" entityName="categorieArticle" value="#{core.bean().object.categorie}"></seosoft:OneEntitySelectMenu>
 				       			</h:panelGrid>
 				       		</p:fieldset>
@@ -205,7 +205,7 @@
 				        	<p:ajax event="change" update="detailsStock" listener="#{core.bean().runAction('loadDetailsStock')}"/>
 				        </p:selectOneMenu>
 			        </div>
-				    <h:panelGroup id="detailsStock">
+				    <p:fragment id="detailsStock">
 				    	<p:panelGrid  columns="2"  styleClass="no-border-table full-width panelTopAlign">
 				    		<h:panelGroup>
 					    		<p:fieldset legend="Entrées">
@@ -276,7 +276,7 @@
 								    <p:inputText disabled="true" value="#{core.bean().stock.margeAuPmpaDepuisCloture}"/>
 								</p:panelGrid>
 				    	</p:fieldset>
-				    </h:panelGroup>
+				    </p:fragment>
 	       	  </p:tab>
 	       	  <p:tab title="Options">
 	       	  </p:tab>

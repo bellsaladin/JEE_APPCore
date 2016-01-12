@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 
 import com.seosoft.erp.repository.generic.GenericRepository;
 import com.seosoft.erp.service.generic.GenericService;
@@ -76,6 +77,11 @@ public abstract class GenericServiceImpl<T, ID extends Serializable> implements 
 	@Override
 	public List<T> findAll(Iterable<ID> ids) {
 		return getRepository().findAll(ids);
+	}
+	
+	@Override
+	public List<T> findAll(Specification<T> spec){
+		return getRepository().findAll(spec);
 	}
 
 	@Override

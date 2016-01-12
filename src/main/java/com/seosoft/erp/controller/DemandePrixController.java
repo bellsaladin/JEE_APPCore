@@ -12,12 +12,16 @@ import org.apache.commons.lang.StringUtils;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.CellEditEvent;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.jpa.domain.Specifications;
 
 import com.seosoft.erp.controller.generic.Action;
 import com.seosoft.erp.controller.generic.GenericCRUDController;
+import com.seosoft.erp.model.base.SearchCriteria;
 import com.seosoft.erp.model.entity.Article;
 import com.seosoft.erp.model.entity.DemandePrix;
 import com.seosoft.erp.model.entity.DetailsDemandePrix;
+import com.seosoft.erp.model.entity.Fournisseur;
 import com.seosoft.erp.service.business.DemandePrixService;
 import com.seosoft.erp.service.business.DetailsDemandePrixService;
 import com.seosoft.erp.util.scopes.view.SpringViewScoped;
@@ -26,6 +30,8 @@ import com.seosoft.erp.util.scopes.view.SpringViewScoped;
 @SpringViewScoped
 public class DemandePrixController extends GenericCRUDController<DemandePrix, DemandePrixService> implements Serializable {
 	private static final long serialVersionUID = 7838900790101299064L;
+	
+	private DemandePrix _filter;
 	
 	@Autowired
 	private DetailsDemandePrixService detailsDemandePrixService;
@@ -38,6 +44,7 @@ public class DemandePrixController extends GenericCRUDController<DemandePrix, De
 		super.prepareData();
 		_moduleName = "demandePrix";
 		prepareForCreateNew();
+		_filter = new DemandePrix();
 	}
 	
 	public void prepareForCreateNew(){
@@ -195,6 +202,21 @@ public class DemandePrixController extends GenericCRUDController<DemandePrix, De
 	
 	}
 	
+	public void handleFilter(){
+		Specification<DemandePrix> spec = null;
+		System.out.println("  _filter.getFournisseur() " +   _filter.getFournisseur() );
+		System.out.println(" _filter.getDepot() " +  _filter.getDepot() );
+		if( _filter.getFournisseur() != null)
+			spec = new DemandePrix._Specification(new SearchCriteria("fournisseur", "=", _filter.getFournisseur()));
+		if( _filter.getDepot() != null){
+			spec = Specifications.where(spec).and( new DemandePrix._Specification(new SearchCriteria("depot", "=", _filter.getDepot())) );
+		}
+		
+		_list = _service.findAll(spec);
+		_dataModel = new DataModel(_list);
+	}
+	
+	
 	/**************************************************************************************************/
 	/********************************** UTIL FUNCTIONS ****************************************/
 	/************************************************************************************************/
@@ -265,6 +287,14 @@ public class DemandePrixController extends GenericCRUDController<DemandePrix, De
 
 	public void setEmptyArticle(Article emptyArticle) {
 		this.emptyArticle = emptyArticle;
+	}
+
+	public DemandePrix getFilter() {
+		return _filter;
+	}
+
+	public void setFilter(DemandePrix filter) {
+		this._filter = filter;
 	}
 	
 }

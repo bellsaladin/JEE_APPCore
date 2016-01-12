@@ -12,6 +12,24 @@
     
     <ui:define name="filter">
     	<p:fieldset legend="Filtre">
+    		
+   			<p:tabView >
+   				<p:tab title="">
+   					<p:selectOneMenu label="Fournisseur" widgetVar="fournisseurVar" value="#{core.bean().filter.fournisseur}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
+		    									 style="width:160px">      	    
+			        	<f:selectItem itemLabel="Tous les fournisseurs" itemValue="#{null}"/>
+			        	<f:selectItems value="#{core.bean('fournisseur').list}" var="entity" itemLabel="#{entity.getDisplayText()}" itemValue="#{entity}" />
+				        <p:ajax event="change" update="mainForm:dataTable" listener="#{core.bean().handleFilter()}"/>
+			        </p:selectOneMenu>
+			        <p:selectOneMenu label="Depot" widgetVar="depotVar" value="#{core.bean().filter.depot}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
+		    									 style="width:160px">      	    
+			        	<f:selectItem itemLabel="Tous les dépôts" noSelectionOption="true" itemValue=""/>
+			        	<f:selectItems value="#{core.bean('depot').list}" var="entity" itemLabel="#{entity.getDisplayText()}" itemValue="#{entity}" />
+				        	<p:ajax event="change" update="mainForm:dataTable" listener="#{core.bean().handleFilter()}"/>
+			        </p:selectOneMenu>
+   				</p:tab>
+   			</p:tabView>
+    		
     	</p:fieldset>
     </ui:define>
 

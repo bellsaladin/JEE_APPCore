@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.Query;
 
 public interface GenericService<T, ID extends Serializable> {
@@ -94,6 +95,8 @@ public interface GenericService<T, ID extends Serializable> {
 	 * @return all entities
 	 */
 	List<T> findAll();
+	
+	List<T> findAll(Specification<T> spec);
 
 	/**
 	 * Returns all entities sorted by the given options.

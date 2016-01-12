@@ -44,6 +44,17 @@ public class ClientController extends GenericCRUDController<Client, ClientServic
 	
 	protected void onDataReady(){
 		
+		addRelatedModule((ModeReglementController) Core.bean("modeReglement"), "modeReglement", new Action(){
+			@Override
+			public void run() {
+				_object.setModeReglement(((ModeReglementController) Core.bean("modeReglement")).getObject());
+			}},new Action(){
+			@Override
+			public void run() {
+				((ModeReglementController) Core.bean("modeReglement")).setObject(_object.getModeReglement());
+			}}
+		);
+		
 		addRelatedModule((FamilleClientController) Core.bean("familleClient"), "famille", new Action(){
 			@Override
 			public void run() {
