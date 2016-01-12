@@ -147,24 +147,24 @@
 			       			<p:selectBooleanCheckbox value="#{core.bean().object.adresseReglementDifferente}" itemLabel="Adresse de réglement différente">
 			       				<f:ajax render="fragmentAdresseReglement" />
 			       			</p:selectBooleanCheckbox>
-			       			<p:panel id="fragmentAdresseReglement">
+			       			<p:panel id="fragmentAdresseReglement" styleClass="no-border-table">
 			       			<h:panelGrid rendered="#{core.bean().object.adresseReglementDifferente}" columns="2" cellpadding="5">
 		       				   <h:outputLabel value=" Adresse : *" />
-					           <p:inputText id="adresseReglementLigne1" value="#{core.bean().object.adresseReglementLigne1}" size="50"/>
+					           <p:inputText id="adresseReglementLigne1" value="#{core.bean().object.adresseReglementLigne1}" size="50" required="#{core.bean().object.adresseReglementDifferente}"/>
 					           <h:outputLabel value="" />
-					           <p:inputText id="adresseReglementigne2" value="#{core.bean().object.adresseReglementLigne2}" size="50"/>
+					           <p:inputText id="adresseReglementigne2" value="#{core.bean().object.adresseReglementLigne2}" size="50" />
 				           	   <h:outputLabel value="Code postal : *" />
 					           <p:inputText id="adresseReglementCodePostal" value="#{core.bean().object.adresseReglementVille.codePostal}" required="true" size="50"/>
 				           	   <h:outputLabel value="" />
 				           	   <h:panelGrid columns="2">
 					           	   <p:selectOneMenu id="adresseReglementPays" widgetVar="adresseReglementPaysVar" value="#{core.bean().object.adresseReglementPays}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
-		    										style="width:134px">
+		    										style="width:134px" required="#{core.bean().object.adresseReglementDifferente}">
 		    							<f:selectItem  itemValue="" itemLabel=""/>      	    
 							        	<f:selectItems value="#{core.bean('pays').list}" var="entity" itemLabel="#{entity.getDisplayText()}" itemValue="#{entity}" />
 							        	<p:ajax event="change" update="adresseReglementVille,adresseReglementCodePostal" />
 							       </p:selectOneMenu>
 							       <p:selectOneMenu id="adresseReglementVille" widgetVar="adresseReglementVilleVar" value="#{core.bean().object.adresseReglementVille}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
-		    										style="width:134px">      	    
+		    										style="width:134px" required="#{core.bean().object.adresseReglementDifferente}">
 							        	<f:selectItem  itemValue="" itemLabel=""/>
 							        	<f:selectItems value="#{core.bean('ville').getList( core.bean().object.adresseReglementPays )}" var="entity" itemLabel="#{entity.getDisplayText()}" itemValue="#{entity}" />
 							        	<p:ajax event="change" update="adresseReglementCodePostal">

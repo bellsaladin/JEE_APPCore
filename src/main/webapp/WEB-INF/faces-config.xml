@@ -29,7 +29,13 @@
 			<base-name>i18n.constants</base-name>
 			<var>cst</var>
 		</resource-bundle>
+		
+		
 	</application>
-
+	<!--  OMNIFACES FIX  -->
+	<!--  The ResetInputAjaxActionListener will reset input fields which are not executed during ajax submit, but which are rendered/updated during ajax response. This will prevent those input fields to remain in an invalidated state because of a validation failure during a previous request. -->
+	<lifecycle>
+		 <phase-listener>org.omnifaces.eventlistener.ResetInputAjaxActionListener</phase-listener>
+	</lifecycle>
 </faces-config>
  
