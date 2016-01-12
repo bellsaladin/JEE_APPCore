@@ -47,7 +47,7 @@ public class StockController extends GenericCRUDController<Stock, StockService> 
 		if( _filter.getDepot() != null){
 			spec = Specifications.where(spec).and( new Stock._Specification(new SearchCriteria("depot", "=", _filter.getDepot())) );
 		}
-		
+		spec = new Stock._Specification(new SearchCriteria("article.code", ":", "ddddd"));
 		_list = _service.findAll(spec);
 		_dataModel = new DataModel(_list);
 	}
