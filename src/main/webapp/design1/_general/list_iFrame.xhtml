@@ -1,0 +1,91 @@
+<ui:composition 
+	xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    template="/design1/_general/template_forIFrameInclude.xhtml">
+	
+    <ui:define name="implementation">
+    	
+    	<p:panel id="filter" visible="true">
+			<ui:insert name="filter" />
+		</p:panel>
+		<p:hotkey bind="ctrl+shift+r" handler="PF('mainForm:filter').show();" />
+    	
+	    <p:dataTable id="dataTable" widgetVar="dataTable" var="object" value="#{core.bean().dataModel}"
+	    			 stickyHeader="false"
+	    			 sortMode="multiple"
+	    			 selection="#{core.bean().selectedObjects}"
+	                 paginator="true" rows="25"
+	                 paginatorPosition="bottom"
+	                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+	                 rowsPerPageTemplate="25,50,100"
+	                 currentPageReportTemplate="[ {totalRecords} #{lbl['lbl.lignes']} ]">
+        		<p:ajax event="rowSelect" update=":mainForm:actions,:mainForm:contextMenu,:mainForm:messages,:mainForm:dataTable"/>
+      			<p:ajax event="rowUnselect" update=":mainForm:actions,:mainForm:contextMenu,:mainForm:messages,:mainForm:dataTable"/>
+      			<p:ajax event="rowSelectCheckbox" update=":mainForm:actions,:mainForm:contextMenu,:mainForm:messages,:mainForm:dataTable"/>
+      			<p:ajax event="rowUnselectCheckbox" update=":mainForm:actions,:mainForm:contextMenu,:mainForm:messages,:mainForm:dataTable"/>	                 		                 		        		      
+      			<p:ajax event="toggleSelect" update=":mainForm:actions,:mainForm:contextMenu,:mainForm:messages,:mainForm:dataTable"/>
+<!-- 			<p:ajax event="rowSelect" update=":dialogUpdateUser" oncomplete="PF('dlgUpdateUser').show()"/> -->
+			
+			<p:column selectionMode="multiple" headerText="" style="width:20px;"/>
+			
+			<ui:insert name="dataTableColumns" />	
+							      
+			<p:columns value="#{core.bean()._dataTableColumns}" var="column" sortBy="#{object[column.property]}">
+	            <f:facet name="header">
+	                <h:outputText value="#{column.header}" />
+	            </f:facet>
+	            <h:outputText value="#{object[column.property]}" />
+	        </p:columns>
+			      		        		       
+	    </p:dataTable>	
+	    <p:dialog id="selectDataTableColumnsDialog" widgetVar="selectDataTableColumnsDialog" width="480" resizable="false" header="Choix des colonnes à afficher">
+	    	<p:scrollPanel mode="native" style="height:400px; border:0">
+			    <p:selectManyCheckbox id="selectDataTableColumnsManyCheckbox" value="#{core.bean()._dataTableColumnsKeys}" layout="grid"  columns="1">
+			        <f:selectItems value="#{core.bean().getObject().getFieldsNames()}" var="column" itemLabel="#{column}" itemValue="#{column}" />
+			    </p:selectManyCheckbox>
+		    </p:scrollPanel>
+		    <p:commandButton value="Mettre à jour les colonnes" actionListener="#{core.bean().runAction('updateDataTableColumns')}" update=":mainForm:dataTable" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+		</p:dialog>	    	    
+   		<!--<p:blockUI block="dataTable" trigger="dataTable">
+       		Chargement<br />
+       		<p:graphicImage name="demo/images/ajaxloadingbar.gif"/>
+   		</p:blockUI>--> 
+   		
+   		  
+   		<p:contextMenu id="contextMenu" for="dataTable">
+	        <p:menuitem value="Modifier" actionListener="#{core.bean().runAction('redirectToFormView')}" icon="ui-icon-search"/>
+	        <p:menuitem value="Supprimer" update="dataTable" icon="ui-icon-close" actionListener="PF('dlgUpdateUser').show()"/>
+	        <p:submenu label="Options" icon="ui-icon-refresh">
+		        <p:separator />
+		        <p:submenu label="Navigations" icon="ui-icon-extlink">
+		            <p:submenu label="Tranformation">
+		                <p:menuitem value="PrimeTek" url="http://www.primetek.com.tr" />
+		                <p:menuitem value="PrimeFaces" url="http://www.primefaces.org" />
+		            </p:submenu>
+		            <p:menuitem value="Some action" icon="ui-icon-signal" />
+		        </p:submenu>
+	        </p:submenu>
+	        <p:submenu label="Plus" icon="ui-icon-extlink">
+	        		<ui:insert name="contextMenuExtraActions" />
+	        </p:submenu>
+	    </p:contextMenu>
+			
+    </ui:define>
+    
+    <p:hotkey bind="ctrl+shift+f" actionListener="#{core.bean().addToFovoris()}">
+    	 <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+    </p:hotkey>
+    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+    </p:confirmDialog>
+    
+	<ui:insert name="actions" />
+	
+	<ui:insert name="dialogs" />
+	
+</ui:composition>

@@ -16,27 +16,27 @@
             //]]> 
         </script>
     </ui:define>
-    
-    <ui:define name="title">
-        Dashboard
-    </ui:define>
-
-    <ui:define name="description">
-        Dashboard ...
-    </ui:define>
-	
-	
+  
     <ui:define name="implementation">
-	  <div style="padding:30px">
-      	
-	    <p:panel id="lazyContentPanel" style="height:300px">
+      	<p:tabView orientation="top" style="padding:0">
+	        <p:tab title="Création de fournisseur" closable="true">
+	            <iframe id="iframeCenter" style="height:100%;min-height:100%" src="http://localhost:8080/SEOSoft-ERP/design1/ui/fournisseur/iFrame/form" width="100%"  
+				           height="100%" frameborder="0">  
+				  </iframe>
+	        </p:tab>
+	        <p:tab title="Liste demandes de prix" closable="true">
+	              <iframe id="iframeCenter" style="height:100%;min-height:100%" src="http://localhost:8080/SEOSoft-ERP/design1/ui/demandePrix/iFrame/list" width="100%"  
+				           height="100%" frameborder="0">  
+				  </iframe>
+	        </p:tab>
+		</p:tabView>
+	    <!-- <p:panel id="lazyContentPanel" style="height:300px">
 	    	<p:outputPanel id="lazyContentOutputPanel" deferred="true" delay="500" autoUpdate="true">
 		    	<p:poll interval="10" listener="#{core.bean().runAction('loadStatsData')}" />
 		    	<h1>AUTO UPDATED PANEL DEMO</h1>
 		    	<p>COMPTEUR : <p:outputLabel value="#{core.bean().getCount()}"/></p>
 	    	</p:outputPanel>
-	    </p:panel>
-      </div>
+	    </p:panel>-->
     </ui:define>
     
 	<ui:define name="actions">

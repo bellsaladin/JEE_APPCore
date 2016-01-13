@@ -36,7 +36,7 @@ public class RatingComponent extends UINamingContainer {
 		FacesContext.getCurrentInstance().addMessage(null, msg);
     }
     
-    public void updateRate( int val){
+    public void updateRate(int val){
     	int starsCount = Integer.valueOf(getStateHelper().get(PropertyKeys.starsCount).toString());
     	starsCount+= val;
     	getStateHelper().put(PropertyKeys.starsCount, starsCount);

@@ -52,5 +52,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.formLogin().loginPage("/login").successHandler(new CustomAuthenticationSuccessHandler())
 		/* .failureHandler(new CustomAuthenticationFailureHandler()) */.permitAll();
 		http.logout().permitAll();
+		http.headers()
+		.frameOptions().sameOrigin()
+		.httpStrictTransportSecurity().disable();
 	}
 }

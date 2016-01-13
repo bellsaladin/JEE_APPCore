@@ -1,0 +1,33 @@
+<ui:component 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:cc="http://java.sun.com/jsf/composite"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+    xmlns:of="http://omnifaces.org/functions"
+    xmlns:p="http://primefaces.org/ui">
+    
+    <cc:interface componentType="oneEntitySelectListComponent">
+    	<cc:attribute name="entityName" type="java.lang.String" required="true" />
+    	<cc:attribute name="value" required="true" />
+    </cc:interface>
+    
+    <cc:implementation>
+    	    <ui:param name="entityNameCapitalized" value="#{of:capitalize(cc.attrs.entityName)}" />
+    		<h:panelGroup id="#{cc.attrs.id}">
+		    	<p:selectOneMenu id="selectOneMenu" widgetVar="#{cc.attrs.id}Var" value="#{cc.attrs.value}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
+		    					 style="width:160px">      	    
+		        	<f:selectItem itemLabel="" itemValue="" />
+		        	<f:selectItems value="#{core.bean( cc.attrs.entityName ).list}" var="entity" itemLabel="#{entity.getDisplayText()}" itemValue="#{entity}" />
+		        </p:selectOneMenu>
+				
+		        <p:commandLink actionListener="#{core.bean().runAction('quickNouveau'.concat(entityNameCapitalized), cc.attrs.id)}" oncomplete="PF('dialog#{entityNameCapitalized}').show()" process="@parent" style="margin-left:5px">
+		        	<i class="fa fa-grid fa-3" style="font-size: 13px;color: rgb(12, 189, 143);" title="Choix"></i>	
+		        </p:commandLink>
+	<!-- 			<div><small class="silver">seosoft:OneEntitySelectMenu</small></div> -->
+			</h:panelGroup>
+    </cc:implementation>
+    
+</ui:component>

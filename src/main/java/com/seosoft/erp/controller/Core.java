@@ -7,10 +7,11 @@ import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
 import com.seosoft.erp.controller.generic.GenericController;
+import com.seosoft.erp.util.scopes.request.SpringRequestScoped;
 import com.seosoft.erp.util.scopes.view.SpringViewScoped;
 
 @Named
-@SpringViewScoped
+@SpringRequestScoped
 public class Core implements Serializable{
 	private static final long serialVersionUID = 9100562508344707166L;
 		
@@ -38,7 +39,8 @@ public class Core implements Serializable{
      */
     
 	public static GenericController<?,?> bean() {
-		return _bean;
+		return bean(getModuleNameFromUrl());
+		//return _bean;
     }
 	
 	public static GenericController<?,?> bean(String beanName) {
