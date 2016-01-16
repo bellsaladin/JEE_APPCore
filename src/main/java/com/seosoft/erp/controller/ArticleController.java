@@ -36,8 +36,8 @@ public class ArticleController extends GenericCRUDController<Article, ArticleSer
 	private Stock stock = new Stock(); ;
 	
 	protected void prepareData(){
-		super.prepareData();
 		_moduleName = "article";
+		super.prepareData();
 		prepareForCreateNew();
 		
 	}

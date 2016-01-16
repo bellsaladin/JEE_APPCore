@@ -40,8 +40,8 @@ public class DemandePrixController extends GenericCRUDController<DemandePrix, De
 	private Article emptyArticle = new Article();
 
 	protected void prepareData(){
-		super.prepareData();
 		_moduleName = "demandePrix";
+		super.prepareData();
 		prepareForCreateNew();
 		_filter = new DemandePrix.Filter();
 	}
@@ -153,9 +153,7 @@ public class DemandePrixController extends GenericCRUDController<DemandePrix, De
 			@Override
 			public void run() {
 				System.out.println("SAVE : "  + _moduleName);
-
 				boolean isNewInsert = (_object.getId()==null)?true:false;
-				
 				// save Demande Prix
 				_service.save(_object); 
 				// save details Demande Prix

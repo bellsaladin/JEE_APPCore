@@ -33,8 +33,8 @@ public class ClientController extends GenericCRUDController<Client, ClientServic
 	private static final long serialVersionUID = -1993075880697827090L;
 
 	protected void prepareData(){
-		super.prepareData();
 		_moduleName = "client";
+		super.prepareData();
 		prepareForCreateNew();
 	}
 	

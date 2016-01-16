@@ -45,8 +45,9 @@
 		       					<p:selectOneMenu id="fournisseur" label="Fournisseur" widgetVar="fournisseurVar" value="#{core.bean().object.fournisseur}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
 		    									 style="width:160px" required="true">      	    
 						        	<f:selectItem itemLabel="" itemValue="" />
-						        	<f:selectItems value="#{core.bean('fournisseur').list}" var="entity" itemLabel="#{entity.getDisplayText()}" itemValue="#{entity.getId()}" />
-		 				        	<p:ajax event="change" update="#{core.bean().getComponentById('adresseCommande').getClientId()}" listener="#{core.bean().runAction('updateAdresseCommande')}"/>
+						        	<f:selectItems value="#{core.bean('fournisseur').list}" var="entity" itemLabel="#{entity.getDisplayText()}" itemValue="#{entity}" />
+<!-- 		 				        	<p:ajax event="change" update="#{core.bean().getComponentById('adresseCommande').getClientId()}" listener="#{core.bean().runAction('updateAdresseCommande')}"/> -->
+		 				        	<p:ajax event="change" update=":mainForm" listener="#{core.bean().runAction('updateAdresseCommande')}"/>
 						        </p:selectOneMenu>
 		       					
 		       					<h:outputLabel value="Origine :" />
@@ -150,20 +151,20 @@
 									           <h:outputLabel value="" />
 									           <p:inputText id="adresseLivraisonigne2" value="#{core.bean().object.adresseLivraisonLigne2}" size="50"/>
 								           	   <h:outputLabel value="Code postal : *" />
-									           <p:inputText id="adresseLivraisonCodePostal" value="#{core.bean().object.adresseLivraisonCodePostal}" size="50"/>
+									           <p:inputText id="adresseLivraisonCodePostal" value="#{(core.bean().object.adresseLivraisonVille ne null )?core.bean().object.adresseLivraisonVille.codePostal:null}" required="true" size="50"/>
 								           	   <h:outputLabel value="" />
 								           	   <h:panelGrid columns="2">
-									           	   <p:selectOneMenu id="adresseLivraisonPays" widgetVar="adresseLivraisonPaysVar" value="#{core.bean().object.adresseLivraisonPays}" filter="true" filterMatchMode="startsWith"
-						    										style="width:134px" required="true">      	    
-											        	<f:selectItem itemLabel="Maroc" itemValue="MA" />
-											        	<f:selectItem itemLabel="France" itemValue="FR" />
-											        	<f:selectItem itemLabel="Etats Unis d'amérique" itemValue="USA" />
+									           	   <p:selectOneMenu id="adresseLivraisonPays" widgetVar="adresseLivraisonPaysVar" value="#{core.bean().object.adresseLivraisonPays}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
+						    										style="width:134px">
+						    							<f:selectItem  itemValue="" itemLabel=""/>      	    
+											        	<f:selectItems value="#{core.bean('pays').list}" var="entity" itemLabel="#{entity.getDisplayText()}" itemValue="#{entity}" />
+											        	<p:ajax event="change" update="adresseLivraisonVille,adresseLivraisonCodePostal" />
 											       </p:selectOneMenu>
 											       <p:selectOneMenu id="adresseLivraisonVille" widgetVar="adresseLivraisonVilleVar" value="#{core.bean().object.adresseLivraisonVille}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
-						    										style="width:134px" required="true">      	    
-											        	<f:selectItem itemLabel="Rabat" itemValue="rabat" />
-											        	<f:selectItem itemLabel="Paris" itemValue="paris" />
-											        	<f:selectItem itemLabel="New York" itemValue="new york" />
+						    										style="width:134px">      	    
+											        	<f:selectItem  itemValue="" itemLabel=""/>
+											        	<f:selectItems value="#{core.bean('ville').getList( core.bean().object.adresseLivraisonPays )}" var="entity" itemLabel="#{entity.getDisplayText()}" itemValue="#{entity}" />
+											        	<p:ajax event="change" update="adresseLivraisonCodePostal"/>
 											       </p:selectOneMenu>
 								           	   </h:panelGrid>
 							       			</h:panelGrid>
@@ -175,21 +176,21 @@
 										           <p:inputText id="adresseCommandeLigne1" value="#{core.bean().object.adresseCommandeLigne1}" size="50"/>
 										           <h:outputLabel value="" />
 										           <p:inputText id="adresseCommandeigne2" value="#{core.bean().object.adresseCommandeLigne2}" size="50"/>
-									           	   <h:outputLabel value="Code postal : *" />
-										           <p:inputText id="adresseCommandeCodePostal" value="#{core.bean().object.adresseCommandeCodePostal}" size="50"/>
+										           <h:outputLabel value="Code postal : *" />
+										           <p:inputText id="adresseCommandeCodePostal" value="#{(core.bean().object.adresseCommandeVille ne null )?core.bean().object.adresseCommandeVille.codePostal:null}" required="true" size="50"/>
 									           	   <h:outputLabel value="" />
 									           	   <h:panelGrid columns="2">
-										           	   <p:selectOneMenu id="adresseCommandePays" widgetVar="adresseCommandePaysVar" value="#{core.bean().object.adresseCommandePays}" filter="true" filterMatchMode="startsWith"
-							    										style="width:134px">      	    
-												        	<f:selectItem itemLabel="Maroc" itemValue="MA" />
-												        	<f:selectItem itemLabel="France" itemValue="FR" />
-												        	<f:selectItem itemLabel="Etats Unis d'amérique" itemValue="USA" />
+										           	   <p:selectOneMenu id="adresseCommandePays" widgetVar="adresseCommandePaysVar" value="#{core.bean().object.adresseCommandePays}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
+							    										style="width:134px">
+							    							<f:selectItem  itemValue="" itemLabel=""/>      	    
+												        	<f:selectItems value="#{core.bean('pays').list}" var="entity" itemLabel="#{entity.getDisplayText()}" itemValue="#{entity}" />
+												        	<p:ajax event="change" update="adresseCommandeVille,adresseCommandeCodePostal" />
 												       </p:selectOneMenu>
 												       <p:selectOneMenu id="adresseCommandeVille" widgetVar="adresseCommandeVilleVar" value="#{core.bean().object.adresseCommandeVille}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
 							    										style="width:134px">      	    
-												        	<f:selectItem itemLabel="Rabat" itemValue="rabat" />
-												        	<f:selectItem itemLabel="Paris" itemValue="paris" />
-												        	<f:selectItem itemLabel="New York" itemValue="new york" />
+												        	<f:selectItem  itemValue="" itemLabel=""/>
+												        	<f:selectItems value="#{core.bean('ville').getList( core.bean().object.adresseCommandePays )}" var="entity" itemLabel="#{entity.getDisplayText()}" itemValue="#{entity}" />
+												        	<p:ajax event="change" update="adresseCommandeCodePostal"/>
 												       </p:selectOneMenu>
 									           	   </h:panelGrid>
 								       			</h:panelGrid>
@@ -206,7 +207,8 @@
 		    									 style="width:160px" required="true">      	    
 									        	<f:selectItem itemLabel="" itemValue="" />
 									        	<f:selectItems value="#{core.bean('depot').list}" var="entity" itemLabel="#{entity.getDisplayText()}" itemValue="#{entity}" />
-					 				        	<p:ajax event="change" update="#{core.bean().getComponentById('adresseLivraison').getClientId()}" listener="#{core.bean().runAction('updateAdresseLivraison')}"/>
+					 				        	<!-- <p:ajax event="change" update="#{core.bean().getComponentById('adresseLivraison').getClientId()}" listener="#{core.bean().runAction('updateAdresseLivraison')}"/> -->
+					 				        	<p:ajax event="change" update=":mainForm" listener="#{core.bean().runAction('updateAdresseLivraison')}"/>
 									        </p:selectOneMenu>
 					       		   			
 					       		   			<h:outputLabel value="Expédition " />

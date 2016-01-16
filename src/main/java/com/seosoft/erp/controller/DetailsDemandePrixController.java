@@ -18,8 +18,8 @@ public class DetailsDemandePrixController extends GenericCRUDController<DetailsD
 	private static final long serialVersionUID = 7838900790101299064L;
 
 	protected void prepareData(){
-		super.prepareData();
 		_moduleName = "detailsDemandePrix";
+		super.prepareData();
 		prepareForCreateNew();
 	}
 	

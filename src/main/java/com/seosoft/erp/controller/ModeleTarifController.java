@@ -18,8 +18,8 @@ public class ModeleTarifController extends GenericCRUDController<ModeleTarif, Mo
 	private static final long serialVersionUID = 7838900790101299064L;
 
 	protected void prepareData(){
-		super.prepareData();
 		_moduleName = "modeleTarif";
+		super.prepareData();
 		prepareForCreateNew();
 	}
 	

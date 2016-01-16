@@ -13,6 +13,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.ListDataModel;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
@@ -76,13 +77,12 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 		_dataTableColumnsKeys = new ArrayList<String>();
 		_dataTableColumns = new ArrayList<ColumnModel>();
 		setSortColumn("id");
+		
 	}
 	
 	@PostConstruct
 	public void initialize() {
 		checkAccessPermission();
-		// try to get parameter data
-		_paramId = (String) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("id");
 		prepareData();
 		setUpdateObjectSubject();
 		onDataReady();
@@ -117,7 +117,17 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
 
 	protected void prepareData() {
-		_list = _service.findAll();
+		// try to get parameter data
+		_paramId = (String) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("id");
+		System.out.println("isMainModule" + isMainModule());
+		if(isMainModule()){
+			_sortColumn = (String) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("sortBy");
+			_sortColumn = (_sortColumn != null)?_sortColumn:"id";
+			System.out.println("_sortColumn" + _sortColumn);
+			setSortColumn(_sortColumn);
+		}
+		// get list of data
+		_list = _service.findAll(null, _sortBy);
 		_dataModel = new DataModel(_list);
 	}
 	
@@ -300,7 +310,22 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 			public void run() {
 				if(_selectedObjects.size() > 0){
 					String id = _selectedObjects.get(_selectedObjects.size() -1).getId();
-					String url = _Constants.base_url + _moduleName +"/form?id=" + id;
+					String url = _Constants.base_url + _moduleName +"/form?id=" + id + "&sortBy="+ _sortColumn;
+					try {
+						FacesContext.getCurrentInstance().getExternalContext().redirect( url);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		});
+		
+		_actions.put("redirectToFormViewAndNavigateUsingCurrentSortColumn", new Action(){
+			@Override
+			public void run() {
+				if(_selectedObjects.size() > 0){
+					String id = _selectedObjects.get(_selectedObjects.size() -1).getId();
+					String url = _Constants.base_url + _moduleName +"/form?id=" + id + "&sortBy="+ _sortColumn;
 					try {
 						FacesContext.getCurrentInstance().getExternalContext().redirect( url);
 					} catch (IOException e) {
@@ -365,10 +390,6 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 			System.out.println("getRelatedModules:" + _moduleName + ":" + actionName);
 		}
 		return keys.toArray(new String[keys.size()]);
-	}
-	
-	protected boolean isMainModule(){
-		return Core.getCurrentModuleName() == this.getModuleName();
 	}
 
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//

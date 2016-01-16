@@ -21,8 +21,8 @@ public class FamilleClientController extends GenericCRUDController<FamilleClient
 	private static final long serialVersionUID = 7838900790101299064L;
 
 	protected void prepareData(){
-		super.prepareData();
 		_moduleName = "familleClient";
+		super.prepareData();
 		_object = new FamilleClient();
 	}
 	

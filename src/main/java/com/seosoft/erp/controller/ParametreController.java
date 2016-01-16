@@ -24,8 +24,8 @@ public class ParametreController extends GenericUpdateOnlyController<Parametre, 
 	private static final long serialVersionUID = 7838900790101299064L;
 	
 	protected void prepareData(){
-		super.prepareData();
 		_moduleName = "parametre";
+		super.prepareData();
 		prepareForCreateNew();
 		
 	}

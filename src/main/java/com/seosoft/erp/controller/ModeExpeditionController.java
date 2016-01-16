@@ -18,8 +18,8 @@ public class ModeExpeditionController extends GenericCRUDController<ModeExpediti
 	private static final long serialVersionUID = 7838900790101299064L;
 
 	protected void prepareData(){
-		super.prepareData();
 		_moduleName = "modeExpedition";
+		super.prepareData();
 		prepareForCreateNew();
 	}
 	

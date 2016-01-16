@@ -94,6 +94,7 @@
    		  
    		<p:contextMenu id="contextMenu" for="dataTable">
 	        <p:menuitem value="Modifier" actionListener="#{core.bean().runAction('redirectToFormView')}" icon="ui-icon-search"/>
+	        <!-- <p:menuitem value="Modifier (Utiliser le classement lors de la navigation)" actionListener="#{core.bean().runAction('redirectToFormViewAndNavigateUsingCurrentSortColumn')}" icon="ui-icon-search"/>  -->
 	        <p:menuitem value="Supprimer" update="dataTable" icon="ui-icon-close" actionListener="PF('dlgUpdateUser').show()"/>
 	        <p:submenu label="Options" icon="ui-icon-refresh">
 		        <p:separator />

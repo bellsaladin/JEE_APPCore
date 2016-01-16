@@ -36,8 +36,8 @@ public class BonReceptionController extends GenericCRUDController<BonReception, 
 	
 
 	protected void prepareData(){
-		super.prepareData();
 		_moduleName = "bonReception";
+		super.prepareData();
 		prepareForCreateNew();
 	}
 	

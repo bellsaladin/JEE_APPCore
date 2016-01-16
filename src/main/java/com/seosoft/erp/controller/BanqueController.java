@@ -33,8 +33,8 @@ public class BanqueController extends GenericCRUDController<Banque, BanqueServic
 	private static final long serialVersionUID = -1993075880697827090L;
 
 	protected void prepareData(){
-		super.prepareData();
 		_moduleName = "banque";
+		super.prepareData();
 		prepareForCreateNew();
 	}
 	

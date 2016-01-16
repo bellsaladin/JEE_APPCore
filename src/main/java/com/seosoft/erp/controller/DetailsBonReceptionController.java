@@ -18,8 +18,8 @@ public class DetailsBonReceptionController extends GenericCRUDController<Details
 	private static final long serialVersionUID = 7838900790101299064L;
 
 	protected void prepareData(){
-		super.prepareData();
 		_moduleName = "detailsBonReception";
+		super.prepareData();
 		prepareForCreateNew();
 	}
 	

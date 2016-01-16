@@ -36,8 +36,8 @@ public class FactureFournisseurController extends GenericCRUDController<FactureF
 	
 
 	protected void prepareData(){
-		super.prepareData();
 		_moduleName = "factureFournisseur";
+		super.prepareData();
 		prepareForCreateNew();
 	}
 	

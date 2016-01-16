@@ -125,7 +125,7 @@
     </ui:define>
     
 	<ui:define name="actions">
-		<p:button value="Aide" href="article" styleClass="ui-whiteBtn pull-right"/>
+		<p:button styleClass="ui-whiteBtn pull-right" icon="ui-icon-help"/>
 		<p:button value="Nouveau" href="/design1/ui/#{core.bean().moduleName}/form" styleClass="ui-whiteBtn pull-right" style="margin-right:10px;"/>
 		<p:commandButton value="Colonnes" onclick="PF('selectDataTableColumnsDialog').show()" icon="ui-icon-grip-dotted-horizontal" styleClass="ui-whiteBtn pull-right" style="margin-right:10px;"/>
 	    <p:commandButton value="Transformer" rendered="#{core.bean().selectedObjects.size() gt 0}" actionListener="#{core.bean().runAction('transformer')}" update="dataTable,messages" icon="ui-icon-seek-next" styleClass="ui-whiteBtn pull-right" style="margin-right:10px;"/>

@@ -33,8 +33,8 @@ public class FournisseurController extends GenericCRUDController<Fournisseur, Fo
 	private static final long serialVersionUID = -1993075880697827090L;
 
 	protected void prepareData(){
-		super.prepareData();
 		_moduleName = "fournisseur";
+		super.prepareData();
 		prepareForCreateNew();
 	}
 	

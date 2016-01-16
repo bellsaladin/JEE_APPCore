@@ -12,7 +12,7 @@ body{margin:0px; height:100%; overflow-x:hidden; overflow-y:auto; background-col
 		.logoBlueText{color:#25aae1;}
  
 	/* menu side style*/
-	#MENUSIDE{float:left; background-color:#E7F2F7; border-right:solid 1px #BED6E2; overflow:hidden; width: 80px; position: fixed;  z-index: 1003;}
+	#MENUSIDE{float:left; background-color:#E7F2F7; border-right:solid 1px #BED6E2; overflow:hidden; width: 80px; position: fixed;  z-index: 1000;}
 		#MENUSIDEindent{width:100%; height:auto;}
 			#LOGO{    height: 52px;
 					  width: 60px;

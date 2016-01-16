@@ -15,8 +15,8 @@ public class ContactController extends GenericCRUDController<Contact, ContactSer
 	private static final long serialVersionUID = 7838900790101299064L;
 
 	protected void prepareData(){
-		super.prepareData();
 		_moduleName = "contact";
+		super.prepareData();
 		prepareForCreateNew();
 	}
 	

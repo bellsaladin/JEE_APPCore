@@ -3,6 +3,7 @@ package com.seosoft.erp.controller.generic;
 import java.util.Map;
 
 import com.seosoft.erp.controller.BaseController;
+import com.seosoft.erp.controller.Core;
 import com.seosoft.erp.model.base.BaseEntity;
 import com.seosoft.erp.service.generic.GenericService;
 
@@ -18,6 +19,12 @@ public abstract class GenericController<Type extends BaseEntity, Service extends
 
 	public void setModuleName(String moduleName) {
 		this._moduleName = moduleName;
+	}
+	
+	protected boolean isMainModule(){
+		System.out.println("Core.getCurrentModuleName() " + Core.getCurrentModuleName() );
+		System.out.println("this.getModuleName() " + this.getModuleName() );
+		return Core.getCurrentModuleName().equals(this.getModuleName());
 	}
 	
 	public String[] getRelatedModules(){

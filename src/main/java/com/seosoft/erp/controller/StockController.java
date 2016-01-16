@@ -26,8 +26,8 @@ public class StockController extends GenericCRUDController<Stock, StockService> 
 	private Stock.Filter _filter;
 	
 	protected void prepareData(){
-		super.prepareData();
 		_moduleName = "stock";
+		super.prepareData();
 		prepareForCreateNew();
 		_filter = new Stock.Filter();
 	}

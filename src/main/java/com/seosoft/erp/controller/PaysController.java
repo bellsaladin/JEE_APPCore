@@ -18,8 +18,8 @@ public class PaysController extends GenericCRUDController<Pays, PaysService> imp
 	private static final long serialVersionUID = 7838900790101299064L;
 
 	protected void prepareData(){
-		super.prepareData();
 		_moduleName = "pays";
+		super.prepareData();
 		prepareForCreateNew();
 	}
 	

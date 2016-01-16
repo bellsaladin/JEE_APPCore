@@ -18,8 +18,8 @@ public class ModeTransportController extends GenericCRUDController<ModeTransport
 	private static final long serialVersionUID = 7838900790101299064L;
 
 	protected void prepareData(){
-		super.prepareData();
 		_moduleName = "modeTransport";
+		super.prepareData();
 		prepareForCreateNew();
 	}
 	

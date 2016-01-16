@@ -40,8 +40,8 @@ public class ProfilController extends GenericCRUDController<v2_Profil, v2_Profil
 	
 
 	protected void prepareData(){
-		super.prepareData();
 		_moduleName = "profil";
+		super.prepareData();
 	
 		prepareForCreateNew();
 	}

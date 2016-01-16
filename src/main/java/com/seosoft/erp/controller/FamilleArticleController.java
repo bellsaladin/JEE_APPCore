@@ -18,8 +18,8 @@ public class FamilleArticleController extends GenericCRUDController<FamilleArtic
 	private static final long serialVersionUID = 7838900790101299064L;
 
 	protected void prepareData(){
-		super.prepareData();
 		_moduleName = "familleArticle";
+		super.prepareData();
 		prepareForCreateNew();
 	}
 	

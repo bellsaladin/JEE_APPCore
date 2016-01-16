@@ -20,8 +20,8 @@ public class VilleController extends GenericCRUDController<Ville, VilleService> 
 	private static final long serialVersionUID = 7838900790101299064L;
 
 	protected void prepareData(){
-		super.prepareData();
 		_moduleName = "ville";
+		super.prepareData();
 		prepareForCreateNew();
 	}
 	

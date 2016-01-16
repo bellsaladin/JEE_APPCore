@@ -5,6 +5,7 @@ import java.util.List;
 import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -61,5 +62,26 @@ public abstract class BaseController implements ApplicationContextAware {
 		}
 		return foundComponent;
 	}
+	
+	
+	public HttpSession getSession(){
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
+		return session;
+	}
+	
+	public Object getValueFromSession(String key){
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
+		return session.getValue(key);
+	}
+	
+	public void setValueToSession(String key, Object value){
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
+		 session.putValue(key, value);
+	}
+	
+	
 
 }

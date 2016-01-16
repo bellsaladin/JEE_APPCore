@@ -14,8 +14,8 @@ public class FonctionController extends GenericCRUDController<Fonction, Fonction
 	private static final long serialVersionUID = 7838900790101299064L;
 
 	protected void prepareData(){
-		super.prepareData();
 		_moduleName = "fonction";
+		super.prepareData();
 		prepareForCreateNew();
 	}
 	

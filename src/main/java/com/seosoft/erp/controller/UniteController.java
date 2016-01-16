@@ -18,8 +18,8 @@ public class UniteController extends GenericCRUDController<Unite, UniteService> 
 	private static final long serialVersionUID = 7838900790101299064L;
 
 	protected void prepareData(){
-		super.prepareData();
 		_moduleName = "unite";
+		super.prepareData();
 		prepareForCreateNew();
 	}
 	

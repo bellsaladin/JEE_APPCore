@@ -35,8 +35,8 @@ public class BonCommandeFournisseurController extends GenericCRUDController<BonC
 	
 
 	protected void prepareData(){
-		super.prepareData();
 		_moduleName = "bonCommandeFournisseur";
+		super.prepareData();
 		prepareForCreateNew();
 	}
 	
