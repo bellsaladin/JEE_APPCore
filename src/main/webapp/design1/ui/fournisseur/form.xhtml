@@ -84,7 +84,7 @@
 							         </h:panelGrid>
 							 	</p:fieldset>
 							 	<p:fieldset legend="observations" style="margin-bottom:20px">
-				       				 <p:inputTextarea rows="6" cols="140"  value="#{core.bean().object.observations}"/>
+				       				 <p:inputTextarea rows="6" cols="140"  value="#{core.bean().object.observations}" placeholder="Mettez vos observations ici..."/>
 							 	</p:fieldset>
 						 	</p:column>
 						 	<p:column  colspan="2">
@@ -113,7 +113,7 @@
 					           <h:outputLabel value="" />
 					           <p:inputText id="adresseigne2" value="#{core.bean().object.adresseLigne2}" size="50"/>
 				           	   <h:outputLabel value="Code postal : *" />
-					           <p:inputText id="adresseCodePostal" value="#{core.bean().object.adresseVille.codePostal}" required="true" size="50"/>
+					           <p:inputText id="adresseCodePostal" value="#{(core.bean().object.adresseVille ne null )?core.bean().object.adresseVille.codePostal:null}" required="true" size="50"/>
 				           	   <h:outputLabel value="" />
 				           	   <h:panelGrid columns="2">
 					           	   <p:selectOneMenu id="adressePays" widgetVar="adressePaysVar" value="#{core.bean().object.adressePays}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
@@ -154,7 +154,7 @@
 					           <h:outputLabel value="" />
 					           <p:inputText id="adresseReglementigne2" value="#{core.bean().object.adresseReglementLigne2}" size="50" />
 				           	   <h:outputLabel value="Code postal : *" />
-					           <p:inputText id="adresseReglementCodePostal" value="#{core.bean().object.adresseReglementVille.codePostal}" required="true" size="50"/>
+					           <p:inputText id="adresseReglementCodePostal" value="#{(core.bean().object.adresseReglementVille ne null )?core.bean().object.adresseReglementVille.codePostal:null}" required="true" size="50"/>
 				           	   <h:outputLabel value="" />
 				           	   <h:panelGrid columns="2">
 					           	   <p:selectOneMenu id="adresseReglementPays" widgetVar="adresseReglementPaysVar" value="#{core.bean().object.adresseReglementPays}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"

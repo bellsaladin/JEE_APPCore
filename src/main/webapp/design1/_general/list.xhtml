@@ -31,7 +31,22 @@
     <ui:define name="implementation">
     	
     	<p:panel id="filter" visible="true">
-			<ui:insert name="filter" />
+    		<p:fieldset legend="Filtre" toggleable="true" collapsed="true">
+    			<h:panelGrid columns="2" cellpadding="5"  styleClass="no-border-table full-width" >
+    				<p:panel>
+    					<ui:insert name="filter" />
+    				</p:panel>
+    				<p:panel>
+    					<p:fieldset legend="Classement par">
+					        <p:selectOneMenu label="Classement" widgetVar="classementVar" value="#{core.bean().sortColumn}" filter="true" filterMatchMode="startsWith"
+				    									 style="width:160px">
+				        		<f:selectItems value="#{core.bean().getObject().getFieldsNames('sortByInView')}" var="column" itemLabel="#{column}" itemValue="#{column}" />
+					        	<p:ajax event="change" update="mainForm:dataTable" listener="#{core.bean().handleFilter()}"/>
+					        </p:selectOneMenu>
+				        </p:fieldset>
+    				</p:panel>
+    			</h:panelGrid>
+	        </p:fieldset>
 		</p:panel>
 		<p:hotkey bind="ctrl+shift+r" handler="PF('mainForm:filter').show();" />
     	

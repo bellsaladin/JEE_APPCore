@@ -11,10 +11,8 @@
     </ui:define>
     
     <ui:define name="filter">
-    	<p:fieldset legend="Filtre" toggleable="true" collapsed="true">
-    		<p:ajax event="toggle" update="mainForm:dataTable" />
    			<p:tabView >
-   				<p:tab title="">
+   				<p:tab title="Tiers">
    					<p:selectOneMenu label="Fournisseur" widgetVar="fournisseurVar" value="#{core.bean().filter.fournisseur}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
 		    									 style="width:160px">      	    
 			        	<f:selectItem itemLabel="Tous les fournisseurs" itemValue="#{null}"/>
@@ -27,7 +25,8 @@
 			        	<f:selectItems value="#{core.bean('depot').list}" var="entity" itemLabel="#{entity.getDisplayText()}" itemValue="#{entity}" />
 				        	<p:ajax event="change" update="mainForm:dataTable" listener="#{core.bean().handleFilter()}"/>
 			        </p:selectOneMenu>
-			        
+			     </p:tab>
+			      <p:tab title="Type">  
 			        <p:selectOneRadio value="#{core.bean().filter.valide}" layout="grid" columns="3">
 			            <f:selectItem itemLabel="Tous" itemValue="-1"/>
 			            <f:selectItem itemLabel="Validé" itemValue="1" />
@@ -49,7 +48,6 @@
 <!-- 			        </p:calendar> -->
    				</p:tab>
    			</p:tabView>
-    	</p:fieldset>
     </ui:define>
 
 	<ui:define name="dataTableColumns">

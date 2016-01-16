@@ -154,7 +154,7 @@
 					           <h:outputLabel value="" />
 					           <p:inputText id="adresseReglementigne2" value="#{core.bean().object.adresseReglementLigne2}" size="50" />
 				           	   <h:outputLabel value="Code postal : *" />
-					           <p:inputText id="adresseReglementCodePostal" value="#{core.bean().object.adresseReglementVille.codePostal}" required="true" size="50"/>
+					           <p:inputText id="adresseReglementCodePostal" value="#{(core.bean().object.adresseReglementVille ne null )?core.bean().object.adresseReglementVille.codePostal:null}" required="true" size="50"/>
 				           	   <h:outputLabel value="" />
 				           	   <h:panelGrid columns="2">
 					           	   <p:selectOneMenu id="adresseReglementPays" widgetVar="adresseReglementPaysVar" value="#{core.bean().object.adresseReglementPays}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"

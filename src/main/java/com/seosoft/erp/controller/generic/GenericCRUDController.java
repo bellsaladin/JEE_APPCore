@@ -21,12 +21,17 @@ import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.SelectableDataModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.seosoft.erp.controller.Core;
 import com.seosoft.erp.controller._Constants;
 import com.seosoft.erp.model.base.BaseEntity;
+import com.seosoft.erp.model.base.SearchCriteria;
+import com.seosoft.erp.model.entity.DemandePrix;
 import com.seosoft.erp.model.entity.v2_UserNawat;
 import com.seosoft.erp.service.generic.GenericService;
 import com.seosoft.erp.util.components.ColumnModel;
@@ -52,6 +57,8 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 	protected HashMap<String,Action> _relatedModulesActions;
 	protected BaseEntity entitySubjectOfQuickDialog; // FIXME : SHOULD BE DYNAMIC and embeded on a list
 	protected boolean quickDialogUpdateMode = false;
+	protected Sort _sortBy;
+	protected String _sortColumn;
 	
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
 	// ||||||||||||||||||||||||||||||||||||||||||||||||||| Constructeur |||||||||||||||||||||||||||||||||||||||||||||||||||||||//
@@ -67,6 +74,7 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 		registerActions();
 		_dataTableColumnsKeys = new ArrayList<String>();
 		_dataTableColumns = new ArrayList<ColumnModel>();
+		setSortColumn("id");
 	}
 	
 	@PostConstruct
@@ -144,6 +152,13 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 				RequestContext.getCurrentInstance().update("dialog"+ WordUtils.capitalize(relatedModuleName));
 			}
 		});
+	}
+	
+	public void handleFilter(){
+		Specification<Type> spec = null;
+		
+		_list = _service.findAll(spec, _sortBy);
+		_dataModel = new DataModel(_list);
 	}
 
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
@@ -337,6 +352,23 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 		FacesMessage msg = new FacesMessage("Do Filter");
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
+	
+	public String[] getRelatedModules(){
+		Set<String> keys = _relatedModules.keySet();
+		System.out.println("getRelatedModules:" + _moduleName + " : " + _relatedModules.size());
+		System.out.println("getRelatedModules:" + _moduleName +" : " + _actions.size());
+		for(String moduleName : keys){
+			System.out.println("getRelatedModules:" + _moduleName +" : " + moduleName);
+		}
+		for(String actionName : _actions.keySet()){
+			System.out.println("getRelatedModules:" + _moduleName + ":" + actionName);
+		}
+		return keys.toArray(new String[keys.size()]);
+	}
+	
+	protected boolean isMainModule(){
+		return Core.getCurrentModuleName() == this.getModuleName();
+	}
 
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
 	// ||||||||||||||||||||||||||||||||||||||||||||||||||| ObjectDataModel |||||||||||||||||||||||||||||||||||||||||||||||||||||||//
@@ -445,20 +477,13 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 		this.quickDialogUpdateMode = quickDialogUpdateMode;
 	}
 	
-	public String[] getRelatedModules(){
-		Set<String> keys = _relatedModules.keySet();
-		System.out.println("getRelatedModules:" + _moduleName + " : " + _relatedModules.size());
-		System.out.println("getRelatedModules:" + _moduleName +" : " + _actions.size());
-		for(String moduleName : keys){
-			System.out.println("getRelatedModules:" + _moduleName +" : " + moduleName);
-		}
-		for(String actionName : _actions.keySet()){
-			System.out.println("getRelatedModules:" + _moduleName + ":" + actionName);
-		}
-		return keys.toArray(new String[keys.size()]);
+	public String getSortColumn() {
+		return _sortColumn;
+	}
+
+	public void setSortColumn(String sortColumn) {
+		this._sortColumn = sortColumn;
+		_sortBy = new Sort(Sort.Direction.ASC, sortColumn);
 	}
 	
-	protected boolean isMainModule(){
-		return Core.getCurrentModuleName() == this.getModuleName();
-	}
 }

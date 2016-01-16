@@ -1,5 +1,6 @@
 package com.seosoft.erp.model.base;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
@@ -16,6 +17,8 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Length;
 import org.joda.time.DateTime;
+
+import com.seosoft.erp.util.annotation.SortByInView;
 
 /**
  * La classe Super de toutes les entities
@@ -167,17 +170,36 @@ public abstract class BaseEntity {
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
 	
 	public  List<String> getFieldsNames(){
+		return getFieldsNames("all");
+	}
+	public  List<String> getFieldsNames(String filter){
 		List<String> fieldsList = new ArrayList<String>();
+		fieldsList.add("id"); // add id to list because it can't be read at super class
+		System.out.println("Filter" + filter);
 		Field[] fields = this.getClass().getDeclaredFields();
-        System.out.printf("%d fields:%n", fields.length);
         for (Field field : fields) {
-        	fieldsList.add(field.getName());
+        	if( !field.isAccessible()) continue;
         	System.out.printf("%s %s %s%n",
                     Modifier.toString(field.getModifiers()),
                     field.getType().getSimpleName(),
                     field.getName()
                 );
+        	
+        	if(filter.equals("sortByInView")){
+        		Annotation[] annotations = field.getDeclaredAnnotations();
+        		System.out.println("FilterINNNN : " + annotations.length);
+            	for(Annotation annotation: annotations){
+            		System.out.printf("Annotation %s %n",
+                            annotation.annotationType().toString()
+                        );
+            		if(annotation.annotationType().equals(SortByInView.class))
+        		        fieldsList.add(field.getName());
+            	}
+    		}else if(filter.equals("all")){
+    			fieldsList.add(field.getName());
+    		}
         }
+        
         return fieldsList;
 	}
 	

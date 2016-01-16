@@ -83,6 +83,11 @@ public abstract class GenericServiceImpl<T, ID extends Serializable> implements 
 	public List<T> findAll(Specification<T> spec){
 		return getRepository().findAll(spec);
 	}
+	
+	@Override
+	public List<T> findAll(Specification<T> spec, Sort sort){
+		return getRepository().findAll(spec, sort);
+	}
 
 	@Override
 	public Page<T> findAll(Pageable pageable) {

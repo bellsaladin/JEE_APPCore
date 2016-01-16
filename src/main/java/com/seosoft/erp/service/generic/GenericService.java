@@ -97,6 +97,8 @@ public interface GenericService<T, ID extends Serializable> {
 	List<T> findAll();
 	
 	List<T> findAll(Specification<T> spec);
+	
+	List<T> findAll(Specification<T> spec, Sort sort);
 
 	/**
 	 * Returns all entities sorted by the given options.

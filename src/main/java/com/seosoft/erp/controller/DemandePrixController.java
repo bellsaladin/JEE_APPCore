@@ -12,6 +12,7 @@ import org.apache.commons.lang.StringUtils;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.CellEditEvent;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.domain.Specifications;
 
@@ -37,7 +38,6 @@ public class DemandePrixController extends GenericCRUDController<DemandePrix, De
 	
 	private List<DetailsDemandePrix> detailsDemandePrixList;
 	private Article emptyArticle = new Article();
-	
 
 	protected void prepareData(){
 		super.prepareData();
@@ -46,6 +46,7 @@ public class DemandePrixController extends GenericCRUDController<DemandePrix, De
 		_filter = new DemandePrix.Filter();
 	}
 	
+
 	public void prepareForCreateNew(){
 		_object = new DemandePrix();
 	}
@@ -201,6 +202,7 @@ public class DemandePrixController extends GenericCRUDController<DemandePrix, De
 	
 	}
 	
+	@Override
 	public void handleFilter(){
 		Specification<DemandePrix> spec = null;
 		System.out.println(" _filter.getFournisseur() " +   _filter.getFournisseur() );
@@ -224,7 +226,7 @@ public class DemandePrixController extends GenericCRUDController<DemandePrix, De
 			spec = Specifications.where(spec).and( new DemandePrix._Specification(new SearchCriteria("date", "<", new java.sql.Date(_filter.getDateAu().getTime()) )));
 		}
 		
-		_list = _service.findAll(spec);
+		_list = _service.findAll(spec, _sortBy);
 		_dataModel = new DataModel(_list);
 	}
 	
@@ -308,5 +310,5 @@ public class DemandePrixController extends GenericCRUDController<DemandePrix, De
 	public void setFilter(DemandePrix.Filter filter) {
 		this._filter = filter;
 	}
-	
+
 }
