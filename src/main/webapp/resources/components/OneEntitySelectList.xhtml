@@ -10,24 +10,38 @@
     xmlns:p="http://primefaces.org/ui">
     
     <cc:interface componentType="oneEntitySelectListComponent">
+    	<cc:attribute name="id" type="java.lang.String" required="true" />
     	<cc:attribute name="entityName" type="java.lang.String" required="true" />
     	<cc:attribute name="value" required="true" />
+    	<cc:attribute name="update" type="java.lang.String"/>
+<!--     	<cc:attribute name="disabled" type="java.lang.String" default="false" /> -->
     </cc:interface>
     
     <cc:implementation>
     	    <ui:param name="entityNameCapitalized" value="#{of:capitalize(cc.attrs.entityName)}" />
     		<h:panelGroup id="#{cc.attrs.id}">
-		    	<p:selectOneMenu id="selectOneMenu" widgetVar="#{cc.attrs.id}Var" value="#{cc.attrs.value}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
+		    	
+		    	<p:selectOneMenu value="#{cc.attrs.value}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
 		    					 style="width:160px">      	    
 		        	<f:selectItem itemLabel="" itemValue="" />
 		        	<f:selectItems value="#{core.bean( cc.attrs.entityName ).list}" var="entity" itemLabel="#{entity.getDisplayText()}" itemValue="#{entity}" />
+		        	
+		        	<c:if test="${cc.attrs.update ne null}">
+					   <p:ajax event="change" update=":mainForm:#{cc.attrs.update}"/>
+					</c:if>
+
 		        </p:selectOneMenu>
-				
-		        <p:commandLink actionListener="#{core.bean().runAction('quickNouveau'.concat(entityNameCapitalized), cc.attrs.id)}" oncomplete="PF('dialog#{entityNameCapitalized}').show()" process="@parent" style="margin-left:5px">
-		        	<i class="fa fa-grid fa-3" style="font-size: 13px;color: rgb(12, 189, 143);" title="Choix"></i>	
+		        
+		        <p:commandLink oncomplete="PF('dialogChoiceList#{entityNameCapitalized}').show()" style="margin-left:5px">
+		        	<i class="fa fa-list fa-3" style="font-size: 13px;color: rgb(12, 189, 143);" title="Choix"></i>	
 		        </p:commandLink>
-	<!-- 			<div><small class="silver">seosoft:OneEntitySelectMenu</small></div> -->
+	<!-- 			<ui:param name="dialogIncludeSrc" value="/design1/ui/${cc.attrs.entityName}/dialogs/choiceList.xhtml" /> -->
+	 			<ui:include src="/design1/ui/${cc.attrs.entityName}/dialogs/choiceList.xhtml">
+	 				<ui:param name="target" value="#{cc.attrs.value}" />
+	 			</ui:include>
+	 			
 			</h:panelGroup>
+			
     </cc:implementation>
     
 </ui:component>

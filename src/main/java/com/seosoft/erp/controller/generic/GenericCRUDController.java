@@ -47,12 +47,13 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 	protected DataModel _dataModel;
 	protected List<String> _dataTableColumnsKeys;
 	protected List<ColumnModel> _dataTableColumns;
-	protected String _paramId = null; // used to set object's ID to modify
+	protected String _paramId = null; // used to store object's ID to modify, gathered from the URL
 	// the following attributes are special attributes used for quick create & update dialogs on related modules
 	protected HashMap<String,GenericController<?,?>> _relatedModules;
 	protected List<String> _boundComponentIds;
 	protected String lastQuickDialogCallerComponentId;
 
+	protected Type _objectSelectedAtQuickChoiceDialog; // used to store the selected object on quick choice dialog
 	
 	protected HashMap<String,Action> _relatedModulesActions;
 	protected BaseEntity entitySubjectOfQuickDialog; // FIXME : SHOULD BE DYNAMIC and embeded on a list
@@ -484,6 +485,15 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 	public void setSortColumn(String sortColumn) {
 		this._sortColumn = sortColumn;
 		_sortBy = new Sort(Sort.Direction.ASC, sortColumn);
+	}
+
+	public Type getObjectSelectedAtQuickChoiceDialog() {
+		return _objectSelectedAtQuickChoiceDialog;
+	}
+
+	public void setObjectSelectedAtQuickChoiceDialog(Type objectSelectedAtQuickChoiceDialog) {
+		this._objectSelectedAtQuickChoiceDialog = objectSelectedAtQuickChoiceDialog;
+		System.out.println("_objectSelectedAtQuickChoiceDialog : " + _objectSelectedAtQuickChoiceDialog + " :" + _moduleName);
 	}
 	
 }

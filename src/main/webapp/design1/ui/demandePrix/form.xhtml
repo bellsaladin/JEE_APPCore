@@ -267,11 +267,12 @@
 <!-- 					                    </h:selectOneMenu> -->
 					               </f:facet>
 					               <f:facet name="input">
-					                   <h:selectOneMenu value="#{ligneDetails.article}" style="width:90%" converter="omnifaces.SelectItemsConverter">
-<!-- 						        		    <f:selectItem itemLabel="" itemValue="" /> -->
-						        		    <f:selectItems value="#{core.bean('article').list}" var="entity" itemLabel="#{entity.getDisplayText()}" itemValue="#{entity}" />
-						        		    <p:ajax event="change" update="detailsDatatable"/>
-					                   </h:selectOneMenu>
+					               	   <seosoft:OneEntitySelectList id="articleOneEntitySelectList" value="#{ligneDetails.article}" entityName="article" update="detailsDatatable">
+					               	   </seosoft:OneEntitySelectList>
+<!-- 					                   <h:selectOneMenu value="#{ligneDetails.article}" style="width:90%" converter="omnifaces.SelectItemsConverter"> -->
+<!-- 						        		    <f:selectItems value="#{core.bean('article').list}" var="entity" itemLabel="#{entity.getDisplayText()}" itemValue="#{entity}" /> -->
+<!-- 						        		    <p:ajax event="change" update="detailsDatatable"/> -->
+<!-- 					                   </h:selectOneMenu> -->
 					               </f:facet>
 					           </p:cellEditor>
 					       </p:column>

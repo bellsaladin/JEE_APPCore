@@ -182,18 +182,18 @@ public abstract class BaseEntity {
         	if( !field.isAccessible()) continue;
         	Annotation[] annotations = field.getDeclaredAnnotations();
         	
-        	System.out.printf("%s %s %s%n",
+        	/*System.out.printf("%s %s %s%n",
                     Modifier.toString(field.getModifiers()),
                     field.getType().getSimpleName(),
                     field.getName()
-                );
+                );*/
         	
         	if(filter.equals("sortByInView")){
         		System.out.println("FilterINNNN : " + annotations.length);
             	for(Annotation annotation: annotations){
-            		System.out.printf("Annotation %s %n",
+            		/*System.out.printf("Annotation %s %n",
                             annotation.annotationType().toString()
-                        );
+                        );*/
             		if(annotation.annotationType().equals(SortByInView.class))
         		        fieldsList.add(field.getName());
             	}

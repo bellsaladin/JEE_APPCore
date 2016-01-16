@@ -1,0 +1,48 @@
+<ui:composition 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:of="http://omnifaces.org/functions">
+	
+	<!--  Include of configuration -->
+	<!-- 	<ui:include src="../_config.xhtml" /> -->
+	
+    <ui:param name="entityName" value="article" />
+    <ui:param name="entityNameCapitalized" value="#{of:capitalize(entityName)}" />
+	
+	
+	<!--  Dialog definition -->
+	<p:dialog header="#{entityNameCapitalized} - Selection" id="dialogChoiceList#{entityNameCapitalized}" widgetVar="dialogChoiceList#{entityNameCapitalized}" style="min-width:100%;left:0px !important" resizable="false" modal="true" appendToBody="true" positionType="fixed" closeOnEscape="true">   
+	   	<h:form id="dialogChoiceListForm#{entityNameCapitalized}">     
+	        <p:dataTable var="object" value="#{core.bean(entityName).dataModel}"
+	    			 selection="#{core.bean(entityName).objectSelectedAtQuickChoiceDialog}"
+	    			 selectionMode="single"
+	    			 rowKey="#{object.id}"
+	    			 sortMode="single">
+	            <p:ajax event="rowSelect" update="@parent"/>
+      			<p:ajax event="rowUnselect" update="@parent"/>
+      			
+		        <p:column sortBy="#{object.code}">
+		            <f:facet name="header">
+		                <h:outputText value="#{lbl['lbl.code']}" />
+		            </f:facet>
+		            <h:outputText value="#{object.code}" />
+		        </p:column>
+		        <p:column sortBy="#{object.libelle}">
+		            <f:facet name="header">
+		                <h:outputText value="#{lbl['lbl.libelle']}" />
+		            </f:facet>
+		            <h:outputText value="#{object.libelle}" />
+		        </p:column>
+	       	</p:dataTable> 
+	  		<p:commandButton value="Choisir" update=":mainForm" process="@this" oncomplete="PF('dialogChoiceList#{entityNameCapitalized}').hide()" styleClass="ui-whiteBtn">
+	  			<f:setPropertyActionListener target="#{target}" value="#{core.bean(entityName).objectSelectedAtQuickChoiceDialog}" />
+	  		</p:commandButton>
+		</h:form>
+	</p:dialog>  	
+</ui:composition>
