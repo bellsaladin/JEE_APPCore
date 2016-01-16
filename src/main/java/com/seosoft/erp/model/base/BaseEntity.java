@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
@@ -179,6 +180,8 @@ public abstract class BaseEntity {
 		Field[] fields = this.getClass().getDeclaredFields();
         for (Field field : fields) {
         	if( !field.isAccessible()) continue;
+        	Annotation[] annotations = field.getDeclaredAnnotations();
+        	
         	System.out.printf("%s %s %s%n",
                     Modifier.toString(field.getModifiers()),
                     field.getType().getSimpleName(),
@@ -186,7 +189,6 @@ public abstract class BaseEntity {
                 );
         	
         	if(filter.equals("sortByInView")){
-        		Annotation[] annotations = field.getDeclaredAnnotations();
         		System.out.println("FilterINNNN : " + annotations.length);
             	for(Annotation annotation: annotations){
             		System.out.printf("Annotation %s %n",
