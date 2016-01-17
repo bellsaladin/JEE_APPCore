@@ -46,8 +46,8 @@
 		    									 style="width:160px" required="true">      	    
 						        	<f:selectItem itemLabel="" itemValue="" />
 						        	<f:selectItems value="#{core.bean('fournisseur').list}" var="entity" itemLabel="#{entity.getDisplayText()}" itemValue="#{entity}" />
-<!-- 		 				        	<p:ajax event="change" update="#{core.bean().getComponentById('adresseCommande').getClientId()}" listener="#{core.bean().runAction('updateAdresseCommande')}"/> -->
-		 				        	<p:ajax event="change" update=":mainForm" listener="#{core.bean().runAction('updateAdresseCommande')}"/>
+		 				        	<p:ajax event="change" update="#{core.bean().getComponentById('adresseCommande').getClientId()}" listener="#{core.bean().runAction('updateAdresseCommande')}"/>
+		 				        	
 						        </p:selectOneMenu>
 		       					
 		       					<h:outputLabel value="Origine :" />
@@ -207,8 +207,7 @@
 		    									 style="width:160px" required="true">      	    
 									        	<f:selectItem itemLabel="" itemValue="" />
 									        	<f:selectItems value="#{core.bean('depot').list}" var="entity" itemLabel="#{entity.getDisplayText()}" itemValue="#{entity}" />
-					 				        	<!-- <p:ajax event="change" update="#{core.bean().getComponentById('adresseLivraison').getClientId()}" listener="#{core.bean().runAction('updateAdresseLivraison')}"/> -->
-					 				        	<p:ajax event="change" update=":mainForm" listener="#{core.bean().runAction('updateAdresseLivraison')}"/>
+					 				        	<p:ajax event="change" update="#{core.bean().getComponentById('adresseLivraison').getClientId()}" listener="#{core.bean().runAction('updateAdresseLivraison')}"/>
 									        </p:selectOneMenu>
 					       		   			
 					       		   			<h:outputLabel value="Expédition " />

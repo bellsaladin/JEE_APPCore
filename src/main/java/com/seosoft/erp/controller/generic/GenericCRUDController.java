@@ -193,7 +193,8 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 		if(action != null){ 
 			action.run();
 			if(actionName.equals("persist")){
-				_actions.get("postPersist").run();
+				System.out.println("Module " + _moduleName);
+				if(_actions.get("postPersist") != null)_actions.get("postPersist").run();
 			}
 		}
 		else{
@@ -306,21 +307,6 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 		});
 
 		_actions.put("redirectToFormView", new Action(){
-			@Override
-			public void run() {
-				if(_selectedObjects.size() > 0){
-					String id = _selectedObjects.get(_selectedObjects.size() -1).getId();
-					String url = _Constants.base_url + _moduleName +"/form?id=" + id + "&sortBy="+ _sortColumn;
-					try {
-						FacesContext.getCurrentInstance().getExternalContext().redirect( url);
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				}
-			}
-		});
-		
-		_actions.put("redirectToFormViewAndNavigateUsingCurrentSortColumn", new Action(){
 			@Override
 			public void run() {
 				if(_selectedObjects.size() > 0){

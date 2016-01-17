@@ -448,7 +448,7 @@ input.searchInput {
 .ui-wizard-step-titles .ui-state-highlight{ background-color: #00A4DF !important; text-shadow: none;}
 
 .no-border-table td.ui-panelgrid-cell{border:0px !important;}
-.no-border-table tr.ui-widget-content{border:0px !important; height:40px}
+.no-border-table tr.ui-widget-content{border:0px !important;}
 
 .full-width{width:100% !important;}
 

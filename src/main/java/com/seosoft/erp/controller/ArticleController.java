@@ -148,7 +148,7 @@ public class ArticleController extends GenericCRUDController<Article, ArticleSer
 	}
 	
 	public void loadStockOfDepot(){
-		if(((DepotController) Core.bean("depot")).getObject() == null && _object.getId() == null)
+		if(((DepotController) Core.bean("depot")).getObject() == null || ((DepotController) Core.bean("depot")).getObject().getId() == null  || _object.getId() == null)
 			return;
 		
 		stock = stockService.findByArticleAndDepot(_object, ((DepotController) Core.bean("depot")).getObject());

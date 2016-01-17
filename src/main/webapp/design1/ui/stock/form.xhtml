@@ -30,298 +30,75 @@
     <ui:define name="implementation">
     
 	  <div style="padding:30px">
-        		
-        	<p:panelGrid styleClass="no-border-table full-width panelTopAlign">
-        		<p:row>
-        			<p:column>
-						<h:panelGroup>
-							<h:panelGrid columns="2" cellpadding="5"  styleClass="no-border-table full-width" >
-								<p:outputLabel value="Date:" />
-<!-- 		       					<p:inputText value="#{core.bean().object.date}" pattern="dd-MM-yyyy" mask="true" /> -->
-		       					<p:calendar value="#{core.bean().object.date}" pattern="dd/MM/yyyy" mask="true"/>
-		       					
-		       					<h:outputLabel value="Fournisseur :" />
-		       					
-		       					<p:selectOneMenu id="fournisseur" label="Fournisseur" widgetVar="fournisseurVar" value="#{core.bean().object.fournisseur}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
-		    									 style="width:160px" required="true">      	    
-						        	<f:selectItem itemLabel="" itemValue="" />
-						        	<f:selectItems value="#{core.bean('fournisseur').list}" var="entity" itemLabel="#{entity.getDisplayText()}" itemValue="#{entity.getId()}" />
-		 				        	<p:ajax event="change" update="#{core.bean().getComponentById('adresseCommande').getClientId()}" listener="#{core.bean().runAction('updateAdresseCommande')}"/>
-						        </p:selectOneMenu>
-		       					
-		       					<h:outputLabel value="Origine :" />
-								<p:inputText value="#{core.bean().object.origine}" size="50"/>
-								
-								<h:outputLabel value="Origine :" />
-								<p:inputText value="#{core.bean().object.origine}" size="50"/>
-								
-								<h:outputLabel value="Texte libre :" />
-								<p:inputTextarea rows="6" cols="40"  value="#{core.bean().object.texteLibre}"/>
-								
-								<h:outputLabel value="Observations :" />
-								<p:inputTextarea rows="6" cols="40"  value="#{core.bean().object.observations}"/>
-								
-		
-						    </h:panelGrid>
-						</h:panelGroup>
-					</p:column>
-					<p:column style="width:50%">	
-						<h:panelGroup>
-							<p:tabView id="tabView">
-				       			<p:tab title="Valeurs">
-				       				<h:panelGroup>
-				       					<div style="text-align:right; margin-right:10px">
-					       					<h:outputLabel value="Total HT Brut" />
-											<p:inputText value="#{core.bean().object.totalHt}" disabled="true"/>
-											<br/>
-											<h:outputLabel value="% Remise" />
-											<p:inputText value="#{core.bean().object.remise}">
-					               				<p:ajax event="change" update="tabView"/>
-											</p:inputText>
-											<h:outputLabel value=" Soit  " />
-											<p:inputText value="#{core.bean().object.remise * core.bean().object.totalHt / 100}" disabled="true"/>
-										</div>
-				       				</h:panelGroup>
-				       				<h:panelGrid columns="2" cellpadding="5"  styleClass="no-border-table full-width" >
-				       					<h:panelGroup>
-					       					<p:fieldset legend="Port" style="margin-bottom:10px">
-					       						<h:panelGrid columns="4" cellpadding="5"  styleClass="no-border-table full-width" >
-					       							<h:outputLabel value="HT" />
-													<p:inputText value="#{core.bean().object.portHt}">
-														<p:ajax event="change" update="tabView"/>
-														<f:convertNumber pattern="#0.00" />
-													</p:inputText>
-													<h:outputLabel value="TVA" />
-													<p:selectOneMenu  value="#{core.bean().object.tvaPort}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
-				    									 style="width:160px" required="#{core.bean().object.portHt gt 0}">      	    
-											        	<f:selectItem itemLabel="" itemValue="" />
-											        	<f:selectItems value="#{core.bean('tva').list}" var="entity" itemLabel="#{entity.getDisplayText()}" itemValue="#{entity}" />
-							 				        	<p:ajax event="change" update="tabView"/>
-											        </p:selectOneMenu>
-													<h:outputLabel value="TTC" />
-													<p:inputText value="#{core.bean().object.tvaPort.taux * core.bean().object.portHt / 100}" disabled="true">
-														<f:convertNumber pattern="#0.00" />
-													</p:inputText>
-					       						</h:panelGrid>
-					       					</p:fieldset>
-					       					<p:fieldset legend="Frais">
-					       						<h:panelGrid columns="4" cellpadding="5"  styleClass="no-border-table full-width">
-					       							<h:outputLabel value="HT" />
-													<p:inputText value="#{core.bean().object.fraisHt}">
-														<p:ajax event="change" update="tabView"/>
-														<f:convertNumber pattern="#0.00" />
-													</p:inputText>
-													<h:outputLabel value="TVA" />
-													<p:selectOneMenu  value="#{core.bean().object.tvaFrais}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
-				    									 style="width:160px" required="#{core.bean().object.fraisHt gt 0}">      	    
-											        	<f:selectItem itemLabel="" itemValue="" />
-											        	<f:selectItems value="#{core.bean('tva').list}" var="entity" itemLabel="#{entity.getDisplayText()}" itemValue="#{entity}" />
-							 				        	<p:ajax event="change" update="tabView"/>
-											        </p:selectOneMenu>
-													<h:outputLabel value="TTC" />
-													<p:inputText value="#{core.bean().object.tvaFrais.taux * core.bean().object.fraisHt / 100}" disabled="true">
-														<f:convertNumber pattern="#0.00" />
-													</p:inputText>
-					       						</h:panelGrid>
-					       					</p:fieldset>
-					       				</h:panelGroup>
-					       				<p:fieldset>
-					       					<h:panelGrid columns="2" cellpadding="5"  styleClass="no-border-table full-width">
-					       						<h:outputLabel value="Total HT Net" />
-												<p:inputText value="#{core.bean().object.totalHt}" disabled="true"/>
-												<h:outputLabel value="" />
-												<h:outputLabel value="" />
-												<h:outputLabel value="Total TVA" />
-												<p:inputText value="#{core.bean().object.totalHt}" disabled="true"/>
-												<h:outputLabel value="Total TTC" />
-												<p:inputText value="#{core.bean().object.totalTva}" disabled="true"/>
-												<h:outputLabel value="Net à payer" />
-												<p:inputText value="#{core.bean().object.totalHt}" disabled="true"/>
-					       					</h:panelGrid>
-				       					</p:fieldset>
-				       				</h:panelGrid>
-				       		   	</p:tab>
-				       		   	<p:tab title="Coordonnées">
-				       				<p:tabView>
-							       		<p:tab title="Adresse livraison">
-							       			<h:panelGrid id="adresseLivraison" columns="2" cellpadding="5">
-						       				   <h:outputLabel value=" Adresse : *" />
-									           <p:inputText id="adresseLivraisonLigne1" value="#{core.bean().object.adresseLivraisonLigne1}" size="50"/>
-									           <h:outputLabel value="" />
-									           <p:inputText id="adresseLivraisonigne2" value="#{core.bean().object.adresseLivraisonLigne2}" size="50"/>
-								           	   <h:outputLabel value="Code postal : *" />
-									           <p:inputText id="adresseLivraisonCodePostal" value="#{core.bean().object.adresseLivraisonCodePostal}" size="50"/>
-								           	   <h:outputLabel value="" />
-								           	   <h:panelGrid columns="2">
-									           	   <p:selectOneMenu id="adresseLivraisonPays" widgetVar="adresseLivraisonPaysVar" value="#{core.bean().object.adresseLivraisonPays}" filter="true" filterMatchMode="startsWith"
-						    										style="width:134px" required="true">      	    
-											        	<f:selectItem itemLabel="Maroc" itemValue="MA" />
-											        	<f:selectItem itemLabel="France" itemValue="FR" />
-											        	<f:selectItem itemLabel="Etats Unis d'amérique" itemValue="USA" />
-											       </p:selectOneMenu>
-											       <p:selectOneMenu id="adresseLivraisonVille" widgetVar="adresseLivraisonVilleVar" value="#{core.bean().object.adresseLivraisonVille}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
-						    										style="width:134px" required="true">      	    
-											        	<f:selectItem itemLabel="Rabat" itemValue="rabat" />
-											        	<f:selectItem itemLabel="Paris" itemValue="paris" />
-											        	<f:selectItem itemLabel="New York" itemValue="new york" />
-											       </p:selectOneMenu>
-								           	   </h:panelGrid>
-							       			</h:panelGrid>
-							       		</p:tab>
-							       		<p:tab title="Adresse commande">
-							       			<p:fragment id="adresseCommande">
-								       		    <h:panelGrid columns="2" cellpadding="5">
-							       				   <h:outputLabel value=" Adresse : *" />
-										           <p:inputText id="adresseCommandeLigne1" value="#{core.bean().object.adresseCommandeLigne1}" size="50"/>
-										           <h:outputLabel value="" />
-										           <p:inputText id="adresseCommandeigne2" value="#{core.bean().object.adresseCommandeLigne2}" size="50"/>
-									           	   <h:outputLabel value="Code postal : *" />
-										           <p:inputText id="adresseCommandeCodePostal" value="#{core.bean().object.adresseCommandeCodePostal}" size="50"/>
-									           	   <h:outputLabel value="" />
-									           	   <h:panelGrid columns="2">
-										           	   <p:selectOneMenu id="adresseCommandePays" widgetVar="adresseCommandePaysVar" value="#{core.bean().object.adresseCommandePays}" filter="true" filterMatchMode="startsWith"
-							    										style="width:134px">      	    
-												        	<f:selectItem itemLabel="Maroc" itemValue="MA" />
-												        	<f:selectItem itemLabel="France" itemValue="FR" />
-												        	<f:selectItem itemLabel="Etats Unis d'amérique" itemValue="USA" />
-												       </p:selectOneMenu>
-												       <p:selectOneMenu id="adresseCommandeVille" widgetVar="adresseCommandeVilleVar" value="#{core.bean().object.adresseCommandeVille}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
-							    										style="width:134px">      	    
-												        	<f:selectItem itemLabel="Rabat" itemValue="rabat" />
-												        	<f:selectItem itemLabel="Paris" itemValue="paris" />
-												        	<f:selectItem itemLabel="New York" itemValue="new york" />
-												       </p:selectOneMenu>
-									           	   </h:panelGrid>
-								       			</h:panelGrid>
-							       			</p:fragment>
-							       		</p:tab>
-					       			</p:tabView>
-				       		   	</p:tab>
-				       		   	<p:tab title="Divers">
-				       		   		<p:panel>
-					       		   		<h:panelGrid columns="2" cellpadding="5">
-					       		   			<h:outputLabel value="Dépôt par défaut" />
-					       		   			
-					       		   			<p:selectOneMenu id="depot" label="Dépôt" widgetVar="depotVar" value="#{core.bean().object.depot}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
-		    									 style="width:160px" required="true">      	    
-									        	<f:selectItem itemLabel="" itemValue="" />
-									        	<f:selectItems value="#{core.bean('depot').list}" var="entity" itemLabel="#{entity.getDisplayText()}" itemValue="#{entity}" />
-					 				        	<p:ajax event="change" update="#{core.bean().getComponentById('adresseLivraison').getClientId()}" listener="#{core.bean().runAction('updateAdresseLivraison')}"/>
-									        </p:selectOneMenu>
-					       		   			
-					       		   			<h:outputLabel value="Expédition " />
-					       		   			<seosoft:OneEntitySelectMenu id="modeExpedition" entityName="modeExpedition" value="#{core.bean().object.modeExpedition}"></seosoft:OneEntitySelectMenu>
-					       		   			
-					       		   			<h:outputLabel value="Transport " />
-					       		   			<seosoft:OneEntitySelectMenu id="modeTransport" entityName="modeTransport" value="#{core.bean().object.modeTransport}"></seosoft:OneEntitySelectMenu>
-					       		   			
-					       		   			<h:outputLabel value="Livraison prévue le " />
-<!-- 					       		   			<p:inputText value="#{core.bean().object.dateLivraisonPrevue}" pattern="dd-MM-yyyy" mask="true" /> -->
-					       		   			<p:calendar value="#{core.bean().object.dateLivraisonPrevue}" pattern="dd/MM/yyyy" mask="true" />
-					       		   		</h:panelGrid>
-				       		   		</p:panel>
-				       		   		
-				       		   		<p:panel>
-				       		   			<h:panelGrid columns="2" cellpadding="5">
-				       		   				<h:outputLabel value="Mode de réglement" />
-					       		   			<seosoft:OneEntitySelectMenu id="modeReglement" entityName="modeReglement" value="#{core.bean().object.modeReglement}"></seosoft:OneEntitySelectMenu>
-					       		   		</h:panelGrid>	
-					       		   		<h:panelGrid columns="7" cellpadding="5">
-					       		   			<h:outputLabel value="A " />
-									        <p:inputText value="#{core.bean().object.reglementEnXJours}" size="10"/>
-									        <h:outputLabel value="jours" />
-						       				<p:selectOneMenu value="#{core.bean().object.reglementType}" style="width:70px">      	    
-									        	<f:selectItem itemLabel="Net" itemValue="NET" />
-									        	<f:selectItem itemLabel="Fin de mois" itemValue="FM" />
-									        	<f:selectItem itemLabel="Fin de décade" itemValue="FD" />
-										    </p:selectOneMenu>
-										    <h:outputLabel value="Le" />
-							        		<p:inputText  value="#{core.bean().object.reglementDecalageLe}" size="10"/>
-									        <p:selectBooleanCheckbox value="#{core.bean().object.reglementFdmPuisNbrJours}" itemLabel="FDM Puis nbr de jours"/>
-					       		   		</h:panelGrid>
-				       		   		</p:panel>
-				       		   		<p:panel>
-				       		   			<h:panelGrid columns="2" cellpadding="5">
-				       		   				<h:outputLabel value="TVA " />
-					       		   			<seosoft:OneEntitySelectMenu id="tva" entityName="tva" value="#{core.bean().object.tva}"></seosoft:OneEntitySelectMenu>
-					       		   		</h:panelGrid>	
-				       		   		</p:panel>
-				       		   	</p:tab>
-				       		</p:tabView>
-			       		</h:panelGroup>
-			       	</p:column>
-	       		</p:row>
-	       		<p:row>
-	       			<p:column colspan="2">
-		       			<p:dataTable id="detailsDatatable" var="ligneDetails" value="#{core.bean().detailsDemandePrixList}" editable="true" editMode="cell" widgetVar="detailsVar">
-					 
-						   <p:ajax event="cellEdit" listener="#{core.bean().onDetailsDatatableCellEdit}" update=":mainForm:messages" />
-					 
-					       <p:column headerText="Article">
-					           <p:cellEditor>
-					               <f:facet name="output">
-					               	<h:outputText value="#{ligneDetails.article.getDisplayText()}" />
-<!-- 					               	    <h:selectOneMenu value="#{ligneDetails.article}" style="width:90%; opacity:0.6" converter="omnifaces.SelectItemsConverter"> -->
-<!-- 						        		  	<f:selectItem itemLabel="" itemValue="" />  -->
-<!-- 						        		  	<f:selectItems value="#{core.bean('article').list}" var="entity" itemLabel="#{entity.getDisplayText()}" itemValue="#{entity}" /> -->
-<!-- 					                    </h:selectOneMenu> -->
-					               </f:facet>
-					               <f:facet name="input">
-					                   <h:selectOneMenu value="#{ligneDetails.article}" style="width:90%" converter="omnifaces.SelectItemsConverter">
-<!-- 						        		    <f:selectItem itemLabel="" itemValue="" /> -->
-						        		    <f:selectItems value="#{core.bean('article').list}" var="entity" itemLabel="#{entity.getDisplayText()}" itemValue="#{entity}" />
-						        		    <p:ajax event="change" update="detailsDatatable"/>
-					                   </h:selectOneMenu>
-					               </f:facet>
-					           </p:cellEditor>
-					       </p:column>
-					       
-					       <p:column headerText="Qte">
-					           <p:cellEditor>
-					               <f:facet name="output"><p:inputText value="#{ligneDetails.qte}" style="width:95%;opacity:0.6" /></f:facet>
-					               <f:facet name="input">
-					               		<p:inputText value="#{ligneDetails.qte}" style="width:95%">
-					               			<p:ajax event="change" update="detailsDatatable"/>
-					               		</p:inputText>
-					               	</f:facet>
-					           </p:cellEditor>
-				       	   </p:column>
-				       	   
-				       	   <p:column headerText="P.U.A.">
-					           <p:cellEditor>
-					               <f:facet name="output">
-					               		<p:inputText value="#{ligneDetails.article.prixUnitaireAchat}" style="width:95%;opacity:0.6"  >
-					               			<f:convertNumber pattern="#0.00" />
-					               		</p:inputText>
-					               	</f:facet>
-					               <f:facet name="input">
-					               		<p:inputText value="#{ligneDetails.article.prixUnitaireAchat}" style="width:95%">
-					               			<p:ajax event="change" update="detailsDatatable"/>
-					               		</p:inputText>
-					               </f:facet>
-					           </p:cellEditor>
-				       	   </p:column>
-				       	   
-				       	   
-				       	   <p:column headerText="Mt. HT">
-					           <p:cellEditor>
-					               <f:facet name="output"><p:inputText value="#{ligneDetails.qte * ligneDetails.article.prixUnitaireAchat}" style="width:95%;opacity:0.6" /></f:facet>
-					               <f:facet name="input"><p:inputText value="#{ligneDetails.qte * ligneDetails.article.prixUnitaireAchat}" style="width:95%"/></f:facet>
-					           </p:cellEditor>
-				       	   </p:column>
-				       	   
-				       	   <p:column headerText="" style="width:32px">
-				       	   	  <f:facet name="header">
-						         <h:outputText value="" />
-						      </f:facet>
-					          <p:commandButton rendered="#{core.bean().detailsDemandePrixList.size() - 1 eq core.bean().detailsDemandePrixList.indexOf(ligneDetails)}" actionListener="#{core.bean().addRowToDetailsDatatable}" update="detailsDatatable" process="detailsDatatable" icon="ui-icon-plus" ajax="true"/>
-					          <p:commandButton rendered="#{core.bean().detailsDemandePrixList.size() - 1 ne core.bean().detailsDemandePrixList.indexOf(ligneDetails)}" actionListener="#{core.bean().removeRowToDetailsDatatable(core.bean().detailsDemandePrixList.indexOf(ligneDetails))}" update="detailsDatatable" process="@this" icon="ui-icon-closethick" ajax="true" styleClass="ui-whiteBtn"/>
-				       	   </p:column>
-					   </p:dataTable>
-					</p:column>
-	       		</p:row>
-       		</p:panelGrid>
-		       	
+			<p:panelGrid  columns="2"  styleClass="no-border-table full-width panelTopAlign">
+	    		<p:panelGrid  columns="2">
+	    			<h:outputLabel value="Article :" />
+	    			<h:outputLabel value="#{core.bean().object.article.libelle}"/>
+	    		</p:panelGrid>	
+	    		<p:panelGrid  columns="2">
+	    			<h:outputLabel value="Dépôt :" />
+	    			<h:outputLabel value="#{core.bean().object.depot.designation}"/>
+	    		</p:panelGrid>
+	    		<h:panelGroup>
+		    		<p:fieldset legend="Entrées">
+		    			<p:panelGrid  columns="2">
+			    			<h:outputLabel value="Quantité entrée :" />
+						    <p:inputText disabled="true" value="#{core.bean().object.qteEntree}"/>
+						    
+						    <h:outputLabel value="P.M.P.A :" />
+						    <p:inputText disabled="true" value="#{core.bean().object.prixMoyenPondereAchat}"/>
+						    
+						    <h:outputLabel value="Derniere entrée le :" />
+						    <p:inputText disabled="true" value="#{core.bean().object.dateDerniereEntree}"/>
+						    
+						    <h:outputLabel value="Dernier P.U.H.T. :" />
+						    <p:inputText disabled="true" value="#{core.bean().object.dernierPrixUnitaireHTAchat}"/>
+					    </p:panelGrid>
+		    		</p:fieldset>
+		    		<p:fieldset legend="Sorties">
+		    			<p:panelGrid  columns="2">
+			    			<h:outputLabel value="Quantité sortie :" />
+						    <p:inputText disabled="true" value="#{core.bean().object.qteSortie}"/>
+						    
+						    <h:outputLabel value="P.M.P.V :" />
+						    <p:inputText disabled="true" value="#{core.bean().object.prixMoyenPondereVente}"/>
+						    
+						    <h:outputLabel value="Derniere sortie le :" />
+						    <p:inputText disabled="true" value="#{core.bean().object.dateDerniereSortie}"/>
+						    
+						    <h:outputLabel value="Dernier P.U.H.T. :" />
+						    <p:inputText disabled="true" value="#{core.bean().object.dernierPrixUnitaireHTVente}"/>
+						</p:panelGrid>
+		    		</p:fieldset>
+	    		</h:panelGroup>
+	    		<p:fieldset legend="Quantites">
+		    			<p:panelGrid  columns="2">
+			    			<h:outputLabel value="Quantité intiale :" />
+						    <p:inputText disabled="true" value="#{core.bean().object.qteInitiale}"/>
+						    
+						    <h:outputLabel value="Stock réel :" style="font-weight:bold"/>
+						    <p:inputText disabled="true" value="#{core.bean().object.stockReel}"/>
+						    
+						    <h:outputLabel value="Quantité en réception :" />
+						    <p:inputText disabled="true" value="#{core.bean().object.qteEnReception}"/>
+						    
+						    <h:outputLabel value="Quantité à livrer :" />
+						    <p:inputText disabled="true" value="#{core.bean().object.qteALivrer}"/>
+						    
+						    <h:outputLabel value="Quantité disponible :"  style="font-weight:bold"/>
+						    <p:inputText disabled="true" value="#{core.bean().object.stockDisponible}"/>
+						    
+						    <h:outputLabel value="Quantité à recevoir :" />
+						    <p:inputText disabled="true" value="#{core.bean().object.qteARecevoir}"/>
+						    
+						    <h:outputLabel value="Quantité reservée :" />
+						    <p:inputText disabled="true" value="#{core.bean().object.qteReservee}"/>
+						    
+						    <h:outputLabel value="Stock virtuel :"  style="font-weight:bold"/>
+						    <p:inputText disabled="true" value="#{core.bean().object.stockVirtuel}"/>
+						</p:panelGrid>
+		    	</p:fieldset>
+	    	</p:panelGrid>       	
       </div>
     </ui:define>
     
