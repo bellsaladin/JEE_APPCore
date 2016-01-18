@@ -127,8 +127,7 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 			setSortColumn(_sortColumn);
 		}
 		// get list of data
-		_list = _service.findAll(null, _sortBy);
-		_dataModel = new DataModel(_list);
+		handleFilter();
 	}
 	
 	protected void onDataReady() {

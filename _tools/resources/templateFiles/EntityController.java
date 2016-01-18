@@ -18,8 +18,8 @@ public class {{ENTITY}}Controller extends GenericCRUDController<{{ENTITY}}, {{EN
 	private static final long serialVersionUID = 7838900790101299064L;
 
 	protected void prepareData(){
-		super.prepareData();
 		_moduleName = "{{ENTITY_FIRSTLETTER_LOWERCASE}}";
+		super.prepareData();
 		prepareForCreateNew();
 	}
 	

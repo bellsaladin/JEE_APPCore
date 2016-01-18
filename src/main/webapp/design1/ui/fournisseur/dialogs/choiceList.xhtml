@@ -17,9 +17,28 @@
 	
 	
 	<!--  Dialog definition -->
-	<p:dialog header="#{entityNameCapitalized} - Selection" id="dialogChoiceList#{entityNameCapitalized}" widgetVar="dialogChoiceList#{entityNameCapitalized}" style="min-width:80%;left:6% !important" resizable="false" modal="true" appendToBody="true" positionType="fixed" closeOnEscape="true">   
-	   	<h:form id="dialogChoiceListForm#{entityNameCapitalized}">     
-	        <p:dataTable var="object" value="#{core.bean(entityName).dataModel}"
+	<p:dialog header="#{entityNameCapitalized} - Selection" id="dialogChoiceList#{entityNameCapitalized}" widgetVar="dialogChoiceList#{entityNameCapitalized}" style="width:80% !important;left:0% !important; top:0% !important; margin: 10%; height:60% !important" resizable="false" modal="true" appendToBody="true" positionType="fixed" closeOnEscape="true">   
+	   	<h:form id="dialogChoiceListForm#{entityNameCapitalized}">
+	   		<p:fieldset legend="filtre" style="margin-bottom:20px">
+   					<p:panelGrid columns="2">
+   						<p:outputLabel value="Code contient"/>
+   						<p:inputText value="#{core.bean(entityName).object.filter().code}">
+   							<p:ajax event="keyup" update="#{core.bean().getComponentById(entityName.concat('OneEntitySelectList')).getClientId().concat(':dialogChoiceListFormFournisseur:datatable')}" listener="#{core.bean(entityName).handleFilter()}"/>
+   						</p:inputText>
+   						<p:outputLabel value="Raison sociale contient "/>
+   						<p:inputText value="#{core.bean(entityName).object.filter().raisonSociale}">
+   							<p:ajax event="keyup" update="#{core.bean().getComponentById(entityName.concat('OneEntitySelectList')).getClientId().concat(':dialogChoiceListFormFournisseur:datatable')}" listener="#{core.bean(entityName).handleFilter()}"/>
+   						</p:inputText>
+   						<p:outputLabel value=""/>
+   						<p:selectOneMenu label="Famille fournisseur" value="#{core.bean(entityName).object.filter().famille}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith" style="width:160px">      	    
+				        	<f:selectItem itemLabel="Toutes les familles" itemValue="#{null}"/>
+				        	<f:selectItems value="#{core.bean('familleFournisseur').list}" var="entity" itemLabel="#{entity.getDisplayText()}" itemValue="#{entity}" />
+					        <p:ajax event="change" update="#{core.bean().getComponentById(entityName.concat('OneEntitySelectList')).getClientId().concat(':dialogChoiceListFormFournisseur:datatable')}" listener="#{core.bean(entityName).handleFilter()}"/>
+				        </p:selectOneMenu>
+   					</p:panelGrid>
+			</p:fieldset>
+			
+	        <p:dataTable id="datatable" var="object" value="#{core.bean(entityName).dataModel}"
 	    			 selection="#{core.bean(entityName).objectSelectedAtQuickChoiceDialog}"
 	    			 selectionMode="single"
 	    			 rowKey="#{object.id}"

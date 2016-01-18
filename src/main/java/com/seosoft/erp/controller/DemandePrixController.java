@@ -41,9 +41,9 @@ public class DemandePrixController extends GenericCRUDController<DemandePrix, De
 
 	protected void prepareData(){
 		_moduleName = "demandePrix";
-		super.prepareData();
 		prepareForCreateNew();
 		_filter = new DemandePrix.Filter();
+		super.prepareData();
 	}
 	
 

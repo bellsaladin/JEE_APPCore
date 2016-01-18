@@ -9,7 +9,30 @@
     <ui:define name="contextMenuExtraActions">
     	<p:menuitem value="Some specific action" icon="ui-icon-signal" />
     </ui:define>
-
+	
+	<ui:define name="filter">
+   			<p:tabView >
+   				<p:tab title="Tiers">
+   					<p:panelGrid columns="2">
+   						<p:outputLabel value="Code contient "/>
+   						<p:inputText value="#{core.bean().object.filter().code}">
+   							<p:ajax event="keyup" update="mainForm:dataTable" listener="#{core.bean().handleFilter()}"/>
+   						</p:inputText>
+   						<p:outputLabel value="Raison sociale contient "/>
+   						<p:inputText value="#{core.bean().object.filter().raisonSociale}">
+   							<p:ajax event="keyup" update="mainForm:dataTable" listener="#{core.bean().handleFilter()}"/>
+   						</p:inputText>
+   						<p:outputLabel value="Famille"/>
+   						<p:selectOneMenu label="Famille fournisseur" value="#{core.bean().object.filter().famille}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith" style="width:160px">      	    
+				        	<f:selectItem itemLabel="Toutes les familles" itemValue="#{null}"/>
+				        	<f:selectItems value="#{core.bean('familleFournisseur').list}" var="entity" itemLabel="#{entity.getDisplayText()}" itemValue="#{entity}" />
+					        <p:ajax event="change" update="mainForm:dataTable" listener="#{core.bean().handleFilter()}"/>
+				        </p:selectOneMenu>
+   					</p:panelGrid>
+			     </p:tab>
+			</p:tabView>	
+	</ui:define>	     
+	
 	<ui:define name="dataTableColumns">
 		
 		<p:column style="width:16px">
