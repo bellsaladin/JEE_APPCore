@@ -15,40 +15,40 @@
    			<p:tabView >
    				<p:tab title="Tiers">
    					<p:panelGrid columns="1">
-   						<p:selectOneMenu label="Fournisseur" widgetVar="fournisseurVar" value="#{core.bean().filter.fournisseur}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
+   						<p:selectOneMenu label="Fournisseur" widgetVar="fournisseurVar" value="#{core.bean().object.filter().fournisseur}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
 		    						     style="width:160px">      	    
 				        	<f:selectItem itemLabel="Tous les fournisseurs" itemValue="#{null}"/>
 				        	<f:selectItems value="#{core.bean('fournisseur').list}" var="entity" itemLabel="#{entity.getDisplayText()}" itemValue="#{entity}" />
 					        <p:ajax event="change" update="mainForm:dataTable" listener="#{core.bean().handleFilter()}"/>
 				        </p:selectOneMenu>
-				        <p:selectOneMenu label="Depot" widgetVar="depotVar" value="#{core.bean().filter.depot}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
+				        <p:selectOneMenu label="Depot" widgetVar="depotVar" value="#{core.bean().object.filter().depot}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
 			    						 style="width:160px">      	    
 				        	<f:selectItem itemLabel="Tous les dépôts" noSelectionOption="true" itemValue=""/>
 				        	<f:selectItems value="#{core.bean('depot').list}" var="entity" itemLabel="#{entity.getDisplayText()}" itemValue="#{entity}" />
 					        	<p:ajax event="change" update="mainForm:dataTable" listener="#{core.bean().handleFilter()}"/>
 				        </p:selectOneMenu>
-				        <seosoft:OneEntitySelectList id="fournisseurOneEntitySelectList" value="#{core.bean().filter.fournisseur}" entityName="fournisseur"></seosoft:OneEntitySelectList>
-<!-- 				        <seosoft:OneEntitySelectList id="depotOneEntitySelectList" value="#{core.bean().filter.depot}" entityName="depot"></seosoft:OneEntitySelectList> -->
+				        <seosoft:OneEntitySelectList id="fournisseurOneEntitySelectList" value="#{core.bean().object.filter().fournisseur}" entityName="fournisseur"></seosoft:OneEntitySelectList>
+<!-- 				        <seosoft:OneEntitySelectList id="depotOneEntitySelectList" value="#{core.bean().object.filter().depot}" entityName="depot"></seosoft:OneEntitySelectList> -->
    					</p:panelGrid>
 			     </p:tab>
 			      <p:tab title="Etat">  
-			        <p:selectOneRadio value="#{core.bean().filter.valide}" layout="grid" columns="3">
+			        <p:selectOneRadio value="#{core.bean().object.filter().valide}" layout="grid" columns="3">
 			            <f:selectItem itemLabel="Tous" itemValue="-1"/>
 			            <f:selectItem itemLabel="Validé" itemValue="1" />
 			            <f:selectItem itemLabel="Non Validé" itemValue="0" />
 			            <p:ajax event="valueChange" update="mainForm:dataTable" listener="#{core.bean().handleFilter()}"/>
 			        </p:selectOneRadio>
-			        <p:selectOneRadio value="#{core.bean().filter.transforme}" layout="grid" columns="3">
+			        <p:selectOneRadio value="#{core.bean().object.filter().transforme}" layout="grid" columns="3">
 			            <f:selectItem itemLabel="Tous" itemValue="-1"/>
 			            <f:selectItem itemLabel="Transformé" itemValue="1" />
 			            <f:selectItem itemLabel="Non tranformé" itemValue="0" />
 			            <p:ajax event="valueChange" update="mainForm:dataTable" listener="#{core.bean().handleFilter()}"/>
 			        </p:selectOneRadio>
 			        
-<!-- 			        <p:calendar value="#{core.bean().filter.dateDu}" pattern="dd/MM/yyyy" mask="true"> -->
+<!-- 			        <p:calendar value="#{core.bean().object.filter().dateDu}" pattern="dd/MM/yyyy" mask="true"> -->
 <!-- 			        	<p:ajax event="dateSelect" update="mainForm:dataTable" listener="#{core.bean().handleFilter()}"/> -->
 <!-- 			        </p:calendar>	 -->
-<!-- 			        <p:calendar value="#{core.bean().filter.dateAu}" pattern="dd/MM/yyyy" mask="true"> -->
+<!-- 			        <p:calendar value="#{core.bean().object.filter().dateAu}" pattern="dd/MM/yyyy" mask="true"> -->
 <!-- 			        	<p:ajax event="dateSelect" update="mainForm:dataTable" listener="#{core.bean().handleFilter()}"/> -->
 <!-- 			        </p:calendar> -->
    				</p:tab>

@@ -30,9 +30,7 @@ import com.seosoft.erp.util.scopes.view.SpringViewScoped;
 @SpringViewScoped
 public class DemandePrixController extends GenericCRUDController<DemandePrix, DemandePrixService> implements Serializable {
 	private static final long serialVersionUID = 7838900790101299064L;
-	
-	private DemandePrix.Filter _filter;
-	
+		
 	@Autowired
 	private DetailsDemandePrixService detailsDemandePrixService;
 	
@@ -42,7 +40,6 @@ public class DemandePrixController extends GenericCRUDController<DemandePrix, De
 	protected void prepareData(){
 		_moduleName = "demandePrix";
 		prepareForCreateNew();
-		_filter = new DemandePrix.Filter();
 		super.prepareData();
 	}
 	
@@ -203,25 +200,25 @@ public class DemandePrixController extends GenericCRUDController<DemandePrix, De
 	@Override
 	public void handleFilter(){
 		Specification<DemandePrix> spec = null;
-		System.out.println(" _filter.getFournisseur() " +   _filter.getFournisseur() );
-		System.out.println(" _filter.getDepot() " +  _filter.getDepot() );
-		System.out.println(" _filter.getValide() " +  _filter.getValide() );
-//		System.out.println(" _filter.getDateDu() " +  _filter.getDateDu() );
-//		System.out.println(" _filter.getDateAu() " +  _filter.getDateAu() );
-		if( _filter.getFournisseur() != null)
-			spec = new DemandePrix._Specification(new SearchCriteria("fournisseur", "=", _filter.getFournisseur()));
-		if( _filter.getDepot() != null){
-			spec = Specifications.where(spec).and( new DemandePrix._Specification(new SearchCriteria("depot", "=", _filter.getDepot())) );
+		System.out.println(" _object.filter().getFournisseur() " +   _object.filter().getFournisseur() );
+		System.out.println(" _object.filter().getDepot() " +  _object.filter().getDepot() );
+		System.out.println(" _object.filter().getValide() " +  _object.filter().getValide() );
+//		System.out.println(" _object.filter().getDateDu() " +  _object.filter().getDateDu() );
+//		System.out.println(" _object.filter().getDateAu() " +  _object.filter().getDateAu() );
+		if( _object.filter().getFournisseur() != null)
+			spec = new DemandePrix._Specification(new SearchCriteria("fournisseur", "=", _object.filter().getFournisseur()));
+		if( _object.filter().getDepot() != null){
+			spec = Specifications.where(spec).and( new DemandePrix._Specification(new SearchCriteria("depot", "=", _object.filter().getDepot())) );
 		}
-		if( _filter.getValide() != -1){
-			spec = Specifications.where(spec).and( new DemandePrix._Specification(new SearchCriteria("valide", "=", _filter.getValide())) );
+		if( _object.filter().getValide() != -1){
+			spec = Specifications.where(spec).and( new DemandePrix._Specification(new SearchCriteria("valide", "=", _object.filter().getValide())) );
 		}
-		if( _filter.getTransforme() != -1){
-			spec = Specifications.where(spec).and( new DemandePrix._Specification(new SearchCriteria("transforme", "=", _filter.getTransforme())) );
+		if( _object.filter().getTransforme() != -1){
+			spec = Specifications.where(spec).and( new DemandePrix._Specification(new SearchCriteria("transforme", "=", _object.filter().getTransforme())) );
 		}
-		if( _filter.getDateDu() != null &&  _filter.getDateAu() != null){
-			spec = Specifications.where(spec).and( new DemandePrix._Specification(new SearchCriteria("date", ">", new java.sql.Date(_filter.getDateDu().getTime()) )));
-			spec = Specifications.where(spec).and( new DemandePrix._Specification(new SearchCriteria("date", "<", new java.sql.Date(_filter.getDateAu().getTime()) )));
+		if( _object.filter().getDateDu() != null &&  _object.filter().getDateAu() != null){
+			spec = Specifications.where(spec).and( new DemandePrix._Specification(new SearchCriteria("date", ">", new java.sql.Date(_object.filter().getDateDu().getTime()) )));
+			spec = Specifications.where(spec).and( new DemandePrix._Specification(new SearchCriteria("date", "<", new java.sql.Date(_object.filter().getDateAu().getTime()) )));
 		}
 		
 		_list = _service.findAll(spec, _sortBy);
@@ -299,14 +296,6 @@ public class DemandePrixController extends GenericCRUDController<DemandePrix, De
 
 	public void setEmptyArticle(Article emptyArticle) {
 		this.emptyArticle = emptyArticle;
-	}
-
-	public DemandePrix.Filter getFilter() {
-		return _filter;
-	}
-
-	public void setFilter(DemandePrix.Filter filter) {
-		this._filter = filter;
 	}
 
 }

@@ -19,7 +19,6 @@ import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Length;
 import org.joda.time.DateTime;
 
-import com.seosoft.erp.model.entity.Fournisseur.Filter;
 import com.seosoft.erp.util.annotation.SortByInView;
 
 /**
@@ -210,7 +209,7 @@ public abstract class BaseEntity {
 	/********************************* FILTER RELATED *********************************/
 	/**********************************************************************************/
 	
-	private static Filter _filter;
+	/*private static Filter _filter;
 	
 	public Filter filter(){
 		if (_filter == null){
@@ -220,6 +219,10 @@ public abstract class BaseEntity {
 		return _filter;
 	}
 
+	public static class Filter{
+		
+	}*/
+	
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
 	// |||||||||||||||||||||||||||||||||||||||||||||||| Getters & Setters ||||||||||||||||||||||||||||||||||||||||||||||||||||||//
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//

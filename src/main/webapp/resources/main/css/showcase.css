@@ -466,7 +466,7 @@ input.searchInput {
 
 li.ui-state-active a { color:rgb(1, 154, 249) !important; }
 
-.ui-dialog.ui-widget-content .ui-dialog-content{font-size:12px !important;}
+.ui-dialog.ui-widget-content .ui-dialog-content{font-size:12px !important; padding: 5px 20px;}
 
 .ui-dialog.ui-widget-content .ui-dialog-title{font-size:15px !important;}
 
@@ -498,7 +498,11 @@ li.ui-state-active a { color:rgb(1, 154, 249) !important; }
 
 .ui-widget-overlay{background: #BEBEBE}
 
-.ui-shadow{-webkit-box-shadow: rgb(66, 66, 66) 1px 0px 41px -4px !important; border-radius:0 !important; border:none !important;}
+.ui-shadow{
+	-webkit-box-shadow: rgba(23, 23, 23, 0.53) 1px 0px 30px -4px !important;
+	border-radius: 5px !important;
+	border: none !important;
+}
 
 .favori_link{
 	display: block;
