@@ -27,8 +27,13 @@
 				        	<f:selectItems value="#{core.bean('depot').list}" var="entity" itemLabel="#{entity.getDisplayText()}" itemValue="#{entity}" />
 					        	<p:ajax event="change" update="mainForm:dataTable" listener="#{core.bean().handleFilter()}"/>
 				        </p:selectOneMenu>
-				        <seosoft:OneEntitySelectList id="fournisseurOneEntitySelectList" value="#{core.bean().object.filter().fournisseur}" entityName="fournisseur"></seosoft:OneEntitySelectList>
-<!-- 				        <seosoft:OneEntitySelectList id="depotOneEntitySelectList" value="#{core.bean().object.filter().depot}" entityName="depot"></seosoft:OneEntitySelectList> -->
+				        
+				        <seosoft:OneEntitySelectList id="fournisseurOneEntitySelectList" value="#{core.bean().object.filter().fournisseur}" 
+				        							 entityName="fournisseur" update=":mainForm:dataTable" onChange="#{core.bean().handleFilter()}">
+						</seosoft:OneEntitySelectList>
+				        <seosoft:OneEntitySelectList id="depotOneEntitySelectList" value="#{core.bean().object.filter().depot}" 
+				        							 entityName="depot" update=":mainForm:dataTable" onChange="#{core.bean().handleFilter()}">>
+				        </seosoft:OneEntitySelectList>
    					</p:panelGrid>
 			     </p:tab>
 			      <p:tab title="Etat">  

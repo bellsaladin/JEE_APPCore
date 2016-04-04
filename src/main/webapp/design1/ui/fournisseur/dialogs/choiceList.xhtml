@@ -59,9 +59,13 @@
 		            <h:outputText value="#{object.raisonSociale}" />
 		        </p:column>
 	       	</p:dataTable>
-	       	 
-	  		<p:commandButton value="Choisir" update=":mainForm" oncomplete="PF('dialogChoiceList#{entityNameCapitalized}').hide()" styleClass="ui-whiteBtn">
-	  			<f:setPropertyActionListener target="#{target}" value="#{core.bean(entityName).objectSelectedAtQuickChoiceDialog}" />
+	       	
+	       	<!-- 
+	  			NOTE : Using 'action' attribute instead 'actionListener' on commandButton is intended to force firing setPropertyActionListener before the action 
+	  		 -->
+	  		<p:commandButton value="Choisir" update=":mainForm" oncomplete="PF('dialogChoiceList#{entityNameCapitalized}').hide()" styleClass="ui-whiteBtn"
+	  						 process="@parent" action="#{param_onChange}">
+	  			<f:setPropertyActionListener target="#{param_target}" value="#{core.bean(entityName).objectSelectedAtQuickChoiceDialog}" />
 	  		</p:commandButton>
 		</h:form>
 	</p:dialog>  	

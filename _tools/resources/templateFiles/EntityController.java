@@ -19,8 +19,8 @@ public class {{ENTITY}}Controller extends GenericCRUDController<{{ENTITY}}, {{EN
 
 	protected void prepareData(){
 		_moduleName = "{{ENTITY_FIRSTLETTER_LOWERCASE}}";
-		super.prepareData();
 		prepareForCreateNew();
+		super.prepareData();
 	}
 	
 	protected void registerActions(){

@@ -40,8 +40,9 @@
 		            <h:outputText value="#{object.designation}" />
 		        </p:column>
 	       	</p:dataTable> 
-	  		<p:commandButton value="Choisir" update=":mainForm" oncomplete="PF('dialogChoiceList#{entityNameCapitalized}').hide()" styleClass="ui-whiteBtn">
-	  			<f:setPropertyActionListener target="#{target}" value="#{core.bean(entityName).objectSelectedAtQuickChoiceDialog}" />
+	  		<p:commandButton value="Choisir" update=":mainForm" oncomplete="PF('dialogChoiceList#{entityNameCapitalized}').hide()" styleClass="ui-whiteBtn" 
+	  						 process="@parent" actionListener="#{param_onChange}">
+	  			<f:setPropertyActionListener target="#{param_target}" value="#{core.bean(entityName).objectSelectedAtQuickChoiceDialog}" />
 	  		</p:commandButton>
 		</h:form>
 	</p:dialog>  	

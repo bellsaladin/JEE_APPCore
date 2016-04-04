@@ -28,6 +28,7 @@ public abstract class GenericController<Type extends BaseEntity, Service extends
 	}
 	
 	public String[] getRelatedModules(){
+		// NOTE : This is a mock getter required because it's called every at some level on the view side (xhtml)
 		return new String[]{}; //empty string array
 	}
 	

@@ -13,23 +13,30 @@
     	<cc:attribute name="id" type="java.lang.String" required="true" />
     	<cc:attribute name="entityName" type="java.lang.String" required="true" />
     	<cc:attribute name="value" required="true" />
-    	<cc:attribute name="update" type="java.lang.String"/>
+    	<cc:attribute name="update" type="java.lang.String" required="true"/>
+    	<cc:attribute name="onChange" method-signature="java.lang.String change()" />
+    	
 <!--     	<cc:attribute name="disabled" type="java.lang.String" default="false" /> -->
+<!-- 		<cc:clientBehavior name="change" event="change" targets="selectOneMenu"/> -->
+		
     </cc:interface>
     
     <cc:implementation>
     	    <ui:param name="entityNameCapitalized" value="#{of:capitalize(cc.attrs.entityName)}" />
     		<h:panelGroup id="#{cc.attrs.id}">
 		    	
-		    	<p:selectOneMenu value="#{cc.attrs.value}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
+		    	<p:selectOneMenu id="selectOneMenu" value="#{cc.attrs.value}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
 		    					 style="width:160px">      	    
 		        	<f:selectItem itemLabel="" itemValue="" />
 		        	<f:selectItems value="#{core.bean( cc.attrs.entityName ).list}" var="entity" itemLabel="#{entity.getDisplayText()}" itemValue="#{entity}" />
 		        	
+		        	<p:ajax event="change" update="#{cc.attrs.update}" listener="#{cc.attrs.onChange}"/>
+		        	
+		        	<!-- 
 		        	<c:if test="${cc.attrs.update ne null}">
-					   <p:ajax event="change" update=":mainForm:#{cc.attrs.update}"/>
-					</c:if>
-
+					   <p:ajax event="change" update=":mainForm:#{cc.attrs.update}" />
+					</c:if> 
+					-->
 		        </p:selectOneMenu>
 		        
 		        <p:commandLink oncomplete="PF('dialogChoiceList#{entityNameCapitalized}').show()" style="margin-left:5px">
@@ -37,7 +44,8 @@
 		        </p:commandLink>
 	<!-- 			<ui:param name="dialogIncludeSrc" value="/design1/ui/${cc.attrs.entityName}/dialogs/choiceList.xhtml" /> -->
 	 			<ui:include src="/design1/ui/${cc.attrs.entityName}/dialogs/choiceList.xhtml">
-	 				<ui:param name="target" value="#{cc.attrs.value}" />
+	 				<ui:param name="param_target" value="#{cc.attrs.value}" />
+	 				<ui:param name="param_onChange" value="#{cc.attrs.onChange}" />
 	 			</ui:include>
 	 			
 			</h:panelGroup>
