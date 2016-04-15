@@ -32,6 +32,11 @@ public abstract class GenericController<Type extends BaseEntity, Service extends
 		return new String[]{}; //empty string array
 	}
 	
+	public String[] getDialogIncludes(){
+		// NOTE : This is a mock getter required because it's called every at some level on the view side (xhtml)
+		return new String[]{}; //empty string array
+	}
+	
 //	public Class<Type> getClassType(){
 //		return Type;
 //	}

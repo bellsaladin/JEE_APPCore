@@ -189,7 +189,7 @@ public abstract class BaseEntity {
                 );*/
         	
         	if(filter.equals("sortByInView")){
-        		System.out.println("FilterINNNN : " + annotations.length);
+        		//System.out.println("FilterINNNN : " + annotations.length);
             	for(Annotation annotation: annotations){
             		/*System.out.printf("Annotation %s %n",
                             annotation.annotationType().toString()

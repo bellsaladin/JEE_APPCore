@@ -29,10 +29,12 @@
 				        </p:selectOneMenu>
 				        
 				        <seosoft:OneEntitySelectList id="fournisseurOneEntitySelectList" value="#{core.bean().object.filter().fournisseur}" 
-				        							 entityName="fournisseur" update=":mainForm:dataTable" onChange="#{core.bean().handleFilter()}">
+				        							 entityName="fournisseur" update=":mainForm:dataTable" onChoose="#{core.bean().handleFilter()}"
+				        							 emptyValueLabel="Tous les fournisseurs">
 						</seosoft:OneEntitySelectList>
 				        <seosoft:OneEntitySelectList id="depotOneEntitySelectList" value="#{core.bean().object.filter().depot}" 
-				        							 entityName="depot" update=":mainForm:dataTable" onChange="#{core.bean().handleFilter()}">>
+				        							 entityName="depot" update=":mainForm:dataTable" onChoose="#{core.bean().handleFilter()}"
+				        							 emptyValueLabel="Tous les dépôts">
 				        </seosoft:OneEntitySelectList>
    					</p:panelGrid>
 			     </p:tab>

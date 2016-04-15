@@ -1,5 +1,6 @@
 package com.seosoft.erp.controller;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -17,7 +18,9 @@ import com.seosoft.erp.util.scopes.session.SpringSessionScoped;
 @Named
 //@ManagedBean
 @SpringSessionScoped
-public class SessionController {
+public class SessionController implements Serializable{
+	private static final long serialVersionUID = -255479118791985985L;
+	
 	
 	@Autowired
 	private FavoriService _favoriService;

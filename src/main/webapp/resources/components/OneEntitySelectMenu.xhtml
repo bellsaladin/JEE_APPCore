@@ -10,9 +10,13 @@
     xmlns:p="http://primefaces.org/ui">
     
     <cc:interface componentType="oneEntitySelectMenuComponent">
+    	<cc:attribute name="id" required="true"/>
     	<cc:attribute name="entityName" type="java.lang.String" required="true" />
+    	<cc:attribute name="callingBean" required="true" />
+    	<cc:attribute name="relatedEntityPropertyName" required="true"/>
     	<cc:attribute name="value" required="true" />
     </cc:interface>
+    	
     
     <cc:implementation>
     	    <ui:param name="entityNameCapitalized" value="#{of:capitalize(cc.attrs.entityName)}" />
@@ -32,6 +36,8 @@
 		        <p:commandLink actionListener="#{core.bean().runAction('quickNouveau'.concat(entityNameCapitalized), cc.attrs.id)}" oncomplete="PF('dialog#{entityNameCapitalized}').show()" process="@parent" style="margin-left:5px">
 		        	<i class="fa fa-plus fa-3" style="font-size: 13px;color: rgb(12, 189, 143);" title="Nouveau"></i>	
 		        </p:commandLink>
+		        <p:commandButton value=":" actionListener="#{cc.quickUpdate()}" process="@this"
+		        				 oncomplete="PF('dialog#{entityNameCapitalized}').show()"/>		 
 	<!-- 			<div><small class="silver">seosoft:OneEntitySelectMenu</small></div> -->
 			</h:panelGroup>
     </cc:implementation>

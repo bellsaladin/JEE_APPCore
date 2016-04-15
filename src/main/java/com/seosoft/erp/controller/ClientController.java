@@ -43,8 +43,10 @@ public class ClientController extends GenericCRUDController<Client, ClientServic
 	}
 	
 	protected void onDataReady(){
-		
-		addRelatedModule((ModeReglementController) Core.bean("modeReglement"), "modeReglement", new Action(){
+		//addRelatedModule((ContactController)Core.bean("contact"));
+		//addRelatedModule("modeReglement");
+		//addRelatedModule("modeExpedition");
+		/*addRelatedModule((ModeReglementController) Core.bean("modeReglement"), "modeReglement", new Action(){
 			@Override
 			public void run() {
 				_object.setModeReglement(((ModeReglementController) Core.bean("modeReglement")).getObject());
@@ -97,7 +99,7 @@ public class ClientController extends GenericCRUDController<Client, ClientServic
 			public void run() {
 				((BanqueController) Core.bean("banque")).setObject(_object.getBanque());
 			}}
-		);
+		);*/
 		
 		/*addRelatedModule((UserController) Core.bean("user"), "user", new Action(){
 			@Override

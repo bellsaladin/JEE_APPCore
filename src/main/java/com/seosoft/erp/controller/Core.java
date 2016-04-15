@@ -1,11 +1,15 @@
 package com.seosoft.erp.controller;
 
 import java.io.Serializable;
+import java.util.HashMap;
 
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.StringUtils;
+
+import com.seosoft.erp.controller.generic.GenericCRUDController;
 import com.seosoft.erp.controller.generic.GenericController;
 import com.seosoft.erp.util.scopes.request.SpringRequestScoped;
 import com.seosoft.erp.util.scopes.view.SpringViewScoped;
@@ -17,8 +21,10 @@ public class Core implements Serializable{
 		
 	public static GenericController<?,?> _bean; // current bean handled by the core
 	private static String currentModuleName;
+	private static HashMap<String,GenericController<?,?>> _registredBeans;
 	
     public Core() {
+    	_registredBeans = new HashMap<String,GenericController<?,?>>();
     	currentModuleName = getModuleNameFromUrl();
     	String managedBeanName = currentModuleName + "Controller";
     	loadManagedBeanByName(managedBeanName);
@@ -44,8 +50,11 @@ public class Core implements Serializable{
     }
 	
 	public static GenericController<?,?> bean(String beanName) {
+		beanName = StringUtils.uncapitalize(beanName);
 		FacesContext context = FacesContext.getCurrentInstance();
-        return GenericController.class.cast(context.getApplication().evaluateExpressionGet(context, "#{" + beanName + "Controller}", GenericController.class));
+		GenericController<?, ?> bean = GenericController.class.cast(context.getApplication().evaluateExpressionGet(context, "#{" + beanName + "Controller}", GenericController.class));
+		_registredBeans.put(beanName, bean);
+        return bean;
     }
 	
 	/*
@@ -55,9 +64,8 @@ public class Core implements Serializable{
     private static String getModuleNameFromUrl() {
     	HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		String requestUrl = req.getRequestURL().toString();
-		System.out.println("url :: " + requestUrl); 
+		//System.out.println("url :: " + requestUrl); 
 		requestUrl = requestUrl.substring(_Constants.base_url.length()); // remove base url from the request url
-		System.out.println("url :: " + requestUrl); 
 		String[] explodedUrl = requestUrl.split("/");
 		return explodedUrl[0];
     }
@@ -68,6 +76,16 @@ public class Core implements Serializable{
 
 	public static void setCurrentModuleName(String currentModuleName) {
 		Core.currentModuleName = currentModuleName;
+	}
+
+	public HashMap<String, GenericController<?, ?>> getRegistredBeans() {
+		return _registredBeans;
+	}
+	
+	public HashMap<String, GenericController<?, ?>> getNestedRelatedModules() {
+		HashMap<String,GenericController<?,?>> nestedRegistredBeans = new HashMap<String,GenericController<?,?>>();
+		//for(GenericController<?,?> bean : _registredBeans.get)
+		return nestedRegistredBeans;
 	}
     
 }

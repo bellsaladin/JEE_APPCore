@@ -31,7 +31,7 @@
     <ui:insert name="head" />
 </h:head>
 
-<h:body>
+<h:body id="body">
     
     <!-- PC CONTENT STARTS HERE-->
     <div class="PC">
@@ -298,9 +298,17 @@
     <p:hotkey bind="ctrl+shift+f" handler="PF('favorisDlg').show();" />
 	
 	<!-- Include of dialogs of related modules  -->
-	<c:forEach items="${core.bean().getRelatedModules()}" var="moduleName">
- 		<ui:param name="dialogIncludeSrc" value="/design1/ui/${moduleName}/dialogs/form.xhtml" />
- 		<ui:include src="#{dialogIncludeSrc}" />
+	
+	
+	<h:panelGroup id="dialogsContainer">
+		
+	</h:panelGroup>
+	<c:forEach items="#{core.registredBeans}" var="bean">
+			<c:forEach items="#{bean.value.getRelatedModules()}" var="relatedBean">
+	 			<ui:param name="dialogIncludeSrc" value="/design1/ui/${relatedBean}/dialogs/form.xhtml" />
+	 			<ui:include src="#{dialogIncludeSrc}" />
+	 			<p:outputLabel value="#{dialogIncludeSrc}"></p:outputLabel>
+			</c:forEach>
 	</c:forEach>
 	
 	<!-- Include of other dialogs if mentionned  -->

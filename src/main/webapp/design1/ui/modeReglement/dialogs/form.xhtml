@@ -15,12 +15,11 @@
     <ui:param name="entityName" value="modeReglement" />
     <ui:param name="entityNameCapitalized" value="#{of:capitalize(entityName)}" />
 	
-	
 	<!--  Dialog definition -->
-	<p:dialog header="#{entityNameCapitalized}" id="dialog#{entityNameCapitalized}" widgetVar="dialog#{entityNameCapitalized}" style="min-width:700px;" resizable="false" modal="true" appendToBody="true">   
+	<p:dialog header="#{entityNameCapitalized}" id="dialog#{entityNameCapitalized}" widgetVar="dialog#{entityNameCapitalized}" style="min-width:700px;" resizable="false" modal="false" appendToBody="true">   
 	   	<h:form id="dialogForm#{entityNameCapitalized}">     
 	        
-        	<p:panelGrid styleClass="no-border-table full-width">
+        	<p:panelGrid id="data" styleClass="no-border-table full-width">
         		<p:row>	
 		       		<p:column>      
 				          <h:outputLabel for="code" value="Code : *" />

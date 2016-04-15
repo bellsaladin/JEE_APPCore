@@ -4,19 +4,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 import javax.faces.model.ListDataModel;
-import javax.servlet.http.HttpSession;
+import javax.faces.view.facelets.FaceletContext;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang3.text.WordUtils;
+import org.omnifaces.util.Components;
 import org.omnifaces.util.Faces;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
@@ -24,15 +23,12 @@ import org.primefaces.model.SelectableDataModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.web.context.ContextLoader;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.seosoft.erp.controller.Core;
 import com.seosoft.erp.controller._Constants;
 import com.seosoft.erp.model.base.BaseEntity;
-import com.seosoft.erp.model.base.SearchCriteria;
-import com.seosoft.erp.model.entity.DemandePrix;
 import com.seosoft.erp.model.entity.v2_UserNawat;
 import com.seosoft.erp.service.generic.GenericService;
 import com.seosoft.erp.util.components.ColumnModel;
@@ -50,7 +46,7 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 	protected List<ColumnModel> _dataTableColumns;
 	protected String _paramId = null; // used to store object's ID to modify, gathered from the URL
 	// the following attributes are special attributes used for quick create & update dialogs on related modules
-	protected HashMap<String,GenericController<?,?>> _relatedModules;
+	public HashMap<String,GenericController<?,?>> _relatedModules;
 	protected List<String> _boundComponentIds;
 	protected String lastQuickDialogCallerComponentId;
 
@@ -134,12 +130,34 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 		
 	}
 	
-	protected void addRelatedModule(final GenericCRUDController<?,?> relatedBean, String componentId, Action postUpdateAction, Action preQuickUpdateDialogShowAction){
+	public void addRelatedModule(String relatedModuleName){
+		_relatedModules.put(relatedModuleName, null);
+	}
+	
+	public void addRelatedModule(final GenericCRUDController<?,?> relatedBean){
+		final String relatedModuleName = relatedBean.getModuleName();
+		
+		if(!_relatedModules.containsKey(relatedModuleName)){
+			_relatedModules.put(relatedModuleName, relatedBean);
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+			FaceletContext faceletContext = (FaceletContext) facesContext.getAttributes().get(FaceletContext.FACELET_CONTEXT_KEY);
+			String includePath = "/design1/ui/" + relatedModuleName + "/dialogs/form.xhtml";
+			System.out.println("GenericCRUDController::addRelatedModule : includePath = " + includePath);
+			try {
+				faceletContext.includeFacelet(facesContext.getViewRoot(), includePath);
+				//(facesContext.getViewRoot(), includePath);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public void addRelatedModule(final GenericCRUDController<?,?> relatedBean, String componentId, Action postUpdateAction, Action preQuickUpdateDialogShowAction){
 		final String relatedModuleName = relatedBean.getModuleName();
 		// FIXME module._relatedModules.put(name,module);
-		_relatedModules.put(relatedModuleName,relatedBean);
-		relatedBean._boundComponentIds.add(componentId);
-		relatedBean._relatedModulesActions.put(relatedModuleName +"PostUpdateAction", postUpdateAction);
+		//_relatedModules.put(relatedModuleName, relatedBean);
+		//relatedBean._boundComponentIds.add(componentId);
+		/*relatedBean._relatedModulesActions.put(relatedModuleName +"PostUpdateAction", postUpdateAction);
 		relatedBean._relatedModulesActions.put(relatedModuleName +"PreQuickUpdateDialogShowAction", preQuickUpdateDialogShowAction);		
 		_actions.put("quickNouveau" + WordUtils.capitalize(relatedModuleName), new Action(){
 			@Override
@@ -157,16 +175,15 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 			public void run() {
 				System.out.println("quickUpdate" + WordUtils.capitalize(relatedModuleName) + "  CLICK");
 				relatedBean.setQuickDialogUpdateMode(true);
-				relatedBean.setEntitySubjectOfQuickDialog(_object);
 				relatedBean._relatedModulesActions.get(relatedModuleName+"PreQuickUpdateDialogShowAction").run();
+				relatedBean.setEntitySubjectOfQuickDialog(_object);
 				RequestContext.getCurrentInstance().update("dialog"+ WordUtils.capitalize(relatedModuleName));
 			}
-		});
+		});*/
 	}
 	
 	public void handleFilter(){
 		Specification<Type> spec = null;
-		
 		_list = _service.findAll(spec, _sortBy);
 		_dataModel = new DataModel(_list);
 	}
@@ -184,12 +201,14 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 
 	public void runAction(String actionName, String callerComponentId){
 		this.lastQuickDialogCallerComponentId = callerComponentId;
+		System.out.println("runAction: " + actionName);
 		runAction(actionName);
 	}
 	
 	public void runAction(String actionName){
+		System.out.println("runAction: " + actionName);
 		Action action = _actions.get(actionName);
-		if(action != null){ 
+		if(action != null){
 			action.run();
 			if(actionName.equals("persist")){
 				System.out.println("Module " + _moduleName);
@@ -290,8 +309,9 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 				// FIXME : FOR TEST PURPOSE ONLY
 				// called after quick dialog save
 				if(entitySubjectOfQuickDialog != null) {
-					_relatedModulesActions.get(_moduleName+"PostUpdateAction").run();
+					_actions.get("PostQuickUpdate").run();
 					
+					//_relatedModulesActions.get(_moduleName+"PostUpdateAction").run();
 					System.out.println("YYYYYYY " + _moduleName + " PostUpdateAction ");
 					
 					// update all related components 
@@ -366,15 +386,34 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 	
 	public String[] getRelatedModules(){
 		Set<String> keys = _relatedModules.keySet();
-		System.out.println("getRelatedModules:" + _moduleName + " : " + _relatedModules.size());
+		/*System.out.println("getRelatedModules:" + _moduleName + " : " + _relatedModules.size());
 		System.out.println("getRelatedModules:" + _moduleName +" : " + _actions.size());
 		for(String moduleName : keys){
 			System.out.println("getRelatedModules:" + _moduleName +" : " + moduleName);
 		}
 		for(String actionName : _actions.keySet()){
 			System.out.println("getRelatedModules:" + _moduleName + ":" + actionName);
-		}
+		}*/
 		return keys.toArray(new String[keys.size()]);
+	}
+	
+	public String[] getDialogIncludes(){
+		Set<String> keys = _relatedModules.keySet();
+		/*System.out.println("getRelatedModules:" + _moduleName + " : " + _relatedModules.size());
+		System.out.println("getRelatedModules:" + _moduleName +" : " + _actions.size());
+		for(String moduleName : keys){
+			System.out.println("getRelatedModules:" + _moduleName +" : " + moduleName);
+		}
+		for(String actionName : _actions.keySet()){
+			System.out.println("getRelatedModules:" + _moduleName + ":" + actionName);
+		}*/
+		String[] dialogIncludes = keys.toArray(new String[keys.size()]);
+		for(int i = 0; i < dialogIncludes.length; i++){
+			dialogIncludes[i] = "//design1//ui//" + dialogIncludes[i] + "//dialogs//form.xhtml";
+			
+		}
+		
+		return dialogIncludes;
 	}
 
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
@@ -500,6 +539,10 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 	public void setObjectSelectedAtQuickChoiceDialog(Type objectSelectedAtQuickChoiceDialog) {
 		this._objectSelectedAtQuickChoiceDialog = objectSelectedAtQuickChoiceDialog;
 		System.out.println("_objectSelectedAtQuickChoiceDialog : " + _objectSelectedAtQuickChoiceDialog + " :" + _moduleName);
+	}
+	
+	public void registerAction(String name, Action action){
+		_actions.put(name, action);
 	}
 	
 }

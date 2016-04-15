@@ -261,14 +261,15 @@
 					       <p:column headerText="Article">
 					           <p:cellEditor>
 					               <f:facet name="output">
-					               	<h:outputText value="#{ligneDetails.article.getDisplayText()}" />
-<!-- 					               	    <h:selectOneMenu value="#{ligneDetails.article}" style="width:90%; opacity:0.6" converter="omnifaces.SelectItemsConverter"> -->
-<!-- 						        		  	<f:selectItem itemLabel="" itemValue="" />  -->
-<!-- 						        		  	<f:selectItems value="#{core.bean('article').list}" var="entity" itemLabel="#{entity.getDisplayText()}" itemValue="#{entity}" /> -->
-<!-- 					                    </h:selectOneMenu> -->
+					               		<h:outputText value="#{ligneDetails.article.getDisplayText()}" />
+<!-- 					               	<h:selectOneMenu value="#{ligneDetails.article}" style="width:90%; opacity:0.6" converter="omnifaces.SelectItemsConverter"> -->
+<!-- 						        		<f:selectItem itemLabel="" itemValue="" />  -->
+<!-- 						        		<f:selectItems value="#{core.bean('article').list}" var="entity" itemLabel="#{entity.getDisplayText()}" itemValue="#{entity}" /> -->
+<!-- 					                </h:selectOneMenu> -->
 					               </f:facet>
 					               <f:facet name="input">
-					               	   <seosoft:OneEntitySelectList id="articleOneEntitySelectList" value="#{ligneDetails.article}" entityName="article" update="detailsDatatable">
+					               	   <seosoft:OneEntitySelectList id="articleOneEntitySelectList" value="#{ligneDetails.article}" 
+					               	   								entityName="article" update=":mainForm:detailsDatatable">
 					               	   </seosoft:OneEntitySelectList>
 <!-- 					                   <h:selectOneMenu value="#{ligneDetails.article}" style="width:90%" converter="omnifaces.SelectItemsConverter"> -->
 <!-- 						        		    <f:selectItems value="#{core.bean('article').list}" var="entity" itemLabel="#{entity.getDisplayText()}" itemValue="#{entity}" /> -->

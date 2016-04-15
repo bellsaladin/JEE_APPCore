@@ -17,10 +17,10 @@
 	
 	
 	<!--  Dialog definition -->
-	<p:dialog header="#{entityNameCapitalized}" id="dialog#{entityNameCapitalized}" widgetVar="dialog#{entityNameCapitalized}" style="min-width:700px;" resizable="false" modal="true" appendToBody="true">   
+	<p:dialog header="#{entityNameCapitalized}" id="dialog#{entityNameCapitalized}" widgetVar="dialog#{entityNameCapitalized}" style="min-width:700px;" resizable="false" modal="false" appendToBody="true">   
 	   	<h:form id="dialogForm#{entityNameCapitalized}">     
 	        
-        	<p:panelGrid styleClass="no-border-table full-width">
+        	<p:panelGrid id="data" styleClass="no-border-table full-width">
         		<p:row>	
 		       		<p:column>      
 				          <h:outputLabel for="code" value="Code : *" />
@@ -45,7 +45,7 @@
 				     </p:column>
 				 </p:row> 
        		</p:panelGrid>
-	  		<p:commandButton value="Enregistrer" actionListener="#{core.bean(entityName).runAction('persist')}" update=":dialog#{entityNameCapitalized}" process=":dialog#{entityNameCapitalized}" oncomplete="PF('dialog#{entityNameCapitalized}').hide()" styleClass="ui-whiteBtn" />
+	  		<p:commandButton value="Enregistrer" actionListener="#{core.bean(entityName).runAction('persist')}" update=":mainForm" process=":dialog#{entityNameCapitalized}" oncomplete="PF('dialog#{entityNameCapitalized}').hide()" styleClass="ui-whiteBtn" />
 	  		<div><small>Note : La sauvegarde est conservée même si vous ne validez pas la sauvegarde du formulaire principal (<h:outputText value="#{core.bean().moduleName}" />)</small></div>
 		</h:form>
 	</p:dialog>  	

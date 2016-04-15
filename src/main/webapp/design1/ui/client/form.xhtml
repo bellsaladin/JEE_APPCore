@@ -57,13 +57,13 @@
 						 		Mode de réglement : *
 						 	</p:column>
 						 	<p:column>
-								<seosoft:OneEntitySelectMenu entityName="modeReglement" value="#{core.bean().object.modeReglement}"></seosoft:OneEntitySelectMenu>
+								<seosoft:OneEntitySelectMenu callingBean="#{core.bean()}" entityName="modeReglement" relatedEntityPropertyName="modeReglement" value="#{core.bean().object.modeReglement}"></seosoft:OneEntitySelectMenu>
 						 	</p:column>
 						 <p:row>
 						 </p:row>
 						 	<p:column><h:outputText value="Famille Client " /></p:column>
 					     	<p:column colspan="3">
-								<seosoft:OneEntitySelectMenu id="famille" entityName="familleClient" value="#{core.bean().object.famille}"></seosoft:OneEntitySelectMenu>
+								<seosoft:OneEntitySelectMenu callingBean="#{core.bean()}" entityName="familleClient" relatedEntityPropertyName="famille" value="#{core.bean().object.famille}" ></seosoft:OneEntitySelectMenu>
 					        </p:column>
 						 </p:row>
 						 <p:row>
@@ -71,7 +71,7 @@
 						 		<h:outputLabel value="Expédition " />
 						 	</p:column>
 						 	<p:column>
-					       		<seosoft:OneEntitySelectMenu id="modeExpedition" entityName="modeExpedition" value="#{core.bean().object.modeExpedition}"></seosoft:OneEntitySelectMenu>
+					       		<seosoft:OneEntitySelectMenu callingBean="#{core.bean()}" relatedEntityPropertyName="modeExpedition" entityName="modeExpedition" value="#{core.bean().object.modeExpedition}"></seosoft:OneEntitySelectMenu>
 					       	</p:column>	
 						 </p:row>
 						 <p:row>
@@ -79,7 +79,7 @@
 	       		   				<h:outputLabel value="Transport " />
 	       		   			</p:column>
 	       		   			<p:column>
-	       		   				<seosoft:OneEntitySelectMenu id="modeTransport" entityName="modeTransport" value="#{core.bean().object.modeTransport}"></seosoft:OneEntitySelectMenu>
+	       		   				<seosoft:OneEntitySelectMenu callingBean="#{core.bean()}" relatedEntityPropertyName="modeTransport" entityName="modeTransport" value="#{core.bean().object.modeTransport}"></seosoft:OneEntitySelectMenu>
 	       		   			</p:column>
 	       		   		</p:row>
 						 <p:row>
@@ -206,7 +206,7 @@
 		       		<h:panelGrid columns="2" cellpadding="5"  styleClass="no-border-table full-width panelTopAlign">
 		       			<h:panelGroup>
 			       			<p:fieldset legend="Mode de réglement" style="margin-bottom:20px">
-			       				<seosoft:OneEntitySelectMenu id="modeReglement" entityName="modeReglement" value="#{core.bean().object.modeReglement}"></seosoft:OneEntitySelectMenu>
+			       				<seosoft:OneEntitySelectMenu callingBean="#{core.bean()}"  relatedEntityPropertyName="modeReglement" entityName="modeReglement" value="#{core.bean().object.modeReglement}"></seosoft:OneEntitySelectMenu>
 			       			</p:fieldset>
 			       			
 			       			<p:fieldset legend="Conditions de réglement" style="margin-bottom:20px">
@@ -259,13 +259,14 @@
 			       		<p:row>
 						 	<p:column><h:outputText value="Contact principal:" /></p:column>
 					     	<p:column>
-								<seosoft:OneEntitySelectMenu id="contactPrincipal" entityName="contact" value="#{core.bean().object.contactPrincipal}"></seosoft:OneEntitySelectMenu>
+								<seosoft:OneEntitySelectMenu callingBean="#{core.bean()}" relatedEntityPropertyName="contactPrincipal" entityName="contact" value="#{core.bean().object.contactPrincipal}">
+								</seosoft:OneEntitySelectMenu>
 					        </p:column>
 						 </p:row>
 						 <p:row>
 						 	<p:column><h:outputText value="Demandeur :" /></p:column>
 					     	<p:column>
-								<seosoft:OneEntitySelectMenu id="representant" entityName="contact" value="#{core.bean().object.representant}"></seosoft:OneEntitySelectMenu>
+								<seosoft:OneEntitySelectMenu callingBean="#{core.bean()}" relatedEntityPropertyName="representant" entityName="contact" value="#{core.bean().object.representant}"></seosoft:OneEntitySelectMenu>
 					        </p:column>
 						 </p:row>
 					</p:panelGrid>

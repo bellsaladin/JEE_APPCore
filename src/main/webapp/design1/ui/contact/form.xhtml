@@ -66,7 +66,7 @@
 				          Service : *
 				    </p:column>
 				    <p:column>  
-				    	<seosoft:OneEntitySelectMenu id="service" entityName="service" value="#{core.bean().object.service}"></seosoft:OneEntitySelectMenu>
+				    	<seosoft:OneEntitySelectMenu id="service" callingBean="#{core.bean()}" relatedEntityPropertyName="service" entityName="service" value="#{core.bean().object.service}"></seosoft:OneEntitySelectMenu>
 				     </p:column>
 				 </p:row>
 				 
@@ -75,7 +75,7 @@
 				          Fonction : *
 				    </p:column>
 				    <p:column>  
-				    	<seosoft:OneEntitySelectMenu id="fonction" entityName="fonction" value="#{core.bean().object.fonction}"></seosoft:OneEntitySelectMenu>
+				    	<seosoft:OneEntitySelectMenu id="fonction" callingBean="#{core.bean()}" relatedEntityPropertyName="fonction" entityName="fonction" value="#{core.bean().object.fonction}"></seosoft:OneEntitySelectMenu>
 				     </p:column>
 				 </p:row>			        			      
        		</p:panelGrid>

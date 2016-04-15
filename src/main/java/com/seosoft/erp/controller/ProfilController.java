@@ -59,7 +59,7 @@ public class ProfilController extends GenericCRUDController<v2_Profil, v2_Profil
 			@Override
 			public void run() {
 				
-				boolean isNewInsert = (_object.getId().isEmpty())?true:false;
+				boolean isNewInsert = (_object.getId()==null)?true:false;
 				_service.save(_object); 
 				
 				// remove all affected roles for this profil

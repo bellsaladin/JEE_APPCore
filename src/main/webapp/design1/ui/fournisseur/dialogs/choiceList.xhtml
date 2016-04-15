@@ -63,8 +63,8 @@
 	       	<!-- 
 	  			NOTE : Using 'action' attribute instead 'actionListener' on commandButton is intended to force firing setPropertyActionListener before the action 
 	  		 -->
-	  		<p:commandButton value="Choisir" update=":mainForm" oncomplete="PF('dialogChoiceList#{entityNameCapitalized}').hide()" styleClass="ui-whiteBtn"
-	  						 process="@parent" action="#{param_onChange}">
+	  		<p:commandButton styleClass="ui-whiteBtn" oncomplete="PF('dialogChoiceList#{entityNameCapitalized}').hide()" value="Choisir"
+	  						 process="@parent" action="#{param_onChooseListener}" update=":mainForm">
 	  			<f:setPropertyActionListener target="#{param_target}" value="#{core.bean(entityName).objectSelectedAtQuickChoiceDialog}" />
 	  		</p:commandButton>
 		</h:form>

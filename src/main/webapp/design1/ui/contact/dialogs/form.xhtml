@@ -18,10 +18,10 @@
 	
 	
 	<!--  Dialog definition -->
-	<p:dialog header="#{entityNameCapitalized}" id="dialog#{entityNameCapitalized}" widgetVar="dialog#{entityNameCapitalized}" style="min-width:700px;" resizable="false" modal="true" appendToBody="true">   
+	<p:dialog header="#{entityNameCapitalized}" id="dialog#{entityNameCapitalized}" widgetVar="dialog#{entityNameCapitalized}" style="min-width:700px;" resizable="false" modal="false" appendToBody="true">   
 	   	<h:form id="dialogForm#{entityNameCapitalized}">     
 	        
-        	<p:panelGrid styleClass="no-border-table full-width">
+        	<p:panelGrid id="data" styleClass="no-border-table full-width">
         		<p:row>	
 		       		<p:column>      
 				          <h:outputLabel for="code" value="Code : *" />
@@ -61,7 +61,7 @@
 				          Service : *
 				    </p:column>
 				    <p:column>  
-				    	<seosoft:OneEntitySelectMenu id="service" entityName="service" value="#{core.bean(entityName).object.service}"></seosoft:OneEntitySelectMenu>
+				    	<seosoft:OneEntitySelectMenu id="service" callingBean="#{core.bean(entityName)}" relatedEntityPropertyName="service" entityName="service" value="#{core.bean(entityName).object.service}"></seosoft:OneEntitySelectMenu>
 				     </p:column>
 				 </p:row>
 				 
@@ -70,7 +70,7 @@
 				          Fonction : *
 				    </p:column>
 				    <p:column>  
-				    	<seosoft:OneEntitySelectMenu id="fonction" entityName="fonction" value="#{core.bean(entityName).object.fonction}"></seosoft:OneEntitySelectMenu>
+				    	<seosoft:OneEntitySelectMenu id="fonction" callingBean="#{core.bean(entityName)}" relatedEntityPropertyName="fonction" entityName="fonction" value="#{core.bean(entityName).object.fonction}"></seosoft:OneEntitySelectMenu>
 				     </p:column>
 				 </p:row>
        		</p:panelGrid>

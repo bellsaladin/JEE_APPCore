@@ -13,8 +13,9 @@
     	<cc:attribute name="id" type="java.lang.String" required="true" />
     	<cc:attribute name="entityName" type="java.lang.String" required="true" />
     	<cc:attribute name="value" required="true" />
+    	<cc:attribute name="emptyValueLabel" required="false" />
     	<cc:attribute name="update" type="java.lang.String" required="true"/>
-    	<cc:attribute name="onChange" method-signature="java.lang.String change()" />
+    	<cc:attribute name="onChoose" method-signature="java.lang.String choose" />
     	
 <!--     	<cc:attribute name="disabled" type="java.lang.String" default="false" /> -->
 <!-- 		<cc:clientBehavior name="change" event="change" targets="selectOneMenu"/> -->
@@ -27,7 +28,7 @@
 		    	
 		    	<p:selectOneMenu id="selectOneMenu" value="#{cc.attrs.value}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
 		    					 style="width:160px">      	    
-		        	<f:selectItem itemLabel="" itemValue="" />
+		        	<f:selectItem itemLabel="#{cc.attrs.emptyValueLabel}" itemValue="#{null}" />
 		        	<f:selectItems value="#{core.bean( cc.attrs.entityName ).list}" var="entity" itemLabel="#{entity.getDisplayText()}" itemValue="#{entity}" />
 		        	
 		        	<p:ajax event="change" update="#{cc.attrs.update}" listener="#{cc.attrs.onChange}"/>
@@ -44,8 +45,9 @@
 		        </p:commandLink>
 	<!-- 			<ui:param name="dialogIncludeSrc" value="/design1/ui/${cc.attrs.entityName}/dialogs/choiceList.xhtml" /> -->
 	 			<ui:include src="/design1/ui/${cc.attrs.entityName}/dialogs/choiceList.xhtml">
+	 				<ui:param name="param_parentComponent" value="#{core.bean().getComponentById(cc.attrs.id).getClientId()}" />
 	 				<ui:param name="param_target" value="#{cc.attrs.value}" />
-	 				<ui:param name="param_onChange" value="#{cc.attrs.onChange}" />
+	 				<ui:param name="param_onChooseListener" value="#{cc.attrs.onChoose}" />
 	 			</ui:include>
 	 			
 			</h:panelGroup>
