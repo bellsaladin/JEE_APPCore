@@ -11,6 +11,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -108,7 +109,10 @@ public class TestBean extends BaseController implements Serializable {
 
 	}
 
-	public void doSomething() {
+	public void doSomething(ActionEvent event) {
+		//FacesContext.getCurrentInstance().getPartialViewContext().setRenderAll(true);
+		
+		
 		/*
 		 * UIComponent component = event.getComponent(); TabView tabView = (TabView) component;
 		 */
@@ -121,7 +125,7 @@ public class TestBean extends BaseController implements Serializable {
 		 */
 
 		Messages.addInfo(null, "error.login.user.password.not.correct");
-
+		System.out.println("doSomething !!!");
 		// FacesContext ctx = FacesContext.getCurrentInstance();
 		//
 		// ExternalContext extContext = ctx.getExternalContext();

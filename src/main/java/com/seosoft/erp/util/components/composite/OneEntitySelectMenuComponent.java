@@ -5,6 +5,8 @@ import java.lang.reflect.InvocationTargetException;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.FacesComponent;
+import javax.faces.component.UICommand;
+import javax.faces.component.UIComponentBase;
 import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
 import javax.faces.view.facelets.FaceletContext;
@@ -12,8 +14,10 @@ import javax.print.attribute.standard.Severity;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang3.text.WordUtils;
+import org.omnifaces.util.Components;
 import org.primefaces.context.RequestContext;
 
+import com.seosoft.erp.controller.BaseController;
 import com.seosoft.erp.controller.Core;
 import com.seosoft.erp.controller.generic.Action;
 import com.seosoft.erp.controller.generic.GenericCRUDController;
@@ -29,6 +33,7 @@ public class OneEntitySelectMenuComponent extends UINamingContainer {
 		relatedEntityPropertyName;
 	}
 	
+	private String clientId;
 	private String componentId;
 	private String relatedEntityPropertyName; // e.g : respresentantPricipal, contact
 	
@@ -36,8 +41,8 @@ public class OneEntitySelectMenuComponent extends UINamingContainer {
 	//private BaseEntity value;
 	
 	@Override
-    public void encodeBegin(FacesContext context) throws IOException {
-		
+    public void encodeBegin(FacesContext context) throws NullPointerException, IOException {
+		System.out.println("OneEntitySelectMenuComponent::encodeBegin() : " + clientId);
 		String entityName = (String)getAttributes().get("entityName");	
 		
 		if(entityName != null){
@@ -63,7 +68,7 @@ public class OneEntitySelectMenuComponent extends UINamingContainer {
 			this.relatedEntityPropertyName =  (String) getAttributes().get("relatedEntityPropertyName");
 		
 		// ******** code
-		String entityName = (String)getAttributes().get("entityName");	
+		final String entityName = (String)getAttributes().get("entityName");	
 
 		final GenericCRUDController<?, ?> callingBean = ((GenericCRUDController<?, ?>)getAttributes().get("callingBean"));
 		final GenericCRUDController<?, ?> relatedBean = ((GenericCRUDController<?, ?>)Core.bean(entityName));
@@ -86,14 +91,14 @@ public class OneEntitySelectMenuComponent extends UINamingContainer {
 		} catch (NoSuchMethodException e) {
 			e.printStackTrace();
 		}
-				
+		
 		// ------------------------- END - INVOKE GETTER USING REFLECTION ---------------------
 		relatedBean.setEntitySubjectOfQuickDialog(callingBean.getObject());
-		
+		String targetComponentId = "dialog"+ WordUtils.capitalize(entityName);
 		// update new dialog that is going to be open
-		RequestContext.getCurrentInstance().update("dialog"+ WordUtils.capitalize(entityName));
+		RequestContext.getCurrentInstance().update(targetComponentId);
 		// update origin dialog so that ajax save would still working  
-		RequestContext.getCurrentInstance().update("dialog"+ WordUtils.capitalize(callingBean.getModuleName()));
+		//RequestContext.getCurrentInstance().update("dialog"+ WordUtils.capitalize(callingBean.getModuleName()));
 		
 		//RequestContext.getCurrentInstance().addPartialUpdateTarget(((GenericCRUDController<?, ?>)Core.bean()).getComponentById(("dialogContact")).getClientId());
 				
@@ -108,7 +113,14 @@ public class OneEntitySelectMenuComponent extends UINamingContainer {
 					PropertyUtils.setProperty(callingBean.getObject(), relatedEntityPropertyName, relatedBean.getObject());
 					//relatedBean.setObject(((BaseEntity)relatedEntityValue));
 					//PropertyUtils.setProperty( ((GenericCRUDController<?, ?>)Core.bean()).getObject(), "relatedEntityName", relatedEntityValue);
-					RequestContext.getCurrentInstance().update("mainForm");
+					
+					RequestContext.getCurrentInstance().update("dialog"+ WordUtils.capitalize(entityName));
+					//RequestContext.getCurrentInstance().update("mainForm");
+					RequestContext.getCurrentInstance().update(componentId +":selectOneMenu");
+					RequestContext.getCurrentInstance().update("mainForm:messages");
+					
+					System.out.println("PostQuickUpdate:" + entityName + ":componentId : '" + componentId + ":selectOneMenu'");
+					System.out.println("PostQuickUpdate:" + entityName + ":componentId (callingBean.getComponentById(clientId)): '" + callingBean.getComponentById(clientId) );
 				} catch (SecurityException e) {
 					e.printStackTrace();
 				} catch (NoSuchMethodException e) {

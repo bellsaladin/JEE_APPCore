@@ -518,7 +518,7 @@ li.ui-state-active a { color:rgb(1, 154, 249) !important; }
 
 #devToolsBox{
 	position: fixed; 
-	right: 4px; 
+	left: 84px; 
 	bottom: 4px; 
 	padding: 10px 20px 5px 20px; 
 	opacity: 1; 

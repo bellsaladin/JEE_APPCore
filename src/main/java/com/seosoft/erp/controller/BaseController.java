@@ -54,7 +54,7 @@ public abstract class BaseController implements ApplicationContextAware {
 		UIComponent foundComponent = null;
 		List<UIComponent> childrenComponents = component.getChildren();
 		for(UIComponent childComponent : childrenComponents){
-			System.out.println(level + " : " + component.getClientId() + " : " + childComponent.getClientId());
+			//System.out.println(level + " : " + component.getClientId() + " : " + childComponent.getClientId());
 			if(childComponent.getId().equals(componentId))
 				return childComponent;
 			else

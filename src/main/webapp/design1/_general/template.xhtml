@@ -31,7 +31,7 @@
     <ui:insert name="head" />
 </h:head>
 
-<h:body id="body">
+<h:body>
     
     <!-- PC CONTENT STARTS HERE-->
     <div class="PC">
@@ -303,12 +303,12 @@
 	<h:panelGroup id="dialogsContainer">
 		
 	</h:panelGroup>
+	
 	<c:forEach items="#{core.registredBeans}" var="bean">
-			<c:forEach items="#{bean.value.getRelatedModules()}" var="relatedBean">
-	 			<ui:param name="dialogIncludeSrc" value="/design1/ui/${relatedBean}/dialogs/form.xhtml" />
-	 			<ui:include src="#{dialogIncludeSrc}" />
-	 			<p:outputLabel value="#{dialogIncludeSrc}"></p:outputLabel>
-			</c:forEach>
+		<c:forEach items="#{bean.value.getRelatedModules()}" var="relatedBean">
+ 			<ui:param name="dialogIncludeSrc" value="/design1/ui/${relatedBean}/dialogs/form.xhtml" />
+ 			<ui:include src="#{dialogIncludeSrc}" />
+		</c:forEach>
 	</c:forEach>
 	
 	<!-- Include of other dialogs if mentionned  -->

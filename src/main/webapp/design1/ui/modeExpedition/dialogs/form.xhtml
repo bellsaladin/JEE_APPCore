@@ -45,7 +45,7 @@
 				     </p:column>
 				 </p:row> 
        		</p:panelGrid>
-	  		<p:commandButton value="Enregistrer" actionListener="#{core.bean(entityName).runAction('persist')}" update=":dialog#{entityNameCapitalized}" process=":dialog#{entityNameCapitalized}" oncomplete="PF('dialog#{entityNameCapitalized}').hide()" styleClass="ui-whiteBtn" />
+	  		<p:commandButton value="Enregistrer" actionListener="#{core.bean(entityName).runAction('persist')}" update="#{core.bean().getComponentById('dialog'.concat(entityNameCapitalized)).clientId}" process="#{core.bean().getComponentById('dialog'.concat(entityNameCapitalized)).clientId}" oncomplete="PF('dialog#{entityNameCapitalized}').hide()" styleClass="ui-whiteBtn" />
 	  		<div><small>Note : La sauvegarde est conservée même si vous ne validez pas la sauvegarde du formulaire principal (<h:outputText value="#{core.bean().moduleName}" />)</small></div>
 		</h:form>
 	</p:dialog>  	

@@ -20,11 +20,11 @@
     </ui:define>
     
     <ui:define name="title">
-        Article
+        Client
     </ui:define>
 
     <ui:define name="description">
-        Création d'un nouvel article
+        Création d'un nouveau client
     </ui:define>
 	
     <ui:define name="implementation">
@@ -58,12 +58,15 @@
 						 	</p:column>
 						 	<p:column>
 								<seosoft:OneEntitySelectMenu callingBean="#{core.bean()}" entityName="modeReglement" relatedEntityPropertyName="modeReglement" value="#{core.bean().object.modeReglement}"></seosoft:OneEntitySelectMenu>
+								
 						 	</p:column>
 						 <p:row>
 						 </p:row>
 						 	<p:column><h:outputText value="Famille Client " /></p:column>
 					     	<p:column colspan="3">
 								<seosoft:OneEntitySelectMenu callingBean="#{core.bean()}" entityName="familleClient" relatedEntityPropertyName="famille" value="#{core.bean().object.famille}" ></seosoft:OneEntitySelectMenu>
+								
+								
 					        </p:column>
 						 </p:row>
 						 <p:row>
@@ -194,7 +197,7 @@
 					           	   <h:outputLabel value="Mobile : *" />
 						           <p:inputText id="adresseLivraisonMobile" value="#{core.bean().object.adresseLivraisonMobile}" size="50"/>
 					           	   <h:outputLabel value="Email : *" />
-						           <p:inputText id="adresseLivraisonEmail" value="#{core.bean().object.adresseLivraisonEmail}"  size="50" />  
+						           <p:inputText id="adresseLivraisonEmail" value="#{core.bean().object.adresseLivraisonEmail}" size="50" />  
 					           	   <h:outputLabel value="Siteweb : *" />
 						           <p:inputText id="adresseLivraisonSiteweb" value="#{core.bean().object.adresseLivraisonSiteweb}" size="50"/>
 				       			</h:panelGrid>
@@ -259,7 +262,7 @@
 			       		<p:row>
 						 	<p:column><h:outputText value="Contact principal:" /></p:column>
 					     	<p:column>
-								<seosoft:OneEntitySelectMenu callingBean="#{core.bean()}" relatedEntityPropertyName="contactPrincipal" entityName="contact" value="#{core.bean().object.contactPrincipal}">
+								<seosoft:OneEntitySelectMenu id="contactOneEntitySelectMenu" callingBean="#{core.bean()}" relatedEntityPropertyName="contactPrincipal" entityName="contact" value="#{core.bean().object.contactPrincipal}">
 								</seosoft:OneEntitySelectMenu>
 					        </p:column>
 						 </p:row>
@@ -349,7 +352,6 @@
 	</ui:define>
 	
 	<ui:define name="dialogs">
-		   
 	</ui:define>
 	
 </ui:composition>

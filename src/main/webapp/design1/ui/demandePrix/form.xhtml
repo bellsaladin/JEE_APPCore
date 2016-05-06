@@ -20,11 +20,11 @@
     </ui:define>
     
     <ui:define name="title">
-        Article
+        Demande de prix
     </ui:define>
 
     <ui:define name="description">
-        Création d'un nouvel article
+        Création d'une demande de prix
     </ui:define>
 	
     <ui:define name="implementation">
@@ -36,10 +36,11 @@
         			<p:column>
 						<h:panelGroup>
 							<h:panelGrid columns="2" cellpadding="5"  styleClass="no-border-table full-width" >
+								
 								<p:outputLabel value="Date:" />
 <!-- 		       					<p:inputText value="#{core.bean().object.date}" pattern="dd-MM-yyyy" mask="true" /> -->
 		       					<p:calendar value="#{core.bean().object.date}" pattern="dd/MM/yyyy" mask="true"/>
-		       					
+		       					<seosoft:inputDate value="#{core.bean().object.date}" maxyear="2050" minyear="1990" /><br />
 		       					<h:outputLabel value="Fournisseur :" />
 		       					
 		       					<p:selectOneMenu id="fournisseur" label="Fournisseur" widgetVar="fournisseurVar" value="#{core.bean().object.fournisseur}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
@@ -68,7 +69,7 @@
 					</p:column>
 					<p:column style="width:50%">	
 						<h:panelGroup>
-							<p:tabView id="tabView">
+							<p:tabView id="tabView" scrollable="true">
 				       			<p:tab title="Valeurs">
 				       				<h:panelGroup>
 				       					<div style="text-align:right; margin-right:10px">
@@ -147,18 +148,20 @@
 							       		<p:tab title="Adresse livraison">
 							       			<h:panelGrid id="adresseLivraison" columns="2" cellpadding="5">
 						       				   <h:outputLabel value=" Adresse : *" />
-									           <p:inputText id="adresseLivraisonLigne1" value="#{core.bean().object.adresseLivraisonLigne1}" size="50"/>
+									           <p:inputText id="adresseLivraisonLigne1" value="#{core.bean().object.adresse.ligne1}" size="50"/>
 									           <h:outputLabel value="" />
-									           <p:inputText id="adresseLivraisonigne2" value="#{core.bean().object.adresseLivraisonLigne2}" size="50"/>
+									           <p:inputText id="adresseLivraisonigne2" value="#{core.bean().object.adresse.ligne2}" size="50"/>
 								           	   <h:outputLabel value="Code postal : *" />
-									           <p:inputText id="adresseLivraisonCodePostal" value="#{(core.bean().object.adresseLivraisonVille ne null )?core.bean().object.adresseLivraisonVille.codePostal:null}" required="true" size="50"/>
+									           <p:inputText id="adresseLivraisonCodePostal" value="#{core.bean().object.adresse.codePostal}" size="50"/>
 								           	   <h:outputLabel value="" />
 								           	   <h:panelGrid columns="2">
 									           	   <p:selectOneMenu id="adresseLivraisonPays" widgetVar="adresseLivraisonPaysVar" value="#{core.bean().object.adresseLivraisonPays}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
 						    										style="width:134px">
 						    							<f:selectItem  itemValue="" itemLabel=""/>      	    
 											        	<f:selectItems value="#{core.bean('pays').list}" var="entity" itemLabel="#{entity.getDisplayText()}" itemValue="#{entity}" />
-											        	<p:ajax event="change" update="adresseLivraisonVille,adresseLivraisonCodePostal" />
+											        	<p:ajax event="change" update="adresseLivraisonVille,adresseLivraisonCodePostal">
+											        		     <f:setPropertyActionListener target="#{core.bean().object.adresseLivraisonCodePostal}" value="00" />
+											        	</p:ajax>
 											       </p:selectOneMenu>
 											       <p:selectOneMenu id="adresseLivraisonVille" widgetVar="adresseLivraisonVilleVar" value="#{core.bean().object.adresseLivraisonVille}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
 						    										style="width:134px">      	    
@@ -168,6 +171,7 @@
 											       </p:selectOneMenu>
 								           	   </h:panelGrid>
 							       			</h:panelGrid>
+							       			<seosoft:adresseInput value="#{core.bean().object.adresse}"/>
 							       		</p:tab>
 							       		<p:tab title="Adresse commande">
 							       			<p:fragment id="adresseCommande">
@@ -177,7 +181,7 @@
 										           <h:outputLabel value="" />
 										           <p:inputText id="adresseCommandeigne2" value="#{core.bean().object.adresseCommandeLigne2}" size="50"/>
 										           <h:outputLabel value="Code postal : *" />
-										           <p:inputText id="adresseCommandeCodePostal" value="#{(core.bean().object.adresseCommandeVille ne null )?core.bean().object.adresseCommandeVille.codePostal:null}" required="true" size="50"/>
+										           <p:inputText id="adresseCommandeCodePostal" value="#{core.bean().object.adresseCommandeCodePostal}" size="50"/>
 									           	   <h:outputLabel value="" />
 									           	   <h:panelGrid columns="2">
 										           	   <p:selectOneMenu id="adresseCommandePays" widgetVar="adresseCommandePaysVar" value="#{core.bean().object.adresseCommandePays}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
@@ -190,7 +194,9 @@
 							    										style="width:134px">      	    
 												        	<f:selectItem  itemValue="" itemLabel=""/>
 												        	<f:selectItems value="#{core.bean('ville').getList( core.bean().object.adresseCommandePays )}" var="entity" itemLabel="#{entity.getDisplayText()}" itemValue="#{entity}" />
-												        	<p:ajax event="change" update="adresseCommandeCodePostal"/>
+												        	<p:ajax event="change" update="adresseCommandeCodePostal">
+												        		 	<f:setPropertyActionListener target="#{core.bean().object.adresseCommandeCodePostal}" value="#{(core.bean().object.adresseCommandeVille ne null )?core.bean().object.adresseCommandeVille.codePostal:null}" />
+												        	</p:ajax>
 												       </p:selectOneMenu>
 									           	   </h:panelGrid>
 								       			</h:panelGrid>
@@ -211,10 +217,10 @@
 									        </p:selectOneMenu>
 					       		   			
 					       		   			<h:outputLabel value="Expédition " />
-					       		   			<seosoft:OneEntitySelectMenu id="modeExpedition" entityName="modeExpedition" value="#{core.bean().object.modeExpedition}"></seosoft:OneEntitySelectMenu>
+					       		   			<seosoft:OneEntitySelectMenu id="modeExpedition" callingBean="#{core.bean()}" relatedEntityPropertyName="modeExpedition" entityName="modeExpedition" value="#{core.bean().object.modeExpedition}"></seosoft:OneEntitySelectMenu>
 					       		   			
 					       		   			<h:outputLabel value="Transport " />
-					       		   			<seosoft:OneEntitySelectMenu id="modeTransport" entityName="modeTransport" value="#{core.bean().object.modeTransport}"></seosoft:OneEntitySelectMenu>
+					       		   			<seosoft:OneEntitySelectMenu id="modeTransport" callingBean="#{core.bean()}" relatedEntityPropertyName="modeTransport" entityName="modeTransport" value="#{core.bean().object.modeTransport}"></seosoft:OneEntitySelectMenu>
 					       		   			
 					       		   			<h:outputLabel value="Livraison prévue le " />
 <!-- 					       		   			<p:inputText value="#{core.bean().object.dateLivraisonPrevue}" pattern="dd-MM-yyyy" mask="true" /> -->
@@ -225,7 +231,7 @@
 				       		   		<p:panel>
 				       		   			<h:panelGrid columns="2" cellpadding="5">
 				       		   				<h:outputLabel value="Mode de réglement" />
-					       		   			<seosoft:OneEntitySelectMenu id="modeReglement" entityName="modeReglement" value="#{core.bean().object.modeReglement}"></seosoft:OneEntitySelectMenu>
+					       		   			<seosoft:OneEntitySelectMenu id="modeReglement" callingBean="#{core.bean()}" relatedEntityPropertyName="modeReglement"  entityName="modeReglement" value="#{core.bean().object.modeReglement}"></seosoft:OneEntitySelectMenu>
 					       		   		</h:panelGrid>	
 					       		   		<h:panelGrid columns="7" cellpadding="5">
 					       		   			<h:outputLabel value="A " />
@@ -244,7 +250,7 @@
 				       		   		<p:panel>
 				       		   			<h:panelGrid columns="2" cellpadding="5">
 				       		   				<h:outputLabel value="TVA " />
-					       		   			<seosoft:OneEntitySelectMenu id="tva" entityName="tva" value="#{core.bean().object.tva}"></seosoft:OneEntitySelectMenu>
+					       		   			<seosoft:OneEntitySelectMenu id="tva" callingBean="#{core.bean()}" relatedEntityPropertyName="tva" entityName="tva" value="#{core.bean().object.tva}"></seosoft:OneEntitySelectMenu>
 					       		   		</h:panelGrid>	
 				       		   		</p:panel>
 				       		   	</p:tab>
@@ -335,13 +341,13 @@
 		<p:commandButton value="Supprimer" rendered="#{core.bean().paramId != null }" actionListener="#{core.bean().runAction('delete')}" update=":mainForm" styleClass="ui-whiteBtn" />
 		<p:outputPanel rendered="#{core.bean().paramId != null }" style="display:inline;" styleClass="pull-right">			
 			<span style="margin-right:10px;"><p:outputLabel value="#{core.bean().list.indexOf(core.bean().object) + 1}"/> / <p:outputLabel value="#{core.bean().list.size()}"/></span>
-			<p:commandButton value="&lt;" actionListener="#{core.bean().runAction('getPrevious')}" update=":mainForm" process="@this" styleClass="ui-whiteBtn" style="margin-right:10px;"/>
-			<p:commandButton value="&gt;" actionListener="#{core.bean().runAction('getNext')}" update=":mainForm" process="@this" styleClass="ui-whiteBtn" style="margin-right:10px;"/>
+			<p:commandButton value="&lt;" actionListener="#{core.bean().runAction('getPrevious')}" update=":mainForm" styleClass="ui-whiteBtn" style="margin-right:10px;"/>
+			<p:commandButton value="&gt;" actionListener="#{core.bean().runAction('getNext')}" update=":mainForm" styleClass="ui-whiteBtn" style="margin-right:10px;"/>
 		</p:outputPanel>
 	</ui:define>
 	
 	<ui:define name="dialogs">
-		   
+ 
 	</ui:define>
 	
 </ui:composition>

@@ -1,12 +1,9 @@
 package com.seosoft.erp.util.components.composite;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-
-import javax.faces.bean.RequestScoped;
+import java.util.GregorianCalendar;
 import javax.faces.component.FacesComponent;
 import javax.faces.component.NamingContainer;
 import javax.faces.component.UIInput;
@@ -15,22 +12,12 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.ConverterException;
 import javax.faces.event.AjaxBehaviorEvent;
 
-import com.seosoft.erp.util.scopes.view.SpringViewScoped;
-
 @FacesComponent("inputDate")
 public class InputDate extends UIInput implements NamingContainer {
 
     // Fields -------------------------------------------------------------------------------------
 	
 	private int val1;
-    private UIInput day;
-    private UIInput month;
-    private UIInput year;
-    
-    
-    public InputDate(){
-    	val1 = 2000;
-    }
     
     // Actions ------------------------------------------------------------------------------------
 
@@ -63,9 +50,13 @@ public class InputDate extends UIInput implements NamingContainer {
             }
         }
 
-        day.setValue(calendar.get(Calendar.DATE));
-        month.setValue(calendar.get(Calendar.MONTH) + 1);
-        year.setValue(calendar.get(Calendar.YEAR));
+        UIInput dayComponent = (UIInput)findComponent("day"); 
+        UIInput monthComponent = (UIInput)findComponent("month"); 
+        UIInput yearComponent = (UIInput)findComponent("year"); 
+        dayComponent.setValue(calendar.get(Calendar.DATE)); 
+        monthComponent.setValue(calendar.get(Calendar.MONTH) + 1); 
+        yearComponent.setValue(calendar.get(Calendar.YEAR));
+        
         setDays(createIntegerArray(1, calendar.getActualMaximum(Calendar.DATE)));
         setMonths(createIntegerArray(1, calendar.getActualMaximum(Calendar.MONTH) + 1));
         setYears(createIntegerArray(maxYear, minYear));
@@ -77,43 +68,43 @@ public class InputDate extends UIInput implements NamingContainer {
      */
     @Override
     public Object getSubmittedValue() {
-        return day.getSubmittedValue()
-            + "-" + month.getSubmittedValue()
-            + "-" + year.getSubmittedValue();
+        return this;
     }
 
     /**
      * Converts the submitted value to concrete {@link Date} instance.
      */
     @Override
-    protected Object getConvertedValue(FacesContext context, Object submittedValue) {
-        try {
-            return new SimpleDateFormat("dd-MM-yyyy").parse((String) submittedValue);
-        }
-        catch (ParseException e) {
-            throw new ConverterException(e); // This is not to be expected in normal circumstances.
-        }
-    }
+    protected Object getConvertedValue(FacesContext context, Object newSubmittedValue) throws ConverterException {
+        UIInput dayComponent = (UIInput)findComponent("day");
+        UIInput monthComponent = (UIInput)findComponent("month");
+        UIInput yearComponent = (UIInput)findComponent("year");
+        int day = Integer.parseInt((String)dayComponent.getSubmittedValue());
+        int month = Integer.parseInt((String)monthComponent.getSubmittedValue());
+        int year = Integer.parseInt((String)yearComponent.getSubmittedValue());
+        return(new GregorianCalendar(year, month-1, day).getTime());
+     }
 
     /**
      * Update the available days based on the selected month and year, if necessary.
      */
     public void updateDaysIfNecessary(AjaxBehaviorEvent event) {
+    	UIInput dayComponent = (UIInput)findComponent("day");
+        UIInput monthComponent = (UIInput)findComponent("month");
+        UIInput yearComponent = (UIInput)findComponent("year");
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.DATE, 1);
-        calendar.set(Calendar.MONTH, (Integer) month.getValue() - 1);
-        calendar.set(Calendar.YEAR, (Integer) year.getValue());
+        calendar.set(Calendar.MONTH, (Integer) monthComponent.getValue() - 1);
+        calendar.set(Calendar.YEAR, (Integer) yearComponent.getValue());
         int maxDay = calendar.getActualMaximum(Calendar.DATE);
 
         if (getDays().length != maxDay) {
             setDays(createIntegerArray(1, maxDay));
-
-            if ((Integer) day.getValue() > maxDay) {
-                day.setValue(maxDay); // Fix the selected value if it exceeds new max value.
+            if ((Integer) dayComponent.getValue() > maxDay) {
+            	dayComponent.setValue(maxDay); // Fix the selected value if it exceeds new max value.
             }
-
             FacesContext context = FacesContext.getCurrentInstance(); // Update day field.
-            context.getPartialViewContext().getRenderIds().add(day.getClientId(context));
+            context.getPartialViewContext().getRenderIds().add(dayComponent.getClientId(context));
         }
     }
 
@@ -144,30 +135,6 @@ public class InputDate extends UIInput implements NamingContainer {
     }
 
     // Getters/setters ----------------------------------------------------------------------------
-
-    public UIInput getDay() {
-        return day;
-    }
-
-    public void setDay(UIInput day) {
-        this.day = day;
-    }
-
-    public UIInput getMonth() {
-        return month;
-    }
-
-    public void setMonth(UIInput month) {
-        this.month = month;
-    }
-
-    public UIInput getYear() {
-        return year;
-    }
-
-    public void setYear(UIInput year) {
-        this.year = year;
-    }
 
     public Integer[] getDays() {
         return (Integer[]) getStateHelper().get("days");

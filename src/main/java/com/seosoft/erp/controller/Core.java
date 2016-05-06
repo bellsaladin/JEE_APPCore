@@ -50,6 +50,7 @@ public class Core implements Serializable{
     }
 	
 	public static GenericController<?,?> bean(String beanName) {
+		System.out.println("Core::bean(String name) " + beanName);
 		beanName = StringUtils.uncapitalize(beanName);
 		FacesContext context = FacesContext.getCurrentInstance();
 		GenericController<?, ?> bean = GenericController.class.cast(context.getApplication().evaluateExpressionGet(context, "#{" + beanName + "Controller}", GenericController.class));

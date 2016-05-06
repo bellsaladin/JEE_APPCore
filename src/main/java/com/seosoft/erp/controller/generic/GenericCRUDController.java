@@ -63,6 +63,8 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
 	
 	public GenericCRUDController() {
+        if(!FacesContext.getCurrentInstance().isPostback()) {
+
 		//checkAccessPermission();
 		_actions = new HashMap<String,Action>();
 		_relatedModules = new HashMap<String,GenericController<?,?>>();
@@ -73,15 +75,18 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 		_dataTableColumnsKeys = new ArrayList<String>();
 		_dataTableColumns = new ArrayList<ColumnModel>();
 		setSortColumn("id");
-		
+        }
 	}
 	
 	@PostConstruct
 	public void initialize() {
+        if(!FacesContext.getCurrentInstance().isPostback()) {
+
 		checkAccessPermission();
 		prepareData();
 		setUpdateObjectSubject();
 		onDataReady();
+        }
 	}
 	
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
@@ -145,6 +150,10 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 			System.out.println("GenericCRUDController::addRelatedModule : includePath = " + includePath);
 			try {
 				faceletContext.includeFacelet(facesContext.getViewRoot(), includePath);
+				//FacesContext.getCurrentInstance().getPartialViewContext().setRenderAll(true);
+				System.out.println("CC :: " + faceletContext);
+				System.out.println("EE :: " + facesContext.getViewRoot());
+				System.out.println("DD :: " + FacesContext.getCurrentInstance().getPartialViewContext());
 				//(facesContext.getViewRoot(), includePath);
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -201,7 +210,6 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 
 	public void runAction(String actionName, String callerComponentId){
 		this.lastQuickDialogCallerComponentId = callerComponentId;
-		System.out.println("runAction: " + actionName);
 		runAction(actionName);
 	}
 	
