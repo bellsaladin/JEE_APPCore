@@ -22,7 +22,7 @@ import com.seosoft.erp.model.entity.v2_Profil;
 import com.seosoft.erp.model.entity.v2_ProfilRole;
 import com.seosoft.erp.model.entity.v2_Role;
 import com.seosoft.erp.service.business.BanqueService;
-import com.seosoft.erp.service.parametrage.ClientService;
+import com.seosoft.erp.service.business.ClientService;
 import com.seosoft.erp.service.parametrage.v2_ProfilService;
 import com.seosoft.erp.service.parametrage.v2_UserService;
 import com.seosoft.erp.util.scopes.view.SpringViewScoped;

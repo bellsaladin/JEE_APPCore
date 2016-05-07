@@ -2,28 +2,15 @@ package com.seosoft.erp.util.components.composite;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-
-import javax.faces.application.FacesMessage;
 import javax.faces.component.FacesComponent;
-import javax.faces.component.UICommand;
-import javax.faces.component.UIComponentBase;
 import javax.faces.component.UINamingContainer;
 import javax.faces.context.FacesContext;
-import javax.faces.view.facelets.FaceletContext;
-import javax.print.attribute.standard.Severity;
-
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang3.text.WordUtils;
-import org.omnifaces.util.Components;
 import org.primefaces.context.RequestContext;
-
-import com.seosoft.erp.controller.BaseController;
 import com.seosoft.erp.controller.Core;
 import com.seosoft.erp.controller.generic.Action;
 import com.seosoft.erp.controller.generic.GenericCRUDController;
-import com.seosoft.erp.model.base.BaseEntity;
-import com.seosoft.erp.model.entity.Contact;
-import com.seosoft.erp.model.entity.ModeTransport;
 
 @FacesComponent("oneEntitySelectMenuComponent")
 public class OneEntitySelectMenuComponent extends UINamingContainer {

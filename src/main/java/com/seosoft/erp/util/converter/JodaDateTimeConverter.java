@@ -1,21 +1,18 @@
 package com.seosoft.erp.util.converter;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.ConverterException;
 import javax.faces.convert.DateTimeConverter;
 import javax.faces.convert.FacesConverter;
-
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-import org.springframework.stereotype.Component;
-
 import com.sun.faces.util.MessageFactory;
  
 /**

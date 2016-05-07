@@ -11,8 +11,8 @@ import com.seosoft.erp.controller.generic.GenericCRUDController;
 import com.seosoft.erp.model.entity.Article;
 import com.seosoft.erp.model.entity.Client;
 import com.seosoft.erp.model.entity.FamilleClient;
-import com.seosoft.erp.service.parametrage.FamilleClientService;
-import com.seosoft.erp.service.parametrage.impl.ArticleServiceImpl;
+import com.seosoft.erp.service.business.FamilleClientService;
+import com.seosoft.erp.service.business.impl.ArticleServiceImpl;
 import com.seosoft.erp.util.scopes.view.SpringViewScoped;
 
 @Named

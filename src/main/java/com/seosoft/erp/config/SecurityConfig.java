@@ -11,7 +11,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 import com.seosoft.erp.controller.security.CustomAuthenticationProvider;
 import com.seosoft.erp.controller.security.CustomAuthenticationSuccessHandler;
-import com.seosoft.erp.repository.parametrage.UserRepository;
 import com.seosoft.erp.repository.parametrage.v2_UserRepository;
 
 @Configuration

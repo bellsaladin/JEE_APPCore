@@ -40,7 +40,7 @@
 								<p:outputLabel value="Date:" />
 <!-- 		       					<p:inputText value="#{core.bean().object.date}" pattern="dd-MM-yyyy" mask="true" /> -->
 		       					<p:calendar value="#{core.bean().object.date}" pattern="dd/MM/yyyy" mask="true"/>
-		       					<seosoft:inputDate value="#{core.bean().object.date}" maxyear="2050" minyear="1990" /><br />
+		       					<!-- <seosoft:inputDate value="#{core.bean().object.date}" maxyear="2050" minyear="1990" /><br />  -->
 		       					<h:outputLabel value="Fournisseur :" />
 		       					
 		       					<p:selectOneMenu id="fournisseur" label="Fournisseur" widgetVar="fournisseurVar" value="#{core.bean().object.fournisseur}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"

@@ -14,8 +14,6 @@ import javax.faces.model.ListDataModel;
 import javax.faces.view.facelets.FaceletContext;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang3.text.WordUtils;
-import org.omnifaces.util.Components;
 import org.omnifaces.util.Faces;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
@@ -162,7 +160,7 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 	}
 	
 	public void addRelatedModule(final GenericCRUDController<?,?> relatedBean, String componentId, Action postUpdateAction, Action preQuickUpdateDialogShowAction){
-		final String relatedModuleName = relatedBean.getModuleName();
+		//final String relatedModuleName = relatedBean.getModuleName();
 		// FIXME module._relatedModules.put(name,module);
 		//_relatedModules.put(relatedModuleName, relatedBean);
 		//relatedBean._boundComponentIds.add(componentId);
@@ -357,7 +355,7 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 				_dataTableColumns = new ArrayList<ColumnModel>();   
 		         
 		        for(String columnKey : GenericCRUDController.this._dataTableColumnsKeys) {
-		            String key = columnKey.trim(); 
+		            //String key = columnKey.trim(); 
 		            _dataTableColumns.add(new ColumnModel(columnKey.toUpperCase(), columnKey));
 		        }
 			}
@@ -383,6 +381,7 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 	}
 
 	public void onRowSelect(SelectEvent event) throws IOException {
+		@SuppressWarnings("unchecked")
 		Type selectedObject = ((Type) event.getObject());
 		Faces.redirect(Faces.getRequestContextPath() + _moduleName + "/view?id=" + selectedObject.getId());
 	}

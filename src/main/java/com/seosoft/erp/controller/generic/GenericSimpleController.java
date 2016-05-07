@@ -1,18 +1,11 @@
 package com.seosoft.erp.controller.generic;
 
 import java.util.HashMap;
-import java.util.Map;
-
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.seosoft.erp.model.base.BaseEntity;
-import com.seosoft.erp.model.entity.Favori;
 import com.seosoft.erp.service.generic.GenericService;
-import com.seosoft.erp.service.parametrage.FavoriService;
 
 public class GenericSimpleController extends GenericController<BaseEntity,GenericService<BaseEntity, String>>{
 
