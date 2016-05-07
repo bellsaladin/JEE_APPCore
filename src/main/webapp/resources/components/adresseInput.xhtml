@@ -7,50 +7,58 @@
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:c="http://java.sun.com/jsp/jstl/core"
     xmlns:fn="http://java.sun.com/jsp/jstl/functions">
-    
+
     <cc:interface componentType="adresseInput">
         <cc:attribute name="value" type="com.seosoft.erp.model.entity.embeddable.Adresse"
             shortDescription="The value handled by this component. Type : com.seosoft.erp.model.entity.embeddable.Adresse" />
         <cc:attribute name="full" type="java.lang.Boolean" default="false"
         	shortDescription="Boolean, indicating or no to show full adress fields with telephone, fax, email, website etc." />    
     </cc:interface>
-    
+
     <cc:implementation>
-    	<h:panelGrid columns="2" cellpadding="5" style="border:1px solid #F00">
-      		<h:outputLabel value="Adresse : *" />
-	        <p:inputText id="ligne1" size="50"/>
-	        <h:outputLabel value="" />
-	        <p:inputText id="ligne2" size="50"/>
-           	<h:outputLabel value="Code postal : *" />
-	        <p:inputText id="codePostal" size="50"/>
-           	<h:outputLabel value="" />
-          	<h:panelGrid columns="2">
-           	   <p:selectOneMenu id="pays" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
- 								style="width:134px">
- 					<f:selectItem itemLabel="" itemValue="#{null}"/>
-		        	<f:selectItems value="#{core.bean('pays').list}" var="entity" itemLabel="#{entity.getDisplayText()}" itemValue="#{entity}" />
-		        	<f:ajax execute="pays" listener="#{cc.updateVilleSelectOneMenu}" />
-		       </p:selectOneMenu>
-		       <p:selectOneMenu id="ville" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
- 								style="width:134px">
-		        	<f:selectItem itemLabel="" itemValue="#{null}"/>
-		        	<f:selectItems value="#{cc.getVilles()}" var="entity" itemLabel="#{entity.getDisplayText()}" itemValue="#{entity}" />
-		        	<f:ajax execute="ville" listener="#{cc.updateCodePostalInputText}" />
-		       </p:selectOneMenu>
-          	</h:panelGrid>
-          	<c:if test="#{cc.attrs.full}">
-	          	<h:outputLabel value="Téléphone : *" />
-	            <p:inputText id="telephone"  size="50"/>
-	          	<h:outputLabel value="Fax : *" />
-	            <p:inputText id="fax" size="50"/>
-	          	<h:outputLabel value="Mobile : *" />
-	            <p:inputText id="mobile"  size="50"/>
-	          	<h:outputLabel value="Email : *" />
-	            <p:inputText id="email" size="50" />  
-	          	<h:outputLabel value="Siteweb : *" />
-	            <p:inputText id="siteweb"  size="50"/>
-	        </c:if> 
-       	</h:panelGrid>
+    	<!--
+    		Actually, using <h:panelGroup id="#{cc.attrs.id}"> ends up in generated HTML output as follows (rightclick page and View Source to see it yourself):
+			<span id="idMyComponent:idMyComponent">
+    		The right way to fix your problem is not using #{cc.attrs.id} on a JSF component, but using #{cc.clientId} on a plain HTML element.
+    	-->
+    	
+    	<span id="#{cc.clientId}">
+	    	<h:panelGrid columns="2" cellpadding="5" style="border:1px solid #F00">
+	      		<h:outputLabel value="Adresse : *" />
+		        <p:inputText id="ligne1" size="50"/>
+		        <h:outputLabel value="" />
+		        <p:inputText id="ligne2" size="50"/>
+	           	<h:outputLabel value="Code postal : *" />
+		        <p:inputText id="codePostal" size="50"/>
+	           	<h:outputLabel value="" />
+	          	<h:panelGrid columns="2">
+	           	   <p:selectOneMenu id="pays" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
+	 								style="width:134px">
+	 					<f:selectItem itemLabel="" itemValue="#{null}"/>
+			        	<f:selectItems value="#{core.bean('pays').list}" var="entity" itemLabel="#{entity.getDisplayText()}" itemValue="#{entity}" />
+			        	<f:ajax execute="pays" listener="#{cc.updateVilleSelectOneMenu}" />
+			       </p:selectOneMenu>
+			       <p:selectOneMenu id="ville" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
+	 								style="width:134px">
+			        	<f:selectItem itemLabel="" itemValue="#{null}"/>
+			        	<f:selectItems value="#{cc.getVilles()}" var="entity" itemLabel="#{entity.getDisplayText()}" itemValue="#{entity}" />
+			        	<f:ajax execute="ville" listener="#{cc.updateCodePostalInputText}" />
+			       </p:selectOneMenu>
+	          	</h:panelGrid>
+	          	<c:if test="#{cc.attrs.full}">
+		          	<h:outputLabel value="Téléphone : *" />
+		            <p:inputText id="telephone"  size="50"/>
+		          	<h:outputLabel value="Fax : *" />
+		            <p:inputText id="fax" size="50"/>
+		          	<h:outputLabel value="Mobile : *" />
+		            <p:inputText id="mobile"  size="50"/>
+		          	<h:outputLabel value="Email : *" />
+		            <p:inputText id="email" size="50" />  
+		          	<h:outputLabel value="Siteweb : *" />
+		            <p:inputText id="siteweb"  size="50"/>
+		        </c:if> 
+	       	</h:panelGrid>
+	   </span>
     </cc:implementation>
     
 </ui:component>

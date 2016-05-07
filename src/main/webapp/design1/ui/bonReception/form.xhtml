@@ -144,14 +144,10 @@
 				       		   	<p:tab title="Coordonnées">
 				       				<p:tabView>
 							       		<p:tab title="Adresse livraison">
-							       			<h:panelGrid id="adresseLivraison" columns="2" cellpadding="5">
-						       				   <seosoft:adresseInput value="#{core.bean().object.adresseLivraison}"/>
-							       			</h:panelGrid>
+						       				<seosoft:adresseInput id="adresseLivraison" value="#{core.bean().object.adresseLivraison}"/>
 							       		</p:tab>
 							       		<p:tab title="Adresse commande">
-							       		    <h:panelGrid id="adresseCommande" columns="2" cellpadding="5">
-						       				   <seosoft:adresseInput value="#{core.bean().object.adresseCommande}"/>
-							       			</h:panelGrid>
+								       		<seosoft:adresseInput id="adresseCommande" value="#{core.bean().object.adresseCommande}"/>
 							       		</p:tab>
 					       			</p:tabView>
 				       		   	</p:tab>
