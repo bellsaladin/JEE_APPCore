@@ -61,18 +61,18 @@
             <h:outputText value="#{object.famille.getDisplayText()}" />
         </p:column>
         
-        <p:column sortBy="#{object.adresseTelephone}">
+        <p:column sortBy="#{object.adresse.telephone}">
             <f:facet name="header">
                 <h:outputText value="Telephone" />
             </f:facet>
-            <h:outputText value="#{object.adresseTelephone}" />
+            <h:outputText value="#{object.adresse.telephone}" />
         </p:column>
         
-        <p:column sortBy="#{object.adresseFax}">
+        <p:column sortBy="#{object.adresse.fax}">
             <f:facet name="header">
                 <h:outputText value="Fax" />
             </f:facet>
-            <h:outputText value="#{object.adresseFax}" />
+            <h:outputText value="#{object.adresse.fax}" />
         </p:column>
         
         <p:column sortBy="#{object.contactPrincipal.getDisplayText()}">

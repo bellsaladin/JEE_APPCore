@@ -93,22 +93,14 @@ public class BonCommandeFournisseurController extends GenericCRUDController<BonC
 		_actions.put("updateAdresseCommande", new Action(){
 			@Override
 			public void run() {
-				_object.setAdresseCommandeLigne1(_object.getFournisseur().getAdresseLigne1());
-				_object.setAdresseCommandeLigne2(_object.getFournisseur().getAdresseLigne2());
-				_object.setAdresseCommandeCodePostal(_object.getFournisseur().getAdresseCodePostal());
-				_object.setAdresseCommandeVille(_object.getFournisseur().getAdresseVille());
-				_object.setAdresseCommandePays(_object.getFournisseur().getAdressePays());
+				_object.setAdresseCommande(_object.getFournisseur().getAdresse());
 			}
 		});
 		
 		_actions.put("updateAdresseLivraison", new Action(){
 			@Override
 			public void run() {
-				_object.setAdresseLivraisonLigne1(_object.getDepot().getAdresseLigne1());
-				_object.setAdresseLivraisonLigne2(_object.getDepot().getAdresseLigne2());
-				_object.setAdresseLivraisonCodePostal(_object.getDepot().getAdresseCodePostal());
-				_object.setAdresseLivraisonVille(_object.getDepot().getAdresseVille());
-				_object.setAdresseLivraisonPays(_object.getDepot().getAdressePays());
+				_object.setAdresseLivraison(_object.getDepot().getAdresse());
 			}
 		});
 		

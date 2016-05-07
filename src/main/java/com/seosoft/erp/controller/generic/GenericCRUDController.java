@@ -393,6 +393,7 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 	}
 	
 	public String[] getRelatedModules(){
+		if(_relatedModules== null) return null;
 		Set<String> keys = _relatedModules.keySet();
 		/*System.out.println("getRelatedModules:" + _moduleName + " : " + _relatedModules.size());
 		System.out.println("getRelatedModules:" + _moduleName +" : " + _actions.size());

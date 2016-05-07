@@ -70,7 +70,7 @@
 						 	</p:column>
 						 	<p:column><h:outputText value="Famille Fournisseur: " /></p:column>
 					     	<p:column colspan="3">
-								<seosoft:OneEntitySelectMenu id="famille" entityName="familleFournisseur" value="#{core.bean().object.famille}"></seosoft:OneEntitySelectMenu>
+								<seosoft:OneEntitySelectMenu id="famille" callingBean="#{core.bean()}" relatedEntityPropertyName="famille" entityName="familleFournisseur" value="#{core.bean().object.famille}"></seosoft:OneEntitySelectMenu>
 					        </p:column>
 						 </p:row>
 						 <p:row>
@@ -108,39 +108,7 @@
 		       		<p:tabView>
 			       		<p:tab title="Adresse">
 			       			<h:panelGrid columns="2" cellpadding="5">
-		       				   <h:outputLabel value=" Adresse : *" />
-					           <p:inputText id="adresseLigne1" value="#{core.bean().object.adresseLigne1}" required="true" size="50"/>
-					           <h:outputLabel value="" />
-					           <p:inputText id="adresseigne2" value="#{core.bean().object.adresseLigne2}" size="50"/>
-				           	   <h:outputLabel value="Code postal : *" />
-					           <p:inputText id="adresseCodePostal" value="#{(core.bean().object.adresseVille ne null )?core.bean().object.adresseVille.codePostal:null}" required="true" size="50"/>
-				           	   <h:outputLabel value="" />
-				           	   <h:panelGrid columns="2">
-					           	   <p:selectOneMenu id="adressePays" widgetVar="adressePaysVar" value="#{core.bean().object.adressePays}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
-		    										style="width:134px">
-		    							<f:selectItem  itemValue="" itemLabel=""/>      	    
-							        	<f:selectItems value="#{core.bean('pays').list}" var="entity" itemLabel="#{entity.getDisplayText()}" itemValue="#{entity}" />
-							        	<p:ajax event="change" update="adresseVille,adresseCodePostal" />
-							       </p:selectOneMenu>
-							       <p:selectOneMenu id="adresseVille" widgetVar="adresseVilleVar" value="#{core.bean().object.adresseVille}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
-		    										style="width:134px">      	    
-							        	<f:selectItem  itemValue="" itemLabel=""/>
-							        	<f:selectItems value="#{core.bean('ville').getList( core.bean().object.adressePays )}" var="entity" itemLabel="#{entity.getDisplayText()}" itemValue="#{entity}" />
-							        	<p:ajax event="change" update="adresseCodePostal">
-<!-- 							        		<f:setPropertyActionListener target="#{core.bean().object.adresseCodePostal}" value="100000"/> -->
-							        	</p:ajax>
-							       </p:selectOneMenu>
-				           	   </h:panelGrid>
-				           	   <h:outputLabel value="Téléphone : *" />
-					           <p:inputText id="adresseTelephone" value="#{core.bean().object.adresseTelephone}" required="true" size="50"/>
-				           	   <h:outputLabel value="Fax : *" />
-					           <p:inputText id="adresseFax" value="#{core.bean().object.adresseFax}" required="true" size="50"/>
-				           	   <h:outputLabel value="Mobile : *" />
-					           <p:inputText id="adresseMobile" value="#{core.bean().object.adresseMobile}" required="true" size="50"/>
-				           	   <h:outputLabel value="Email : *" />
-					           <p:inputText id="adresseEmail" value="#{core.bean().object.adresseEmail}" required="true" size="50" />  
-				           	   <h:outputLabel value="Siteweb : *" />
-					           <p:inputText id="adresseSiteweb" value="#{core.bean().object.adresseSiteweb}" required="true" size="50"/>    
+					           <seosoft:adresseInput value="#{core.bean().object.adresse}" full="true"/>    
 			       			</h:panelGrid>
 			       		</p:tab>
 			       		<p:tab title="Adresse réglement">
@@ -149,39 +117,7 @@
 			       			</p:selectBooleanCheckbox>
 			       			<p:panel id="fragmentAdresseReglement" styleClass="no-border-table">
 			       			<h:panelGrid rendered="#{core.bean().object.adresseReglementDifferente}" columns="2" cellpadding="5">
-		       				   <h:outputLabel value=" Adresse : *" />
-					           <p:inputText id="adresseReglementLigne1" value="#{core.bean().object.adresseReglementLigne1}" size="50" required="#{core.bean().object.adresseReglementDifferente}"/>
-					           <h:outputLabel value="" />
-					           <p:inputText id="adresseReglementigne2" value="#{core.bean().object.adresseReglementLigne2}" size="50" />
-				           	   <h:outputLabel value="Code postal : *" />
-					           <p:inputText id="adresseReglementCodePostal" value="#{(core.bean().object.adresseReglementVille ne null )?core.bean().object.adresseReglementVille.codePostal:null}" required="true" size="50"/>
-				           	   <h:outputLabel value="" />
-				           	   <h:panelGrid columns="2">
-					           	   <p:selectOneMenu id="adresseReglementPays" widgetVar="adresseReglementPaysVar" value="#{core.bean().object.adresseReglementPays}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
-		    										style="width:134px" required="#{core.bean().object.adresseReglementDifferente}">
-		    							<f:selectItem  itemValue="" itemLabel=""/>      	    
-							        	<f:selectItems value="#{core.bean('pays').list}" var="entity" itemLabel="#{entity.getDisplayText()}" itemValue="#{entity}" />
-							        	<p:ajax event="change" update="adresseReglementVille,adresseReglementCodePostal" />
-							       </p:selectOneMenu>
-							       <p:selectOneMenu id="adresseReglementVille" widgetVar="adresseReglementVilleVar" value="#{core.bean().object.adresseReglementVille}" converter="omnifaces.SelectItemsConverter" filter="true" filterMatchMode="startsWith"
-		    										style="width:134px" required="#{core.bean().object.adresseReglementDifferente}">
-							        	<f:selectItem  itemValue="" itemLabel=""/>
-							        	<f:selectItems value="#{core.bean('ville').getList( core.bean().object.adresseReglementPays )}" var="entity" itemLabel="#{entity.getDisplayText()}" itemValue="#{entity}" />
-							        	<p:ajax event="change" update="adresseReglementCodePostal">
-<!-- 							        		<f:setPropertyActionListener target="#{core.bean().object.adresseReglementCodePostal}" value="100000"/> -->
-							        	</p:ajax>
-							       </p:selectOneMenu>
-				           	   </h:panelGrid>
-				           	   <h:outputLabel value="Téléphone : *" />
-					           <p:inputText id="adresseReglementTelephone" value="#{core.bean().object.adresseReglementTelephone}" size="50"/>
-				           	   <h:outputLabel value="Fax : *" />
-					           <p:inputText id="adresseReglementFax" value="#{core.bean().object.adresseReglementFax}" size="50"/>
-				           	   <h:outputLabel value="Mobile : *" />
-					           <p:inputText id="adresseReglementMobile" value="#{core.bean().object.adresseReglementMobile}" size="50"/>
-				           	   <h:outputLabel value="Email : *" />
-					           <p:inputText id="adresseReglementEmail" value="#{core.bean().object.adresseReglementEmail}"  size="50" />  
-				           	   <h:outputLabel value="Siteweb : *" />
-					           <p:inputText id="adresseReglementSiteweb" value="#{core.bean().object.adresseReglementSiteweb}" size="50"/>    
+		       				   <seosoft:adresseInput value="#{core.bean().object.adresseReglement}" full="true"/>    
 			       			</h:panelGrid>
 			       			</p:panel>
 			       		</p:tab>
@@ -251,19 +187,19 @@
 			       		<p:row>
 						 	<p:column><h:outputText value="Contact principal:" /></p:column>
 					     	<p:column>
-								<seosoft:OneEntitySelectMenu id="contactPrincipal" entityName="contact" value="#{core.bean().object.contactPrincipal}"></seosoft:OneEntitySelectMenu>
+								<seosoft:OneEntitySelectMenu id="contactPrincipal" callingBean="#{core.bean()}" relatedEntityPropertyName="contactPrincipal" entityName="contact" value="#{core.bean().object.contactPrincipal}"></seosoft:OneEntitySelectMenu>
 					        </p:column>
 						 </p:row>
 						 <p:row>
 						 	<p:column><h:outputText value="Acheteur:" /></p:column>
 					     	<p:column>
-								<seosoft:OneEntitySelectMenu id="acheteur" entityName="contact" value="#{core.bean().object.acheteur}"></seosoft:OneEntitySelectMenu>
+								<seosoft:OneEntitySelectMenu id="acheteur" callingBean="#{core.bean()}" relatedEntityPropertyName="acheteur" entityName="contact" value="#{core.bean().object.acheteur}"></seosoft:OneEntitySelectMenu>
 					        </p:column>
 						 </p:row>
 						 <p:row>
 						 	<p:column><h:outputText value="Demandeur :" /></p:column>
 					     	<p:column>
-								<seosoft:OneEntitySelectMenu id="demandeur" entityName="contact" value="#{core.bean().object.demandeur}"></seosoft:OneEntitySelectMenu>
+								<seosoft:OneEntitySelectMenu id="demandeur" callingBean="#{core.bean()}" relatedEntityPropertyName="demandeur" entityName="contact" value="#{core.bean().object.demandeur}"></seosoft:OneEntitySelectMenu>
 					        </p:column>
 						 </p:row>
 					</p:panelGrid>

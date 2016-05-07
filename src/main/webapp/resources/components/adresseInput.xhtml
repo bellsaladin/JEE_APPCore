@@ -11,6 +11,8 @@
     <cc:interface componentType="adresseInput">
         <cc:attribute name="value" type="com.seosoft.erp.model.entity.embeddable.Adresse"
             shortDescription="The value handled by this component. Type : com.seosoft.erp.model.entity.embeddable.Adresse" />
+        <cc:attribute name="full" type="java.lang.Boolean" default="false"
+        	shortDescription="Boolean, indicating or no to show full adress fields with telephone, fax, email, website etc." />    
     </cc:interface>
     
     <cc:implementation>
@@ -36,6 +38,18 @@
 		        	<f:ajax execute="ville" listener="#{cc.updateCodePostalInputText}" />
 		       </p:selectOneMenu>
           	</h:panelGrid>
+          	<c:if test="#{cc.attrs.full}">
+	          	<h:outputLabel value="Téléphone : *" />
+	            <p:inputText id="telephone"  size="50"/>
+	          	<h:outputLabel value="Fax : *" />
+	            <p:inputText id="fax" size="50"/>
+	          	<h:outputLabel value="Mobile : *" />
+	            <p:inputText id="mobile"  size="50"/>
+	          	<h:outputLabel value="Email : *" />
+	            <p:inputText id="email" size="50" />  
+	          	<h:outputLabel value="Siteweb : *" />
+	            <p:inputText id="siteweb"  size="50"/>
+	        </c:if> 
        	</h:panelGrid>
     </cc:implementation>
     
