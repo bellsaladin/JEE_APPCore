@@ -5,6 +5,8 @@ import java.util.List;
 import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.BeansException;
@@ -17,6 +19,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 public abstract class BaseController implements ApplicationContextAware {
 
 	private static ApplicationContext springAppContext;
+	
+	@PersistenceContext
+    private EntityManager entityManager;
 
 	protected Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
@@ -85,7 +90,13 @@ public abstract class BaseController implements ApplicationContextAware {
 		HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
 		 session.putValue(key, value);
 	}
+
+	public EntityManager getEntityManager() {
+		return entityManager;
+	}
 	
-	
+	public EntityManager getTransactionalEntityManager() {
+		return entityManager.getEntityManagerFactory().createEntityManager();
+	}
 
 }

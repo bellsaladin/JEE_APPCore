@@ -18,6 +18,7 @@ import com.seosoft.erp.controller.generic.GenericCRUDController;
 import com.seosoft.erp.model.entity.Article;
 import com.seosoft.erp.model.entity.BonReception;
 import com.seosoft.erp.model.entity.BonReception;
+import com.seosoft.erp.model.entity.DemandePrix;
 import com.seosoft.erp.model.entity.DetailsBonReception;
 import com.seosoft.erp.service.business.BonReceptionService;
 import com.seosoft.erp.service.business.DetailsBonReceptionService;
@@ -46,6 +47,7 @@ public class BonReceptionController extends GenericCRUDController<BonReception, 
 	}
 	
 	protected void onDataReady(){
+		if(_object == null) _object = new BonReception();
 		
 		if(_object.getId() == null || _object.getId() ==""){
 			detailsList = new ArrayList<DetailsBonReception>();

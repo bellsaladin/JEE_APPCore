@@ -83,7 +83,7 @@
 											<p:inputText value="#{core.bean().object.remise * core.bean().object.totalHt / 100}" disabled="true"/>
 										</div>
 				       				</h:panelGroup>
-				       				<h:panelGrid columns="2" cellpadding="5"  styleClass="no-border-table full-width" >
+				       				<h:panelGrid columns="2" cellpadding="5"  styleClass="no-border-table" >
 				       					<h:panelGroup>
 					       					<p:fieldset legend="Port" style="margin-bottom:10px">
 					       						<h:panelGrid columns="4" cellpadding="5"  styleClass="no-border-table full-width" >
@@ -207,7 +207,17 @@
 			       	</p:column>
 	       		</p:row>
 	       		<p:row>
-	       			<p:column colspan="2">
+	       			<p:column colspan="1">
+	       				<div>
+	       					<p:commandButton actionListener="#{core.bean().addRowToDetailsDatatable}" update="detailsDatatable" process="detailsDatatable" icon="ui-icon-plus" ajax="true"/>
+	       					<p:commandButton actionListener="#{core.bean().addRowToDetailsDatatable}" update="detailsDatatable" process="detailsDatatable" icon="ui-icon-trash" ajax="true"/>
+	       					<p:commandButton actionListener="#{core.bean().addRowToDetailsDatatable}" update="detailsDatatable" process="detailsDatatable" icon="ui-icon-arrowstop-1-n" ajax="true"/>
+	       					<p:commandButton actionListener="#{core.bean().addRowToDetailsDatatable}" update="detailsDatatable" process="detailsDatatable" icon="ui-icon-arrow-1-n" ajax="true"/>
+	       					<p:commandButton actionListener="#{core.bean().addRowToDetailsDatatable}" update="detailsDatatable" process="detailsDatatable" icon="ui-icon-arrow-1-s" ajax="true"/>
+	       					<p:commandButton actionListener="#{core.bean().addRowToDetailsDatatable}" update="detailsDatatable" process="detailsDatatable" icon="ui-icon-arrowstop-1-s" ajax="true"/>
+	       					<p:commandButton actionListener="#{core.bean().addRowToDetailsDatatable}" update="detailsDatatable" process="detailsDatatable" icon="ui-icon-extlink" ajax="true"/>
+	       					
+	       				</div>
 		       			<p:dataTable id="detailsDatatable" var="ligneDetails" value="#{core.bean().detailsDemandePrixList}" editable="true" editMode="cell" widgetVar="detailsVar">
 					 
 						   <p:ajax event="cellEdit" listener="#{core.bean().onDetailsDatatableCellEdit}" update=":mainForm:messages" />
@@ -284,6 +294,7 @@
     
 	<ui:define name="actions">	
 		<p:commandButton value="Enregistrer" actionListener="#{core.bean().runAction('persist')}" update="mainForm" process="mainForm" styleClass="ui-whiteBtn" />
+		<p:commandButton value="Imprimer" actionListener="#{core.bean().runAction('print')}" styleClass="ui-whiteBtn" />
 		<p:button value="Retour" href="/design1/ui/#{core.bean().moduleName}/list" styleClass="ui-whiteBtn pull-right"/>
 		<!-- <p:commandButton value="Vider" actionListener="#{notifyView.send}" styleClass="ui-whiteBtn pull-right" style="margin-right:10px;"/> -->
 		<p:commandButton value="Supprimer" rendered="#{core.bean().paramId != null }" actionListener="#{core.bean().runAction('delete')}" update=":mainForm" styleClass="ui-whiteBtn" />

@@ -63,18 +63,18 @@
 				       		<p:fieldset legend="Classification" style="margin-bottom:20px">
 				       			<h:panelGrid columns="2" cellpadding="5">
 				       				<h:outputLabel value="Famille " />
-				       				<seosoft:OneEntitySelectMenu id="famille" entityName="familleArticle" value="#{core.bean().object.famille}"></seosoft:OneEntitySelectMenu>
+				       				<seosoft:OneEntitySelectMenu id="famille" callingBean="#{core.bean()}" entityName="familleArticle" relatedEntityPropertyName="familleArticle" value="#{core.bean().object.famille}"></seosoft:OneEntitySelectMenu>
 				       				<h:outputLabel value="Sous Famille " />
-				       				<seosoft:OneEntitySelectMenu id="sousFamille" entityName="sousFamilleArticle" value="#{core.bean().object.sousFamille}"></seosoft:OneEntitySelectMenu>
+				       				<seosoft:OneEntitySelectMenu id="sousFamille" callingBean="#{core.bean()}" entityName="sousFamilleArticle" relatedEntityPropertyName="sousFamilleArticle" value="#{core.bean().object.sousFamille}"></seosoft:OneEntitySelectMenu>
 				       				<h:outputLabel value="Marque" />
-				       				<seosoft:OneEntitySelectMenu id="cateogrie" entityName="categorieArticle" value="#{core.bean().object.categorie}"></seosoft:OneEntitySelectMenu>
+				       				<seosoft:OneEntitySelectMenu id="cateogrie"  callingBean="#{core.bean()}" entityName="categorieArticle" relatedEntityPropertyName="categorieArticle" value="#{core.bean().object.categorie}"></seosoft:OneEntitySelectMenu>
 				       			</h:panelGrid>
 				       		</p:fieldset>
 				       		<p:fieldset legend="TVA et taxes parafiscales" style="margin-bottom:20px">
-				       			<seosoft:OneEntitySelectMenu id="tva" entityName="tva" value="#{core.bean().object.tva}"></seosoft:OneEntitySelectMenu>
+				       			<seosoft:OneEntitySelectMenu id="tva" callingBean="#{core.bean()}" entityName="tva" relatedEntityPropertyName="tva" value="#{core.bean().object.tva}"></seosoft:OneEntitySelectMenu>
 				       		</p:fieldset>
 				       		<p:fieldset legend="Unité" style="margin-bottom:20px">
-				       			<seosoft:OneEntitySelectMenu id="unite" entityName="unite" value="#{core.bean().object.unite}"></seosoft:OneEntitySelectMenu>
+				       			<seosoft:OneEntitySelectMenu id="unite" callingBean="#{core.bean()}" entityName="unite" relatedEntityPropertyName="unite" value="#{core.bean().object.unite}"></seosoft:OneEntitySelectMenu>
 				       		</p:fieldset>
 			       		</h:panelGroup>
 			       		<h:panelGroup>
@@ -121,7 +121,7 @@
 							</p:panelGrid>
 						</p:fieldset>
 						<p:fieldset legend="Tarification" style="margin-bottom:20px">
-							<seosoft:OneEntitySelectMenu id="modeleTarif" entityName="modeleTarif" value="#{core.bean().object.modeleTarif}"></seosoft:OneEntitySelectMenu>
+							<seosoft:OneEntitySelectMenu id="modeleTarif" callingBean="#{core.bean()}" entityName="modeleTarif" relatedEntityPropertyName="modeleTarif" value="#{core.bean().object.modeleTarif}"></seosoft:OneEntitySelectMenu>
 						</p:fieldset>
 						<p:fieldset legend="Conditionnement de vente" style="margin-bottom:20px; text-align:left">
 							<p:panelGrid  columns="2"  styleClass="no-border-table full-width panelTopAlign">
@@ -151,7 +151,7 @@
 	       	  		<p:fieldset legend="Fournisseur principal" style="margin-bottom:20px">
 			       	  	  <p:panelGrid  columns="4"  styleClass="no-border-table full-width panelTopAlign">
 			       	  	  		<h:outputLabel value="Fournisseur" />
-			       	  	  		<seosoft:OneEntitySelectMenu id="fournisseurPrincipal" entityName="fournisseur" value="#{core.bean().object.fournisseurPrincipal}"></seosoft:OneEntitySelectMenu>
+			       	  	  		<!-- <seosoft:OneEntitySelectMenu id="fournisseurPrincipal" callingBean="#{Core.bean()}" entityName="fournisseur" relatedEntityPropertyName="fournisseurPrincipal" value="#{core.bean().object.fournisseurPrincipal}"></seosoft:OneEntitySelectMenu>  -->
 			       	  	  		<h:outputLabel value="" />
 			       	  	  		<h:outputLabel value="" />
 			       	  	  	   	<h:outputLabel value="PU D'achat" />

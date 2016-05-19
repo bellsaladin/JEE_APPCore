@@ -1,12 +1,24 @@
 package com.seosoft.erp.controller;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
+import javax.servlet.ServletContext;
+
+import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperRunManager;
 
 import org.apache.commons.lang.StringUtils;
 import org.primefaces.context.RequestContext;
@@ -15,13 +27,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.domain.Specifications;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.seosoft.erp.controller.generic.Action;
 import com.seosoft.erp.controller.generic.GenericCRUDController;
+import com.seosoft.erp.controller.generic.GenericSimpleController;
+import com.seosoft.erp.controller.generic.GenericUpdateOnlyController;
 import com.seosoft.erp.model.base.SearchCriteria;
 import com.seosoft.erp.model.entity.Article;
 import com.seosoft.erp.model.entity.DemandePrix;
 import com.seosoft.erp.model.entity.DetailsDemandePrix;
+import com.seosoft.erp.model.entity.Parametre;
 import com.seosoft.erp.service.business.DemandePrixService;
 import com.seosoft.erp.service.business.DetailsDemandePrixService;
 import com.seosoft.erp.util.scopes.view.SpringViewScoped;
@@ -49,6 +65,7 @@ public class DemandePrixController extends GenericCRUDController<DemandePrix, De
 	}
 	
 	protected void onDataReady(){
+		if(_object == null) _object = new DemandePrix();
 		
 		if(_object.getId() == null || _object.getId() ==""){
 			detailsDemandePrixList = new ArrayList<DetailsDemandePrix>();
@@ -188,6 +205,64 @@ public class DemandePrixController extends GenericCRUDController<DemandePrix, De
 //				
 //				FacesMessage msg = new FacesMessage(message);
 //				FacesContext.getCurrentInstance().addMessage(null, msg);
+			}
+		});
+		
+		_actions.put("print", new Action(){
+			
+			@Override
+			@Transactional()
+			public void run() {
+				HashMap<String, Object> hm = null;
+				  // System.out.println("Usage: ReportGenerator ....");
+
+				try {
+				   System.out.println("Start ....");
+				   
+				   ServletContext servletContext = (ServletContext) FacesContext
+					        .getCurrentInstance().getExternalContext().getContext();
+				   String contextPath = servletContext.getRealPath(File.separator);
+					
+				   // Get jasper report
+				   String jrxmlFileName  = contextPath + "resources/_reports/report1.jrxml";
+				   String jasperFileName = contextPath + "resources/_reports/report1.jasper";
+				   String pdfFileName    = contextPath + "resources/_reports/report1.pdf";
+
+				   JasperCompileManager.compileReportToFile(jrxmlFileName, jasperFileName);
+				   
+				   GenericUpdateOnlyController parametreController = (GenericUpdateOnlyController) Core.bean("parametre");
+				   
+				   Parametre parametreSociete = (Parametre) parametreController.getService().findAll().get(0);
+				   
+				   // Create arguments
+				   // Map params = new HashMap();
+				   hm = new HashMap<String, Object>();
+				   //hm.put("ID", "123");
+				   //hm.put("DATENAME", "April 2006");
+				   hm.put("COMPANY_ADDRESS", parametreSociete.getAdresseLigne1());
+				   hm.put("COMPANY_NAME", parametreSociete.getRaisonSociale());
+				   hm.put("COMPANY_PHOTO_NAME", parametreSociete.getImageSrc());
+				   EntityManager em = getEntityManager();
+
+				   //java.sql.Connection connection = em.unwrap(java.sql.Connection.class);
+				   
+				   // JasperRunManager.runReportToPdfStream(reportStream, servletOutputStream, parameterMap, new JREmptyDataSource());
+				   
+				   // Generate jasper print
+				   //JasperPrint jprint = (JasperPrint) JasperFillManager.fillReport(jasperFileName, hm, connection);
+				   JasperPrint jprint = (JasperPrint) JasperFillManager.fillReport(jasperFileName, hm, new JREmptyDataSource());
+				   // Export pdf file
+				   JasperExportManager.exportReportToPdfFile(jprint, pdfFileName);
+				   
+				   System.out.println("Done exporting the report to pdf");
+				   FacesContext context = FacesContext.getCurrentInstance();
+				   ExternalContext externalContext = context.getExternalContext();
+
+				   externalContext.redirect("../../../resources/_reports/report1.pdf");
+				   
+				} catch (Exception e) {
+					  System.out.print("Exceptiion" + e);
+				}
 			}
 		});
 		

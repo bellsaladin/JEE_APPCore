@@ -1,0 +1,84 @@
+<ui:component
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:cc="http://java.sun.com/jsf/composite"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+    <cc:interface componentType="detailsOperations">
+    	<cc:attribute name="label" type="java.lang.String" />
+    	<cc:attribute name="entityName" type="java.lang.String" />
+    	<cc:attribute name="loadData" method-signature="java.lang.String choose" /> -->
+    </cc:interface>
+
+    <cc:implementation>
+    	<!--
+    		Actually, using <h:panelGroup id="#{cc.attrs.id}"> ends up in generated HTML output as follows (rightclick page and View Source to see it yourself):
+			<span id="idMyComponent:idMyComponent">
+    		The right way to fix your problem is not using #{cc.attrs.id} on a JSF component, but using #{cc.clientId} on a plain HTML element.
+    	-->
+    	
+    	<span id="#{cc.clientId}">
+    		<p:commandButton icon="ui-icon-search" value="#{cc.attrs.label}" actionListener="#{cc.prepareData()}" process="@parent" oncomplete="PF('dialog#{cc.id}').show()"/>
+			        				 
+    		<p:dialog id="dialog" widgetVar="dialog#{cc.id}" width="800" height="480" resizable="true" header="Détails">
+	    		<p:dataTable id="dataTable" widgetVar="dataTable" var="object" value="#{cc.getData( cc.attrs.entityName )}"
+		    			 stickyHeader="false"
+		    			 sortMode="multiple"
+		                 paginator="true" rows="25"
+		                 paginatorPosition="bottom"
+		                 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+		                 rowsPerPageTemplate="25,50,100"
+		                 currentPageReportTemplate="[ {totalRecords} #{lbl['lbl.lignes']} ]">
+											      
+					<!--<p:columns value="#{cc.getColumns()}" var="column" sortBy="#{object[column.property]}">
+			            <f:facet name="header">
+			                <h:outputText value="#{column.header}" />
+			            </f:facet>
+			            <h:outputText value="#{object[column.property]}" />
+			        </p:columns>-->
+			        
+			        <p:column sortBy="#{object.date}">
+			            <f:facet name="header">
+			                <h:outputText value="Date" />
+			            </f:facet>
+			            <h:outputText value="#{object.date}" />
+			        </p:column>
+			
+			        <p:column sortBy="#{object.totalHt}">
+			            <f:facet name="header">
+			                <h:outputText value="Total HT"/>
+			            </f:facet>
+			            <h:outputText value="#{object.totalHt}">
+			            	<f:convertNumber pattern="#0.00" />
+			            </h:outputText>
+			        </p:column>
+			        
+			        <p:column sortBy="#{object.totalTva}">
+			            <f:facet name="header">
+			                <h:outputText value="Total TVA" />
+			            </f:facet>
+			            <h:outputText value="#{object.totalTva}">
+			            	<f:convertNumber pattern="#0.00" />
+			            </h:outputText>
+			        </p:column>
+			        
+			        <p:column sortBy="#{object.totalTtc}">
+			            <f:facet name="header">
+			                <h:outputText value="Total TTC" />
+			            </f:facet>
+			            <h:outputText value="#{object.totalTtc}">
+			            	<f:convertNumber pattern="#0.00" />
+			            </h:outputText>
+			        </p:column>
+
+					      		        		       
+			    </p:dataTable>
+		    </p:dialog>
+	   </span>
+    </cc:implementation>
+    
+</ui:component>

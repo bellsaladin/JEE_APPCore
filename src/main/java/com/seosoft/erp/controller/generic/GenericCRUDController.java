@@ -474,6 +474,10 @@ public class GenericCRUDController<Type extends BaseEntity, Service extends Gene
 	public void setList(List<Type> list) {
 		this._list = list;
 	}
+	
+	public Service getService(){
+		return _service;
+	}
 
 	public DataModel getDataModel() {
 		return _dataModel;

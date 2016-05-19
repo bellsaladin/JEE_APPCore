@@ -64,6 +64,7 @@
       			<p:ajax event="rowSelectCheckbox" update=":mainForm:actions,:mainForm:contextMenu,:mainForm:messages,:mainForm:dataTable"/>
       			<p:ajax event="rowUnselectCheckbox" update=":mainForm:actions,:mainForm:contextMenu,:mainForm:messages,:mainForm:dataTable"/>	                 		                 		        		      
       			<p:ajax event="toggleSelect" update=":mainForm:actions,:mainForm:contextMenu,:mainForm:messages,:mainForm:dataTable"/>
+      			<p:ajax event="rowDblselect" update=":mainForm:actions,:mainForm:contextMenu,:mainForm:messages,:mainForm:dataTable" listener="#{core.bean().runAction('redirectToFormView')}"/>      			
 <!-- 			<p:ajax event="rowSelect" update=":dialogUpdateUser" oncomplete="PF('dlgUpdateUser').show()"/> -->
 			
 			<p:column selectionMode="multiple" headerText="" style="width:20px;"/>
