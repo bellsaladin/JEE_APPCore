@@ -16,9 +16,10 @@ public class BasicView {
     
     @PostConstruct
     public void initialize(){
-    	String[] candidateTitles = {"CRUCIAL", "PULSAR", "INVIS", "inVision",
-    								"nitrovio", "xiviom", "nitronium", "uranic",
-    								"réduce",
+    	String[] candidateTitles = {"FLEXIO",
+    								"CRUCIAL", "INVIS", "inVision",
+    								"nitrovio", "xiviom", "nitronium", "uranic", "belios",
+    								"réduce", "myTech", "N.ginio", "NGIN", "insidio","injex", "objex", "objexif",
     								//"INTEGRIS", "CRUCIAL", "EXPENCIO","EXTENCIO", "LINKINIO", "TARGET","DIREXio",
     								//"MAXIMIO","MAXIMOR","CALCULOZ",
     								//"ABSOLUS","ABSOLU-PRO","ABSOLUNO", 

@@ -11,3 +11,6 @@ buildNumber.properties
 .svn/
 .metadata/
 .settings/
+_data/db_saves
+*/.DS_Store
+.DS_Store
