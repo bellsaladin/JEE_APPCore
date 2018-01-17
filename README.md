@@ -1,4 +1,4 @@
-# JEE_APPCore (S.Bellemallem)
+# JEE_APPCore (by S.Bellemallem)
 ================
 
 A JEE based prototype for an Application Platform Core which is meant to be capable of supporting huge business application through providing classic
